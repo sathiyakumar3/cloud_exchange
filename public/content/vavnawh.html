@@ -1,0 +1,536 @@
+<html>
+
+<head>
+</head> <body>
+	<div class="preloader">
+		<div class="table-struct full-width full-height" style="height: 969px;">
+			<div class="table-cell vertical-align-middle auth-form-wrap">
+				<div class="auth-form  ml-auto mr-auto no-float">
+					<div class="row">
+						<div class="col-sm-12 col-xs-12">
+							<div class="mb-30 text-center ">	<i class="fas fa-fan fa-10x"></i>
+								<br>
+								<br>	<span class="block error-head txt-primary mb-10" id="loader_text">500</span>
+								<span class="nonecase-font mb-20 block error-comment">Please wait.</span>
+								<p >We are setting things up for you.</p >
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row pl-10 pr-10 loader_com hider" id="content_page" >
+		<div class="row heading-bg after-head-space">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+				<h5 class="txt-dark">&nbsp;&nbsp;&nbsp;<span class="weight-600"
+                                                id="dvicetypetest">&nbsp;&nbsp;
+                                        </span> - Non-Fan
+                                        Assisted VAV Box With
+                                        Electric Heater Element </h5>
+			</div>
+			<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+				<ol class="breadcrumb">
+					<li>
+						<a href="#" id="sitenavi"></a>
+					</li>
+					<li><a href="#">&nbsp;&nbsp;</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+		<div class="col-lg-12 col-xs-12">
+			<div class="panel panel-default card-view pa-0">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pb-0">
+						<div class="tab-struct custom-tab-1">
+							<ul role="tablist" class="nav nav-tabs nav-tabs-responsive" id="myTabs_8">
+								<li class="active" role="presentation"><a data-toggle="tab" id="profile_tab_8" role="tab" href="#profile_8"
+										aria-expanded="false"><i class="fas fa-desktop mr-10"></i><span>Dashboard</span></a>
+								</li>
+								<li role="presentation" class="next"><a aria-expanded="true" data-toggle="tab" role="tab" id="follo_tab_8"
+										href="#follo_8"><i class="fas fa-chart-line mr-10"></i><span>Reports</span></a>
+								</li>
+								<li role="presentation" class="next"><a aria-expanded="true" data-toggle="tab" role="tab" id="follo_tab_9"
+										href="#follo_9" onclick="AlarmsTab()"><i class="fas fa-bell mr-10"></i><span>Alarms</span></a>
+								</li>
+								<li class="pull-right pul-right-mg">
+									<button class="btn btn-primary btn-block btn-anim btn-rounded" data-toggle="modal"
+										data-target="#device_settings_modal"><i class="fa icon-settings"></i><span class="btn-text">Device
+											Settings</span>
+									</button>
+								</li>
+							</ul>
+							<div class="tab-content full-panel-bg" id="myTabContent_8">
+								<div id="profile_8" class="tab-pane fade active in" role="tabpanel">
+									<div class="row">
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+											<div class="panel-wrapper collapse in">
+												<div class="panel-body panl-body-bg">
+													<div class="text-center">
+														<input id="qrtext" type="hidden" value="" />
+														<br />
+														<div class="qrcord-panel">
+															<div id="qrcode" align="center"></div>
+														</div>
+														<h5 class="block mt-10 mb-5 weight-500 capitalize-font txt-primary" id="dName">
+                                                                                                                </h5>
+														<h6 class="block capitalize-font" id="lastlog1">
+                                                                                                                </h6>
+														<h6 class="block capitalize-font" id="lastlog2">
+                                                                                                                </h6>
+														<div class="clearfix"></div>
+													</div>
+												</div>
+											</div>
+											<br />
+											<div class="panel panel-default card-view">
+												<div class="panel-wrapper collapse in">
+													<div class="text-center">
+														<h6 class="panel-title txt-dark">
+                                                                                                                        Supply
+                                                                                                                        Air
+                                                                                                                        Pressure
+                                                                                                                </h6>
+													</div>
+													<div class="panel-body">
+														<div id="e_chart_4" class="" style="height:168px"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3 col-md-6 col-sm-7 col-xs-12">
+											<div class="panel panel-default card-view sm-data-box-3">
+												<div class="pull-left">
+													<h6 class="panel-title txt-dark">Damper Position </h6>
+												</div>
+												<div class="pull-right"> <a href="#" data-toggle="modal" data-target="#calibration_modal">
+													<span class=" label label-success label-md ml-10">Calibration</span></a>
+												</div>
+												<div class="clearfix"></div>
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body">
+														<div class="col-sm-6 pa-0"> <span id="pie_chart_4" class="easypiechart" data-percent="0">
+                               <span class="percent block txt-dark weight-500"></span>
+															<span class="block txt-success text-center">
+                                <i class="zmdi zmdi-caret-up font-20"></i><span class="weight-500" id="deltaposi">--</span>
+															</span>
+															</span>
+														</div>
+														<div class="col-sm-6 pr-0">
+															<ul class="flex-stat mb-15">
+																<li class="text-left lowercase-font no-float full-width mb-15"> <span class="counter-anim clabels-text font-12 inline-block txt-dark capitalize-font" id="dampertext">---</span>
+																</li>
+																<li class="text-left block no-float full-width"> <span class="block">Last
+                                                                                                                                                Change
+                                                                                                                                                :</span>
+																	<span class="block txt-success pull-left mt-5">
+                                                                                                                                                <i
+                                                                                                                                                        class="zmdi zmdi-caret-up pr-5 font-20 pull-left"></i><span
+                                                                                                                                                        class="weight-500 pull-left"
+                                                                                                                                                        id="deltaposi2">+4%</span>
+																	</span>
+																	<div class="clearfix"></div>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="panel panel-default card-view sm-data-box-3">
+												<div class="pull-left">
+													<h6 class="panel-title txt-dark"> Air Quality Index </h6>
+												</div>
+												<div class="panel-body">
+													<div class="panel-body">
+														<div class="col-sm-6 pa-0"> <span class="block">
+															<span class="clabels-text font-13 inline-block txt-dark" id="aqitext"></span></span>
+														</div>
+														<div class="col-sm-6 pr-0">
+															<div id="e_chart_6" style="height:150px"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+											<div class="panel panel-default card-view">
+												<div class="panel-heading">
+													<div class="pull-left">
+														<h6 class="panel-title txt-dark">
+                                                                                                                        Real
+                                                                                                                        Time
+                                                                                                                        Monitoring
+                                                                                                                </h6>
+													</div>
+													<div class="pull-right">
+														<a href="#" onclick="" class="pull-left inline-block refresh mr-15"> <i class="zmdi zmdi-replay"></i>
+														</a>
+														<div class="pull-left inline-block dropdown mr-15"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" role="button"><i
+                                                                                                                                        class="zmdi zmdi-more-vert"></i></a>
+															<ul class="dropdown-menu bullet dropdown-menu-right" role="menu">
+																<li role="presentation"> <a href="javascript:void(0)" role="menuitem" id="" onclick="dimageone('vavnawh_1')"><i
+                                                                                                                                                        class="icon wb-reply"
+                                                                                                                                                        aria-hidden="true"></i>Image
+                                                                                                                                                1</a>
+																</li>
+																<li role="presentation"> <a href="javascript:void(0)" role="menuitem" id="" onclick="dimageone('vavnawh_2')"><i
+                                                                                                                                                        class="icon wb-share"
+                                                                                                                                                        aria-hidden="true"></i>Image
+                                                                                                                                                2</a>
+																</li>
+																<li role="presentation"> <a href="javascript:void(0)" role="menuitem" id="" onclick="dimageone('vavnawh_3')"><i
+                                                                                                                                                        class="icon wb-trash"
+                                                                                                                                                        aria-hidden="true"></i>Image
+                                                                                                                                                3</a>
+																</li>
+															</ul>
+														</div>
+														<a href="#" class="pull-left inline-block full-screen mr-15"> <i class="zmdi zmdi-fullscreen"></i>
+														</a>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body">
+														<div id="imgtests">
+															<div class="col-6" align="left">
+																<div class="" id="dva1"></div>
+															</div>
+															<div class="col-6" align="right">
+																<div class="" id="dva2"></div>
+															</div>
+															<div class="col-6" align="left"></div>
+															<div class="col-6" align="right">
+																<div class="" id="dva3"></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-3 col-md-6 col-sm-7 col-xs-12">
+											<div class="panel panel-default card-view pt-0">
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body pa-0">
+														<div class="sm-data-box bg-white">
+															<div class="container-fluid">
+																<div class="row">
+																	<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left"> <span class="txt-dark block counter" id="zonetemp6"></span>
+																		<span class="block"><span
+                                                                                                                                                                class="weight-500 lowercase-font txt-grey font-1">Zone
+                                                                                                                                                                Air
+                                                                                                                                                                Temperature</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i>
+																		</span>
+																	</div>
+																	<div class="col-xs-6 text-left pl-0 pr-0 pt-25 data-wrap-right">
+																		<div id="sparkline_7" style="width:100px;overflow:hidden;margin:0 auto"></div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3 col-md-6 col-sm-7 col-xs-12">
+											<div class="panel panel-default card-view pt-0">
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body pa-0">
+														<div class="sm-data-box bg-white">
+															<div class="container-fluid">
+																<div class="row">
+																	<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left"> <span class="txt-dark block counter" id="zonehumid6"></span>
+																		<span class="block"><span
+                                                                                                                                                                class="weight-500 lowercase-font txt-grey font-1">Zone
+                                                                                                                                                                Air
+                                                                                                                                                                Humidity</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i>
+																		</span>
+																	</div>
+																	<div class="col-xs-6 text-left pl-0 pr-0 pt-25 data-wrap-right">
+																		<div id="sparkline_8" style="width:100px;overflow:hidden;margin:0 auto"></div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3 col-md-6 col-sm-7 col-xs-12">
+											<div class="panel panel-default card-view pt-0">
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body pa-0">
+														<div class="sm-data-box bg-white">
+															<div class="container-fluid">
+																<div class="row">
+																	<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left"> <span class="txt-dark block counter" id="zonePpm"></span>
+																		<span class="block"><span class="weight-500 lowercase-font txt-grey font-1">Supply Air Temperature</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i>
+																		</span>
+																	</div>
+																	<div class="col-xs-6 text-left pl-0 pr-0 pt-25 data-wrap-right">
+																		<div id="sparkline_5" style="width:100px;overflow:hidden;margin:0 auto"></div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3 col-md-6 col-sm-7 col-xs-12">
+											<div class="panel panel-default card-view pt-0">
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body pa-0">
+														<div class="sm-data-box bg-white">
+															<div class="container-fluid">
+																<div class="row">
+																	<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left"> <span class="txt-dark block counter" id="roomtem"></span>
+																		<span class="block"><span
+                                                                                                                                                                class="weight-500 lowercase-font txt-grey font-1">Return
+                                                                                                                                                                Air
+                                                                                                                                                                Temperature</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i>
+																		</span>
+																	</div>
+																	<div class="col-xs-6 text-left pl-0 pr-0 pt-25 data-wrap-right">
+																		<div id="sparkline_4" style="width:100px;overflow:hidden;margin:0 auto"></div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+											<div class="panel panel-default card-view">
+												<div class="refresh-container">
+													<div class="la-anim-1"></div>
+												</div>
+												<div class="panel-heading">
+													<div class="pull-left">
+														<h6 class="txt-dark">
+                                                                                                                        Designed
+                                                                                                                        against
+                                                                                                                        actual
+                                                                                                                        comparsion
+                                                                                                                </h6>
+													</div>
+													<div class="pull-right">
+														<div class="pull-right"> <a href="#" data-toggle="modal" data-target="#set_design_parameter_modal"><span
+                                                                                                                                        class="label label-success label-md ml-20">Edit
+                                                                                                                                        Parameters</span></a>
+														</div>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body">
+														<div class="table-wrap">
+															<div class="table-responsive">
+																<table id="dbtable2" class="table table-hover display pb-30" width="100%"></table>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+											<div class="panel panel-default card-view">
+												<div class="panel-heading">
+													<div class="pull-left">
+														<h6 class="panel-title txt-dark">
+                                                                                                                        Verdict
+                                                                                                                        History
+                                                                                                                </h6>
+													</div>
+													<div class="pull-right"> <a href="#" data-toggle="modal" data-target="#verdict_modal"><span
+                                                                                                                                class="label label-success label-md ml-20">Add
+                                                                                                                                Comment</span></a>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body">
+														<div class="streamline user-activity">
+															<div class="panel-wrapper collapse in">
+																<div class="panel-body">
+																	<div class="streamline user-activity" id="verdict_list"></div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="follo_8" class="tab-pane fade" role="tabpanel">
+									<div class="row">
+										<div class="col-sm-12 col-lg-12">
+											<div class="panel panel-default card-view">
+												<div class="panel-heading">
+													<div class="pull-left">
+														<h6 class="panel-title txt-dark" id="loaddata">
+                                                                                                                        Datasets
+                                                                                                                        -
+                                                                                                                        Initializing...
+                                                                                                                </h6>
+													</div>
+													<div class="pull-right">
+														<button type="button" class="btn alrm-tb-2-btn btn-rounded btn-anim" id="" onclick="gen_cust_gra()"><i class="far fa-chart-bar" style="color:white"></i><span class="btn-text">Trend
+                                                                                                                                Settings</span>
+														</button>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body">
+														<div class="tab-struct custom-tab-1">
+															<ul role="tablist" class="nav nav-tabs" id="myTabs_7">
+																<li class="active" role="presentation"> <a aria-expanded="true" data-toggle="tab" role="tab" id="home_tab_7" href="#home_7">Trend</a>
+																</li>
+																<li role="presentation" class=""> <a data-toggle="tab" id="profile_tab_7" role="tab" href="#profile_7" aria-expanded="false">Table</a>
+																</li>
+															</ul>
+															<div class="tab-content" id="myTabContent_7">
+																<div id="home_7" class="tab-pane fade active in ch-bg" role="tabpanel" >
+																	<div id="chartdiv8"></div>
+																	<div class="col-lg-12 col-sm-12">
+																		</br>
+																		<blockquote>
+																			<p>Please note that the data is being recorded every <span id="interval_log" class="text-success mb-10">12</span>
+																				seconds and for a total of <span id="total_logs1" class="text-success mb-10">
+                                                                                                                                                                        50
+                                                                                                                                                                </span>
+																				logs. So far, the device has delivered <span id="used_logs" class="text-success mb-10">
+                                                                                                                                                                        6
+                                                                                                                                                                </span>
+																				logs of <span id="total_logs" class="text-success mb-10">50
+                                                                                                                                                                </span>
+																				logs.</p>
+																			<p>If you wish to change the record interval or to increase the total logs, You can make the required changes via the settings menu for the device.</p>
+																		</blockquote>
+																	</div>
+																</div>
+																<div id="profile_7" class="tab-pane fade" role="tabpanel">
+																	<div class="table-wrap">
+																		<div class="table-responsive">
+																			<table id="dbtable" class="table table-hover display pb-30" width="100%"></table>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="follo_9" class="tab-pane fade" role="tabpanel">
+									<div class="row">
+										<div class="col-sm-12 col-lg-12">
+											<div class="panel panel-default card-view">
+												<div class="panel-heading">
+													<div class="pull-left">
+														<h6 class="panel-title txt-dark" id="alarmtitle">
+                                                                                                                        loading...
+                                                                                                                </h6>
+													</div>
+													<div class="pull-right">
+														<div class="pull-left inline-block dropdown mr-15">
+															<form class="form-inline">
+																<button type="button" class="btn alrm-tb-2-btn btn-rounded btn-anim" data-toggle="modal" data-target=".alarms_modal" onclick="rangebtn()"><i class="far fa-bell" style="color:white"></i><span class="btn-text">Alarm
+                                                                                                                                                Settings</span>
+																</button>
+															</form>
+														</div>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body">
+														<div class="tab-struct custom-tab-1">
+															<ul role="tablist" class="nav nav-tabs" id="myTabs_7">
+																<li class="active" role="presentation"> <a aria-expanded="true" data-toggle="tab" role="tab" id="home_tab_71" href="#home_71">Logs</a>
+																</li>
+																<li role="presentation" class=""> <a data-toggle="tab" id="profile_tab_71" role="tab" href="#profile_71" aria-expanded="false">Statistics</a>
+																</li>
+															</ul>
+															<div class="tab-content" id="myTabContent_7">
+																<div id="home_71" class="tab-pane fade active in" role="tabpanel">
+																	<div class="table-wrap">
+																		<div class="table-responsive">
+																			<table id="alrmtble" class="table table-hover display pb-30" width="100%"></table>
+																		</div>
+																	</div>
+																</div>
+																<div id="profile_71" class="tab-pane fade" role="tabpanel">
+																	<div id="alarm_stats"></div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!--CALIBRATION SETTINGS-->
+	<div class="modal fade" id="calibration_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h5 class="modal-title">
+                                                        <strong>&nbsp;&nbsp;Damper Calibration</strong></h5>
+					</div>
+					<div class="col-lg-12 col-sm-12">
+						<br>
+						<blockquote>
+							<p>Please set the maximum and minimum angle corresponding to open and close position of the damper.</p>
+							<p>Actual Measured Angle : <span id="angle_ac">--</span> °</p>
+						</blockquote>
+					</div>
+					<div class="col-lg-12 col-sm-12">
+						<form action="#">
+							<div class="row">
+								<div class="panel-wrapper collapse in">
+									<div class="panel-body">
+										<input type="text" id="range_4" value="" name="" />
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btn-rounded" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal" onclick="rangesave2()">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+	<script src=js/vavnawh.js> </script>
+
+</html>

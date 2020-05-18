@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script src="js/addsubscriptions.js"></script> <!-- device subscriptions config script-->
+		<!-- Bootstrap Switches CSS  -->
+		<link href="vendors/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+		<!-- Custom CSS -->
+		<link href="dist/css/style.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+    <div class="container-fluid pt-25">
+        <!-- Title -->
+    <div class="row heading-bg">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h5 class="txt-dark" id="addSubscriptions">loading...</h5>
+                </div>
+                <!-- Breadcrumb -->
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="home.html">Dashboard</a></li>
+
+                        <li class="active"><span>Request Site</span></li>
+                    </ol>
+                </div>
+                <!-- /Breadcrumb -->
+            </div>
+        <!-- /Title -->
+    <!-- Row top -->
+    <div class="row">
+
+                <div class="panel panel-default card-view pa-0">
+                        <div class="panel-wrapper collapse in">
+                            <div  class="panel-body pb-0">
+                                <div  class="tab-struct custom-tab-1">
+                                    <ul role="tablist" class="nav nav-tabs nav-tabs-responsive" id="myTabs_8">
+                                        <li class="active" role="presentation"><a  data-toggle="tab" id="profile_tab_8" role="tab" href="#profile_8" aria-expanded="false"><span>card view</span></a></li>
+                                        <li  role="presentation" class="next"><a aria-expanded="true"  data-toggle="tab" role="tab" id="follo_tab_8" href="#follo_8"><span>Table view</span></a></li>
+
+
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent_8">
+                                        <div  id="profile_8" class="tab-pane fade active in" role="tabpanel">
+                                            <div class="col-md-12">
+                                                <div class="pt-10">
+                                                    <div class="streamline user-activity" id="dynamicInput">
+                                                      <div></div> <!-- js input-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div  id="follo_8" class="tab-pane fade" role="tabpanel">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="followers-wrap">
+                                                        <ul class="followers-list-wrap">
+                                                            <li class="follow-list">
+                                                                <div class="follo-body">
+
+                                                                        <table id="subscriptions_table" class="table  display table-hover mb-30" data-page-size="10" width="100%" >
+                                                                        </table>
+                                                                        <br/>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+        </div>
+
+
+
+        <!-- main modal-->
+        <div class="modal fade bs-example-modal-lg" id="my_modal"  aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title" id="subscribe_modal_title">Loading...</h4>
+              </div>
+              <div class="modal-body">
+
+
+                <table id="subscriptions_modal_table" class="table  display table-hover mb-30" data-page-size="10" width="100%" >
+                 </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /main modal-->
+        <!-- subscribe modal-->
+
+        <div class="modal fade bs-example-modal-lg" id="my_modal3"  aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title" id="subscribe_modal_title2">Loading...</h4>
+              </div>
+              <div class="modal-body">
+                <form>
+                <div class="row" align ="center">
+                        <div class="col-sm-4">
+                                <img src="image/Member.png" class="img-responsive"/>
+                                <br/>
+                                <h5 class="text-success">Member</h5>
+                                <br/>
+                                <p align ="center">
+                                        Been Prat of the comiunity
+                                    </p>
+                                    <br/>
+                                <input id="membercheked" name="GroupedSwitches" class="bs-switch active" type="radio" data-off-text="False" data-on-text="True" default="true" >
+                            </div>
+
+
+                    <div class="col-sm-4">
+                        <img src="image/Developer.png" class="img-responsive"/>
+                        <br/>
+                        <h5 class="text-success">Developer</h5>
+                        <br/>
+                        <p align ="center">
+                                Manges the devives
+                            </p>
+                            <br/>
+                        <input id="developercheked" name="GroupedSwitches" class="bs-switch" type="radio" data-off-text="False" data-on-text="True" >
+                    </div>
+
+                    <div class="col-sm-4">
+                            <img src="image/Admin.png" class="img-responsive"/>
+                            <br/>
+                            <h5 class="text-success">Admin</h5>
+                            <br/>
+                            <p align ="center">
+                                Manges the user
+                            </p>
+                            <br/>
+
+                            <input id="admincheked" name="GroupedSwitches" class="bs-switch" type="radio"  data-off-text="False" data-on-text="True" >
+                        </div>
+
+                </div>
+
+                <input type="hidden" id="userid" value=""/>
+                <input type="hidden" id="domainid" value=""/>
+
+              </div>
+              <div class="modal-footer">
+                  <h6 class="pull-left">Commmunity : <span id="community_text"> LEC</span>  | Requesting : <span id="requesting_text"> Sathiya</span></h6>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="subscription_bt()" >Request Subscription</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+        <!-- /subscribe modal-->
+    </div>
+
+		<!-- Select2 JavaScript -->
+          		<script src="vendors/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+          		<!-- Bootstrap Select JavaScript -->
+          		<script src="vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+
+
+          		<!-- Bootstrap Touchspin JavaScript -->
+          		<script src="vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+
+              <!-- Multiselect JavaScript -->
+          		<script src="vendors/bower_components/multiselect/js/jquery.multi-select.js"></script>
+
+
+              <!-- Bootstrap Switch JavaScript -->
+          		<script src="vendors/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+
+
+
+          		<!-- Form Advance Init JavaScript -->
+      </body>    		<script src="dist/js/form-advance-data.js"></script>
+</html>

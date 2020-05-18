@@ -1,0 +1,155 @@
+<html>
+
+<head></head>
+
+<body><input type="hidden" id="idtest" /><input type="hidden" id="domainname" /><input type="hidden" id="role1" /><input
+        type="hidden" id="devname" />
+
+
+    <li class="navigation-header"><span>Main</span><i class="zmdi zmdi-more"></i></li>
+    <li>
+        <a href="javascript:open_home_page()">
+            <div class="pull-left"><i class="fas fa-home mr-20"></i><span class="right-nav-text"></span>
+            </div>
+            <div class="pull-right"></div>Home<div class="clearfix"></div>
+        </a>
+
+    </li>
+    <li>
+        <a href="javascript:open_devices()">
+            <div class="pull-left"><i class="fas fa-project-diagram mr-20"></i><span
+                    class="right-nav-text">Things</span>
+            </div>
+            <div class="pull-right"><span class="label label-primary" id="total_dvs">0</span></div>
+            <div class="clearfix"></div>
+        </a>
+
+    </li>
+    <li>
+        <a href="javascript:open_chat()">
+            <div class="pull-left"><i class="far fa-comments mr-20"></i><span class="right-nav-text">Chat</span>
+            </div>
+            <div class="pull-right"><span class="label label-info" id="total_chat"></span></div>
+            <div class="clearfix"></div>
+        </a>
+
+    </li>
+    <li>
+        <a href="javascript:open_todo()">
+            <div class="pull-left"><i class="fas fa-handshake mr-20"></i><span class="right-nav-text">Help Desk</span>
+            </div>
+            <div class="pull-right"><span class="label label-info" id="total_oc_tickets"></span></div>
+            <div class="clearfix"></div>
+        </a>
+
+    </li>
+
+
+    <br />
+
+    <li>
+        <hr class="light-grey-hr mb-10" />
+    </li>
+    <li class="navigation-header"><span id="domainload">- Fetching Subscribed Sites...</span>
+        <div class="spinner" id="loading_nava">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div><i class="zmdi zmdi-more"></i>
+    </li>
+    <li id="dsa1"></li>
+    <li id="dsa"></li>
+    <li>
+        <hr class="light-grey-hr mb-10" />
+    </li>
+    <li class="navigation-header"><span>- Configuration</span><i class="zmdi zmdi-more"></i></li>
+    <li class="navigation-explore"><a href="javascript:open_page('addsubscriptions')">
+            <div><i class="fa fa-search-plus mr-20 txt-light"></i><span class="right-nav-text txt-light">Explore</span>
+            </div>
+            <div class="pull-right"></div>
+            <div class="clearfix"></div>
+        </a></li>
+    <li id="dp_op_line" style="display:none">
+        <hr class="light-grey-hr mb-10" />
+    </li>
+
+    <li class="navigation-header" id="dp_op_list_title" style="display:none"><span>- Developer Options </span><i
+            class="zmdi zmdi-more"></i></li>
+    <li class="navigation-dp-op" id="dp_op_list_1" style="display:none"><a href="javascript:void(0)"
+            data-toggle="collapse" data-target="#chart_dr2" class="collapsed" aria-expanded="false">
+            <div class="pull-left"><i class="fas fa-tachometer-alt mr-20 txt-light"></i><span
+                    class="right-nav-text txt-light">Dashboards</span></div>
+            <div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div>
+            <div class="clearfix"></div>
+        </a>
+        <ul id="chart_dr2" class="collapse-level-1 two-col-list collapse" aria-expanded="false" style="height:0">
+            <li><a href="javascript:open_page('power_meter_dashboard')">
+                    <div><i class="fa fa-caret-right  mr-20 txt-light"></i><span class="txt-light">Power Meter </span>
+                    </div>
+                    <div class="pull-right"></div>
+                    <div class="clearfix"></div>
+                </a></li>
+            <li><a href="javascript:open_page('vavdashboard')">
+                    <div><i class="fa fa-caret-right mr-20 txt-light"></i><span class="txt-light">VAV </span></div>
+                    <div class="pull-right"></div>
+                    <div class="clearfix"></div>
+                </a></li>
+            <li><a href="#" data-toggle="modal" data-target="#exampleModal" class="active">
+                    <div><i class="fa fa-caret-right  mr-20 txt-light"></i><span class="txt-light">Smardt Chiller
+                        </span></div>
+                    <div class="pull-right"></div>
+                    <div class="clearfix"></div>
+                </a></li>
+        </ul>
+    <li class="navigation-dp-op" id="dp_op_list_3" style="display:none"><a href="javascript:void(0)"
+            data-toggle="collapse" data-target="#chart_dr1" class="collapsed" aria-expanded="false">
+            <div class="pull-left"><i class="fa fa-sitemap  mr-20 txt-light"></i><span
+                    class="right-nav-text txt-light">Create</span></div>
+            <div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div>
+            <div class="clearfix"></div>
+        </a>
+        <ul id="chart_dr1" class="collapse-level-1 two-col-list collapse" aria-expanded="false" style="height:0">
+            <li><a href="#" data-toggle="modal" data-target="#CreateSitemodal" class="active">
+                    <div><i class="fas fa-plus-square  mr-20 txt-light"></i><span class="right-nav-text txt-light">Site
+                        </span></div>
+                    <div class="pull-right"></div>
+                    <div class="clearfix"></div>
+                </a></li>
+            <li><a href="#" data-toggle="modal" data-target="#exampleModal" class="active">
+                    <div><i class="far fa-plus-square  mr-20 txt-light"></i><span
+                            class="right-nav-text txt-light">Device </span></div>
+                    <div class="pull-right"></div>
+                    <div class="clearfix"></div>
+                </a></li>
+        </ul>
+    </li>
+    </li>
+    <li class="navigation-dp-op" id="dp_op_list_2" style="display:none"><a href="javascript:open_page('documentation')">
+            <div><i class="fas fa-book-reader  mr-20 txt-light"></i><span
+                    class="right-nav-text txt-light">Documentation</span></div>
+            <div class="pull-right"></div>
+            <div class="clearfix"></div>
+        </a></li>
+    <li>
+        <hr class="light-grey-hr mb-10" />
+    </li>
+    <li class="navigation-header"><span>- Who are we?</span><i class="zmdi zmdi-more"></i></li>
+    <li><a href="aboutus.html">
+            <div><i class="icon-tag mr-20"></i><span class="right-nav-text">about us</span></div>
+            <div class="pull-right"></div>
+            <div class="clearfix"></div>
+        </a></li>
+    <li><a href="javascript:open_page('application')">
+            <div><i class="icon-tag mr-20"></i><span class="right-nav-text">Application</span></div>
+            <div class="pull-right"></div>
+            <div class="clearfix"></div>
+        </a></li>
+    <li><a href="contactus.html">
+            <div><i class="icon-envelope-open mr-20"></i><span class="right-nav-text">Contact us</span></div>
+            <div class="pull-right"></div>
+            <div class="clearfix"></div>
+        </a></li>
+
+</body>
+
+</html>

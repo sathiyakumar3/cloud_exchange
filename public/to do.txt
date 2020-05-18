@@ -1,0 +1,14 @@
+G E N E R A L
+Remove Unwanted JS/CSS files
+Scrollbar appears in the Navigation - Something to with the slimscroll js/CSS
+
+F R O N T P A G E
+Front Page -> Types of Devices Connected. - All same colour.
+
+P O W E R M E T E R
+
+
+F I R E B A S E
+
+
+V A V P A G E

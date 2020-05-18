@@ -1,0 +1,2 @@
+RewriteCond %{HTTP_HOST} !^www.cloudexchange.lk$ [NC]
+RewriteRule ^(.*)$ http://www.cloudexchange.lk/$1 [L,R=301]

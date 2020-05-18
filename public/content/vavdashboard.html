@@ -1,0 +1,805 @@
+<script src="js/vavDashboard.js"></script>
+
+<html>
+  <head>
+
+<!-- Sparkline JavaScript -->
+	<script src="vendors/jquery.sparkline/dist/jquery.sparkline.min.js"></script>
+<script>
+  /*Rangeslider Init*/
+
+
+</script>
+<style>
+#chartdiv50 {
+  width: 100%;
+  height: 500px;
+}
+
+
+#chartdiv12 {
+  width: 100%;
+  height: 500px;
+}
+
+.v-font-st{
+  font-style: italic !important;
+}
+</style>
+
+<!-- Title -->
+</head>
+<body>
+<div class="row heading-bg after-head-space">
+  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+    <h5 class="txt-dark">&nbsp;&nbsp;&nbsp;<span class="weight-600" id="">&nbsp;&nbsp; Documentation </span> - Non-Fan Assisted VAV Box With
+      Electric Heater Element </h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+
+      <ol class="breadcrumb">
+       <li><a href="#" id=""></a></li>
+        <li><a href="#" >&nbsp;&nbsp;</a></li>
+
+
+      </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+  <!-- /Title -->
+
+  <div class="row pl-10 pr-10">
+    <!-- main row-->
+    <div class="col-lg-12 col-xs-12">
+      <div class="panel panel-default card-view pa-0">
+        <div class="panel-wrapper collapse in">
+          <div class="panel-body pb-0">
+            <div class="tab-struct custom-tab-1">
+              <ul role="tablist" class="nav nav-tabs nav-tabs-responsive" id="myTabs_8">
+                <li class="active"   role="presentation"><a data-toggle="tab" id="profile_tab_9" role="tab" href="#profile_9" aria-expanded="false"><span>Introduction</span></a></li>
+
+                <li role="presentation" class="next"><a aria-expanded="true" data-toggle="tab" role="tab"
+                  id="profile_tab_8" href="#profile_8"><span>Dashboard</a></li>
+
+                  <li role="presentation" class="next"><a aria-expanded="true" data-toggle="tab" role="tab"
+                    id="follo_tab_8" href="#follo_8"><span>Database</a></li>
+                      <li role="presentation" class="next"><a aria-expanded="true" data-toggle="tab" role="tab"
+                        id="follo_tab_9" href="#follo_9"><span>Alarms</a></li>
+                          <li class="pull-right pul-right-mg"> <button class="btn btn-primary btn-block  btn-anim "
+                            data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can edit the device's information from here, however the device credentials cant be changed." data-original-title="Edit Device Information"
+                            ><i class="fa icon-settings"></i><span
+                            class="btn-text">Settings</span></button></li>
+
+
+
+
+
+                              <li class="pull-right pul-right-mg"> <button class="btn btn-success btn-block  btn-anim "
+                                ><i class="fa fa-pencil" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device"></i><span
+                                class="btn-text">Change Domain</span></button></li>
+
+                            </ul>
+                            <div class="tab-content full-panel-bg" id="myTabContent_8">
+
+                              <div id="profile_9" class="tab-pane fade active in " role="tabpanel">
+
+                                <div class="row">
+                        					<div class="col-sm-12">
+                        						 <div class="panel panel-primary card-view">
+                        							<div class="panel-heading">
+                        								<div class="pull-left">
+                        									<h6 class="panel-title txt-light">Problem Identification</h6>
+                        								</div>
+                        								<div class="clearfix"></div>
+                        							</div>
+                        							<div class="panel-wrapper collapse in">
+                        								<div class="panel-body" >
+                                            <p class="txt-dark  text-left">
+                                           <b class="text-success mb-10">The Idea : </b>   The information provided is
+                                            designed to help the user develop a diagnostic way of thinking about indoor air quality problems. The dashboard also provides a set of forms to aid in diagnosing and
+                                            solving problems.
+                                            </p>
+                                            <p class="txt-dark  text-left">
+
+                                            </p>
+                                          <p>The biggest variable in many buildings are the tenants, each tenant wants to create their own micro environments, to suit their individual needs and most micro-environments are heavily dependent on the landlord&rsquo;s central HVAC system.</p>
+                                          <p>Fit-out works can all too often become a compromise between the needs and expectations of the tenants and the constraints of the landlord services. Tenants &lsquo;own systems or modifications can have serious adverse knock on effects to the landlord&rsquo;s systems that do not become apparent until post fit-out when the tenant moves in.</p>
+
+                                          <div class="row mt-30">
+                                            <div class="col-md-4 col-xs-12">
+                                              <ul class="list-icons">
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Real time data of the VAV.</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Instant Trouble Shooting on the VAV</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Alarms against set points of the VAV</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Web monitoring (Mobile & PC) of the VAV </li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Data analysis (real time and historical) of the VAV</li>
+
+                                              </ul>
+                                            </div>
+                                            <div class="col-md-4 col-xs-12">
+                                              <ul class="list-icons">
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Easily scalable system to add additional data points </li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Cost Reduction on call-outs, by identifying source of inconsistency. </li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Analyzing actual data against designed data.</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Better utilization of resources by identifying the cause</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Resolving the complaint in timely manner</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-4 col-xs-12">
+                                              <ul class="list-icons">
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Identifying the responsibility of the contractor/service provider.</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Identifying the Health, Safety and Environmental Hazards.</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Identifying design performance issues.</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Tablet Icon Menu</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Reactive Maintenance</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> System is designed with high degree of accuracy.</li>
+                                             </ul>
+                                            </div>
+                                          </div>
+                                          <br>
+                                      <!--     <p><p><strong></p>Cloud Exchange offers the building managers our unique cost-effective monitoring solution that provides instant access to VAV and space condition information independently to the building BMS System.</strong></p>
+ -->
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        				</div>
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                      <div class="panel panel-warning card-view">
+                                        <div class="panel-heading">
+                                          <div class="pull-left">
+                                            <h6 class="panel-title txt-dark">Why measuring is important?</h6>
+                                          </div>
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="panel-wrapper collapse in">
+                                          <div class="panel-body">
+                                            <p>Measurements are designed to characterize the amount of outdoor air that is delivered to occupants, comfort indicators, the performance of the HVAC
+                                                system, pressure relationships, and air flow patterns that could transport contaminants from potential sources to the occupied areas of the building.
+                                                Measurements of specific contaminants are very seldom warranted. </p><br>
+                                          <br>
+                                            <ul class="list-icons">
+                                                <li class="mb-10"><i class="fa fa-angle-double-right text-info mr-5"></i> to test for clearly identified sources and clearly identified target contaminants.</li>
+                                                <li class="mb-10"><i class="fa fa-angle-double-right text-info mr-5"></i> to measure specific contaminants, such as radon, that have no acute affects but which could cause serious long term illness</li>
+                                                <li class="mb-10"><i class="fa fa-angle-double-right text-info mr-5"></i> to test for mitigation effectiveness in controlling a source  </li>
+                                                <li class="mb-10"><i class="fa fa-angle-double-right text-info mr-5"></i>to compare with levels found in non-complaint buildings. </li>
+                                                <li class="mb-10"><i class="fa fa-angle-double-right text-info mr-5"></i> to insure the containment of a work area/construction area in an occupied building </li>
+                                                <li class="mb-10"><i class="fa fa-angle-double-right text-info mr-5"></i> to document for liability or other legal or administrative reasons. When measurements are taken, qualified, experienced persons should take them
+                                                  and adhere to protocols and quality assurance procedures.   </li>
+
+
+                                                  <li class="mb-10"><i class="fa fa-angle-double-right text-info mr-5"></i>  CO2 values rise and fall in an occupied space during
+                                                    the day, reflecting the pattern of changing occupancy, or changing outdoor air ventilation rates. This can provide clues as to what is happening in
+                                                    the building and this information can help in the diagnostic process </li>
+
+                                                </ul>
+
+
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                    <h5 class="modal-title" id="exampleModalLabel1">New message</h5>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    <form>
+                                                      <div class="form-group">
+                                                        <label for="recipient-name" class="control-label mb-10">Recipient:</label>
+                                                        <input type="text" class="form-control" id="recipient-name1">
+                                                      </div>
+                                                      <div class="form-group">
+                                                        <label for="message-text" class="control-label mb-10">Message:</label>
+                                                        <textarea class="form-control" id="message-text1"></textarea>
+                                                      </div>
+                                                    </form>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Send message</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-8">
+                                      <div class="panel panel-default card-view">
+                                        <div class="panel-heading">
+                                          <div class="pull-left">
+                                            <h6 class="panel-title txt-dark">Gallery</h6>
+                                          </div>
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="panel-wrapper collapse in">
+                                          <div class="panel-body">
+                                            <p class="muted">You can also request for the <code class="">Prefabricated Hardware</code> that is readily availble for implementaion.</p>
+                                            <!-- START carousel-->
+                                            <div id="carousel-example-captions" data-ride="carousel" class="carousel slide mt-40">
+                                              <ol class="carousel-indicators">
+                                                 <li data-target="#carousel-example-captions" data-slide-to="0" class="active"></li>
+                                                 <li data-target="#carousel-example-captions" data-slide-to="1" class=""></li>
+                                                 <li data-target="#carousel-example-captions" data-slide-to="2" class=""></li>
+                                              </ol>
+                                              <div role="listbox" class="carousel-inner">
+                                                 <div class="item">
+
+                                                  <img src="image/vav_1.jpg" alt="First slide image">
+                                                  <div class="carousel-caption">
+                                                  <p> Prefabricated Hardware - 1, Ready to be installed. </p>
+                                                  </div>
+                                                 </div>
+                                                 <div class="item active">
+                                                  <img src="image/vav_2.jpg" alt="Second slide image">
+                                                  <div class="carousel-caption">
+                                                   <p> Prefabricated Hardware - 2, Ready to be installed. </p>
+                                                  </div>
+                                                 </div>
+                                                 <div class="item">
+                                                    <img src="image/vav_3.jpg" alt="Second slide image">
+                                                  <div class="carousel-caption">
+                                                  <p> Angle Sensor, belongs to the Prefabricated Hardware - 1 </p>
+                                                  </div>
+                                                 </div>
+                                              </div>
+                                              <a href="#carousel-example-captions" role="button" data-slide="prev" class="left carousel-control"> <span aria-hidden="true" class="fa fa-angle-left"></span> <span class="sr-only">Previous</span> </a> <a href="#carousel-example-captions" role="button" data-slide="next" class="right carousel-control"> <span aria-hidden="true" class="fa fa-angle-right"></span> <span class="sr-only">Next</span> </a>
+                                            </div>
+                                            <!-- END carousel-->
+                                          </div>
+                                        </div>
+                                      </div>
+                                     </div>
+                                     <div class="col-md-4">
+                                        <div class="panel panel-warning card-view">
+                                          <div class="panel-heading">
+                                            <div class="pull-left">
+                                              <h6 class="panel-title txt-dark">Expected JSON File From The Device
+                                              </h6>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                          </div>
+                                          <div class="panel-wrapper collapse in">
+                                            <div class="panel-body">
+                                              <pre class="pt-20">
+             {
+              zone_air_quality_index :  <span class="text-success">XXX</span>,
+              air_quality_score: <span class="text-success">XXX</span>,
+              zone_air_temperature: <span class="text-success">XXX</span>,
+              zone_air_humidity:<span class="text-success">XXX</span>,
+              return_air_temperature: <span class="text-success">XXX</span>,
+              supply_air_temperature: <span class="text-success">XXX</span>,
+              supply_air_pressure: <span class="text-success">XXX</span>,
+              damper_position: <span class="text-success">XXX</span>,
+             }
+
+                                                </pre>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    <div class="col-md-4">
+                                      <div class="panel panel-default card-view">
+                                        <div class="panel-heading">
+                                          <div class="pull-left">
+                                            <h6 class="panel-title txt-dark">Support</h6>
+                                          </div>
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="panel-wrapper collapse in">
+                                          <div class="panel-body">
+                                            <p class="muted">If you have any questions that aren’t covered in this article, please mail us at <a href="mailto:sathiya@lankaenergy.lk">sathiya@lankaenergy.lk</a></p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                              </div>
+
+
+                              <div id="profile_8" class="tab-pane fade" role="tabpanel">
+
+                                <!-- dashboad-->
+                                <div class="row">
+                                  <!-- top row-->
+                                  <div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+                                    <!-- devices profile -->
+                                    <div class="panel-wrapper collapse in" align="center">
+                                      <!-- panel 1-->
+                                      <div class="panel-body panl-body-bg" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="Quick Link for Other Devices." data-original-title="QR Code" >
+                                        <img src="image/frame.png" width="100" height="100" />
+                                        <h5 class="block mt-10 mb-5 weight-500 capitalize-font txt-primary">[Device ID]</h5>
+                                        <h6 class="block capitalize-font">[Description]</h6>
+                                        <h6 class="block capitalize-font ">[Last Updated Timestamp]</h6>
+                                      </div>
+                                    </div> <!-- /panle 1-->
+                                    <br />
+                                    <div class="panel panel-default card-view" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="The differential pressure sensor is connected to the VAV box,  pickups up airflow and measures the pressure differnce, indicated here." data-original-title="Represents the air flow in a VAV.">
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="text-center">
+                                          <h6 class="panel-title">Supply Air Pressure</h6>
+                                        </div>
+                                        <div id="e_chart_11" class="" style="height:150px;"></div>
+                                      </div>
+                                    </div>
+                                    <div class="panel panel-default card-view pt-0">
+                                      <!--supply_air_temperature--->
+                                      <div class="panel-wrapper collapse in" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="The AQI is an index for reporting daily air quality. It tells you how clean or polluted your air is, and what associated health effects might be a concern for you. " data-original-title="Measure of how clean the air is.">
+                                        <div class="panel-body pa-0" >
+                                          <div class="sm-data-box bg-white">
+                                            <div class="container-fluid">
+                                              <div class="row">
+                                                <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                  <div class="text-left">
+                                                    <h6 class="panel-title">Air Quality Index</h6>
+                                                  </div>
+                                                  <!-- tempreatur value for js -->
+                                                  <span class="block"><span class="weight-500 lowercase-font txt-grey font-1" id="">Moderate - Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution</span></span>
+
+                                                  </div>
+                                                  <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                    <div id="e_chart_12" style="height:197px;"></div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </div> <!-- /devices profile -->
+                                  <div class="col-lg-3 col-md-6 col-sm-7 col-xs-12">
+                                    <!-- room conditions-->
+                                    <div class="panel panel-default card-view pt-0">
+                                      <!-- temprature-->
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="top" data-content="Installed at the return air duct from the zone." data-original-title="Air Temperature Sensor">
+                                          <div class="sm-data-box bg-white">
+                                            <div class="container-fluid">
+                                              <div class="row">
+                                                <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                  <span class="txt-dark block counter" id="">23.12 °C</span>
+                                                  <!-- tempreatur value for js -->
+                                                  <span class="block"><span class="weight-500 lowercase-font txt-grey font-1">Return
+                                                    Air Temperature</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+                                                  </div>
+                                                  <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                    <div id="sparkline_11" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div> <!-- /temprature-->
+
+                                      <div class="panel panel-default card-view pt-0">
+
+
+
+
+
+                                        <!----supply_air_temperature--->
+                                        <div class="panel-wrapper collapse in">
+                                          <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="right" data-content="Installed at the supply air duct from the zone." data-original-title="Air Temperature Sensor">
+                                            <div class="sm-data-box bg-white">
+                                              <div class="container-fluid">
+                                                <div class="row">
+                                                  <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                    <span class="txt-dark block counter" id="">23.19 °C</span>
+                                                    <!-- tempreatur value for js -->
+                                                    <span class="block"><span class="weight-500 lowercase-font txt-grey font-1">Supply
+                                                      Air Temperature</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+                                                    </div>
+                                                    <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                      <div id="sparkline_12" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
+
+                                        </div>
+
+                                        <div class="panel panel-default card-view sm-data-box-3" data-container="body" title="" data-toggle="popover" data-placement="right" data-content="Supply air damper's position of the VAV" data-original-title="Damper Status">
+
+                                        								<div class="pull-left">
+                                        									<h6 class="panel-title txt-dark">Damper Position</h6>
+
+                                        								</div>
+                                                        <div class="pull-right">
+                                                          <a href="#" data-toggle="modal" data-target="#bs-example-modal-lg6" onclick="rangebtn2()"><span
+                                                            class="label label-success label-md  ml-10">Edit</span></a>
+
+                                        								</div>
+                                        								<div class="clearfix"></div>
+
+                                        							<div class="panel-wrapper collapse in">
+                                        								<div class="panel-body">
+                                        									<div class="col-sm-6 pa-0">
+                                        										<span id="pie_chart_11" class="easypiechart" data-percent="33" >
+                                        											<span class="percent block txt-dark weight-500">33</span>
+
+                                                              <span class="block txt-success text-center ">
+        <i class="zmdi zmdi-caret-up  font-20 "></i><span class="weight-500 " id = "">NaN°</span>
+    </span>
+
+                                        										</span>
+                                        									</div>
+                                        									<div class="col-sm-6 pr-0">
+                                        										<ul class="flex-stat mb-15">
+                                        											<li class="text-left lowercase-font no-float full-width mb-15">
+
+
+
+                                        												<span class="counter-anim clabels-text font-12 inline-block txt-dark capitalize-font" id="">The damper is closed partially.</span>
+
+
+                                        											</li>
+                                        											<li class="text-left block no-float full-width">
+                                        												<span class="block">Last Change :</span>
+
+                                        												<span class="block txt-success pull-left mt-5">
+                                        													<i class="zmdi zmdi-caret-up pr-5 font-20 pull-left"></i><span class="weight-500 pull-left" id = "">22-7-2019 17:25:56</span>
+                                        												</span>
+                                        												<div class="clearfix"></div>
+                                        											</li>
+                                        										</ul>
+                                        									</div>
+                                        								</div>
+                                        							</div>
+                                        						</div>
+
+
+                                        <div class="panel panel-default card-view pt-0">
+                                          <!--supply_air_temperature--->
+                                          <div class="panel-wrapper collapse in">
+                                            <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="right" data-content="Reads out the temperature at the zone." data-original-title="Air Temperature Sensor">
+                                              <div class="sm-data-box bg-white">
+                                                <div class="container-fluid">
+                                                  <div class="row">
+                                                    <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                      <span class="txt-dark block counter" id="">24.8 °C</span>
+                                                      <!-- tempreatur value for js -->
+                                                      <span class="block"><span class="weight-500 lowercase-font txt-grey font-1">Zone
+                                                        Air Temperature</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+                                                      </div>
+                                                      <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                        <div id="sparkline_13" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="panel panel-default card-view pt-0">
+                                            <!--supply_air_temperature--->
+                                            <div class="panel-wrapper collapse in">
+                                              <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="bottom" data-content="Reads out the humidity at the zone." data-original-title="Air Humidity Sensor">
+                                                <div class="sm-data-box bg-white">
+                                                  <div class="container-fluid">
+                                                    <div class="row">
+                                                      <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                        <span class="txt-dark block counter" id="">46.11 %</span>
+                                                        <!-- tempreatur value for js -->
+                                                        <span class="block"><span class="weight-500 lowercase-font txt-grey font-1">Zone
+                                                          Air Humidity</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+                                                        </div>
+                                                        <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                          <div id="sparkline_14" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+
+
+
+
+
+                                            </div> <!-- /room conditions-->
+                                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                              <!-- divese image -->
+                                              <div class="panel panel-default card-view" data-container="body" title="" data-toggle="popover" data-placement="top" data-content="You can see the indications visual for easy understanding. You can also change the image as per your preference." data-original-title="Visual Representation">
+                                                <div class="panel-heading">
+                                                  <div class="pull-left">
+                                                    <h6 class="panel-title txt-dark">Device</h6>
+                                                  </div>
+                                                  <div class="pull-right">
+                                                    <a href="#" onclick="" class="pull-left inline-block refresh mr-15">
+                                                      <i class="zmdi zmdi-replay"></i>
+                                                    </a>
+
+                                                    <a href="#" class="pull-left inline-block full-screen mr-15">
+                                                      <i class="zmdi zmdi-fullscreen"></i>
+                                                    </a>
+
+                                                  </div>
+                                                  <div class="clearfix"></div>
+                                                </div>
+                                                <div class="panel-wrapper collapse in">
+                                                  <div class="panel-body">
+                                                    <div class="deviceimg_3" >
+
+                                                      <div class="col-6" align="left">
+                                                        <div class="" id="">23.12 °C <br/>Return Air <br/> Temperature </div>
+                                                      </div>
+                                                      <div class="col-6" align="right">
+                                                        <div class="" id="">0 kpa <br/>Supply Air <br/>Pressure</div>
+                                                      </div>
+                                                      <div class="col-6" align="left"></div>
+                                                      <div class="col-6" align="right">
+                                                        <div class="" id="" style="padding: 115px 7px 5px 0px; margin-right: 15px; text-align: right;">23.19 °C<br/> Supply Air <br/>Temperature</div>
+                                                      </div>
+                                                    </div>
+
+                                                  </div>
+
+                                                </div>
+                                              </div>
+
+                                              <div class="panel panel-default card-view" data-container="body" title="" data-toggle="popover" data-placement="bottom" data-content="This field could be udated by anyone, who can share some insights on the behaviour of the unit. " data-original-title="Insights by Experts.">
+                                                <!-- panel 2-->
+                                                <div class="panel-wrapper collapse in">
+                                                  <div class="panel-heading">
+                                                    <div class="pull-left">
+                                                      <h5 class="panel-title inline-block txt-dark">Verdict</h5>
+
+                                                    </div>
+                                                    <div class="pull-right">
+                                                      <a href="#"><span
+                                                        class="label label-success label-md  ml-10">Edit</span></a>
+                                                      </div>
+                                                      <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="panel-body sm-data-box-1">
+                                                      <p class="text-dark mb-2 text-left"> Any issues or insights that our users can observe, can be posted here. </p>
+                                                      <p class="text-dark mb-2 text-left"> Generally, there are three steps in a diagnostic process.</p>
+
+                                                      <div class="form-horizontal">
+                                                        <div class="row mb-2">
+                                                        <div class="col-sm-1">
+                                                          <i class="zmdi zmdi-caret-right-circle txt-primary"></i>
+                                                        </div>
+                                                        <div class="col-sm-11">
+                                                          Determine if this is an emergency. If it is, take actions immediately to protect occupants and property. <span class="text-success  text-left v-font-st">Determine is the problem is building related
+                                                              and, if it is, continue with steps 2 and 3.</i></span>
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row mb-2">
+                                                      <div class="col-sm-1">
+                                                        <i class="zmdi zmdi-caret-right-circle txt-primary"></i>
+                                                      </div>
+                                                      <div class="col-sm-11">
+                                                        Any issues or insights that our users can observe, can be posted here. <span class="text-dark mb-10 text-left"> Generally, there are three steps in a diagnostic process. </span>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="row mb-2">
+                                                    <div class="col-sm-1">
+                                                      <i class="zmdi zmdi-caret-right-circle txt-primary"></i>
+                                                    </div>
+                                                    <div class="col-sm-11">
+                                                      Any issues or insights that our users can observe, can be posted here. <span class="text-dark mb-10 text-left"> Generally, there are three steps in a diagnostic process. </span>
+                                                    </div>
+                                                  </div>
+
+
+                                                      </div>
+
+
+                                                    </div>
+                                                  </div>
+
+                                                </div> <!-- /panel 2-->
+
+                                              </div> <!-- /divese image -->
+
+                                            </div> <!-- /top row-->
+                                            <br />
+                                            <div class="row">
+
+
+                                              <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                <!-- room conditions table carts-->
+                                                <div class="panel panel-default card-view" data-container="body" title="" data-toggle="popover" data-placement="bottom" data-content="Indicates what the parameter must be and what is considered abnormal." data-original-title="VAV's designed parameters">
+                                                  <div class="refresh-container">
+                                                    <div class="la-anim-1"></div>
+                                                  </div>
+
+                                                  <div class="panel-heading">
+                                                    <div class="pull-left">
+                                                      <h6 class="panel-title txt-dark">Designed Against Actual Comparsion</h6>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                      <a href="#" onclick="" class="pull-left inline-block refresh mr-15">
+                                                        <i class="zmdi zmdi-replay"></i>
+                                                      </a>
+
+
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                  </div>
+                                                  <div class="panel-wrapper collapse in">
+                                                    <div class="panel-body">
+
+                                                      <div class="table-wrap">
+                                                        <div class="table-responsive">
+                                                          <table id="dataTable21" class="table table-hover display  pb-30"
+                                                          width="100%">
+
+                                                        </table>
+                                                      </div>
+                                                    </div>
+
+                                                  </div>
+
+                                                </div>
+                                              </div>
+
+                                            </div> <!-- /room conditions table carts-->
+                                          </div> <!-- /2nd row-->
+                                        </div><!-- /dashboad-->
+
+                                        <div id="follo_8" class="tab-pane fade" role="tabpanel">
+                                          <!-- dtabase-->
+                                          <div class="row">
+                                            <div class="col-lg-12 col-sm-12">
+                                              <!-- blockquote-->
+                                              <blockquote>
+
+                                                <p>Please note that the data is being recorded every <span id=""
+                                                  class="text-success mb-10">12</span> seconds and for a total of
+                                                  <span id="" class="text-success mb-10">
+                                                    50 </span> logs.
+                                                    So far, the device has delivered <span id="" class="text-success mb-10">
+                                                      6 </span> logs of <span id="" class="text-success mb-10">50
+                                                      </span> logs.</p>
+                                                      <p>If you wish to change the record interval or to increase the total logs,
+                                                        You can make the required changes via the settings menu for the device.</p>
+
+                                                      </blockquote>
+                                                    </div> <!-- /blockquote-->
+                                                    <br />
+                                                    <div class="col-sm-12 col-lg-12">
+                                                      <div class="panel panel-default card-view" data-container="body" title="" data-toggle="popover" data-placement="top" data-content="Trend logs can be generated here." data-original-title="Trend Charts">
+                                                        <div class="panel-heading">
+                                                          <div class="pull-left">
+                                                            <h6 class="panel-title txt-dark" id="">Datasets</h6>
+                                                            </div>
+                                                            <div class="pull-right">
+
+                                                              <div class="pull-left inline-block dropdown mr-15">
+                                                                <button type="submit" class="btn  alrm-tb-2-btn" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can view the parameters over a custom range." data-original-title="Custom Range">Change Range </button>
+                                                                </div>
+
+                                                              </div>
+                                                              <div class="clearfix"></div>
+                                                            </div>
+                                                            <div class="panel-wrapper collapse in">
+                                                              <div class="panel-body">
+
+                                                                <div class="tab-struct custom-tab-1 ">
+                                                                  <ul role="tablist" class="nav nav-tabs" id="myTabs_7">
+                                                                    <li class="active" role="presentation"><a aria-expanded="true"
+                                                                      data-toggle="tab" role="tab" id="home_tab_7" href="#home_7">Trend</a></li>
+                                                                      <li role="presentation" class=""><a data-toggle="tab" id="profile_tab_7"
+                                                                        role="tab" href="#profile_7" aria-expanded="false">Table</a></li>
+
+                                                                      </ul>
+                                                                      <div class="tab-content" id="myTabContent_7">
+                                                                        <div id="home_7" class="tab-pane fade active in" role="tabpanel">
+                                                                          <div id="chartdiv50"></div>
+                                                                        </div>
+                                                                        <div id="profile_7" class="tab-pane fade" role="tabpanel">
+                                                                          <div class="table-wrap">
+                                                                            <div class="table-responsive">
+                                                                              <table id="dataTable22" class="table table-hover display  pb-30"
+                                                                              width="100%"></table>
+                                                                            </div>
+                                                                          </div>
+                                                                        </div>
+
+
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+
+                                                            </div>
+                                                          </div>
+
+                                                        </div> <!-- dtabase-->
+                                                        <div id="follo_9" class="tab-pane fade" role="tabpanel">
+                                                          <!-- alarms-->
+
+
+
+                                                          <div class="row">
+                                                            <!--row2-->
+                                                            <div class="col-sm-12 col-lg-12">
+                                                              <div class="panel panel-default card-view">
+                                                                <div class="panel-heading">
+                                                                  <div class="pull-left">
+                                                                    <h6 class="panel-title txt-dark" id="">Alarm History</h6>
+                                                                  </div>
+                                                                  <div class="pull-right">
+
+                                                                    <div class="pull-left inline-block dropdown mr-15">
+                                                                      <form class="form-inline" >
+
+                                                                    <button type="button" class="btn   alrm-tb-2-btn" id="" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can set the max and min values for alarms" data-original-title="Alarms Triggers">Range Selection</button>
+                                                                    <button type="button" class="btn  dvice-dlt-bt2 " id="" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can delete all the alarms and startover." data-original-title="Deletes all alarms">Reset</button>
+                                                                  </form>
+                                                                </div>
+                                                              </div>
+                                                              <div class="clearfix"></div>
+                                                            </div>
+                                                            <div class="panel-wrapper collapse in">
+                                                              <div class="panel-body">
+
+                                                                <div class="tab-struct custom-tab-1 ">
+                                                                  <ul role="tablist" class="nav nav-tabs" id="myTabs_7">
+                                                                    <li class="active" role="presentation"><a aria-expanded="true"
+                                                                      data-toggle="tab" role="tab" id="home_tab_71" href="#home_71">Logs</a></li>
+                                                                      <li role="presentation" class=""><a data-toggle="tab" id="profile_tab_71"
+                                                                        role="tab" href="#profile_71" aria-expanded="false">Statistics</a></li>
+
+                                                                      </ul>
+                                                                      <div class="tab-content" id="myTabContent_7">
+                                                                        <div id="home_71" class="tab-pane fade active in" role="tabpanel">
+                                                                          <div class="table-wrap">
+                                                                            <div class="table-responsive">
+                                                                              <table id="dataTable23" class="table table-hover display  pb-30"
+                                                                              width="100%"></table>
+                                                                            </div>
+                                                                          </div>
+                                                                          <!-- <div id="chartdiv4"></div> -->
+                                                                        </div>
+                                                                        <div id="profile_71" class="tab-pane fade" role="tabpanel">
+                                                                          <div id=""></div>
+                                                                        </div>
+
+
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+
+                                                          </div>
+                                                          <!--/row2-->
+
+
+
+
+
+                                                        </div> <!-- /alarms-->
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div> <!-- /main row-->
+
+
+
+</body>
+
+</html>

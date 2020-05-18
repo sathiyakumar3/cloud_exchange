@@ -1,0 +1,939 @@
+<script src="js/power_meter_Dashboard.js" ></script>
+<html lang="en">
+<head>
+<style>
+#chartdiv30 {
+  width: 100%;
+  height: 500px;
+}
+</style>
+</head>
+<body>
+<div class="container-fluid">
+  <!-- Title -->
+  <div class="row heading-bg ">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+      <h5 class="txt-dark">&nbsp;&nbsp;&nbsp;<span class="weight-600 pmspace" > &nbsp;&nbsp;Power Monitorsing </span> - Analysis and Reports. </h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+
+        <ol class="breadcrumb">
+            <li><a href="home.html" id=""></a></li>
+
+            <li class="active"><span id=""></span>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+          </ol>
+    </div>
+    <!-- /Breadcrumb -->
+  </div>
+  <!-- /Title -->
+
+  <div class="row pl-10 pr-10">
+    <!-- main row-->
+    <div class="col-lg-12 col-xs-12">
+      <div class="panel panel-default card-view pa-0">
+        <div class="panel-wrapper collapse in">
+          <div class="panel-body pb-0">
+            <div class="tab-struct custom-tab-1">
+              <ul role="tablist" class="nav nav-tabs nav-tabs-responsive" id="myTabs_8">
+                <li class="active" role="presentation"><a data-toggle="tab" id="profile_tab_19" role="tab"
+                  href="#profile_19" aria-expanded="false"><span>Introduction</span></a></li>
+
+                <li class="" role="presentation"><a data-toggle="tab" id="profile_tab_8" role="tab"
+                  href="#profile_8" aria-expanded="false"><span>Dashboard</span></a></li>
+                  <li role="presentation" class="next"><a aria-expanded="true" data-toggle="tab" role="tab"
+                    id="follo_tab_8" href="#follo_8"><span>Database</span></a></li>
+                      <li role="presentation" class="next"><a aria-expanded="true" data-toggle="tab" role="tab"
+                        id="follo_tab_9" href="#follo_9"><span>Alarms</span></a></li>
+                          <li class="pull-right pul-right-mg"> <button class="btn btn-primary btn-block  btn-anim " data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device"
+                            ><i class="fa icon-settings"></i><span
+                            class="btn-text">Settings</span></button></li>
+                            <li class="pull-right pul-right-mg"> <button class="btn btn-success btn-block  btn-anim " data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device"
+                              ><i class="fa fa-pencil"></i><span
+                              class="btn-text">Change Domain</span></button></li>
+                            </ul>
+                            <div class="tab-content full-panel-bg" id="myTabContent_8">
+                              <div id="profile_19" class="tab-pane fade active in" role="tabpanel">  <!-- documantation -->
+
+                                <div class="row">
+                        					<div class="col-sm-12">
+                        						 <div class="panel panel-primary card-view">
+                        							<div class="panel-heading">
+                        								<div class="pull-left">
+                        									<h6 class="panel-title txt-light">Problem Identification</h6>
+                        								</div>
+                        								<div class="clearfix"></div>
+                        							</div>
+                        							<div class="panel-wrapper collapse in">
+                        								<div class="panel-body" >
+
+
+                                          <p>Power Monitoring is one of the primary problems that we tried to solve. In many buildings the power meters data are being collected through a software or even manually and we have reasons to believe the data is not being utilized fully. We tried to solve this problem by using a low cost IoT device -ESP32 to be connected to existing power meters through the meters&rsquo; HLI. &nbsp;&nbsp;We tried to obtain the most relevant data from the meter as much as possible. After serval months of fine tuning, we have developed a powerful dashboard that give you a complete picture of power consumption. We bring all the required points to your fingertips.</p>
+
+
+                                          <p>Power Monitoring is one of the primary problems that we tried to solve. In many buildings the power meters data are being collected through a software or even manually and we have reasons to believe the data is not being utilized fully. We tried to solve this problem by using a low cost IoT device -ESP32 to be connected to existing power meters through the meters&rsquo; HLI. &nbsp;&nbsp;We tried to obtain the most relevant data from the meter as much as possible. After serval months of fine tuning, we have developed a powerful dashboard that give you a complete picture of power consumption. We bring all the required points to your fingertips.</p>
+
+
+                                          <div class="row mt-30">
+                                            <div class="col-md-4 col-xs-12">
+                                              <ul class="list-icons">
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Identify wastage and spot faulty devices</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> To do reports</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Make quick decisions with concise, optimised information</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> To understand about power factor </li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> To provide clients with a reliable, user friendly central monitoring facility</li>
+
+                                              </ul>
+                                            </div>
+                                            <div class="col-md-4 col-xs-12">
+                                              <ul class="list-icons">
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Eliminate site engineers time on daily utility reporting </li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Cost Reduction on call-outs, by identifying source of inconsistency. </li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Enhance engineers time for important issues</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Better utilization of resources by identifying the cause</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Ease of billing of other tenants</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-4 col-xs-12">
+                                              <ul class="list-icons">
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Ability to monitor initiated energy conservation projects.</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Accurately receive data from remote facilities to head office. </li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Optimize energy usage from gathered data. </li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Ease of generating reports for management.</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Reactive Maintenance</li>
+                                                <li class="mb-10"><i class="zmdi zmdi-caret-right-circle txt-primary mr-5"></i> Sustainability and Resource Planning</li>
+                                             </ul>
+                                            </div>
+                                          </div>
+                                          <br>
+                                      <!--     <p><p><strong></p>Cloud Exchange offers the building managers our unique cost-effective monitoring solution that provides instant access to VAV and space condition information independently to the building BMS System.</strong></p>
+ -->
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        				</div>
+
+
+                                <div class="row">
+                                 <div class="col-sm-12">
+                                    <div class="panel panel-default card-view">
+                                     <div class="panel-heading">
+                                       <div class="pull-left">
+                                         <h6 class="panel-title txt-dark">Expected JSON File from the device</h6>
+                                       </div>
+                                       <div class="clearfix"></div>
+                                     </div>
+                                     <div class="panel-wrapper collapse in">
+                                       <div class="panel-body">
+                                         <pre class="pt-20">
+                                            {
+                                             active_power :  <span class="text-success">XXX</span>,
+                                             apparent_power: <span class="text-success">XXX</span>,
+                                             consumption: <span class="text-success">XXX</span>,
+                                             current_1:<span class="text-success">XXX</span>,
+                                             current_2: <span class="text-success">XXX</span>,
+                                             current_3: <span class="text-success">XXX</span>,
+                                             power_factor: <span class="text-success">XXX</span>,
+                                             reactive_power: <span class="text-success">XXX</span>,
+                                             voltage_1: <span class="text-success">XXX</span>,
+                                             voltage_2: <span class="text-success">XXX</span>,
+                                             voltage_3: <span class="text-success">XXX</span>
+                                            }
+
+                                           </pre>
+                                             </div>
+                                     </div>
+                                   </div>
+                                 </div>
+                               </div>
+
+
+                               <div class="row">
+                                 <div class="col-sm-12">
+                                     <div class="panel panel-default card-view">
+                                       <div class="panel-heading">
+                                         <div class="pull-left">
+                                           <h6 class="panel-title txt-dark">Support</h6>
+                                         </div>
+                                         <div class="clearfix"></div>
+                                       </div>
+                                       <div class="panel-wrapper collapse in">
+                                         <div class="panel-body">
+                                           <p class="muted">If you have any questions that aren’t covered in this article, please mail us at <a href="mailto:sathiya@lankaenergy.lk">sathiya@lankaenergy.lk</a></p>
+                                         </div>
+                                       </div>
+                                     </div>
+                                 </div>
+                               </div>
+
+
+
+                              </div> <!-- /documantation -->
+                              <div id="profile_8" class="tab-pane fade" role="tabpanel"> <!-- dashboad-->
+
+                                <div class="row"> <!-- 1st row-->
+                                  <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 text-center"> <!-- col 1-->
+                                    <div class="panel panel-default card-view" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device" >
+                                      <div class="panel-wrapper">
+                                        <div class="panel-body">
+                                          <img src="image/frame.png" width="100" height="100" />
+                                          <h5 class="block mt-10 mb-5 weight-500 capitalize-font txt-primary">[Device ID]</h5>
+                                          <h6 class="block capitalize-font">[Description]</h6>
+                                          <h6 class="block capitalize-font ">[Last Updated Timestamp]</h6>
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                  </div> <!-- /col 1-->
+
+                                  <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12"> <!-- col 2-->
+                                    <div class="panel panel-default card-view" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="text-center">
+                                          <h6 class="panel-title">Active Power</h6>
+                                        </div>
+                                        <div id="e_chart_13" class="" style="height:210px;"></div>
+                                      </div>
+                                    </div>
+                                  </div> <!-- /col 2-->
+
+                                  <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12"> <!-- col 3-->
+                                    <div class="panel panel-default card-view" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="text-center">
+                                          <h6 class="panel-title">Apparant Power</h6>
+                                        </div>
+                                        <div id="e_chart_14" class="" style="height:210px;"></div>
+                                      </div>
+                                    </div>
+                                  </div> <!-- /col 3-->
+
+                                  <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12"> <!-- col 4-->
+                                    <div class="panel panel-default card-view" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="text-center">
+                                          <h6 class="panel-title">Reactive Power</h6>
+                                        </div>
+                                        <div id="e_chart_15" class="" style="height:210px;"></div>
+                                      </div>
+                                    </div>
+                                  </div> <!-- /col 4-->
+                                </div> <!-- /1st row-->
+
+                                <div class="row"> <!-- 2nd row-->
+
+                                  <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12"> <!-- col 1-->
+
+                                    <div class="panel panel-default card-view pt-0">
+                                      <!-- temprature-->
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                          <div class="sm-data-box bg-white">
+                                            <div class="container-fluid">
+                                              <div class="row">
+                                                <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                  <span class="txt-dark block counter" id="">231 V</span>
+                                                  <!-- tempreatur value for js -->
+                                                  <span class="block"><span class="weight-500 lowercase-font txt-grey font-1">Voltage 1</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+                                                </div>
+                                                <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                  <div id="sparkline_15" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div> <!-- /temprature-->
+
+                                    <div class="panel panel-default card-view pt-0">
+                                      <!-- temprature-->
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                          <div class="sm-data-box bg-white">
+                                            <div class="container-fluid">
+                                              <div class="row">
+                                                <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                  <span class="txt-dark block counter" id="">1021 A</span>
+                                                  <!-- tempreatur value for js -->
+                                                  <span class="block"><span class="weight-500 lowercase-font txt-grey font-1">Current 1</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+                                                </div>
+                                                <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                  <div id="sparkline_16" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div> <!-- /temprature-->
+
+
+                                  </div> <!-- /col 1-->
+
+                                  <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12"> <!-- col 2-->
+
+                                    <div class="panel panel-default card-view pt-0">
+                                      <!-- temprature-->
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                          <div class="sm-data-box bg-white">
+                                            <div class="container-fluid">
+                                              <div class="row">
+                                                <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                  <span class="txt-dark block counter" id="">232 V</span>
+                                                  <!-- tempreatur value for js -->
+                                                  <span class="block"><span class="weight-500 lowercase-font txt-grey font-1">Votage 2</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+                                                </div>
+                                                <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                  <div id="sparkline_17" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div> <!-- /temprature-->
+
+                                    <div class="panel panel-default card-view pt-0">
+                                      <!-- temprature-->
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                          <div class="sm-data-box bg-white">
+                                            <div class="container-fluid">
+                                              <div class="row">
+                                                <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                  <span class="txt-dark block counter" id="">980 A</span>
+                                                  <!-- tempreatur value for js -->
+                                                  <span class="block"><span class="weight-500 lowercase-font txt-grey font-1">Current 2</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+                                                </div>
+                                                <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                  <div id="sparkline_18" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div> <!-- /temprature-->
+
+                                  </div> <!-- /col 2-->
+
+                                  <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12"> <!-- col 3-->
+                                    <div class="panel panel-default card-view pt-0">
+                                      <!-- temprature-->
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                          <div class="sm-data-box bg-white">
+                                            <div class="container-fluid">
+                                              <div class="row">
+                                                <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                  <span class="txt-dark block counter" id="">232 V</span>
+                                                  <!-- tempreatur value for js -->
+                                                  <span class="block"><span class="weight-500 lowercase-font txt-grey font-1">Voltage 3</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+                                                </div>
+                                                <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                  <div id="sparkline_19" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div> <!-- /temprature-->
+
+                                    <div class="panel panel-default card-view pt-0">
+                                      <!-- temprature-->
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                          <div class="sm-data-box bg-white">
+                                            <div class="container-fluid">
+                                              <div class="row">
+                                                <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                  <span class="txt-dark block counter" id="">931 A</span>
+                                                  <!-- tempreatur value for js -->
+                                                  <span class="block"><span class="weight-500 lowercase-font txt-grey font-1">Current 3</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+                                                </div>
+                                                <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                  <div id="sparkline_20" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div> <!-- /temprature-->
+                                  </div> <!-- /col 3-->
+                                  <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12"> <!-- col 4-->
+                                    <div class="panel panel-default card-view pt-0">
+                                      <!-- supply_air_temperature -->
+                                      <div class="panel-wrapper collapse in">
+                                        <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                          <div class="sm-data-box bg-white">
+                                            <div class="container-fluid">
+                                              <div class="row">
+                                                <div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+                                                  <div class="text-left">
+                                                    <h6 class="panel-title">Power Factor</h6>
+                                                  </div>
+                                                  <!-- tempreatur value for js -->
+                                                  <span class="block"><span class="weight-500 lowercase-font txt-grey font-1" id="">There is room for improvement.</span></span>
+
+                                                </div>
+                                                <div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+                                                  <div id="e_chart_16" style="height:176px;"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div> <!-- /col 4-->
+
+
+                                </div> <!-- /2nd row-->
+
+                                <div class="row"> <!-- 3nd row-->
+                                  <div class="col-lg-12 col-sm-12" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                    <!-- blockquote-->
+                                    <blockquote>
+
+                                      <p><span id=""
+                                        class="text-success mb-10">September</span>'s peak consumption was <span id="" class="text-success mb-10">629
+                                          </span> kWh.  It had occured on the <span id="" class="text-success mb-10">
+                                            10th </span> hour of the <span id="" class="text-success mb-10">2nd</span> of <span id="" class="text-success mb-10">September</span>.  It would have had a significant impact on the maximum demand.</p>
+
+
+                                          </blockquote>
+                                        </div> <!-- /blockquote-->
+
+                                        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                                          <div class="panel panel-default card-view pa-0">
+                                            <div class="panel-wrapper collapse in">
+                                              <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                                <div class="sm-data-box">
+                                                  <div class="container-fluid">
+                                                    <div class="row">
+                                                      <div class="col-xs-12 text-center pl-0 pr-0 data-wrap-left month-Summary-pm" >
+                                                        <span class="txt block counter"><span class="counter-anim" id="">September</span></span>
+                                                        <span class="weight-500 uppercase-font block font-13">Month's Summary</span>
+                                                      </div>
+
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                                          <div class="panel panel-default card-view pa-0">
+                                            <div class="panel-wrapper collapse in">
+                                              <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                                <div class="sm-data-box">
+                                                  <div class="container-fluid">
+                                                    <div class="row month-summary-line">
+                                                      <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                                        <span class="txt-dark block counter"><span class="counter-anim" id="">1,106</span></span>
+                                                        <span class="weight-500 uppercase-font block font-13">kWh</span>
+                                                      </div>
+                                                      <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                                        <span class="weight-500 uppercase-font block ">Peak time's <br/>  Consumption</span>
+                                                      </div>
+
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+
+                                            <div class="panel panel-default card-view pa-0">
+                                                <div class="panel-wrapper collapse in">
+                                                  <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                                    <div class="sm-data-box">
+                                                      <div class="container-fluid">
+                                                        <div class="row">
+                                                          <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                                            <span class="txt-dark block counter"><span class="counter-anim" id="">622</span></span>
+                                                            <span class="weight-500 uppercase-font block font-13">kWh</span>
+                                                          </div>
+                                                          <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                                            <span class="weight-500 uppercase-font block">Last Hour's <br/>  Consumption</span>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                        </div>
+
+                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                          <div class="panel panel-default card-view pa-0">
+                                            <div class="panel-wrapper collapse in">
+                                              <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                                <div class="sm-data-box">
+                                                  <div class="container-fluid">
+                                                    <div class="row">
+                                                      <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                                        <span class="txt-dark block counter"><span class="counter-anim" id="">2,653</span></span>
+                                                        <span class="weight-500 uppercase-font block">kWh</span>
+                                                      </div>
+                                                      <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                                        <span class="weight-500 uppercase-font block">Today's <br/>  Consumption</span>
+
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div> <!-- /3nd row-->
+
+                                      <div class="row"> <!-- 4th row-->
+                                        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="panel panel-default card-view pa-0">
+                                              <div class="panel-wrapper collapse in">
+                                                <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                                  <div class="sm-data-box">
+                                                    <div class="container-fluid">
+                                                      <div class="row ">
+                                                        <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                                          <span class="txt-dark block counter"><span class="counter-anim" id="">8,644</span></span>
+                                                          <span class="weight-500 uppercase-font block font-13">kWh</span>
+                                                        </div>
+                                                        <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right month-Summary-pm ">
+                                                          <span class="weight-500 uppercase-font block">Total <br/>  Consumption</span>
+                                                        </div>
+
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="panel panel-default card-view pa-0">
+                                                <div class="panel-wrapper collapse in">
+                                                  <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                                    <div class="sm-data-box">
+                                                      <div class="container-fluid">
+                                                        <div class="row">
+                                                          <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                                            <span class="txt-dark block counter"><span class="counter-anim" id="">129,660</span></span>
+                                                            <span class="weight-500 uppercase-font block font-13">kWh</span>
+                                                          </div>
+                                                          <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                                            <span class="weight-500 uppercase-font block">Predicted <br/>  Consumption</span>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                          </div>
+
+                                          <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                                              <div class="panel panel-default card-view pa-0">
+                                                <div class="panel-wrapper collapse in">
+                                                  <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                                    <div class="sm-data-box">
+                                                      <div class="container-fluid">
+                                                        <div class="row month-summary-line">
+                                                          <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                                            <span class="txt-dark block counter"><span class="counter-anim" id="">2,888</span></span>
+                                                            <span class="weight-500 uppercase-font block font-13">kWh</span>
+                                                          </div>
+                                                          <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                                            <span class="weight-500 uppercase-font block">Off time's <br/>  Consumption</span>
+                                                          </div>
+
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div class="panel panel-default card-view pa-0">
+                                                  <div class="panel-wrapper collapse in">
+                                                    <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                                      <div class="sm-data-box">
+                                                        <div class="container-fluid">
+                                                          <div class="row month-summary-line">
+                                                            <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                                              <span class="txt-dark block counter"><span class="counter-anim"  id="" >4,773</span></span>
+                                                              <span class="weight-500 uppercase-font block font-13">kWh</span>
+                                                            </div>
+                                                            <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                                              <span class="weight-500 uppercase-font block">Day time's <br/>  Consumption</span>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 ">
+                                                <div class="panel panel-default card-view " data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                                  <div class="panel-wrapper collapse in">
+                                                    <div class="panel-body sm-data-box-1">
+                                                      <span class="uppercase-font weight-500 font-14 block text-center txt-dark">Yesterday vs Average</span>
+                                                      <div class="cus-sat-stat weight-500 txt-success text-center mt-1">
+                                                        <span class="counter-anim" id="">128</span><span> %</span>
+                                                      </div>
+                                                      <div class="progress-anim mt-20">
+                                                        <div class="progress">
+                                                          <progress class="progress-bar-primary progressbr
+                                                          animated progress-animated" id="" value="" max="10" role="progressbar"></progress>
+                                                        </div>
+                                                      									</div>
+                                                      <ul class="flex-stat mt-15">
+                                                        <li>
+                                                          <span class="">Average </span>
+                                                          <span class="block txt-dark weight-200 font-15" id="">4,322 kWh</span>
+                                                        </li>
+                                                        <li>
+                                                          <span class="">Deviation</span>
+                                                          <span class="block txt-dark weight-200 font-15" id="">1216 kWh</span>
+                                                        </li>
+                                                        <li>
+                                                          <span class="">Trend</span>
+                                                          <span class="block" id =""> <i class="zmdi zmdi-trending-up txt-success font-20"></i></span>
+                                                        </li>
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                                              <div class="panel panel-default card-view pa-0">
+                                                  <div class="panel-wrapper collapse in">
+                                                    <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                                      <div class="sm-data-box">
+                                                        <div class="container-fluid">
+                                                          <div class="row month-summary-line2">
+                                                            <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                                              <span class="txt-dark block counter"><span class="counter-anim" id="">4,322</span></span>
+                                                              <span class="weight-500 uppercase-font block">kWh</span>
+                                                            </div>
+                                                            <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                                              <span class="weight-500 uppercase-font block">Daily <br/> Average</span>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                                <div class="panel panel-default card-view pa-0">
+                                                    <div class="panel-wrapper collapse in">
+                                                      <div class="panel-body pa-0" data-container="body" title="" data-toggle="popover" data-placement="left" data-content="You can transfer the device to a different domain, however you must be a developer or an admin in the domain to do such changes." data-original-title="Move Device">
+                                                        <div class="sm-data-box">
+                                                          <div class="container-fluid">
+                                                            <div class="row month-summary-line2">
+                                                              <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                                                <span class="txt-dark block counter"><span class="counter-anim" id="">5,538</span></span>
+                                                                <span class="weight-500 uppercase-font block">kWh</span>
+                                                              </div>
+                                                              <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                                                <span class="weight-500 uppercase-font block">Yesterday's <br/>  Consumption</span>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+
+                                              </div>
+
+                                      </div> <!-- /4th row-->
+
+
+                                    </div><!-- /dashboad-->
+
+                                    <div id="follo_8" class="tab-pane fade" role="tabpanel">
+                                      <!-- dtabase-->
+                                      <div class="row">
+                                        <div class="col-lg-12 col-sm-12">
+                                          <!-- blockquote-->
+                                          <blockquote>
+
+                                            <p>Please note that the data is being recorded every <span id=""
+                                              class="text-success mb-10">12</span> seconds and for a total of
+                                              <span id="" class="text-success mb-10">
+                                                50 </span> logs.
+                                                So far, the device has delivered <span id="" class="text-success mb-10">
+                                                  6 </span> logs of <span id="" class="text-success mb-10">50
+                                                  </span> logs.</p>
+                                                  <p>If you wish to change the record interval or to increase the total logs,
+                                                    You can make the required changes via the settings menu for the device.</p>
+
+                                                  </blockquote>
+                                                </div> <!-- /blockquote-->
+                                                <br />
+                                                <div class="col-sm-12 col-lg-12">
+                                                  <div class="panel panel-default card-view">
+                                                    <div class="panel-heading">
+                                                      <div class="pull-left">
+                                                        <h6 class="panel-title txt-dark" id="">Datasets -
+                                                          Initializing...</h6>
+                                                        </div>
+                                                        <div class="pull-right">
+
+                                                          <div class="pull-left inline-block dropdown mr-15">
+                                                            <form class="form-inline" action="#">
+                                                              <div class="form-group">
+
+                                                                <input type="date" class="form-control " id=""/>
+                                                              </div>
+                                                              <div class="form-group">
+
+                                                                <input type="date" class="form-control " id=""/>
+                                                              </div>
+
+                                                              <button type="button" class="btn  alrm-tb-2-btn" >Load
+                                                                Table</button>
+                                                                <button type="button" class="btn  dvice-dlt-bt2" id="">Reset</button>
+                                                              </form>
+                                                            </div>
+
+                                                          </div>
+                                                          <div class="clearfix"></div>
+                                                        </div>
+                                                        <div class="panel-wrapper collapse in">
+                                                          <div class="panel-body">
+
+                                                            <div class="tab-struct custom-tab-1 ">
+                                                              <ul role="tablist" class="nav nav-tabs" id="myTabs_7">
+                                                                <li class="active" role="presentation"><a aria-expanded="true"
+                                                                  data-toggle="tab" role="tab" id="home_tab_7" href="#home_7">Trend</a></li>
+                                                                  <li role="presentation" class=""><a data-toggle="tab" id="profile_tab_7"
+                                                                    role="tab" href="#profile_7" aria-expanded="false">Table</a></li>
+
+
+                                                                  </ul>
+                                                                  <div class="tab-content" id="myTabContent_7">
+                                                                    <div id="home_7" class="tab-pane fade active in" role="tabpanel">
+                                                                      <div id="chartdiv30"></div>
+                                                                    </div>
+                                                                    <div id="profile_7" class="tab-pane fade" role="tabpanel">
+                                                                      <div class="table-wrap">
+                                                                        <div class="table-responsive">
+                                                                          <table id="" class="table table-hover display  pb-30"
+                                                                          width="100%"></table>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+
+
+
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+
+                                                      </div>
+                                                    </div>
+
+
+                                                    <div class="row"> <!-- 3rd row -->
+
+                                                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> <!-- col 1 -->
+
+                                                        <div class="panel panel-default card-view panel-refresh">
+                                                          <div class="refresh-container">
+                                                            <div class="la-anim-1"></div>
+                                                          </div>
+                                                          <div class="panel-heading">
+                                                            <div class="pull-left">
+                                                              <h6 class="panel-title txt-dark" id="" >Loading...</h6>
+                                                            </div>
+
+                                                            <div class="clearfix"></div>
+                                                          </div>
+                                                          <div class="panel-wrapper collapse in">
+                                                            <div class="panel-body">
+                                                              <div id="" class="" style="height:215px; width: 550px;"></div>
+                                                              <hr class="light-grey-hr row mt-10 mb-15"/>
+                                                              <div class="label-chatrs">
+                                                                <div class="">
+                                                                  <span class="clabels clabels-lg inline-block bg-primary mr-10 pull-left"></span>
+                                                                  <span class="clabels-text font-12 inline-block txt-dark capitalize-font pull-left"><span class="block font-15 weight-500 mb-5" id="">Loading...</span><span class="block txt-grey">1830-2230 hrs</span></span>
+                                                                  <div id="" class="pull-right" style="width: 100px;  overflow: hidden; margin: 0px auto;"></div>
+                                                                  <div class="clearfix"></div>
+                                                                </div>
+                                                              </div>
+                                                              <hr class="light-grey-hr row mt-10 mb-15"/>
+                                                              <div class="label-chatrs">
+                                                                <div class="">
+                                                                  <span class="clabels clabels-lg inline-block bg-purple mr-10 pull-left"></span>
+                                                                  <span class="clabels-text font-12 inline-block txt-dark capitalize-font pull-left"><span class="block font-15 weight-500 mb-5" id="">Loading...</span><span class="block txt-grey">2230-0530 hrs</span></span>
+                                                                  <div id="" class="pull-right" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                                  <div class="clearfix"></div>
+                                                                </div>
+                                                              </div>
+                                                              <hr class="light-grey-hr row mt-10 mb-15"/>
+                                                              <div class="label-chatrs">
+                                                                <div class="">
+                                                                  <span class="clabels clabels-lg inline-block bg-skyblue mr-10 pull-left"></span>
+                                                                  <span class="clabels-text font-12 inline-block txt-dark capitalize-font pull-left"><span class="block font-15 weight-500 mb-5" id="">Loading...</span><span class="block txt-grey">0530-1830 hrs</span></span>
+                                                                  <div id="" class="pull-right" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+                                                                  <div class="clearfix"></div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+
+
+
+                                                          </div></div>
+                                                        </div>  <!-- /col 1 -->
+                                                        <!-- 27-3-2019 -->
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> <!-- col 2 -->
+
+                                                          <div class="panel panel-default card-view panel-refresh">
+                                                            <div class="refresh-container">
+                                                              <div class="la-anim-1"></div>
+                                                            </div>
+                                                            <div class="panel-heading">
+                                                              <div class="pull-left">
+                                                                <h6 class="panel-title txt-dark" id="" >Loading...</h6>
+                                                              </div>
+                                                              <div class="pull-right">
+
+                                                                <form class="form-inline" action="">
+
+                                                                  <div class="form-group">
+
+                                                                    <input type="date" class="form-control " id=""/>
+                                                                  </div>
+
+                                                                  <button type="button" class="btn  alrm-tb-2-btn" >Load
+                                                                    Table</button>
+
+                                                                  </form>
+                                                              </div>
+                                                              <div class="clearfix"></div>
+                                                            </div>
+
+                                                            <div class="panel-wrapper collapse in">
+
+                                                              <div class="panel-body">
+
+                                                                <div id=""></div>
+                                                              </div>
+                                                            </div>
+
+
+                                                          </div>
+
+                                                        </div> <!-- /col 2 -->
+
+
+                                                      </div> <!-- /3rd row -->
+
+
+                                                    </div> <!-- dtabase-->
+                                                    <div id="follo_9" class="tab-pane fade" role="tabpanel">
+                                                      <!-- alarms-->
+
+
+
+                                                      <div class="row">
+                                                        <!--row2-->
+                                                        <div class="col-sm-12 col-lg-12">
+                                                          <div class="panel panel-default card-view">
+                                                            <div class="panel-heading">
+                                                              <div class="pull-left">
+                                                                <h6 class="panel-title txt-dark" id="">loading...</h6>
+                                                              </div>
+                                                              <div class="pull-right">
+
+                                                                <div class="pull-left inline-block dropdown mr-15">
+                                                                  <form class="form-inline" action="#">
+
+                                                                <button type="submit" class="btn   alrm-tb-2-btn" id=""
+                                                                data-toggle="modal" data-target=".bs-example-modal-lg"
+                                                                >Range Selection</button>
+                                                                <button type="submit" class="btn  dvice-dlt-bt2 " id=""
+                                                              >Reset</button>
+                                                              </form>
+                                                            </div>
+                                                          </div>
+                                                          <div class="clearfix"></div>
+                                                        </div>
+                                                        <div class="panel-wrapper collapse in">
+                                                          <div class="panel-body">
+
+                                                            <div class="tab-struct custom-tab-1 ">
+                                                              <ul role="tablist" class="nav nav-tabs" id="myTabs_7">
+                                                                <li class="active" role="presentation"><a aria-expanded="true"
+                                                                  data-toggle="tab" role="tab" id="home_tab_71" href="#home_71">Logs</a></li>
+                                                                  <li role="presentation" class=""><a data-toggle="tab" id="profile_tab_71"
+                                                                    role="tab" href="#profile_71" aria-expanded="false">Statistics</a></li>
+
+                                                                  </ul>
+                                                                  <div class="tab-content" id="myTabContent_7">
+                                                                    <div id="home_71" class="tab-pane fade active in" role="tabpanel">
+                                                                      <div class="table-wrap">
+                                                                        <div class="table-responsive">
+                                                                          <table id="" class="table table-hover display  pb-30"
+                                                                          width="100%"></table>
+                                                                        </div>
+                                                                      </div>
+
+                                                                    </div>
+                                                                    <div id="profile_71" class="tab-pane fade" role="tabpanel">
+                                                                      <div id=""></div>
+                                                                    </div>
+
+
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+
+                                                      </div>
+                                                      <!--/row2-->
+
+
+
+
+
+                                                    </div> <!-- /alarms-->
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div> <!-- /main row-->
+
+
+
+                                    </div>
+                                    <!-- Init JavaScript -->
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <style>
+ input {border : 0px solid #fff;margin:0; font-size:20px; width: 100%; }
+input:focus,input:active,input:hover { outline: 0px solid #fff; background-color:#fff; }
+select { border: 0px solid #fff; margin:0; padding:0; font-size:20px; border:0; 
+   -webkit-appearance: none;
+   -moz-appearance: none;
+}
+
+
+    </style>
+
+
+</head>
+<body >
+    
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+           <div class="panel panel-default card-view panel-refresh">
+                <div class="refresh-container">
+                    <div class="la-anim-1"></div>
+                </div>
+         
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        
+
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                
+                                <th>A</th>
+                                
+                                <th>C</th>
+                            </tr>
+                        </thead>
+                            <tr data-row="0">
+                               
+                                <td><input  type="text" data-row="0" data-col="0" data-val="a" value="a" /></td>
+                              
+                                <td><input type="text" data-row="0" data-col="2" data-val="c" value="c" /></td>
+                            </tr>
+                            <tr data-row="1">
+                                
+                                <td><input  type="text" data-row="1" data-col="0" data-val="d" value="d" /></td>
+                                <td><input type="text" data-row="1" data-col="2" data-val="f" value="f" /></td>
+                            </tr>
+                            <tr data-row="2">
+                                
+                                <td><input  type="text" data-row="2" data-col="0" data-val="g" value="g" /></td>
+                                
+                                <td><input type="text" data-row="2" data-col="2" data-val="i" value="i" /></td>
+                            </tr>
+                        </table>
+                        
+                        <div name="data" id="save" cols="30" rows="10"></div>
+                        <button>Save</button>
+                        
+                     
+                        
+                    
+                    </div>	
+                </div>
+            </div>
+        </div>
+    </div>  
+    
+
+
+
+
+
+   
+
+  
+
+<script>
+    var t = $('table'), inputs = t.find('input, select'), b = $('button'), ta = $('#save')
+
+t.on('change', 'input, select', (e) => {
+      $el = $(e.target)
+      $el.data('val', $el.val())
+      console.log($el.val())
+})
+
+b.on('click', () => {
+  	var data = []
+    console.log($(inp).data());
+  	inputs.each((i,inp) => data.push($(inp).data()) )
+    inputs.each((i,inp) => console.log($(inp).data()))
+	ta.text(JSON.stringify(data))
+})
+
+
+</script>
+</body>
+</html>

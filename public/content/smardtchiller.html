@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+</head>
+
+<body>
+	<div class="preloader">
+		<div class="table-struct full-width full-height" style="height: 969px;">
+			<div class="table-cell vertical-align-middle auth-form-wrap">
+				<div class="auth-form  ml-auto mr-auto no-float">
+					<div class="row">
+						<div class="col-sm-12 col-xs-12">
+							<div class="mb-30 text-center "> <i class="fas fa-snowflake fa-10x"></i>
+								<br>
+								<br> <span class="block error-head txt-primary mb-10" id="loader_text">500</span>
+								<span class="nonecase-font mb-20 block error-comment">Please wait.</span>
+								<p>We are setting things up for you.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row pl-10 pr-10 loader_com hider" id="content_page">
+		<div class="row heading-bg after-head-space">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+				<h5 class="txt-dark">&nbsp;&nbsp;&nbsp;<span class="weight-600" id="dvicetypetest">&nbsp;&nbsp;
+					</span> - Smardt Chiller (Version 1)</h5>
+			</div>
+			<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+				<ol class="breadcrumb">
+					<li>
+						<a href="#" id="sitenavi"></a>
+					</li>
+					<li><a href="#">&nbsp;&nbsp;</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+		<!-- main row-->
+		<div class="col-lg-12 col-xs-12">
+			<div class="panel panel-default card-view pa-0">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pb-0">
+						<div class="tab-struct custom-tab-1">
+							<ul role="tablist" class="nav nav-tabs nav-tabs-responsive" id="myTabs_8">
+								<li class="active" role="presentation"><a data-toggle="tab" id="profile_tab_8"
+										role="tab" href="#profile_8" aria-expanded="false"><i
+											class="fas fa-desktop mr-10"></i><span>Dashboard</span></a>
+								</li>
+								<li role="presentation" class="next"><a aria-expanded="true" data-toggle="tab"
+										role="tab" id="follo_tab_8" href="#follo_8"><i
+											class="fas fa-chart-line mr-10"></i><span>Reports</span></a>
+								</li>
+								<li role="presentation" class="next"><a aria-expanded="true" data-toggle="tab"
+										role="tab" id="follo_tab_9" href="#follo_9" onclick="AlarmsTab()"><i
+											class="fas fa-bell mr-10"></i><span>Alarms</span></a>
+								</li>
+								<li class="pull-right pul-right-mg">
+									<button class="btn btn-primary btn-block btn-anim btn-rounded" data-toggle="modal"
+										data-target="#device_settings_modal"><i class="fa icon-settings"></i><span
+											class="btn-text">Device
+											Settings</span>
+									</button>
+								</li>
+							</ul>
+							<div class="tab-content full-panel-bg" id="myTabContent_8">
+								<div id="profile_8" class="tab-pane fade active in" role="tabpanel">
+									<!-- dashboad-->
+									<div class="row">
+										<!-- 1st row-->
+										<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 text-center">
+											<!-- col 1-->
+											<div class="panel panel-default card-view">
+												<div class="panel-wrapper collapse in">
+													<div class="text-center">
+														<br />
+														<input id="qrtext" type="hidden" value="" />
+														<div id="qrcode"></div>
+														<h5 class="block mt-1 mb-0 weight-500 capitalize-font txt-primary"
+															id="dName"></h5>
+														<h6 class="block capitalize-font  " id="lastlog1"></h6>
+														<h6 class="block capitalize-font  " id="lastlog2"></h6>
+														<div class="clearfix mb-30"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 1-->
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12 text-center">
+											<!-- col 2-->
+											<div class="panel panel-default card-view">
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body sm-data-box-1"> <span
+															class="uppercase-font weight-500 font-14 block text-center txt-dark">coefficient
+															of performance</span>
+														<div
+															class="cus-sat-stat weight-500 txt-primary text-center mt-5">
+															<span class="counter-anim" id="cop">---</span><span></span>
+														</div>
+														<div class="progress-anim mt-20">
+															<div class="progress">
+																<progress class="progress-bar-primary progressbr
+                                              animated progress-animated" id="coppro" value="" max="10"
+																	role="progressbar"></progress>
+															</div>
+														</div>
+														<ul class="flex-stat mt-30">
+															<li> <span class="block">Input Power</span>
+																<span class="block txt-dark weight-500 font-15"
+																	id="inputpower">---</span>
+															</li>
+															<li> <span class="block"> Refri kW</span>
+																<span class="block txt-dark weight-500 font-15"
+																	id="Ref">---</span>
+															</li>
+															<li> <span class="block">Trend</span>
+																<span class="block">
+																	<i
+																		class="zmdi zmdi-trending-up txt-success font-20"></i>
+																</span>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 2-->
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+											<!-- col 2-->
+											<div class="panel panel-default card-view sm-data-box-3">
+												<div class="panel-wrapper collapse in">
+													<div class="text-center">
+														<h6 class="panel-title">Chiller Load</h6>
+													</div>
+													<div class="panel-body text-center">
+														<div class="col-sm-12 pa-0 clearfix"> <span id="pie_chart_6"
+																class="easypiechart" data-percent="0">
+																<span class="percent block txt-dark weight-500"></span>
+																<span class="block txt-success text-center"
+																	id="cappos"></span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 2-->
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12 text-center">
+											<!-- col 4-->
+											<div class="panel panel-default card-view">
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body sm-data-box-1"> <span
+															class="uppercase-font weight-500 font-14 block text-center txt-dark">Active
+															Compressors</span>
+														<div
+															class="cus-sat-stat weight-800 txt-primary text-center mt-15 font-50">
+															<span class="counter-anim ch-font-sp" id="noc">-</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 4-->
+									</div>
+									<!-- /1st row-->
+									<div class="row">
+										<!-- 2nd row-->
+										<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+											<!-- blockquote-->
+											<blockquote> <span
+													class="uppercase-font weight-500 font-14 block text-left text-primary txt-dark">Chillers</span>
+												<p id="status_1">Loading..</p>
+												<p id="status_2">Loading...</p>
+											</blockquote>
+										</div>
+										<!-- /blockquote-->
+										<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+											<!-- blockquote-->
+											<blockquote> <span
+													class="uppercase-font weight-500 font-14 block text-left text-primary txt-dark">Compressors</span>
+												<p id="status_3">Loading..</p>
+												<p id="status_4">Loading...</p>
+											</blockquote>
+										</div>
+										<!-- /blockquote-->
+									</div>
+									<!-- 2nd row -->
+									<div class="row">
+										<!-- 2nd row -->
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12 text-center">
+											<!-- col 3-->
+											<div class="panel panel-default card-view">
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body sm-data-box-1">
+														<h6
+															class="uppercase-font weight-500 font-14 block text-center txt-dark">
+															Chiller Setpoint</h6>
+														<ul class="flex-stat mt-20">
+															<li> <span class="block">Base</span>
+																<span class="block txt-dark weight-500 font-18"
+																	id="base"></span>
+															</li>
+															<li> <span class="block">+/- Offset</span>
+																<span class="block txt-dark weight-500 font-18"
+																	id="offsett"></span>
+															</li>
+															<li> <span class="block">Setpoint</span>
+																<span class="block">
+																	<span
+																		class="block txt-dark txt-primary weight-500 font-18"
+																		id="controlsetpoint"></span>
+																</span>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<div class="panel panel-default card-view">
+												<div class="panel-wrapper collapse in"> <span
+														class="weight-500 font-14 block text-center mt-10">Base + Offset
+														= Setpoint</span>
+													<div class="mb-20"></div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 3-->
+										<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+											<div class="panel panel-default card-view pa-0">
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body pa-0">
+														<div class="sm-data-box">
+															<div class="container-fluid">
+																<div class="row month-summary-line">
+																	<div
+																		class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+																		<span class="txt-dark block counter"><span
+																				class="counter-anim"
+																				id="cwet">---</span></span> <span
+																			class="weight-500 uppercase-font block font-13">°C</span>
+																	</div>
+																	<div
+																		class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+																		<span
+																			class="weight-500 uppercase-font block">CHW
+																			Entering<br /> Temperature</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="panel panel-default card-view pa-0">
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body pa-0">
+														<div class="sm-data-box">
+															<div class="container-fluid">
+																<div class="row month-summary-line-chiller ">
+																	<div
+																		class="col-xs-6 text-center pl-0 pr-0 data-wrap-left mt-15">
+																		<span class="txt-dark block counter"><span
+																				class="counter-anim"
+																				id="ccet">---</span></span> <span
+																			class="weight-500 uppercase-font block font-13">°C</span>
+																	</div>
+																	<div
+																		class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right mb-12 mt-15">
+																		<span
+																			class="weight-500 uppercase-font block">CCW
+																			Entering<br /> Temperature</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+											<div class="panel panel-default card-view pa-0">
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body pa-0">
+														<div class="sm-data-box">
+															<div class="container-fluid">
+																<div class="row month-summary-line">
+																	<div
+																		class="col-xs-6 text-center pl-0 pr-0 data-wrap-left ">
+																		<span class="txt-dark block counter"><span
+																				class="counter-anim"
+																				id="cwlt">---</span></span> <span
+																			class="weight-500 uppercase-font block font-13">°C</span>
+																	</div>
+																	<div
+																		class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+																		<span
+																			class="weight-500 uppercase-font block">CHW
+																			Leaving<br /> Temperature</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="panel panel-default card-view pa-0">
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body pa-0">
+														<div class="sm-data-box">
+															<div class="container-fluid">
+																<div class="row month-summary-line-chiller">
+																	<div
+																		class="col-xs-6 text-center pl-0 pr-0 data-wrap-left mt-15">
+																		<span class="txt-dark block counter"><span
+																				class="counter-anim"
+																				id="cclt">---</span></span> <span
+																			class="weight-500 uppercase-font block font-13">°C</span>
+																	</div>
+																	<div
+																		class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right mb-12 mt-15">
+																		<span
+																			class="weight-500 uppercase-font block">CCW
+																			Leaving<br /> Temperature</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+											<!-- col 2-->
+											<div class="panel panel-default card-view">
+												<div class="panel-wrapper collapse in">
+													<div class="text-center">
+														<h6 class="panel-title">CHW Flow</h6>
+													</div>
+													<div id="chwflow" class="" style="height:197px;"></div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 2-->
+									</div>
+									<!-- /2nd row-->
+									<div class="row">
+										<!-- 3rd row -->
+									</div>
+									<!-- /3rd row -->
+									<div class="row">
+										<!-- 4th row-->
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+											<!-- col 2-->
+											<div class="panel panel-default card-view">
+												<div class="panel-wrapper collapse in">
+													<div class="text-center">
+														<h6 class="panel-title">Condensor Pressure</h6>
+													</div>
+													<div id="cond_gauge" class="" style="height:210px;"></div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 2-->
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+											<!-- col 2-->
+											<div class="panel panel-default card-view">
+												<div class="panel-wrapper collapse in">
+													<div class="text-center">
+														<h6 class="panel-title">Evaporator Pressure</h6>
+													</div>
+													<div id="evap_gauge" class="" style="height:210px;"></div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 2-->
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+											<!-- col 2-->
+											<div class="panel panel-default card-view sm-data-box-3">
+												<div class="panel-wrapper collapse in">
+													<div class="text-center">
+														<h6 class="panel-title">Expansion Valve Position</h6>
+													</div>
+													<div class="panel-body text-center">
+														<div class="col-sm-12 pa-0"> <span id="pie_chart_4"
+																class="easypiechart" data-percent="0">
+																<span class="percent block txt-dark weight-500"></span>
+																<span class="block txt-success text-center" id="expane">
+
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 2-->
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+											<!-- col 2-->
+											<div class="panel panel-default card-view sm-data-box-3">
+												<div class="panel-wrapper collapse in">
+													<div class="text-center">
+														<h6 class="panel-title">Refrigerant Liquid Level</h6>
+													</div>
+													<div class="panel-body text-center">
+														<div class="col-sm-12 pa-0"> <span id="pie_chart_5"
+																class="easypiechart" data-percent="0">
+																<span class="percent block txt-dark weight-500"></span>
+																<span class="block txt-success text-center" id="liqua">
+
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 2-->
+									</div>
+									<!-- /4th row -->
+									<div class="row">
+										<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+											<!-- room conditions table carts-->
+											<div class="panel panel-default card-view">
+												<div class="panel-heading">
+													<div class="pull-left">
+														<h6 class="panel-title txt-dark">Designed vs Actual Parameters
+														</h6>
+													</div>
+													<div class="pull-right">
+														<button
+															class="btn btn-success btn-block  btn-anim ch-tb-edt-btn "
+															data-toggle="modal" data-target="#Designedchange12"><i
+																class="fa fa-pencil edt-pen"></i><span
+																class="btn-text">Update</span>
+														</button>
+														<div class="pull-left inline-block dropdown"></div>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body row pa-0">
+														<div class="table-wrap">
+															<div class="table-responsive">
+																<table id="edit_datable_2"
+																	class="table table-hover display  pb-30"
+																	width="100%">
+																	<div id="spark_1"></div>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /room conditions table carts-->
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+											<!-- col 2-->
+											<div class="panel panel-default card-view">
+												<div class="panel-wrapper collapse in">
+													<div class="text-center">
+														<h6 class="panel-title">Input Power</h6>
+													</div>
+													<div id="inp_pow" class="" style="height:210px;"></div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 2-->
+										<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+											<!-- col 2-->
+											<div class="panel panel-default card-view">
+												<div class="panel-wrapper collapse in">
+													<div class="text-center">
+														<h6 class="panel-title">CHW Pressure Drop</h6>
+													</div>
+													<div id="chwpdp" class="" style="height:210px;"></div>
+												</div>
+											</div>
+										</div>
+										<!-- /col 2-->
+									</div>
+									<!-- /2nd row-->
+								</div>
+								<!-- /dashboad-->
+								<div id="follo_8" class="tab-pane fade" role="tabpanel">
+									<!-- dtabase-->
+									<div class="row">
+										<div class="col-lg-12 col-sm-12">
+											<!-- blockquote-->
+											<blockquote>
+												<p>Please note that the data is being recorded every <span
+														id="interval_log" class="text-success mb-10">12</span> seconds
+													and for a total of <span id="total_logs1"
+														class="text-success mb-10">
+														50 </span> logs. So far, the device has delivered <span
+														id="used_logs" class="text-success mb-10">
+														6 </span> logs of <span id="total_logs"
+														class="text-success mb-10">50
+													</span> logs.</p>
+												<p>If you wish to change the record interval or to increase the total
+													logs, You can make the required changes via the settings menu for
+													the device.</p>
+											</blockquote>
+										</div>
+										<br />
+										<div class="col-sm-12 col-lg-12">
+											<div class="panel panel-default card-view">
+												<div class="panel-heading">
+													<div class="pull-left">
+														<h6 class="panel-title txt-dark" id="loaddata"></h6>
+													</div>
+													<div class="pull-right">
+														<button type="button"
+															class="btn alrm-tb-2-btn btn-rounded btn-anim" id=""
+															onclick="gen_cust_gra()"><i class="far fa-chart-bar"
+																style="color:white"></i><span class="btn-text">Trend
+																Settings</span>
+														</button>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body">
+														<div class="tab-struct custom-tab-1 ">
+															<ul role="tablist" class="nav nav-tabs" id="myTabs_7">
+																<li class="active" role="presentation"><a
+																		aria-expanded="true" data-toggle="tab"
+																		role="tab" id="home_tab_7"
+																		href="#home_7">Trend</a>
+																</li>
+																<li role="presentation" class=""><a data-toggle="tab"
+																		id="profile_tab_7" role="tab" href="#profile_7"
+																		aria-expanded="false">Table</a>
+																</li>
+																<!-- <li role="presentation" class=""><a data-toggle="tab" id="profile_tab_77"
+                                role="tab" href="#profile_77" aria-expanded="false">Radar Chart</a></li> -->
+															</ul>
+															<div class="tab-content" id="myTabContent_7">
+																<div id="home_7" class="tab-pane fade active in"
+																	role="tabpanel">
+																	<div id="chartdiv8"></div>
+																</div>
+																<div id="profile_7" class="tab-pane fade"
+																	role="tabpanel">
+																	<div class="table-wrap">
+																		<div class="table-responsive">
+																			<table id="dbtable"
+																				class="table table-hover display  pb-30"
+																				width="100%"></table>
+																		</div>
+																	</div>
+																</div>
+																<!-- <div id="profile_77" class="tab-pane fade" role="tabpanel">
+
+                              </div> -->
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<!-- 3rd row -->
+									</div>
+									<!-- /3rd row -->
+								</div>
+								<!-- dtabase-->
+								<div id="follo_9" class="tab-pane fade" role="tabpanel">
+									<!-- alarms-->
+									<div class="row">
+										<!--row2-->
+										<div class="col-sm-12 col-lg-12">
+											<div class="panel panel-default card-view">
+												<div class="panel-heading">
+													<div class="pull-left">
+														<h6 class="panel-title txt-dark" id="alarmtitle">loading...</h6>
+													</div>
+													<div class="pull-right">
+														<div class="pull-left inline-block dropdown mr-15">
+															<form class="form-inline">
+																<button type="button"
+																	class="btn alrm-tb-2-btn btn-rounded btn-anim"
+																	data-toggle="modal" data-target=".alarms_modal"
+																	onclick="rangebtn()"><i class="far fa-bell"
+																		style="color:white"></i><span
+																		class="btn-text">Alarm
+																		Settings</span>
+																</button>
+															</form>
+														</div>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+												<div class="panel-wrapper collapse in">
+													<div class="panel-body">
+														<div class="tab-struct custom-tab-1 ">
+															<ul role="tablist" class="nav nav-tabs" id="myTabs_7">
+																<li class="active" role="presentation"><a
+																		aria-expanded="true" data-toggle="tab"
+																		role="tab" id="home_tab_71"
+																		href="#home_71">Logs</a>
+																</li>
+																<li role="presentation" class=""><a data-toggle="tab"
+																		id="profile_tab_71" role="tab"
+																		href="#profile_71"
+																		aria-expanded="false">Statistics</a>
+																</li>
+															</ul>
+															<div class="tab-content" id="myTabContent_7">
+																<div id="home_71" class="tab-pane fade active in"
+																	role="tabpanel">
+																	<div class="table-wrap">
+																		<div class="table-responsive">
+																			<table id="alrmtble"
+																				class="table table-hover display  pb-30"
+																				width="100%"></table>
+																		</div>
+																	</div>
+																	<!-- <div id="chartdiv4"></div> -->
+																</div>
+																<div id="profile_71" class="tab-pane fade"
+																	role="tabpanel">
+																	<div id="alarm_stats"></div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/row2-->
+								</div>
+								<!-- /alarms-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal Designedchange-->
+	<div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="Designedchange12">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+							aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="Designedchange12">loading...</h4>
+					<div class="col-lg-12 col-sm-12">
+						<!-- blockquote-->
+						<br>
+						<blockquote>
+							<p>loading...</p>
+						</blockquote>
+					</div>
+					<!-- /blockquote-->
+				</div>
+				<div class="modal-body">
+					<div class="table-wrap">
+						<div class="table-responsive">
+							<table id="table56" class="table table-hover display" width="100%" height="70%"></table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="rangesave()">Save
+						changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- DESIGNED PARAMETERS SETTINGS-->
+	<div id="tbedit" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h5 class="modal-title" id="myModalLabel">Update Designed Parameters |
+					</h5>
+				</div>
+				<div class="modal-body">
+					<!-- Row -->
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="">
+								<div class="panel-wrapper collapse in">
+									<div class="panel-body pa-0">
+										<div class="col-sm-12 ">
+											<form>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<label>Parameters</label>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<label id="">aaa</label>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control" name="" value="">
+													</div>
+												</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success waves-effect" data-dismiss="modal"
+						onclick="dbedt()">Update</button>
+					</form>
+					<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</body>
+<script src="js/smardtchiller.js" type="text/javascript"></script>
+
+</html>

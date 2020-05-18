@@ -1,0 +1,189 @@
+<html>
+
+<head>
+
+
+</head>
+
+<body>
+    <!-- CREATE DEVICE -->
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#215;</button>
+                    <h5 class="modal-title" id="myLargeModalLabel"><strong>&nbsp;&nbsp;Add
+                            Device</strong></h5>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label mb-10" for="">Device ID</label>
+                                        <input type="text" class="form-control" id="DeviceId" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label mb-10" for="">Description</label>
+                                        <input type="text" class="form-control" id="dDescription" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label mb-10" for="">Device Name</label>
+                                        <input type="text" class="form-control" id="DeviceName" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label mb-10">Domain:</label>
+                                        <select class="form-control" id="changeDomain2"></select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="" class="control-label mb-10">Log Intravel (Minutes)</label>
+                                        <input type="text" id="range" value="" name="range" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="" class="control-label mb-10">Minimum Logs (Records)</label>
+                                        <input type="text" id="range2" value="" name="range" />
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <!--
+                                  <div class="form-group">
+                                      <label for="recipient-name" class="control-label mb-10">Device Id:</label>
+                                      <input type="text" class="form-control" id="DeviceId" required=""> </input>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="recipient-name" class="control-label mb-10">Name:</label>
+                                      <input type="text" class="form-control" id="DeviceName" required=""> </input>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="message-text" class="control-label mb-10">Description</label>
+                                      <textarea class="form-control" id="dDescription" required=""></textarea>
+                                  </div> -->
+                    <div class="form-group" id="note">
+                        <blockquote>
+                            <p>Please note that the selected configuration can hold data for a period of <span id="tttt"
+                                    class="text-success mb-10">-</span>
+                            </p>
+                        </blockquote>
+                        <!-- <textarea class="form-control" id="dDescription" required=""></textarea> -->
+                    </div>
+                    <!--   <div class="form-group">
+                                      <label for="recipient-name" class="control-label mb-10">Domain:</label>
+                                      <select class="form-control" id="changeDomain2">
+                                      </select>
+                                  </div> -->
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label mb-10">Format:</label>
+                        <select class="form-control" id="pKey_format">
+                            <option>RSA_PEM</option>
+                            <option>RSA_X509_PEM</option>
+                            <option>ES256_PEM</option>
+                            <option>ES256_X509_PEM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label mb-10">Public key</label>
+                        <textarea class="form-control" id="Pkey" required=""></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label mb-10">Type:</label>
+                        <select class="form-control" id="dType"></select>
+                    </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary btn-rounded" data-dismiss="modal"
+                            onclick="adDevice()">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var x = document.getElementById("note");
+        function get_time_diff(datetime) {
+            var datetime = typeof datetime !== 'undefined' ? datetime : "2014-01-01 01:02:03.123456";
+            var datetime = new Date(datetime).getTime();
+            var now = new Date().getTime();
+
+            if (isNaN(datetime))
+            {
+                return "";
+            }
+            // console.log(datetime - now);
+            if (datetime < now)
+            {
+                var milisec_diff = now - datetime;
+            } else
+            {
+                var milisec_diff = datetime - now;
+            }
+            var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
+            var date_diff = new Date(milisec_diff);
+            return;
+        }
+
+        //<![CDATA[
+        $(document).ready(function () {
+            $("#range").ionRangeSlider({
+                type: "single",
+                min: 0,
+                max: 120,
+                step: 10,
+                grid: !0,
+                from: 1,
+                onStart: function (data) {
+
+                    x.style.display = "none";
+                },
+                onChange: function (data) {
+                    var time_period = data.from * document.getElementById("range2").value;
+                    var momentOfTime = new Date(); // just for example, can be any other time
+                    var offset = momentOfTime.getTimezoneOffset()
+                    var milisec_diff = time_period * 60 * 1000 + (offset * 60 * 1000); // 5 minutes in milliseconds               
+                    var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
+                    var date_diff = new Date(milisec_diff);
+                    if (days == -1) days = 0;
+                    document.getElementById("tttt").innerText = days + " Days " + date_diff.getHours() + " Hours " + date_diff.getMinutes() + " Minutes ";
+
+                    x.style.display = "block";
+                },
+            });
+
+            $("#range2").ionRangeSlider({
+                min: 0,
+                max: 5000,
+                from: 5,
+                type: 'single',
+                step: 1,
+                grid: true,
+                onChange: function (data) {
+                    var time_period = data.from * document.getElementById("range").value;
+                    var momentOfTime = new Date(); // just for example, can be any other time
+                    var offset = momentOfTime.getTimezoneOffset()
+                    var milisec_diff = time_period * 60 * 1000 + (offset * 60 * 1000); // 5 minutes in milliseconds               
+                    var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
+                    var date_diff = new Date(milisec_diff);
+                    if (days == -1) days = 0;
+                    document.getElementById("tttt").innerText = days + " Days " + date_diff.getHours() + " Hours " + date_diff.getMinutes() + " Minutes ";
+
+
+                    x.style.display = "block";
+
+                },
+            });
+
+        })
+		        //]]>
+    </script>
+
+</body>
+
+</html>

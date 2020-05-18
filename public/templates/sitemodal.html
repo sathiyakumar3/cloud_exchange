@@ -1,0 +1,43 @@
+<html>
+
+<head></head>
+
+<body>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true"></span>
+				</button>
+				<h5 class="modal-title" id="addSite">Loading...</h5>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="recipient-name" class="control-label mb-10">Site Name:</label>
+						<input type="text" class="form-control" id="sName" required=""></input>
+					</div>
+					<input type="hidden" class="form-control" id="sid" required=""></input>
+					<div class="form-group">
+						<label for="message-text" class="control-label mb-10">Description</label>
+						<textarea class="form-control" id="sDescription" required=""></textarea>
+					</div>
+					<div class="form-group">
+						<label for="recipient-name" class="control-label mb-10">Location:</label>
+						<input type="text" class="form-control" id="sLocation" required=""></input>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn dvice-dlt-bt2" data-dismiss="modal" onclick="deleteSite()"
+					align="left">Delete</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal" onclick="adSite()">Save</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+	<!--- - -->
+
+</body>
+
+</html>

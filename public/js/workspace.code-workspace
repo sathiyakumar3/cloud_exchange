@@ -1,0 +1,57 @@
+{
+  "folders": [
+	{
+		"path": "E:\\PlatformIO Projects\\Rational edit 2"
+	},
+	{
+		"path": "E:\\PlatformIO Projects\\Fitout 2.3"
+	},
+	{
+		"path": "E:\\PlatformIO Projects\\Aptinex edit 2"
+	},
+	{
+		"path": "C:\\Users\\Sathiya\\Desktop\\encoder_test"
+	},
+	{
+		"path": "E:\\local\\cloudexchange"
+	},
+	{
+		"path": "E:\\local\\iot-smart-home-cloud-master\\web"
+	},
+	{
+		"path": "E:\\local\\nodejs-docs-samples-master\\iot"
+	},
+	{
+		"path": "E:\\PlatformIO Projects\\Motor_Experi"
+	},
+	{
+		"name": "Clock_Test",
+		"path": "C:\\Users\\Sathiya\\Documents\\PlatformIO\\Projects\\Clock_Test"
+	},
+	{
+		"name": "BT_Test_1",
+		"path": "C:\\Users\\Sathiya\\Documents\\PlatformIO\\Projects\\BT_Test_1"
+	},
+	{
+		"path": "E:\\local\\saaspik"
+	},
+	{
+		"path": "E:\\local\\Iot_landing_page"
+	},
+	{
+		"name": "modbus_project",
+		"path": "C:\\Users\\Sathiya\\Documents\\PlatformIO\\Projects\\modbus_project"
+	}
+],
+  "settings": {
+    "terminal.integrated.env.windows": {
+      "PATH": "C:\\Users\\Sathiya\\.platformio\\penv\\Scripts;C:\\Users\\Sathiya\\.platformio\\penv;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\LLVM\\bin;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\nodejs\\;C:\\Program Files\\Amazon\\AWSCLI\\bin\\;%SystemRoot%\\system32;%SystemRoot%;%SystemRoot%\\System32\\Wbem;%SYSTEMROOT%\\System32\\WindowsPowerShell\\v1.0\\;%SYSTEMROOT%\\System32\\OpenSSH\\;C:\\Users\\Sathiya\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Users\\Sathiya\\AppData\\Roaming\\npm;C:\\Users\\Sathiya\\AppData\\Local\\GitHubDesktop\\bin;C:\\Users\\Sathiya\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Sathiya\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Sathiya\\AppData\\Local\\Google\\Cloud SDK\\google-cloud-sdk\\bin;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\LLVM\\bin;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\nodejs\\;C:\\Program Files\\Amazon\\AWSCLI\\bin\\;%SystemRoot%\\system32;%SystemRoot%;%SystemRoot%\\System32\\Wbem;%SYSTEMROOT%\\System32\\WindowsPowerShell\\v1.0\\;%SYSTEMROOT%\\System32\\OpenSSH\\;C:\\Users\\Sathiya\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Users\\Sathiya\\AppData\\Roaming\\npm;C:\\Users\\Sathiya\\AppData\\Local\\GitHubDesktop\\bin;C:\\Users\\Sathiya\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Sathiya\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Sathiya\\AppData\\Local\\Google\\Cloud SDK\\google-cloud-sdk\\bin",
+      "PLATFORMIO_CALLER": "vscode"
+    },
+    "files.associations": {
+      "array": "cpp",
+      "functional": "cpp",
+      "algorithm": "cpp"
+    }
+  }
+}
