@@ -173,7 +173,7 @@ var temp = [];
 function buildnavitree()
 {
     gg = " active in"; bb = "active";
-    
+
     var new_tab = ""; var new_tab_pro = "";
     var new_tab2 = ""; var new_tab_pro2 = "";
     var devicesum = []; var new_guy_flag = !1; var children = [];
@@ -410,8 +410,10 @@ function setup_echart(e)
 }
 function checkstatus(e, t)
 {
-
-    void 0 == e && (e = !1), d = [], t.forEach(function (t)
+    var d = [];
+    void 0 == e && (e = !1), d = [], d.offline = 0, d.online = 0, d.total = 0;
+    console.log(d.online + "/" + d.total);
+    t.forEach(function (t)
     {
         var element = document.getElementById("li_" + t), m = t;
 
@@ -422,7 +424,7 @@ function checkstatus(e, t)
             var element = document.getElementById(m);
             if (blocked) {
                 //     console.log("making blocked");
-                d.offline = (d.offline || 0) + 1;
+                d.offline = (d.offline) + 1;
                 element.className = "navi-sub mb-5 text-danger";
             } else {
                 element.className = "navi-sub mb-5 text-muted";
@@ -433,17 +435,17 @@ function checkstatus(e, t)
             {
 
 
-                d.total = (d.total || 0) + 1, oldtimestamp = t.data().timestamp, newtimestamp = Date.now(),
+                d.total = (d.total) + 1, oldtimestamp = t.data().timestamp, newtimestamp = Date.now(),
                     difference = (newtimestamp - oldtimestamp.toMillis()) / 1e3 || 0;
 
 
                 if (difference > 60) {
-                    d.offline = (d.offline || 0) + 1;
+                    d.offline = (d.offline) + 1;
                     element.classList.remove("text-muted");
                     element.classList.add("txt-dark");
                 } else {
-                    d.online = (d.online || 0) + 1;
-                    console.log(m + "is succes. " + blocked);
+                    d.online = (d.online) + 1;
+
                     element.classList.remove("text-muted");
                     element.classList.add("text-success")
                 }
@@ -452,6 +454,9 @@ function checkstatus(e, t)
             {
                 document.getElementById("pie_chart_4_text").className = "percent block txt-dark weight-500";
                 var e = Number((d.online / d.total * 100).toFixed(1));
+                console.log(e);
+
+                console.log(d.online + "/" + d.total);
                 $("#pie_chart_4").data("easyPieChart").update(e), document.getElementById("num_online").innerText = d.online + "/" + d.total;
             }).catch(function ()
             {
@@ -554,7 +559,7 @@ function googlefunctions()
                                         id: domainid,
                                         role: roler,
                                         user_list: io
-                                    }), ob_de = [], userlist = [], counter++ , domaincount == counter && (total_do.push({
+                                    }), ob_de = [], userlist = [], counter++, domaincount == counter && (total_do.push({
                                         name: user.displayName,
                                         children: ob_do
                                     }),
