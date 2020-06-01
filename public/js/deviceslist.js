@@ -416,7 +416,6 @@ function checkstatus(e, t)
     t.forEach(function (t)
     {
         var element = document.getElementById("li_" + t), m = t;
-
         db.collection("devices").doc(m).get().then(function (t)
         {
             blocked = t.data().blocked;
@@ -454,9 +453,9 @@ function checkstatus(e, t)
             {
                 document.getElementById("pie_chart_4_text").className = "percent block txt-dark weight-500";
                 var e = Number((d.online / d.total * 100).toFixed(1));
-                console.log(e);
+                //  console.log(e);
 
-                console.log(d.online + "/" + d.total);
+                //  console.log(d.online + "/" + d.total);
                 $("#pie_chart_4").data("easyPieChart").update(e), document.getElementById("num_online").innerText = d.online + "/" + d.total;
             }).catch(function ()
             {
