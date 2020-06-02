@@ -213,9 +213,34 @@ function CreateSite()
                     {
                         var status = doc.data().cloud_status; Swal.getContent().querySelector('h6').textContent = "Request Sent for new site."; if (status != "") {
                             unsubscribetemp(); if (status == 'success') {
-                                db.collection("users").doc(user.uid).collection('requests').doc(site_name).set({ created_on: today, roles: roles, requested_from: user.uid, approval: !0 }).then(function ()
-                                { rebuildtree(site_name + " was created successfully") }).catch(function (error)
-                                { badnews(error); })
+                                db.collection("users").doc(user.uid).collection('requests').doc(site_name).set({ created_on: today, roles: roles, requested_from: user.uid, approval: !0 })
+                                    .then(function ()
+                                    {
+                                        db.collection("domains").doc(site_name).collection("tickets").add({
+                                            assigned_to_1: '---',
+                                            assigned_to_2: '---',
+                                            assigned_to_3: '---',
+                                            assigned_to_4: '---',
+                                            created_by: user.uid,
+                                            created_on: today,
+                                            id: 0,
+                                            issue: "Automatically Generated.",
+                                            location: "Site Created.",
+                                            status: 'Closed',
+                                            hist_created_on: today,
+                                            hist_created_by: user.uid,
+                                            hist_message: "---"
+                                        }).then(function ()
+                                        {
+                                            rebuildtree(site_name + " was created successfully");
+
+                                        }).catch(function (error)
+                                        {
+                                            badnews(error), console.log(error);
+                                        });
+                                    }
+                                    ).catch(function (error)
+                                    { badnews(error); })
                             } else {
                                 db.collection("domains").doc(site_name).delete().then(function ()
                                 { Swal.fire("Error!", status, "error").then((willDelete) => { if (willDelete) { $('#CreateSitemodal').modal('show') } }) })
@@ -334,7 +359,7 @@ function reset_user()
 }
 function ProfileUpdate()
 {
-    
+
 
     var e = document.getElementById("UserEmailUpdte").value, t = document.getElementById("UserNameUpdte").value, n = document.getElementById("Userphonnumber").value,
         l = document.getElementById("UserGender").value, d = document.getElementById("UserCountry").value, o = document.getElementById("UserDesignation").value,
@@ -342,37 +367,77 @@ function ProfileUpdate()
         b = document.getElementById("asoption").checked,
         y = firebase.auth().currentUser;
 
- var image = document.getElementById("photoUrl").files[0];
-     
-  var imageName=image.name;
+    var image = document.getElementById("photoUrl").files[0];
 
-  var storageRef=firebase.storage().ref('ProfilePicture/'+imageName);
-  
+    var imageName = image.name;
 
-  var uploadTask=storageRef.put(image);
+    var storageRef = firebase.storage().ref('ProfilePicture/' + imageName);
 
-  uploadTask.on('state_changed',function (snapshot) {
 
-      var progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
-      console.log("upload is " + progress +" done");
-  },function (error) {
-   
+    var uploadTask = storageRef.put(image);
 
-  },function () {
-    
 
-      uploadTask.snapshot.ref.getDownloadURL().then(function (downlaodURL) {
- 
+    Swal.fire({
+        title: "Please wait.", text: "Initiating...",
+        timer: 60000,
+        html: '<h6></h6>.', onBeforeOpen: () =>
+        {
+            Swal.showLoading(); Swal.getContent().querySelector('h6').textContent = "Uploading Image...";
 
-    db.collection("users").doc(y.uid).set({
-        name: t, email: e, phone: n, 
-        photoUrl:downlaodURL,
-         gender: l,
-        country: d, designation: o, dp_options: s, as_options: b
-    }, { merge: !0 }).then(function () { goodnews('Saved successfully!'); }).then(function ()
-    { s ? (document.getElementById("dp_op_list_title").style.display = "block", document.getElementById("dp_op_list_1").style.display = "block", document.getElementById("dp_op_list_2").style.display = "block", document.getElementById("dp_op_list_3").style.display = "block", document.getElementById("dp_op_line").style.display = "block") : (document.getElementById("dp_op_list_title").style.display = "none", document.getElementById("dp_op_list_1").style.display = "none", document.getElementById("dp_op_list_2").style.display = "none", document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none") }).catch(function (e) { badnews(e); })
-});
-});
+
+        },
+    })
+
+
+    uploadTask.on('state_changed', function (snapshot)
+    {
+
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("upload is " + progress + " done");
+        Swal.getContent().querySelector('h6').textContent = "Uploading Imaage : " + Math.round(progress) + " % Complete.";
+        if (Math.round(progress) == 100) {
+            Swal.getContent().querySelector('h6').textContent = "Uploading Complete.";
+        }
+
+
+
+    }, function (error)
+    {
+
+
+    }, function ()
+    {
+        Swal.getContent().querySelector('h6').textContent = "Saving to database.";
+
+        uploadTask.snapshot.ref.getDownloadURL().then(function (downlaodURL)
+        {
+
+
+            db.collection("users").doc(y.uid).set({
+                name: t, email: e, phone: n,
+                photoUrl: downlaodURL,
+                gender: l,
+                country: d, designation: o, dp_options: s, as_options: b
+            }, { merge: !0 }).then(function ()
+            {
+                goodnews('Saved successfully!');
+                document.getElementById("main_page_name").innerText = t;
+                document.getElementById("main_page_desig").innerText = o;
+                document.getElementById("topProImg").src = downlaodURL;
+                document.getElementById("main_page_pic").src = downlaodURL;
+
+            }).then(function ()
+            {
+                s ? (document.getElementById("dp_op_list_title").style.display = "block",
+                    document.getElementById("dp_op_list_1").style.display = "block",
+                    document.getElementById("dp_op_list_2").style.display = "block",
+                    document.getElementById("dp_op_list_3").style.display = "block",
+                    document.getElementById("dp_op_line").style.display = "block") : (document.getElementById("dp_op_list_title").style.display = "none",
+                        document.getElementById("dp_op_list_1").style.display = "none", document.getElementById("dp_op_list_2").style.display = "none",
+                        document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none")
+            }).catch(function (e) { badnews(e); })
+        });
+    });
 }
 
 

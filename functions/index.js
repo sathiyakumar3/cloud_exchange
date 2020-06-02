@@ -129,6 +129,38 @@ exports.deletedevices = functions.firestore.document('devices/{device_id}').onDe
     console.error(err);
   });
 });
+
+exports.deleteusers = functions.firestore.document('users/{user_id}').onDelete((snap, context) =>
+{
+  var user_id = context.params.user_id;
+
+  admin.firestore().collection('domains').get().then(function (querySnapshot)
+  {
+    querySnapshot.forEach(function (doc)
+    {
+      var domain_id = doc.id;
+      var docRef = admin.firestore().collection('domains').doc(domain_id).collection('requests').doc(user_id);
+      docRef.get().then(function (doc2)
+      {
+        if (doc2.exists) {
+          console.log("Deleting, residual data : ", doc2.data());
+          docRef.delete();
+        }
+      }).catch(function (error)
+      {
+        console.log("Error getting document:", error);
+      });
+      console.log(doc.id, ' => ', doc.data());
+    });
+  });
+
+
+
+
+});
+
+
+
 exports.createregistry = functions.firestore.document('domains/{domain_id}').onCreate((snap, context) =>
 {
   var id = context.params.domain_id;
@@ -478,8 +510,6 @@ exports.updatesubscriptions = functions.firestore.document('domains/{domainid}/r
     var userid = context.params.userid;
     var domainid = context.params.domainid;
     admin.firestore().collection('users').doc(userid).collection('requests').doc(domainid).update(data);
-  } else {
-    console.log("Same data so stopping riht here")
   }
 });
 exports.sendcommand = functions.firestore.document('devices/{device_id}/datasets/send').onUpdate((change, context) =>

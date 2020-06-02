@@ -16,6 +16,52 @@ firebase.auth().onAuthStateChanged(function (n)
 });
 
 
+function cleanusers()
+{
+
+    db.collection('domains').get().then(function (querySnapshot)
+    {
+        querySnapshot.forEach(function (doc)
+        {
+            var domain_id = doc.id;
+            // var registryId = snap.data().domain || "";
+            db.collection('domains').doc(domain_id).collection('requests').get().then(function (querySnapshot)
+            {
+                querySnapshot.forEach(function (doc)
+                {
+                    var user_id = doc.id;
+
+
+                    //  db.collection('domains').doc(doc.id).collection('tickets').doc(user_id).delete();
+
+                    var docRef = db.collection('users').doc(user_id)
+
+                    docRef.get().then(function (doc2)
+                    {
+                        if (doc2.exists) {
+                            // console.log("Document data:", doc2.data());
+                            //   docRef.delete();
+                        } else {
+                            // doc.data() will be undefined in this case
+                            console.log(doc2.id);
+                            console.log("No such document!");
+                            db.collection('domains').doc(domain_id).collection('requests').doc(doc2.id).delete();
+                        }
+                    }).catch(function (error)
+                    {
+                        console.log("Error getting document:", error);
+                    });
+
+                    console.log(doc.id, ' => ', doc.data());
+                });
+            });
+        });
+    });
+
+
+}
+
+
 function live_update_refresh()
 { document.getElementById("session_status").innerHTML = '<div class="spinner" id="loading_nava">' + '<div class="bounce1"></div>' + '<div class="bounce2"></div>' + '<div class="bounce3"></div>' + '</div>'; var user = firebase.auth().currentUser; var date = new Date(); live_update(user, user_devices, date) }
 function check_live_update(e, t, s, n)

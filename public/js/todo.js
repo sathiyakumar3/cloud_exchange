@@ -4,34 +4,22 @@ var dats = [];
 
 function loadtable(id, dataset, reportflag)
 {
-
     for (i = 0; i < dataset.length; i++) {
-
-
-        processrow(reportflag, dataset[i], i)
-
-
+        processrow(reportflag, dataset[i], i);
     }
-
     dotable(id, dataset, !1, reportflag),
         document.getElementById("stats_cc").innerText = Number(document.getElementById("stats_tc").innerText) - Number(document.getElementById("stats_oc").innerText);
-
-
 }
 
 function reload_table(dom_id)
 {
-
     setTimeout(
         function ()
         {
-            var table = $('#edit_datable_' + dom_id).DataTable(
-
-            );
+            var table = $('#edit_datable_' + dom_id).DataTable();
+            console.log(table.rows().data());
             table.columns.adjust().draw();
-
         }, 175);
-
 }
 
 function processrow(reportflag, row, i)
@@ -56,15 +44,10 @@ function processrow(reportflag, row, i)
         row[18] = tabletoname(row[13]) + tabletoname(row[14]) + tabletoname(row[15]) + tabletoname(row[16]),
         row[19] = tabletoname(row[12]), increment_tag("total_oc_tickets");
 
-    if (user.uid == row[13] || user.uid == row[14] || user.uid == row[15] || user.uid == row[16]) {
-        dataSet2.push(row),
-            increment_tag("lb_todo");
-        //   buttons = buttons + '<a href="javascript:void(0)" onclick=close_case("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check"></i></a>&nbsp;&nbsp;';
-    }
 
 
     if (user.uid == row[12]) {
-        buttons = '<a href="#" onclick=tktedit("' + row[0] + '","' + row[2] + '","' + i + '") class="text-inverse text-success" title="Edit" data-toggle="modal" data-target="#edit_ticket_modal"><i class="fas fa-edit"></i></a> &nbsp;&nbsp;&nbsp;&nbsp<a href="javascript:void(0)" onclick=tktdelete("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="zmdi zmdi-delete"></i></a>  &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick=close_case("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check"></i></a>&nbsp;&nbsp;';
+        buttons = '<a href="#" onclick=tktedit("' + row[0] + '","' + row[2] + '","' + i + '") class="text-inverse text-success" title="Edit" data-toggle="modal" data-target="#edit_ticket_modal"><i class="fas fa-edit fa-lg"></i></a> &nbsp;&nbsp;<a href="javascript:void(0)" onclick=tktdelete("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-times fa-lg"></i></a>  &nbsp;&nbsp;<a href="javascript:void(0)" onclick=close_case("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check fa-lg"></i></a>&nbsp;&nbsp;';
     } else {
         buttons = buttons + '<i class="fas fa-lock"></i>';
     }
@@ -93,14 +76,17 @@ function processrow(reportflag, row, i)
         row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
         row[3] = '<p class="txt-dark weight-500">' + row[3] + "</p>", row[4] = '<p class="txt-dark mb-10">' + row[4] + "</p>",
         increment_tag("lb_allsit");
-    //    html = document.getElementById(row[2] + '1_tab2').innerHTML;
-    // var html = html.replace(/<\/?div>/g, '');
-    //  row[2] = '<ul role="tablist" class="nav nav-pills nav-pills-rounded" id="myTabs_12"><li role="presentation" class="margin-top-tkt ms-hover"><a>' + html + "</a></li></ul>",
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
         ("Urgent Action" == row[11] || "Not Started" == row[11] || "On Progress" == row[11]) && (dataSet3.push(row),
             increment_tag("lb_atten")), "Not Started" == row[11] && increment_tag("stats_aq");
 
-    row[23] = '<p class="inline-block font-12 txt-dark"> - &nbsp;' + row[23] + '&nbsp;</p>&nbsp;';
+    row[23] = '<p class="inline-block"> - &nbsp;' + row[23] + '&nbsp;</p>&nbsp;';
+    if (user.uid == row[13] || user.uid == row[14] || user.uid == row[15] || user.uid == row[16]) {
+        dataSet2.push(row),
+            increment_tag("lb_todo");
+        //   buttons = buttons + '<a href="javascript:void(0)" onclick=close_case("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check"></i></a>&nbsp;&nbsp;';
+    }
+
 
     return row
 }
@@ -108,27 +94,26 @@ function processrow(reportflag, row, i)
 function load_atten()
 {
     dotable("#tab2", dataSet3, true, false);
-    setTimeout(
-        function ()
-        {
-            var table = $("#tab2").DataTable();
-            table.columns.adjust().draw();
-
-
-        }, 175);
+    /*     setTimeout(
+            function ()
+            {
+                var table = $("#tab2").DataTable();
+                table.columns.adjust().draw();
+                 console.log("Readjusted");
+            }, 1000); */
 }
 
 function todolist()
 {
     dotable("#newtb", dataSet2, true, false);
 
-    setTimeout(
-        function ()
-        {
-            var table = $("#newtb").DataTable();
-            table.columns.adjust().draw();
-
-        }, 175);
+    /*     setTimeout(
+            function ()
+            {
+                var table = $("#newtb").DataTable();
+                  table.columns.adjust().draw();
+                    console.log("Readjusted");
+            }, 1000); */
 }
 
 function increment_tag(t)
@@ -207,12 +192,15 @@ function dotable(id, dataset, domain_flag, report_flag)
                         clearInterval(loo2p), loo2p = setInterval(function ()
                         {
 
-                            var table = $(id).DataTable(),
+                            var table = $(id).DataTable();
+                            if (table) {
                                 info = table.page.info(),
-                                pageNum = info.page < info.pages ? info.page + 1 : 1;
-                            table.page(pageNum).draw(!1);
-                            //   table.columns.adjust().draw();
-                            //   table.rows.adjust().draw();
+                                    pageNum = info.page < info.pages ? info.page + 1 : 1;
+                                table.page(pageNum).draw(!1);
+                                table.columns.adjust().draw();
+                                table.rows.adjust().draw();
+                            }
+
                         }, inter)
 
                         Swal.fire(
@@ -237,8 +225,6 @@ function dotable(id, dataset, domain_flag, report_flag)
         ]
 
     var table = $(id).DataTable({
-
-
         order: [
             [20, "desc"]
         ],
@@ -248,9 +234,6 @@ function dotable(id, dataset, domain_flag, report_flag)
         buttons: buttons_pack,
         destroy: !0,
         data: dataset,
-
-
-
         createdRow: function (row, data, dataIndex)
         {
             user = firebase.auth().currentUser;
@@ -554,6 +537,7 @@ function delete_history(doc, dom, counter, id)
 function fetch_tickets(t)
 {
 
+
     dataSet2 = [];
     dataSet3 = [];
     dataset = [];
@@ -583,9 +567,17 @@ function fetch_tickets(t)
             if (rest.length != 0) {
                 rest.forEach(function (entry)
                 {
-                    let obj = user_profiles.find(o => o.id === entry);
-                    var n = document.createElement("option");
-                    n.text = obj.name, n.value = obj.id, ass_combo.add(n)
+                    try {
+                        let obj = user_profiles.find(o => o.id === entry);
+                        var n = document.createElement("option");
+
+                        n.text = obj.name;
+                        n.value = obj.id, ass_combo.add(n)
+                    } catch (e) {
+                        cleanusers();
+                        badnews("Residual data has been disposed. Refresh Navigation.");
+                    }
+
                 })
             }
             document.getElementById(t.id + '_label2').innerText = 0;
@@ -628,7 +620,9 @@ function tabletoimage(id)
         var nio = user_profiles.find(o => o.id === id);
 
         if (nio == null) {
-            return id;
+            var nullimage = 'image/blank_profile_pic.jpg';
+            image = '<img src=' + nullimage + ' class="img-circle bounce"  height="35" width="35" title="' + "Not Available" + '">' + "&nbsp;&nbsp;";
+            return image;
         } else {
             let obj = user_profiles.find(o => o.id === id);
 
