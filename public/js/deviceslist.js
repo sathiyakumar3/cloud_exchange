@@ -288,7 +288,7 @@ function buildnavitree()
                         '&nbsp;&nbsp;' +
                         '<button class="btn btn-success tkt-btn btn-anim btn-rounded " onclick="call_ticket_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"  data-toggle="modal" data-target="#open_ticket_modal">' +
                         '<i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span></button></div></div></div>' +
-                        '<div class="row"><div class="col-xs-6 row-mg-left"><h6>Available Sites :</h6><div id="currentusers_' + tempname + '"</div></div></tr></tbody></table > <select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select >';
+                        '<div class="row"><div class="col-xs-6 row-mg-left"><h6>Available Users :</h6><div id="currentusers_' + tempname + '"</div></div></tr></tbody></table > <select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select >';
                     new_tab2 = new_tab2 + '<li role="presentation" class="' + bb + ' margin-top-tkt"><a data-toggle="tab"' + 'id="' + tempname + '1_tab2' + '"  onclick = "reload_table(\'' + tempname + '\')" role="tab"' + 'href="#' + tempname + '_tab2' + '"' +
                         'aria-expanded="true"><i class="' + tempicon + '"></i> &nbsp;&nbsp' + tempname + ' &nbsp; &nbsp; <div class="pull-right"><span class="label label-primary" id="' + tempname
                         + '_label2' + '">0</span></div></a></li>';
@@ -460,7 +460,7 @@ function checkstatus(e, t)
 {
     var d = [];
     void 0 == e && (e = !1), d = [], d.offline = 0, d.online = 0, d.total = 0;
-    console.log(d.online + "/" + d.total);
+
     t.forEach(function (t)
     {
         var element = document.getElementById("li_" + t), m = t;
