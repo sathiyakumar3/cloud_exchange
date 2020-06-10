@@ -9,6 +9,7 @@ function loadtable(id, dataset, reportflag)
     }
     dotable(id, dataset, !1, reportflag),
         document.getElementById("stats_cc").innerText = Number(document.getElementById("stats_tc").innerText) - Number(document.getElementById("stats_oc").innerText);
+
 }
 
 function reload_table(dom_id)
@@ -24,6 +25,7 @@ function reload_table(dom_id)
 
 function processrow(reportflag, row, i)
 {
+
 
     var date2 = new Date(),
         user = firebase.auth().currentUser;
@@ -87,7 +89,7 @@ function processrow(reportflag, row, i)
         //   buttons = buttons + '<a href="javascript:void(0)" onclick=close_case("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check"></i></a>&nbsp;&nbsp;';
     }
 
-
+    // currentusers_
     return row
 }
 
@@ -552,9 +554,12 @@ function fetch_tickets(t)
     document.getElementById('lb_todo').innerText = 0;
     document.getElementById('lb_atten').innerText = 0;
     document.getElementById('lb_allsit').innerText = 0;
-
+    // document.getElementById('currentusers_' + t.name).innerHTML = "";
     t.forEach(function (t)
     {
+
+
+
 
         var dataSet = [];
         if (t.name != "Cloud_Exchange") {
@@ -572,9 +577,10 @@ function fetch_tickets(t)
                         var n = document.createElement("option");
 
                         n.text = obj.name;
-                        n.value = obj.id, ass_combo.add(n)
+                        n.value = obj.id, ass_combo.add(n);
+                        document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id);
                     } catch (e) {
-                        cleanusers();
+                        //cleanusers();
                         badnews("Residual data has been disposed. Refresh Navigation.");
                     }
 
@@ -626,7 +632,7 @@ function tabletoimage(id)
         } else {
             let obj = user_profiles.find(o => o.id === id);
 
-            image = '<img src=' + nio.photoUrl + ' class="img-circle bounce"  height="35" width="35" title="' + obj.name + '">' + "&nbsp;&nbsp;";
+            var image = '<img src=' + nio.photoUrl + ' class="img-circle bounce"  height="35" width="35" title="' + obj.name + '">' + "&nbsp;&nbsp;";
             return image;
         }
     }
@@ -730,6 +736,7 @@ function tktedit(com_id, dom_id, counter)
         document.getElementById("edtassignee2").innerHTML = document.getElementById("combo_" + dom_id).innerHTML,
         document.getElementById("edtassignee3").innerHTML = document.getElementById("combo_" + dom_id).innerHTML,
         document.getElementById("edtassignee4").innerHTML = document.getElementById("combo_" + dom_id).innerHTML,
+
         document.getElementById("edtassignee1").value = assigned_to1, document.getElementById("edtassignee2").value = assigned_to2,
         document.getElementById("edtassignee3").value = assigned_to3, document.getElementById("edtassignee4").value = assigned_to4,
         document.getElementById("com_id").value = com_id, document.getElementById("dom_id").value = dom_id,
