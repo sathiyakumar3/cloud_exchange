@@ -23,10 +23,10 @@ function reload_table(dom_id)
         }, 175);
 }
 
-function processrow(reportflag, row, i)
+function processrow(reportflag, row, i)//
 {
 
-
+    //  chartdata["closed"] = chartdata["closed"] + 1;
     var date2 = new Date(),
         user = firebase.auth().currentUser;
     var buttons = '';
