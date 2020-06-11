@@ -569,6 +569,7 @@ function fetch_tickets(t)
             n.text = "---", n.value = "---", ass_combo.add(n);
             var rest = [];
             rest = t.user_list;
+            document.getElementById('currentusers_' + t.name).innerHTML = "";
             if (rest.length != 0) {
                 rest.forEach(function (entry)
                 {
