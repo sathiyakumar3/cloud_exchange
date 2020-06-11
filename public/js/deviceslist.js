@@ -236,12 +236,15 @@ function buildnavitree()
             displayName = doc.data().name || "", phoneno = doc.data().phone || "", gender = doc.data().gender || "",
                 country = doc.data().country || "", UserDesignation = doc.data().designation || "",
                 dp_options = doc.data().dp_options || !1, as_options = doc.data().as_options || !1,
+
                 document.getElementById("topProImg").src = doc.data().photoUrl || "", document.getElementById("main_page_pic").src = doc.data().photoUrl || "",
                 used_docs2 = doc.data().used_docs || 0, available_docs2 = doc.data().available_docs || 0;
             var res = doc.data().name.split(" ", 3);
             document.getElementById("main_page_name").innerText = res[1] || "", document.getElementById("main_page_desig").innerText = doc.data().designation || "",
                 document.getElementById("used_docs").innerText = numberWithCommas(used_docs2), document.getElementById("UserEmailUpdte").value = doc.data().email || "",
-                document.getElementById("UserNameUpdte").value = displayName, document.getElementById("Userphonnumber").value = phoneno,
+                document.getElementById("UserNameUpdte").value = displayName,
+
+                document.getElementById("Userphonnumber").value = phoneno,
                 document.getElementById("UserGender").value = gender, document.getElementById("UserCountry").value = country,
                 document.getElementById("UserDesignation").value = UserDesignation, document.getElementById("domainload").innerHTML = "- Available Sites",
                 document.getElementById("httpDevices1").innerHTML = doc.data().devicecount, document.getElementById("httSuscription").innerHTML = doc.data().domaincount,
@@ -288,7 +291,7 @@ function buildnavitree()
                         '&nbsp;&nbsp;' +
                         '<button class="btn btn-success tkt-btn btn-anim btn-rounded " onclick="call_ticket_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"  data-toggle="modal" data-target="#open_ticket_modal">' +
                         '<i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span></button></div></div></div>' +
-                        '<div class="row dis-inl"><div class="col-sm-12 dis-inl row-mg-left"><h6 class="dis-inl">Available Users : &nbsp;&nbsp&nbsp;&nbsp</h6><div class="dis-inl" id="currentusers_' + tempname + '"</div></div></tr></tbody></table > <select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select >';
+                        '<div class="row dis-inl"><div class="col-sm-12 dis-inl row-mg-left"><h6 class="dis-inl">Available Sites : &nbsp;&nbsp&nbsp;&nbsp</h6><div class="dis-inl" id="currentusers_' + tempname + '"</div></div></tr></tbody></table > <select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select >';
                     new_tab2 = new_tab2 + '<li role="presentation" class="' + bb + ' margin-top-tkt"><a data-toggle="tab"' + 'id="' + tempname + '1_tab2' + '"  onclick = "reload_table(\'' + tempname + '\')" role="tab"' + 'href="#' + tempname + '_tab2' + '"' +
                         'aria-expanded="true"><i class="' + tempicon + '"></i> &nbsp;&nbsp' + tempname + ' &nbsp; &nbsp; <div class="pull-right"><span class="label label-primary" id="' + tempname
                         + '_label2' + '">0</span></div></a></li>';

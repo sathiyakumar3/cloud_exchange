@@ -357,10 +357,11 @@ function reset_user()
     //     console.log("Error getting document:", error);
     // });
 }
+
+
+
 function ProfileUpdate()
 {
-
-
     var e = document.getElementById("UserEmailUpdte").value, t = document.getElementById("UserNameUpdte").value, n = document.getElementById("Userphonnumber").value,
         l = document.getElementById("UserGender").value, d = document.getElementById("UserCountry").value, o = document.getElementById("UserDesignation").value,
         s = document.getElementById("dpoption").checked,
@@ -393,7 +394,7 @@ function ProfileUpdate()
     {
 
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("upload is " + progress + " done");
+
         Swal.getContent().querySelector('h6').textContent = "Uploading Imaage : " + Math.round(progress) + " % Complete.";
         if (Math.round(progress) == 100) {
             Swal.getContent().querySelector('h6').textContent = "Uploading Complete.";
@@ -401,13 +402,10 @@ function ProfileUpdate()
 
 
 
-    }, function (error)
-    {
-
-
     }, function ()
     {
-        Swal.getContent().querySelector('h6').textContent = "Saving to database.";
+    }, function ()
+    {
 
         uploadTask.snapshot.ref.getDownloadURL().then(function (downlaodURL)
         {
@@ -420,6 +418,11 @@ function ProfileUpdate()
                 country: d, designation: o, dp_options: s, as_options: b
             }, { merge: !0 }).then(function ()
             {
+
+
+                var name = document.getElementById("topProImg").src;
+                var storageRef = firebase.storage().refFromURL(name);
+                storageRef.delete();
                 goodnews('Saved successfully!');
                 document.getElementById("main_page_name").innerText = t;
                 document.getElementById("main_page_desig").innerText = o;
@@ -434,7 +437,8 @@ function ProfileUpdate()
                     document.getElementById("dp_op_list_3").style.display = "block",
                     document.getElementById("dp_op_line").style.display = "block") : (document.getElementById("dp_op_list_title").style.display = "none",
                         document.getElementById("dp_op_list_1").style.display = "none", document.getElementById("dp_op_list_2").style.display = "none",
-                        document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none")
+                        document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none");
+
             }).catch(function (e) { badnews(e); })
         });
     });
@@ -534,3 +538,19 @@ var offline_indi = setInterval(function ()
 //     {
 //         console.log("Error getting documents: ", error);
 //     });
+/*
+var storageRef2 = firebase.storage().ref("https://firebasestorage.googleapis.com/v0/b/poised-charger-184507-910c4.appspot.com/o/ProfilePicture%2Fwallhaven-14048.png?alt=media&amp;token=df5f3fa9-de53-4126-808f-cb2d7ae539e3");
+// Create a reference to the file to delete
+
+
+// Delete the file
+storageRef2.delete().then(function ()
+{
+    // File deleted successfully
+    console.log("Delted!");
+}).catch(function (error)
+{
+    console.log(error);
+    // Uh-oh, an error occurred!
+});
+ */
