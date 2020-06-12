@@ -18,7 +18,7 @@ function reload_table(dom_id)
         function ()
         {
             var table = $('#edit_datable_' + dom_id).DataTable();
-            console.log(table.rows().data());
+            //       console.log(table.rows().data());
             table.columns.adjust().draw();
         }, 175);
 }
@@ -49,7 +49,10 @@ function processrow(reportflag, row, i)//
 
 
     if (user.uid == row[12]) {
-        buttons = '<a href="#" onclick=tktedit("' + row[0] + '","' + row[2] + '","' + i + '") class="text-inverse text-success" title="Edit" data-toggle="modal" data-target="#edit_ticket_modal"><i class="fas fa-edit fa-lg"></i></a> &nbsp;&nbsp;<a href="javascript:void(0)" onclick=tktdelete("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-times fa-lg"></i></a>  &nbsp;&nbsp;<a href="javascript:void(0)" onclick=close_case("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check fa-lg"></i></a>&nbsp;&nbsp;';
+        buttons = '<a href="#" onclick=tktedit("' + row[0] + '","' + row[2] + '","' + i + '") class="text-inverse text-success" title="Edit" data-toggle="modal" data-target="#edit_ticket_modal"><i class="fas fa-edit fa-lg"></i></a> &nbsp;&nbsp;<a href="javascript:void(0)" onclick=tktdelete("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-times fa-lg"></i></a>';
+        if ('Solved' == row[11]) {
+            buttons = buttons + '  &nbsp;&nbsp;<a href="javascript:void(0)" onclick=close_case("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check fa-lg"></i></a>&nbsp;&nbsp;';
+        }
     } else {
         buttons = buttons + '<i class="fas fa-lock"></i>';
     }
@@ -65,7 +68,11 @@ function processrow(reportflag, row, i)//
     }
     if ('Deleted' == row[11]) {
         buttons = "";
+        row[8] = "";
+        row[9] = "";
     }
+
+
 
     row[10] = buttons;
     increment_tag(row[2] + "_label2");
@@ -448,14 +455,14 @@ function save_history_info(doc, dom, counter)
 
 function save_history(doc, dom, counter, status, message, report_flag)
 {
-    console.log("runing slave");
+    // console.log("runing slave");
     var created_on = new Date();
     var user = firebase.auth().currentUser;
 
     var packet;
 
     if (status == 'Closed') {
-        console.log("Check");
+        //     console.log("Check");
         packet = ({
             status: status,
             hist_created_on: created_on
@@ -509,7 +516,7 @@ function save_history(doc, dom, counter, status, message, report_flag)
             {
                 badnews("Saving history ", error);
 
-                console.log(error);
+                // console.log(error);
             });
     }).catch(function (error)
     {
@@ -774,19 +781,26 @@ function tktdelete(com_id, dom_id, counter)
             db.collection("domains").doc(dom_id).collection("tickets").doc(com_id).delete().then(function ()
             {
 
-                console.log(updated[2]);
                 decrement_tag(updated[2].replace(/<\/?[^>]+(>|$)/g, "") + "_label2");
-                format_lock(com_id);
+
                 updated[11] = 'Deleted';
                 updated[13] = '', updated[14] = '', updated[15] = '', updated[16] = '',
                     updated[21] = updated[17];
+
                 updated = processrow(false, updated, counter);
+
                 table.row(counter).data(updated).draw();
                 Swal.fire(
                     'Deleted!',
                     'Your file has been deleted,',
                     'success'
-                )
+                );
+                //  format_lock(com_id);
+
+
+                //  var data = processrow(false, [com_id, ticketid, dom_id, location, issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', status, user.uid, assigned_to1, assigned_to2, assigned_to3, assigned_to4, opticket_date, 'DUM', 'DUM', ticketid, opticket_date, user.uid, "---"], counter);
+
+
 
             }).catch(function (error)
             {

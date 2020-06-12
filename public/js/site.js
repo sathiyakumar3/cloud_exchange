@@ -380,34 +380,35 @@ $(document).ready(function ()
 // update site
 function updateSite()
 {
-  domainid = document.getElementById("idtest").value;
-  var sdescription = document.getElementById('sDescription').value;
-  var slocation = document.getElementById('sLocation').value;
-  var sType = document.getElementById('stype').value;
-
-
-  var washingtonRef = db.collection("domains").doc(domainid);
-
-
-  return washingtonRef.update({
-
-    description: sdescription,
-    location: slocation,
-    type: sType
-
-  })
-    .then(function ()
-    {
-      goodnews("The changes has been made successfully!");
-
+  /*   var domainid = document.getElementById("idtest").value;
+    var sdescription = document.getElementById('sDescription').value;
+    var slocation = document.getElementById('sLocation').value;
+    var sType = document.getElementById('stype').value;
+  
+    db.collection("domains").doc(domainid).update({
+  
+      description: sdescription,
+      location: slocation,
+      type: sType
+  
     })
-    .catch(function (error)
-    {
-      badnews(error);
-
-    });
+      .then(function ()
+      {
+        goodnews("The changes has been made successfully!");
+  
+      })
+      .catch(function (error)
+      {
+        badnews(error);
+  
+      }); */
 }
 
+
+function timeamp()
+{
+
+}
 // delete site
 
 function deleteSite()
