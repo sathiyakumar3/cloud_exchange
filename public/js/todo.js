@@ -570,6 +570,8 @@ function fetch_tickets(t)
             var rest = [];
             rest = t.user_list;
             document.getElementById('currentusers_' + t.name).innerHTML = "";
+            document.getElementById('description_' + t.name).innerHTML = t.description;
+            document.getElementById('title_' + t.name).innerHTML = t.name;
             if (rest.length != 0) {
                 rest.forEach(function (entry)
                 {

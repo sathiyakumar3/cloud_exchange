@@ -35,8 +35,17 @@ function chat(t)
 { $("#content").load("content/chat.html?id=" + t), document.getElementById("idtest").value = t }
 function site(domainid, roler)
 {
+
+
+
+
+
+
     document.getElementById("content").style.display = "block";
     document.getElementById("content_home_page").style.display = "none";
+    document.getElementById("content_devices").style.display = "none";
+    document.getElementById("content_chat").style.display = "none";
+    document.getElementById("content_todo").style.display = "none";
     $('#content').load("content/site.html" + "?id=" + domainid, function (responseTxt, statusTxt, xhr)
     {
         if (statusTxt == "success")
@@ -104,7 +113,7 @@ function open_todo()
 {
     fetch_tickets(total_op);
 
-
+    console.log(total_op);
     document.getElementById("content_chat").style.display = "none";
     document.getElementById("content_devices").style.display = "none";
     document.getElementById("content").style.display = "none";
@@ -554,3 +563,8 @@ storageRef2.delete().then(function ()
     // Uh-oh, an error occurred!
 });
  */
+
+function Clean_Cache()
+{
+    window.location.reload(true);
+}
