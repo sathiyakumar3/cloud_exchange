@@ -582,6 +582,7 @@ function fetch_tickets(t)
             if (rest.length != 0) {
                 rest.forEach(function (entry)
                 {
+
                     try {
                         let obj = user_profiles.find(o => o.id === entry);
                         var n = document.createElement("option");
@@ -590,8 +591,21 @@ function fetch_tickets(t)
                         n.value = obj.id, ass_combo.add(n);
                         document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id);
                     } catch (e) {
-                        //cleanusers();
-                        badnews("Residual data has been disposed. Refresh Navigation.");
+
+                        Swal.fire({
+                            title: 'Stray User detected.',
+                            text: entry + " at " + t.name,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, clean it!'
+                        }).then((result) =>
+                        {
+                            if (result.value) {
+                                cleanusers();
+                            }
+                        })
                     }
 
                 })

@@ -377,80 +377,94 @@ function ProfileUpdate()
         b = document.getElementById("asoption").checked,
         y = firebase.auth().currentUser;
 
-    var image = document.getElementById("photoUrl").files[0];
-
-    var imageName = image.name;
-
-    var storageRef = firebase.storage().ref('ProfilePicture/' + imageName);
-
-
-    var uploadTask = storageRef.put(image);
-
-
     Swal.fire({
         title: "Please wait.", text: "Initiating...",
         timer: 60000,
         html: '<h6></h6>.', onBeforeOpen: () =>
         {
-            Swal.showLoading(); Swal.getContent().querySelector('h6').textContent = "Uploading Image...";
-
-
+            Swal.showLoading(); Swal.getContent().querySelector('h6').textContent = "Saving...";
         },
     })
 
-
-    uploadTask.on('state_changed', function (snapshot)
-    {
-
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-        Swal.getContent().querySelector('h6').textContent = "Uploading Imaage : " + Math.round(progress) + " % Complete.";
-        if (Math.round(progress) == 100) {
-            Swal.getContent().querySelector('h6').textContent = "Uploading Complete.";
-        }
-
-
-
-    }, function ()
-    {
-    }, function ()
-    {
-
-        uploadTask.snapshot.ref.getDownloadURL().then(function (downlaodURL)
+    if (document.getElementById("photoUrl").files.length != 0) {
+        var image = document.getElementById("photoUrl").files[0];
+        var imageName = image.name;
+        var storageRef = firebase.storage().ref('ProfilePicture/' + imageName);
+        var uploadTask = storageRef.put(image);
+        uploadTask.on('state_changed', function (snapshot)
         {
 
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-            db.collection("users").doc(y.uid).set({
-                name: t, email: e, phone: n,
-                photoUrl: downlaodURL,
-                gender: l,
-                country: d, designation: o, dp_options: s, as_options: b
-            }, { merge: !0 }).then(function ()
+            Swal.getContent().querySelector('h6').textContent = "Uploading Imaage : " + Math.round(progress) + " % Complete.";
+            if (Math.round(progress) == 100) {
+                Swal.getContent().querySelector('h6').textContent = "Uploading Complete.";
+            }
+
+        }, function ()
+        {
+        }, function ()
+        {
+
+            uploadTask.snapshot.ref.getDownloadURL().then(function (downlaodURL)
             {
 
+                db.collection("users").doc(y.uid).set({
+                    name: t, email: e, phone: n,
+                    photoUrl: downlaodURL,
+                    gender: l,
+                    country: d, designation: o, dp_options: s, as_options: b
+                }, { merge: !0 }).then(function ()
+                {
 
-                var name = document.getElementById("topProImg").src;
-                var storageRef = firebase.storage().refFromURL(name);
-                storageRef.delete();
-                goodnews('Saved successfully!');
-                document.getElementById("main_page_name").innerText = t;
-                document.getElementById("main_page_desig").innerText = o;
-                document.getElementById("topProImg").src = downlaodURL;
-                document.getElementById("main_page_pic").src = downlaodURL;
 
-            }).then(function ()
-            {
-                s ? (document.getElementById("dp_op_list_title").style.display = "block",
-                    document.getElementById("dp_op_list_1").style.display = "block",
-                    document.getElementById("dp_op_list_2").style.display = "block",
-                    document.getElementById("dp_op_list_3").style.display = "block",
-                    document.getElementById("dp_op_line").style.display = "block") : (document.getElementById("dp_op_list_title").style.display = "none",
-                        document.getElementById("dp_op_list_1").style.display = "none", document.getElementById("dp_op_list_2").style.display = "none",
-                        document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none");
+                    var name = document.getElementById("topProImg").src;
+                    var storageRef = firebase.storage().refFromURL(name);
+                    storageRef.delete();
+                    document.getElementById("photoUrl").value = "";
+                    goodnews('Saved successfully!');
+                    document.getElementById("main_page_name").innerText = t;
+                    document.getElementById("main_page_desig").innerText = o;
+                    document.getElementById("topProImg").src = downlaodURL;
+                    document.getElementById("main_page_pic").src = downlaodURL;
 
-            }).catch(function (e) { badnews(e); })
+                }).then(function ()
+                {
+                    s ? (document.getElementById("dp_op_list_title").style.display = "block",
+                        document.getElementById("dp_op_list_1").style.display = "block",
+                        document.getElementById("dp_op_list_2").style.display = "block",
+                        document.getElementById("dp_op_list_3").style.display = "block",
+                        document.getElementById("dp_op_line").style.display = "block") : (document.getElementById("dp_op_list_title").style.display = "none",
+                            document.getElementById("dp_op_list_1").style.display = "none", document.getElementById("dp_op_list_2").style.display = "none",
+                            document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none");
+
+                }).catch(function (e) { badnews(e); })
+
+            });
         });
-    });
+    } else {
+
+        db.collection("users").doc(y.uid).set({
+            name: t, email: e, phone: n,
+            gender: l,
+            country: d, designation: o, dp_options: s, as_options: b
+        }, { merge: !0 }).then(function ()
+        {
+            goodnews('Saved successfully!');
+            document.getElementById("main_page_name").innerText = t;
+            document.getElementById("main_page_desig").innerText = o;
+        }).then(function ()
+        {
+            s ? (document.getElementById("dp_op_list_title").style.display = "block",
+                document.getElementById("dp_op_list_1").style.display = "block",
+                document.getElementById("dp_op_list_2").style.display = "block",
+                document.getElementById("dp_op_list_3").style.display = "block",
+                document.getElementById("dp_op_line").style.display = "block") : (document.getElementById("dp_op_list_title").style.display = "none",
+                    document.getElementById("dp_op_list_1").style.display = "none", document.getElementById("dp_op_list_2").style.display = "none",
+                    document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none");
+
+        }).catch(function (e) { badnews(e); })
+    }
 }
 
 

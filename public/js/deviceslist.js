@@ -24,7 +24,7 @@ function cleanusers()
         querySnapshot.forEach(function (doc)
         {
             var domain_id = doc.id;
-            // var registryId = snap.data().domain || "";
+
             db.collection('domains').doc(domain_id).collection('requests').get().then(function (querySnapshot)
             {
                 querySnapshot.forEach(function (doc)
@@ -34,25 +34,25 @@ function cleanusers()
 
                     //  db.collection('domains').doc(doc.id).collection('tickets').doc(user_id).delete();
 
-                    var docRef = db.collection('users').doc(user_id)
 
-                    docRef.get().then(function (doc2)
+
+                    db.collection('users').doc(user_id).get().then(function (doc2)
                     {
-                        if (doc2.exists) {
-                            // console.log("Document data:", doc2.data());
-                            //   docRef.delete();
-                        } else {
-                            // doc.data() will be undefined in this case
-                            console.log(doc2.id);
-                            console.log("No such document!");
-                            db.collection('domains').doc(domain_id).collection('requests').doc(doc2.id).delete();
+                        if (!doc2.exists) {
+                            db.collection('domains').doc(domain_id).collection('requests').doc(doc2.id).delete().then(function ()
+                            {
+                                goodnews("Successfully removed stay entries.");
+                            }).catch(function (error)
+                            {
+                                console.error("Error removing document: ", error);
+                            });
                         }
                     }).catch(function (error)
                     {
                         console.log("Error getting document:", error);
                     });
 
-                    console.log(doc.id, ' => ', doc.data());
+                    //  console.log(doc.id, ' => ', doc.data());
                 });
             });
         });
