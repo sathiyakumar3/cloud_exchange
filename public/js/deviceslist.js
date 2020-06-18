@@ -268,11 +268,12 @@ function buildnavitree()
                     temp.includes(entry) || db.collection("users").doc(entry).get().then(function (doc)
                     {
                         if (doc.exists) {
-                            var name2 = doc.data().name || "default", photoUrl2 = doc.data().photoUrl || "default";
+                            var name2 = doc.data().name || "default", photoUrl2 = doc.data().photoUrl || "default", email2 = doc.data().email || "default";
                             user_profiles.push({
                                 id: entry,
                                 name: name2,
-                                photoUrl: photoUrl2
+                                photoUrl: photoUrl2,
+                                email: email2
                             });
                         }
                     }).catch(function (error)

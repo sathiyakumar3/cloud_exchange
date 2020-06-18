@@ -547,3 +547,41 @@ exports.sendcommand = functions.firestore.document('devices/{device_id}/datasets
     console.error(err);
   });
 });
+
+/* exports.createsubscriptions = functions.firestore.document('domains/{domain_id}/tickets/{ticket_id}').onWrite((change, context) =>
+{
+  var data = change.after.data();
+  //   var requested_from = change.after.data().requested_from;
+  var ticket_id = context.params.ticket_id;
+  var domain_id = context.params.domain_id;
+
+  var location = data["location"];
+  var issue = data["issue"];
+  var id = data["id"];
+  var assigned_to_1 = data["assigned_to_1"];
+  var status = data["status"];
+
+  if (assigned_to_1 != "---") {
+    admin.firestore().collection('users').doc(assigned_to_1).get()
+      .then(function (config)
+      {
+        var email = config.data().email;
+        admin.firestore().collection('mail').add({
+          to: email,
+          message: {
+            subject: "Ticket No: " + id,
+            text: "Ticket No: " + id,
+            html: '<br><br>With Regards,<br>Cloud Exchange',
+          }
+        }).then(() => console.log('Queued email for delivery!'));
+
+      }).catch(function (error)
+      {
+
+        console.log("Error getting document:", error);
+
+      });
+  }
+
+
+}); */

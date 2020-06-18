@@ -51,7 +51,7 @@ function processrow(reportflag, row, i)//
     if (user.uid == row[12]) {
         buttons = '<a href="#" onclick=tktedit("' + row[0] + '","' + row[2] + '","' + i + '") class="text-inverse text-success" title="Edit" data-toggle="modal" data-target="#edit_ticket_modal"><i class="fas fa-edit fa-lg"></i></a> &nbsp;&nbsp;<a href="javascript:void(0)" onclick=tktdelete("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-times fa-lg"></i></a>';
         if ('Solved' == row[11]) {
-            buttons = buttons + '  &nbsp;&nbsp;<a href="javascript:void(0)" onclick=close_case("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check fa-lg"></i></a>&nbsp;&nbsp;';
+            buttons = buttons + '  &nbsp;&nbsp;<a href="javascript:void(0)" onclick=close_case("' + row[0] + '","' + row[2] + '","' + i + '","' + row[12] + '","' + row[1] + '","' + row[3] + '","' + row[4] + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check fa-lg"></i></a>&nbsp;&nbsp;';
         }
     } else {
         buttons = buttons + '<i class="fas fa-lock"></i>';
@@ -61,7 +61,7 @@ function processrow(reportflag, row, i)//
 
     if (reportflag) {
         if (user.uid == row[12] && 'Closed' == row[11]) {
-            buttons = '<a href="javascript:void(0)" onclick=undo_close_case("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-undo"></i> Re-Open</a> ';
+            buttons = '<a href="javascript:void(0)" onclick=undo_close_case("' + row[0] + '","' + row[2] + '","' + i + '","' + row[12] + '","' + row[1] + '","' + row[3] + '","' + row[4] + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-undo"></i> Re-Open</a> ';
         } else {
             buttons = "";
         }
@@ -342,6 +342,8 @@ function dotable(id, dataset, domain_flag, report_flag)
         var counter = row.index();
         var doc = data[0].replace(/<\/?[^>]+(>|$)/g, "");
         var dom = data[2].replace(/<\/?[^>]+(>|$)/g, "");
+        var loc = data[3].replace(/<\/?[^>]+(>|$)/g, "");
+        var iss = data[4].replace(/<\/?[^>]+(>|$)/g, "");
         var user = firebase.auth().currentUser;
         var ass_1 = data[13];
         var ass_2 = data[14];
@@ -354,7 +356,7 @@ function dotable(id, dataset, domain_flag, report_flag)
             row.child.hide();
             tr.removeClass('shown');
         } else {
-            row.child(ter(doc, dom, status, counter)).show();
+            row.child(ter(doc, dom, status, counter, owner, data[1], loc, iss)).show();
             if (user.uid == ass_1 || user.uid == ass_2 || user.uid == ass_3 || user.uid == ass_4 || user.uid == owner) {
                 format(doc, dom, status, counter);
             } else {
@@ -381,7 +383,7 @@ function format_lock(doc)
 }
 
 
-function ter(doc, dom, status, counter)
+function ter(doc, dom, status, counter, owner, tick_id, location, issue)
 {
     var myvar = '<div class="panel-body ">' +
         '									<div class="streamline user-activity" id="his_' + doc + '">' +
@@ -399,7 +401,7 @@ function ter(doc, dom, status, counter)
         '' +
         '' +
         '								</select></div > ' +
-        '<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" ><button class="btn btn-success btn-anim  btn-rounded" id =\'button_' + doc + '\'  onclick=\'save_history_info("' + doc + '","' + dom + '","' + counter + '")\'><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div></div>' +
+        '<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" ><button class="btn btn-success btn-anim  btn-rounded" id =\'button_' + doc + '\'  onclick=\'save_history_info("' + doc + '","' + dom + '","' + counter + '","' + owner + '","' + tick_id + '","' + location + '","' + issue + '")\'><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div></div>' +
         '</div>';
     return myvar
 }
@@ -445,15 +447,15 @@ function format(doc, dom, status, counter)
         badnews(t);
     });
 }
-function save_history_info(doc, dom, counter)
+function save_history_info(doc, dom, counter, owner, tick_id, location, issue)
 {
     var status = document.getElementById("his_op_" + doc).value;
     var message = document.getElementById("his_text_" + doc).value;
-    save_history(doc, dom, counter, status, message, false);
+    save_history(doc, dom, counter, status, message, false, owner, tick_id, location, issue);
 }
 
 
-function save_history(doc, dom, counter, status, message, report_flag)
+function save_history(doc, dom, counter, status, message, report_flag, owner, tick_id, location, issue)
 {
     // console.log("runing slave");
     var created_on = new Date();
@@ -481,7 +483,7 @@ function save_history(doc, dom, counter, status, message, report_flag)
         db.collection("domains").doc(dom).collection("tickets").doc(doc).collection("history").doc().set({
             name: user.displayName,
             message: message,
-            photoURL: user.photoURL,
+            photoURL: document.getElementById("topProImg").src,
             status: status,
             timestamp: created_on
         })
@@ -511,6 +513,18 @@ function save_history(doc, dom, counter, status, message, report_flag)
                     table.cell({ row: counter, column: 7, }).data(tabletolable(status)).draw();
                     table.cell({ row: counter, column: 10, }).data("").draw();
                 }
+
+                var subject = dom + " | Ticket No : " + tick_id;
+                var html_text_2 = '<p><strong>Site : </strong>' + dom + '</p>' +
+                    '<p><strong>Ticket No:&nbsp;</strong>' + tick_id + '</p>' +
+                    '<p>One of you tickets have been updated.</p>' +
+                    '<p><strong>' + user.displayName + '</strong> says <strong>' + message + '</strong></p>' +
+                    '<p><strong>New Status :</strong> ' + status + '</p>' +
+                    '<p><strong>Issue  : </strong>' + issue + '</p>' +
+                    '<p><strong>Location : </strong>' + location + '</p>' +
+
+                    '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
+                sendmail(find_email(owner), subject, html_text_2);
             })
             .catch(function (error)
             {
@@ -660,6 +674,34 @@ function tabletoimage(id)
             return image;
         }
     }
+}
+
+function find_email(id)
+{
+
+
+    let obj = user_profiles.find(o => o.id === id);
+
+    var email = obj.email;
+    return email;
+
+
+}
+
+function find_name(id)
+{
+    if (id != "---") {
+        let obj = user_profiles.find(o => o.id === id);
+
+        var name = obj.name;
+        return name;
+    } else {
+        return "---";
+    }
+
+
+
+
 }
 
 function tabletoname(id)
@@ -844,6 +886,14 @@ function edittkt_save()
     var dom_id = document.getElementById('dom_id').value;
     var counter = document.getElementById('counter').value;
     var user = firebase.auth().currentUser;
+
+
+
+
+
+
+
+
     db.collection("domains").doc(dom_id).collection("tickets").doc(com_id).update({
         assigned_to_1: assigned_to1,
         assigned_to_2: assigned_to2,
@@ -863,6 +913,47 @@ function edittkt_save()
 
         );
         table.row(counter).data(data).draw();
+
+        Swal.fire({
+            title: 'Successfully Updated.',
+            text: "Do you want to send email notification to all the assignees?",
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Send'
+        }).then((result) =>
+        {
+            if (result.value) {
+                var subject = dom_id + " | Ticket No : " + ticketid;
+                var html_text = '<p><strong>Site : </strong>' + dom_id + '</p>' +
+                    '<p><strong>Ticket No:&nbsp;</strong>' + ticketid + '</p>' +
+                    '<p><strong>Issue  : </strong>' + issue + '</p>' +
+                    '<p><strong>Location : </strong>' + location + '</p>' +
+
+                    '<p><strong>Status :</strong> ' + status + '</p>' +
+                    '<p><strong>Created By : </strong>' + user.displayName + '</p>' +
+                    '<p>You are receiving this mail as the ticket has been updated and you have have been assinged for this ticket.&nbsp;</p>' +
+                    '<p>Please disregard this email, if you have received this information prior.&nbsp;</p>' +
+                    '<p>Thank you.</p>' +
+                    '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
+                if (assigned_to1 != "---") {
+                    sendmail(find_email(assigned_to1), subject, html_text);
+                }
+                if (assigned_to2 != "---") {
+                    sendmail(find_email(assigned_to2), subject, html_text);
+                }
+                if (assigned_to3 != "---") {
+                    sendmail(find_email(assigned_to3), subject, html_text);
+                }
+                if (assigned_to4 != "---") {
+                    sendmail(find_email(assigned_to4), subject, html_text);
+                }
+                goodnews("Email notifications sent.")
+            }
+        })
+
+
 
 
     }).catch(function (error)
@@ -890,6 +981,45 @@ function opentkt_save()
         opassignee_2 = document.getElementById("opassignee_2").value,
         opassignee_3 = document.getElementById("opassignee_3").value,
         opassignee_4 = document.getElementById("opassignee_4").value;
+    var subject = domain_case + " | Ticket No : " + tick_no;
+    var html_text = '<p><strong>Site : </strong>' + domain_case + '</p>' +
+        '<p><strong>Ticket No:&nbsp;</strong>' + tick_no + '</p>' +
+        '<p><strong>Issue  : </strong>' + opticket_issue + '</p>' +
+        '<p><strong>Location : </strong>' + opticket_location + '</p>' +
+
+        '<p><strong>Status :</strong> ' + opstatus + '</p>' +
+        '<p><strong>Created By : </strong>' + user.displayName + '</p>' +
+        '<p>You are receiving this mail as you have have been assinged for this ticket.&nbsp;</p>' +
+        '<p>Thank you.</p>' +
+        '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
+    if (opassignee_1 != "---") {
+        sendmail(find_email(opassignee_1), subject, html_text);
+    }
+    if (opassignee_2 != "---") {
+        sendmail(find_email(opassignee_2), subject, html_text);
+    }
+    if (opassignee_3 != "---") {
+        sendmail(find_email(opassignee_3), subject, html_text);
+    }
+    if (opassignee_4 != "---") {
+        sendmail(find_email(opassignee_4), subject, html_text);
+    }
+
+    var html_text_2 = '<p><strong>Ticket No:&nbsp;</strong>' + tick_no + '</p>' +
+        '<p><strong>Issue  : </strong>' + opticket_issue + '</p>' +
+        '<p><strong>Location : </strong>' + opticket_location + '</p>' +
+        '<p><strong>Site : </strong>' + domain_case + '</p>' +
+        '<p><strong>Status :</strong> ' + opstatus + '</p>' +
+        '<p><strong>Assignee 1 : </strong>' + find_name(opassignee_1) + '</p>' +
+        '<p><strong>Assignee 2 : </strong>' + find_name(opassignee_2) + '</p>' +
+        '<p><strong>Assignee 3 : </strong>' + find_name(opassignee_3) + '</p>' +
+        '<p><strong>Assignee 4 : </strong>' + find_name(opassignee_4) + '</p>' +
+        '<p>You have created the ticket and all the assignees have been notified.&nbsp;</p>' +
+        '<p>Thank you.</p>' +
+        '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
+    sendmail(user.email, subject, html_text_2);
+
+
     var counter = document.getElementById('counter').value;
     "Not Started" == opstatus && increment_tag("stats_aq");
     db.collection("domains").doc(domain_case).collection("tickets").add({
@@ -947,12 +1077,12 @@ function generateReport()
         }), document.getElementById("gn-site").innerHTML = sel1, document.getElementById("dt-range").innerHTML = dtrange;
 }
 
-function undo_close_case(com_id, dom_id, counter)
+function undo_close_case(com_id, dom_id, counter, owner, tick_id, location, issue)
 {
-    save_history(com_id, dom_id, counter, "Recovered", "Recovered", true);
+    save_history(com_id, dom_id, counter, "Recovered", "Recovered", true, owner, tick_id, location, issue);
 }
 
-function close_case(com_id, dom_id, counter)
+function close_case(com_id, dom_id, counter, owner, tick_id, location, issue)
 {
 
 
@@ -967,7 +1097,7 @@ function close_case(com_id, dom_id, counter)
         showLoaderOnConfirm: true,
         preConfirm: (message) =>
         {
-            return save_history(com_id, dom_id, counter, "Closed", message, false)
+            return save_history(com_id, dom_id, counter, "Closed", message, false, owner, tick_id, location, issue)
         },
         allowOutsideClick: () => !Swal.isLoading()
     }).then((result) =>
@@ -982,3 +1112,19 @@ function close_case(com_id, dom_id, counter)
     })
 
 }
+
+
+
+
+function sendmail(to, subject, text_html)
+{
+    db.collection('mail').add({
+        to: to,
+        message: {
+            subject: subject,
+            text: "text",
+            html: text_html,
+        }
+    }).then(() => console.log('Queued email for delivery!'));
+}
+
