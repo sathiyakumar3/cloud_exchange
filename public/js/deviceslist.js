@@ -46,6 +46,8 @@ function cleanusers()
                             {
                                 console.error("Error removing document: ", error);
                             });
+                        } else {
+                            // console.log(user_id + "all good");
                         }
                     }).catch(function (error)
                     {
@@ -704,3 +706,16 @@ function checknoti()
 
 function myFunction()
 { document.getElementById("myDropdown").classList.toggle("show") }
+
+
+function send_mail()
+{
+    db.collection('mail').add({
+        to: 'sathiya@eco33.com',
+        message: {
+            subject: 'Hello from Firebase!',
+            text: 'This is the plaintext section of the email body.',
+            html: 'This is the <code>HTML</code> section of the email body.',
+        }
+    }).then(() => console.log('Queued email for delivery!'));
+}
