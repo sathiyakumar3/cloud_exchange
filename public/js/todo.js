@@ -23,7 +23,7 @@ function reload_table(dom_id)
         }, 175);
 }
 
-function processrow(reportflag, row, i)//
+function processrow(reportflag, row, i) //
 {
 
     //  chartdata["closed"] = chartdata["closed"] + 1;
@@ -37,8 +37,9 @@ function processrow(reportflag, row, i)//
     row[9] = "";
     row[10] = "";
 
-    row[2] = row[2].replace(/<\/?[^>]+(>|$)/g, ""), row[3] = row[3].replace(/<\/?[^>]+(>|$)/g, ""),
-        row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, ""), row[7] = tabletolable(row[11]),
+    row[2] = row[2].replace(/<\/?[^>]+(>|$)/g, "");
+    row[3] = row[3].replace(/<\/?[^>]+(>|$)/g, "");
+    row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, ""), row[7] = tabletolable(row[11]),
         row[21] = datetimeshortformat(row[21]);
     row[22] = tabletoimage(row[22]);
     row[8] = tabletoimage(row[12]), row[9] = tabletoimage(row[13]) + tabletoimage(row[14]) + tabletoimage(row[15]) + tabletoimage(row[16]),
@@ -46,12 +47,13 @@ function processrow(reportflag, row, i)//
         row[18] = tabletoname(row[13]) + tabletoname(row[14]) + tabletoname(row[15]) + tabletoname(row[16]),
         row[19] = tabletoname(row[12]), increment_tag("total_oc_tickets");
 
-
-
+    var butns = "'" + row[0] + "','" + row[2] + "','" + i + "','" + row[12] + "','" + row[1] + "','" + row[3] + "','" + row[4] + "'";
+    console.log(butns);
     if (user.uid == row[12]) {
         buttons = '<a href="#" onclick=tktedit("' + row[0] + '","' + row[2] + '","' + i + '") class="text-inverse text-success" title="Edit" data-toggle="modal" data-target="#edit_ticket_modal"><i class="fas fa-edit fa-lg"></i></a> &nbsp;&nbsp;<a href="javascript:void(0)" onclick=tktdelete("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-times fa-lg"></i></a>';
         if ('Solved' == row[11]) {
-            buttons = buttons + '  &nbsp;&nbsp;<a href="javascript:void(0)" onclick=close_case("' + row[0] + '","' + row[2] + '","' + i + '","' + row[12] + '","' + row[1] + '","' + row[3] + '","' + row[4] + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check fa-lg"></i></a>&nbsp;&nbsp;';
+
+            buttons = buttons + '&nbsp;&nbsp;<a href="javascript:void(0)" onclick="close_case(' + butns + ')"  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check fa-lg"></i></a>&nbsp;&nbsp;';
         }
     } else {
         buttons = buttons + '<i class="fas fa-lock"></i>';
@@ -61,7 +63,7 @@ function processrow(reportflag, row, i)//
 
     if (reportflag) {
         if (user.uid == row[12] && 'Closed' == row[11]) {
-            buttons = '<a href="javascript:void(0)" onclick=undo_close_case("' + row[0] + '","' + row[2] + '","' + i + '","' + row[12] + '","' + row[1] + '","' + row[3] + '","' + row[4] + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-undo"></i> Re-Open</a> ';
+            buttons = '<a href="javascript:void(0)" onclick=undo_close_case"(' + butns + ')"   class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-undo"></i> Re-Open</a> ';
         } else {
             buttons = "";
         }
@@ -140,6 +142,7 @@ function cleantable(domain, dataset)
     for (i = 0; i < dataset.length; i++) domain == dataset[i][2].replace(/<\/?[^>]+(>|$)/g, "") && dataset.splice(i, 1);
 }
 var loo2p;
+
 function dotable(id, dataset, domain_flag, report_flag)
 {
     var reports_text = "The information is from cloudexchange.lk",
@@ -152,32 +155,27 @@ function dotable(id, dataset, domain_flag, report_flag)
             messageTop: reports_text,
             exportOptions: selection,
             background: !1
-        },
-        {
+        }, {
             extend: "csvHtml5",
             className: "btn btn-primary btn-rounded",
             messageTop: reports_text,
             exportOptions: selection
-        },
-        {
+        }, {
             extend: "excelHtml5",
             className: "btn btn-primary btn-rounded",
             messageTop: reports_text,
             exportOptions: selection
-        },
-        {
+        }, {
             extend: "pdfHtml5",
             className: "btn btn-primary btn-rounded",
             messageTop: reports_text,
             exportOptions: selection
-        },
-        {
+        }, {
             extend: "print",
             className: "btn btn-primary btn-rounded",
             messageTop: reports_text,
             exportOptions: selection
-        },
-        {
+        }, {
             text: "Page-Cycle",
             className: "btn btn-success btn-rounded",
             action: function ()
@@ -230,8 +228,7 @@ function dotable(id, dataset, domain_flag, report_flag)
 
 
             }
-        }
-        ]
+        }]
 
     var table = $(id).DataTable({
         order: [
@@ -265,9 +262,9 @@ function dotable(id, dataset, domain_flag, report_flag)
         }, {
             title: "Location"
         }, {
-            title: "Issue", responsivePriority: 1
-        },
-        {
+            title: "Issue",
+            responsivePriority: 1
+        }, {
             title: "Date Created."
         }, {
             title: "Pending"
@@ -279,8 +276,7 @@ function dotable(id, dataset, domain_flag, report_flag)
             title: "Assign to"
         }, {
             title: "Actions"
-        },
-        {
+        }, {
             title: "Status",
             visible: !1
         }, {
@@ -292,8 +288,7 @@ function dotable(id, dataset, domain_flag, report_flag)
         }, {
             title: "Assign 2",
             visible: !1
-        },
-        {
+        }, {
             title: "Assign 3",
             visible: !1
         }, {
@@ -305,8 +300,7 @@ function dotable(id, dataset, domain_flag, report_flag)
         }, {
             title: "Assigned to",
             visible: !1
-        },
-        {
+        }, {
             title: "Created by to",
             visible: !1
         }, {
@@ -327,8 +321,7 @@ function dotable(id, dataset, domain_flag, report_flag)
             "data": null,
             "defaultContent": '',
             visible: !report_flag
-        }
-        ]
+        }]
 
     })
 
@@ -424,8 +417,8 @@ function format(doc, dom, status, counter)
             a = a + '<div class="sl-item"><a href="javascript:void(0)"><div class="sl-avatar avatar avatar-sm avatar-circle"><img class="img-responsive img-circle" src="' + t.data().photoURL + '" alt="avatar">' +
                 '</div><div class="sl-content"><p class="inline-block"><span class="capitalize-font txt-primary mr-5 weight-500">' + t.data().name +
                 '</span></p><p>' + tabletolable(t.data().status) + '' + but + '</p><p  class="txt-dark"><span>' + t.data().message + '</span></p><span class="block txt-grey font-12 capitalize-font">' +
-                '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + datetimeshortformat(t.data().timestamp) + '</span>'
-                + '</div></a></div>';
+                '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + datetimeshortformat(t.data().timestamp) + '</span>' +
+                '</div></a></div>';
 
 
         })
@@ -447,6 +440,7 @@ function format(doc, dom, status, counter)
         badnews(t);
     });
 }
+
 function save_history_info(doc, dom, counter, owner, tick_id, location, issue)
 {
     var status = document.getElementById("his_op_" + doc).value;
@@ -510,8 +504,14 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                     var table = $('#example').DataTable(
 
                     );
-                    table.cell({ row: counter, column: 7, }).data(tabletolable(status)).draw();
-                    table.cell({ row: counter, column: 10, }).data("").draw();
+                    table.cell({
+                        row: counter,
+                        column: 7,
+                    }).data(tabletolable(status)).draw();
+                    table.cell({
+                        row: counter,
+                        column: 10,
+                    }).data("").draw();
                 }
 
                 var subject = dom + " | Ticket No : " + tick_id;
@@ -752,7 +752,8 @@ function tabletolable(expression)
             break;
         case 'Solved':
             return '<span class="label label-success">Solved</span>'
-            break; Solved
+            break;
+            Solved
         default:
             return '<span class="label label-info">ERROR</span>'
             break
@@ -886,10 +887,6 @@ function edittkt_save()
     var dom_id = document.getElementById('dom_id').value;
     var counter = document.getElementById('counter').value;
     var user = firebase.auth().currentUser;
-
-
-
-
 
 
 
@@ -1127,4 +1124,3 @@ function sendmail(to, subject, text_html)
         }
     }).then(() => console.log('Queued email for delivery!'));
 }
-
