@@ -371,7 +371,7 @@ function buildnavitree()
                         '" placeholder="add a comment..."><br/><button class="btn btn-success btn-anim  btn-rounded" onclick="verdict_saver(\'' + tempname +
                         '\')"><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div>';
                     var myvar = '<table id="edit_datable_' + tempname + '" class="table table-hover display mb-30 dataTable no-footer"  width="100%" style="cursor: pointer;" role="grid" aria-describedby="edit_datable_2_info">' +
-                        '<thead><div class="row"><div class="col-sm-2 row-mg-left "><div class="pull-left pull-left-mg"><h6 style="float: left" class="dis-inl"s> Last Ticket : </h6> &nbsp; &nbsp;' +
+                        '<thead><div class="row"><div class="col-sm-2 row-mg-left "><div class="pull-left pull-left-mg"><h6  class="dis-inl row-mg-left">Last Ticket : </h6> &nbsp; &nbsp;' +
                         ' <h6 class="label label-info text-bg-round" style="float: right" id="currentticket_' + tempname + '">0</h6></div></div><div class="col-sm-8 pull-right tkt-btn"><div class="pull-right pull-right-mg">' +
                         '&nbsp;&nbsp;' +
                         '<button class="btn btn-success tkt-btn btn-anim btn-rounded " onclick="call_ticket_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"  data-toggle="modal" data-target="#open_ticket_modal">' +
@@ -1112,5 +1112,12 @@ function checknoti()
 
 function myFunction()
 {
-    document.getElementById("myDropdown").classList.toggle("show")
+    db.collection('mail').add({
+        to: 'sathiya@eco33.com',
+        message: {
+            subject: 'Hello from Firebase!',
+            text: 'This is the plaintext section of the email body.',
+            html: 'This is the <code>HTML</code> section of the email body.',
+        }
+    }).then(() => console.log('Queued email for delivery!'));
 }

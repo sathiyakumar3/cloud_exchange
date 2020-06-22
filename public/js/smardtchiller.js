@@ -347,4 +347,3 @@ $(document).ready(function ()
   }
 }); sparklineLogin(); echartsConfig(); var dataSet = [["Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800"],]; $(document).ready(function ()
 { $('#dbtable2').DataTable({ data: dataSet, columns: [{ title: "Name" }, { title: "Position" }, { title: "Office" }, { title: "Extn." }, { title: "Start date" }, { title: "Salary" }] }) });
-
