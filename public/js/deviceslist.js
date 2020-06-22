@@ -4,7 +4,13 @@ firebase.auth().onAuthStateChanged(function (n)
     if (user != null) {
         db.collection("users").doc(user.uid).get().then(function (doc)
         {
+
             doc.exists ? null != n ? buildnavitree() : window.location = "index.html" : reset_user();
+            if (doc.data().name == "---") {
+                $('#editprofilemodal').modal('show');
+            }
+
+
         }).catch(function (error)
         {
             console.log("Error getting document:", error);
@@ -1107,17 +1113,4 @@ function checknoti()
 function myFunction()
 {
     document.getElementById("myDropdown").classList.toggle("show")
-}
-
-
-function send_mail()
-{
-    db.collection('mail').add({
-        to: 'sathiya@eco33.com',
-        message: {
-            subject: 'Hello from Firebase!',
-            text: 'This is the plaintext section of the email body.',
-            html: 'This is the <code>HTML</code> section of the email body.',
-        }
-    }).then(() => console.log('Queued email for delivery!'));
 }

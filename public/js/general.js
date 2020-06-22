@@ -313,7 +313,7 @@ function reset_user()
         "emailVerified": user.emailVerified,
         "gender": "Male",
         "live_timestamp": today,
-        "name": user.displayName,
+        "name": "---",
         "navi": false,
         "navi_status": "success",
         "phone": "0877920132",
@@ -342,7 +342,27 @@ function reset_user()
     db.collection("users").doc(user.uid).set(obj)
         .then(function ()
         {
-            goodnews("User has been reset!")
+            goodnews("User has been reset!");
+
+            Swal.fire({
+                title: 'User has been reset!',
+                text: "You want refresh?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!'
+            }).then((result) =>
+            {
+                if (result.value) {
+                    window.location.reload();
+                }
+            })
+
+
+
+
+
         })
         .catch(function (error)
         {

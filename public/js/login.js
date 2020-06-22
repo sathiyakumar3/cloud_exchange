@@ -35,31 +35,36 @@ function pwReset()
 
 
 
-function singUp(){
+function singUp()
+{
 
- var e = document.getElementById("uemail").value;
- var t = document.getElementById("upassword").value;
- var n = document.getElementById("name").value;
- var d = document.getElementById("designation").value;
- var c = document.getElementById("UserCountry").value;
+  var e = document.getElementById("uemail").value;
+  var t = document.getElementById("upassword").value;
 
- firebase.auth().createUserWithEmailAndPassword(e, t, n, d, c).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // ...
-}).then(function (){
+  firebase.auth().createUserWithEmailAndPassword(e, t).catch(function (error)
+  {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ...
+    Swal.fire("Warning", String(errorCode + " : " + errorMessage), 'error');
+  }).then(function ()
+  {
 
-  var user = firebase.auth().currentUser;
+    var user = firebase.auth().currentUser;
 
-user.sendEmailVerification().then(function() {
-  // Email sent.
-}).catch(function(error) {
-  // An error happened.
-});
+    user.sendEmailVerification().then(function ()
+    {
+      Swal.fire('Success', "Email Verification has been successfully sent!", 'success');
+    }).catch(function (error)
+    {
+      Swal.fire("Warning", String(error), 'error');
+      // An error happened.
+    });
 
-});
+  });
 
 
 
 };
+
