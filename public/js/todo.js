@@ -259,15 +259,15 @@ function dotable(id, dataset, domain_flag, report_flag)
             title: "Issue", responsivePriority: 1
         },
         {
-            title: "Date Created."
+            title: "Date"
         }, {
             title: "Pending"
         }, {
             title: "Status"
         }, {
-            title: "Created by"
+            title: "From"
         }, {
-            title: "Assign to"
+            title: "To"
         }, {
             title: "Actions"
         },
@@ -275,7 +275,7 @@ function dotable(id, dataset, domain_flag, report_flag)
             title: "Status",
             visible: !1
         }, {
-            title: "Created_by",
+            title: "Update",
             visible: !1
         }, {
             title: "Assign 1",
@@ -625,7 +625,7 @@ function tabletoimage(id)
             return image;
         } else {
             let obj = user_profiles.find(o => o.id === id);
-
+            console.log(nio.photoUrl);
             image = '<img src=' + nio.photoUrl + ' class="img-circle bounce"  height="35" width="35" title="' + obj.name + '">' + "&nbsp;&nbsp;";
             return image;
         }
