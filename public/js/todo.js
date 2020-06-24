@@ -41,8 +41,8 @@ function processrow(reportflag, row, i) //
     row[3] = row[3].replace(/<\/?[^>]+(>|$)/g, "");
     row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, ""), row[7] = tabletolable(row[11]),
         row[21] = datetimeshortformat(row[21]);
-    row[22] = tabletoimage(row[22]);
-    row[8] = tabletoimage(row[12]), row[9] = tabletoimage(row[13]) + tabletoimage(row[14]) + tabletoimage(row[15]) + tabletoimage(row[16]),
+    //  row[22] = tabletoimage(row[22]);
+    row[8] = tabletoimage(row[12], 35), row[9] = tabletoimage(row[13], 35) + tabletoimage(row[14], 35) + tabletoimage(row[15], 35) + tabletoimage(row[16], 35),
 
         row[18] = tabletoname(row[13]) + tabletoname(row[14]) + tabletoname(row[15]) + tabletoname(row[16]),
         row[19] = tabletoname(row[12]), increment_tag("total_oc_tickets");
@@ -90,8 +90,10 @@ function processrow(reportflag, row, i) //
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
         ("Urgent Action" == row[11] || "Not Started" == row[11] || "On Progress" == row[11]) && (dataSet3.push(row),
             increment_tag("lb_atten")), "Not Started" == row[11] && increment_tag("stats_aq");
+    if (row[23] != "---") {
+        row[23] = element_add(row[22], row[23], row[21]);
+    }
 
-    row[23] = '<p class="inline-block"> - &nbsp;' + row[23] + '&nbsp;</p>&nbsp;';
     if (user.uid == row[13] || user.uid == row[14] || user.uid == row[15] || user.uid == row[16]) {
         dataSet2.push(row),
             increment_tag("lb_todo");
@@ -100,6 +102,39 @@ function processrow(reportflag, row, i) //
 
     // currentusers_
     return row
+}
+
+
+
+function element_add(image_id, message, timetamp)
+{
+
+    var dsa = '<div class="container-fluid">' +
+        '<div class=" pull-left mr-20">' +
+        tabletoimage(image_id, 25) +
+        '</div>' +
+        '<div class="sender-details   pull-left">' +
+        '<span class="capitalize-font pr-5 txt-dark block font-15 weight-500 head-font">' + message + '</span>' +
+        '</span>' +
+        '</div>' +
+        '<div class="pull-right">' +
+        '<div class="inline-block mr-5">' +
+        '<span class="inbox-detail-time-1 font-12">' + timetamp + '</span>' +
+        '</div>' +
+
+        '</div>' +
+        '<div class="clearfix"></div>' +
+        '</div>';
+
+    var text = '<div class="chat-data">' + tabletoimage(image_id, 25) +
+        '<div class="user-data">' +
+        '<span class="name block capitalize-font">' + message + '</span>' +
+        '<span class="time block truncate txt-grey">' + timetamp + '</span>' +
+        '</div>' +
+        '<div class="status offline"></div>' +
+        '<div class="clearfix"></div></div>';
+
+    return dsa
 }
 
 function load_atten()
@@ -311,10 +346,11 @@ function dotable(id, dataset, domain_flag, report_flag)
             visible: report_flag
         }, {
             title: "Updated by",
-            visible: true
+            visible: !1
         }, {
             title: "Message",
-            visible: true
+            visible: true,
+            responsivePriority: 2
         }, {
             "className": 'details-control',
             "orderable": false,
@@ -603,7 +639,7 @@ function fetch_tickets(t)
 
                         n.text = obj.name;
                         n.value = obj.id, ass_combo.add(n);
-                        document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id);
+                        document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id, 35);
                     } catch (e) {
 
                         Swal.fire({
@@ -656,7 +692,7 @@ function fetch_tickets(t)
     })
 }
 
-function tabletoimage(id)
+function tabletoimage(id, size)
 {
     if (id == '---') {
         return "";
@@ -665,16 +701,19 @@ function tabletoimage(id)
 
         if (nio == null) {
             var nullimage = 'image/blank_profile_pic.jpg';
-            image = '<img src=' + nullimage + ' class="img-circle bounce"  height="35" width="35" title="' + "Not Available" + '">' + "&nbsp;&nbsp;";
+            image = '<img src=' + nullimage + ' class="img-circle bounce sender-img"  alt="user" height="' + size + '" width="' + size + '" title="' + "Not Available" + '">' + "&nbsp;&nbsp;";
             return image;
         } else {
             let obj = user_profiles.find(o => o.id === id);
 
-            var image = '<img src=' + nio.photoUrl + ' class="img-circle bounce"  height="35" width="35" title="' + obj.name + '">' + "&nbsp;&nbsp;";
+            var image = '<img src=' + nio.photoUrl + ' class="img-circle bounce sender-img"  alt="user" height="' + size + '" width="' + size + '" title="' + obj.name + '">' + "&nbsp;&nbsp;";
             return image;
         }
     }
 }
+
+
+
 
 function find_email(id)
 {
