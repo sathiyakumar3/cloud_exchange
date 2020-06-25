@@ -111,7 +111,7 @@ function open_chat()
 
 function open_todo()
 {
-    fetch_tickets(total_op);
+    fetch_tickets(total_op, 'G');
 
     //console.log(total_op);
     document.getElementById("content_chat").style.display = "none";

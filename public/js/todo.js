@@ -23,6 +23,8 @@ function reload_table(dom_id)
         }, 175);
 }
 
+
+
 function processrow(reportflag, row, i) //
 {
 
@@ -39,9 +41,11 @@ function processrow(reportflag, row, i) //
 
     row[2] = row[2].replace(/<\/?[^>]+(>|$)/g, "");
     row[3] = row[3].replace(/<\/?[^>]+(>|$)/g, "");
-    row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, ""), row[7] = tabletolable(row[11]),
+    row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, ""), row[7] = tabletolable(row[11], true),
         row[21] = datetimeshortformat(row[21]);
     //  row[22] = tabletoimage(row[22]);
+
+
     row[8] = tabletoimage(row[12], 35), row[9] = tabletoimage(row[13], 35) + tabletoimage(row[14], 35) + tabletoimage(row[15], 35) + tabletoimage(row[16], 35),
 
         row[18] = tabletoname(row[13]) + tabletoname(row[14]) + tabletoname(row[15]) + tabletoname(row[16]),
@@ -78,13 +82,27 @@ function processrow(reportflag, row, i) //
 
     row[10] = buttons;
     increment_tag(row[2] + "_label2");
+    if (document.getElementById(row[2] + "_label2").innerText > 5) {
 
+    }
+
+    row[2] + "_label2"
     var created_on_date = datetimeshortformat(row[17]),
         date1 = new Date(created_on_date),
         Difference_In_Time = date2.getTime() - date1.getTime(),
         Difference_In_Days = Math.round(Difference_In_Time / 864e5);
-    row[6] = Difference_In_Days > 7 && '<span class="label label-danger">Not Started</span>' == row[7] ? '<span class="inline-block txt-danger weight-500">' + Difference_In_Days + ' Days&nbsp;&nbsp;<i class="fas fa-exclamation"></i></span>' : '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>",
-        row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
+
+    if (Difference_In_Days > 7 && '<span class="label label-danger">Not Started</span>' == row[7]) {
+        row[6] = '<span class="inline-block txt-danger weight-500">'
+            + Difference_In_Days + ' Days&nbsp;&nbsp;<i class="fas fa-exclamation"></i></span>';
+        document.getElementById(row[2] + "_label2").className = "label label-danger";
+    } else {
+        row[6] = '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>";
+    }
+
+
+
+    row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
         row[3] = '<p class="txt-dark weight-500">' + row[3] + "</p>", row[4] = '<p class="txt-dark mb-10">' + row[4] + "</p>",
         increment_tag("lb_allsit");
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
@@ -105,26 +123,23 @@ function processrow(reportflag, row, i) //
 }
 
 
-
 function element_add(image_id, message, timetamp)
 {
 
-    var dsa = '<div class="container-fluid">' +
-        '<div class=" pull-left mr-20">' +
+    var dsa = '<div class="sl-item">' +
+        '<a href="javascript:void(0)">' +
+        '<div class="sl-avatar">' +
         tabletoimage(image_id, 25) +
         '</div>' +
-        '<div class="sender-details   pull-left">' +
-        '<span class="capitalize-font pr-5 txt-dark block font-15 weight-500 head-font">' + message + '</span>' +
-        '</span>' +
-        '</div>' +
-        '<div class="pull-right">' +
-        '<div class="inline-block mr-5">' +
-        '<span class="inbox-detail-time-1 font-12">' + timetamp + '</span>' +
-        '</div>' +
+        '<div class="sl-content">' +
+        '<span class="inline-block capitalize-font  pull-left truncate head-notifications">' + message + '</span>' +
 
-        '</div>' +
         '<div class="clearfix"></div>' +
+        '<span class="inline-block font-11  pull-right notifications-time">' + timetamp + '</span>' +
+        '</div>' +
+        '</a>' +
         '</div>';
+
 
     var text = '<div class="chat-data">' + tabletoimage(image_id, 25) +
         '<div class="user-data">' +
@@ -177,7 +192,26 @@ function cleantable(domain, dataset)
     for (i = 0; i < dataset.length; i++) domain == dataset[i][2].replace(/<\/?[^>]+(>|$)/g, "") && dataset.splice(i, 1);
 }
 var loo2p;
+var inputOptionsPromise = new Promise(function (resolve)
+{
+    // get your data and pass it to resolve()
+    setTimeout(function ()
+    {
+        resolve({
+            'C': 'Closed',
+            'F': 'Follow Up',
+            'N': 'Not Started',
+            'O': 'On Progress',
+            'S': 'Skipped',
+            'U': 'Urgent',
+        })
+    }, 2000)
+})
 
+function removefollowup()
+{
+    fetch_tickets(total_op, 'E');
+}
 function dotable(id, dataset, domain_flag, report_flag)
 {
     var reports_text = "The information is from cloudexchange.lk",
@@ -263,6 +297,20 @@ function dotable(id, dataset, domain_flag, report_flag)
 
 
             }
+        },
+            , {
+            text: "Remove Cases",
+            className: "btn btn-success btn-rounded",
+            action: function ()
+            {
+                fetch_tickets(total_op, 'G')
+
+                /*  Swal.fire({
+                     input: 'select',
+                     inputOptions: inputOptionsPromise
+                 }) */
+
+            }
         }]
 
     var table = $(id).DataTable({
@@ -275,6 +323,7 @@ function dotable(id, dataset, domain_flag, report_flag)
         buttons: buttons_pack,
         destroy: !0,
         data: dataset,
+        responsive: true,
         createdRow: function (row, data, dataIndex)
         {
             user = firebase.auth().currentUser;
@@ -350,7 +399,7 @@ function dotable(id, dataset, domain_flag, report_flag)
         }, {
             title: "Message",
             visible: true,
-            responsivePriority: 2
+
         }, {
             "className": 'details-control',
             "orderable": false,
@@ -452,7 +501,7 @@ function format(doc, dom, status, counter)
             }
             a = a + '<div class="sl-item"><a href="javascript:void(0)"><div class="sl-avatar avatar avatar-sm avatar-circle"><img class="img-responsive img-circle" src="' + t.data().photoURL + '" alt="avatar">' +
                 '</div><div class="sl-content"><p class="inline-block"><span class="capitalize-font txt-primary mr-5 weight-500">' + t.data().name +
-                '</span></p><p>' + tabletolable(t.data().status) + '' + but + '</p><p  class="txt-dark"><span>' + t.data().message + '</span></p><span class="block txt-grey font-12 capitalize-font">' +
+                '</span></p><p>' + tabletolable(t.data().status, true) + '' + but + '</p><p  class="txt-dark"><span>' + t.data().message + '</span></p><span class="block txt-grey font-12 capitalize-font">' +
                 '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + datetimeshortformat(t.data().timestamp) + '</span>' +
                 '</div></a></div>';
 
@@ -510,20 +559,21 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
 
     db.collection("domains").doc(dom).collection("tickets").doc(doc).update(packet).then(function ()
     {
-        db.collection("domains").doc(dom).collection("tickets").doc(doc).collection("history").doc().set({
+        db.collection("domains").doc(dom).collection("tickets").doc(doc).collection("history").add({
             name: user.displayName,
             message: message,
             photoURL: document.getElementById("topProImg").src,
             status: status,
             timestamp: created_on
         })
-            .then(function ()
+            .then(function (docRef)
             {
 
                 if (!report_flag) {
                     var table = $('#edit_datable_' + dom).DataTable(
 
                     );
+
                     format(doc, dom, status, counter);
                     var updated = table.row(counter).data();
                     updated[11] = status;
@@ -543,7 +593,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                     table.cell({
                         row: counter,
                         column: 7,
-                    }).data(tabletolable(status)).draw();
+                    }).data(tabletolable(status, true)).draw();
                     table.cell({
                         row: counter,
                         column: 10,
@@ -593,7 +643,7 @@ function delete_history(doc, dom, counter, id)
 
 }
 
-function fetch_tickets(t)
+function fetch_tickets(t, alpha)
 {
 
 
@@ -667,7 +717,7 @@ function fetch_tickets(t)
                 {
                     document.getElementById("stats_tc").innerText = Number(document.getElementById("stats_tc").innerText) + Number(doc.data().id);
                     document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
-                    db.collection("domains").doc(t.id).collection("tickets").where("status", ">", "D").get().then(function (querySnapshot)
+                    db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot)
                     {
                         querySnapshot.forEach(function (doc)
                         {
@@ -762,7 +812,7 @@ function tabletoname(id)
 }
 
 
-function tabletolable(expression)
+function tabletolable(expression, animation)
 {
     switch (expression) {
         case 'Not Started':
@@ -778,7 +828,12 @@ function tabletolable(expression)
             return '<span class="label c_color3">Follow Up</span>'
             break;
         case 'Urgent Action':
-            return '<span class="label c_color2 blink_text">Urgent Action!</span>'
+            if (animation) {
+                return '<span class="label c_color2 blink_text">Urgent Action!</span>'
+            } else {
+                return '<span class="label c_color2">Urgent Action!</span>'
+            }
+
             break;
         case 'Closed':
             return '<span class="label label-primary">Closed</span>'
@@ -1094,7 +1149,7 @@ function generateReport()
         con_values = [];
     document.getElementById("lb_report").innerHTML = "0", values.forEach(function (entry)
     {
-        con_values.push(tabletolable(entry));
+        con_values.push(tabletolable(entry, false));
     });
     var dtrange = document.getElementById("dtrange").value;
     document.getElementById("it-range").innerHTML = con_values, [s_date_ticks, e_date_ticks] = dtrange.split(" - "),
