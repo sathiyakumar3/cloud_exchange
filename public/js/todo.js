@@ -25,6 +25,23 @@ function reload_table(dom_id)
 
 
 
+
+
+function stringDivider(str, width, spaceReplacer)
+{
+    if (str.length > width) {
+        var p = width
+        for (; p > 0 && str[p] != ' '; p--) {
+        }
+        if (p > 0) {
+            var left = str.substring(0, p);
+            var right = str.substring(p + 1);
+            return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
+        }
+    }
+    return str;
+}
+
 function processrow(reportflag, row, i) //
 {
 
@@ -103,13 +120,15 @@ function processrow(reportflag, row, i) //
 
 
     row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
-        row[3] = '<p class="txt-dark weight-500">' + row[3] + "</p>", row[4] = '<p class="txt-dark mb-10">' + row[4] + "</p>",
-        increment_tag("lb_allsit");
+        row[3] = '<p class="txt-dark weight-500">' + stringDivider(row[3], 30, "<br/>\n") + "</p>";
+    // row[4] = '<p class="txt-dark mb-10">' + stringDivider(row[4], 30, "<br/>\n") + "</p>",
+    row[4] = element_add(row[12], row[4], "", 60);
+    increment_tag("lb_allsit");
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
         ("Urgent Action" == row[11] || "Not Started" == row[11] || "On Progress" == row[11]) && (dataSet3.push(row),
             increment_tag("lb_atten")), "Not Started" == row[11] && increment_tag("stats_aq");
     if (row[23] != "---") {
-        row[23] = element_add(row[22], row[23], row[21]);
+        row[23] = element_add(row[22], row[23], row[21], 35);
     }
 
     if (user.uid == row[13] || user.uid == row[14] || user.uid == row[15] || user.uid == row[16]) {
@@ -123,8 +142,10 @@ function processrow(reportflag, row, i) //
 }
 
 
-function element_add(image_id, message, timetamp)
+
+function element_add(image_id, message, timetamp, wrap)
 {
+
 
     var dsa = '<div class="sl-item">' +
         '<a href="javascript:void(0)">' +
@@ -132,7 +153,7 @@ function element_add(image_id, message, timetamp)
         tabletoimage(image_id, 25) +
         '</div>' +
         '<div class="sl-content">' +
-        '<span class="inline-block capitalize-font  pull-left truncate head-notifications">' + message + '</span>' +
+        '<span class="inline-block capitalize-font  pull-left truncate head-notifications">' + stringDivider(message, wrap, "<br/>\n") + '</span>' +
 
         '<div class="clearfix"></div>' +
         '<span class="inline-block font-11  pull-right notifications-time">' + timetamp + '</span>' +
@@ -140,14 +161,6 @@ function element_add(image_id, message, timetamp)
         '</a>' +
         '</div>';
 
-
-    var text = '<div class="chat-data">' + tabletoimage(image_id, 25) +
-        '<div class="user-data">' +
-        '<span class="name block capitalize-font">' + message + '</span>' +
-        '<span class="time block truncate txt-grey">' + timetamp + '</span>' +
-        '</div>' +
-        '<div class="status offline"></div>' +
-        '<div class="clearfix"></div></div>';
 
     return dsa
 }
@@ -324,6 +337,7 @@ function dotable(id, dataset, domain_flag, report_flag)
         destroy: !0,
         data: dataset,
         responsive: true,
+
         createdRow: function (row, data, dataIndex)
         {
             user = firebase.auth().currentUser;
@@ -355,7 +369,8 @@ function dotable(id, dataset, domain_flag, report_flag)
         }, {
             title: "Status"
         }, {
-            title: "Created by"
+            title: "Created by",
+            visible: !1
         }, {
             title: "Assign to"
         }, {
