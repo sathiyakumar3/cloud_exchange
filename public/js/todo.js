@@ -112,7 +112,7 @@ function processrow(reportflag, row, i) //
     if (Difference_In_Days > 7 && '<span class="label label-danger">Not Started</span>' == row[7]) {
         row[6] = '<span class="inline-block txt-danger weight-500">'
             + Difference_In_Days + ' Days&nbsp;&nbsp;<i class="fas fa-exclamation"></i></span>';
-        document.getElementById(row[2] + "_label2").className = "label label-danger";
+        document.getElementById(row[2] + "_label2").className = "label label-info";
     } else {
         row[6] = '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>";
     }
@@ -625,7 +625,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                     '<p><strong>Location : </strong>' + location + '</p>' +
 
                     '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
-                sendmail(find_email(owner), subject, html_text_2);
+                sendmail(find_email(owner), find_email(user.email), subject, html_text_2);
             })
             .catch(function (error)
             {
@@ -783,11 +783,16 @@ function tabletoimage(id, size)
 function find_email(id)
 {
 
+    if (id != "---") {
+        let obj = user_profiles.find(o => o.id === id);
 
-    let obj = user_profiles.find(o => o.id === id);
+        var email = obj.email;
+        return email;
+    } else {
+        return " ";
+    }
 
-    var email = obj.email;
-    return email;
+
 
 
 }
@@ -1043,18 +1048,9 @@ function edittkt_save()
                     '<p>Please disregard this email, if you have received this information prior.&nbsp;</p>' +
                     '<p>Thank you.</p>' +
                     '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
-                if (assigned_to1 != "---") {
-                    sendmail(find_email(assigned_to1), subject, html_text);
-                }
-                if (assigned_to2 != "---") {
-                    sendmail(find_email(assigned_to2), subject, html_text);
-                }
-                if (assigned_to3 != "---") {
-                    sendmail(find_email(assigned_to3), subject, html_text);
-                }
-                if (assigned_to4 != "---") {
-                    sendmail(find_email(assigned_to4), subject, html_text);
-                }
+
+
+                // sendmail_as(user.email, find_email(assigned_to1), find_email(assigned_to2), find_email(assigned_to3), find_email(assigned_to4), subject, html_text_2);
                 goodnews("Email notifications sent.")
             }
         })
@@ -1099,17 +1095,19 @@ function opentkt_save()
         '<p>Thank you.</p>' +
         '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
     if (opassignee_1 != "---") {
-        sendmail(find_email(opassignee_1), subject, html_text);
+        sendmail(find_email(opassignee_1), user.email, subject, html_text);
     }
     if (opassignee_2 != "---") {
-        sendmail(find_email(opassignee_2), subject, html_text);
+        sendmail(find_email(opassignee_2), user.email, subject, html_text);
     }
     if (opassignee_3 != "---") {
-        sendmail(find_email(opassignee_3), subject, html_text);
+        sendmail(find_email(opassignee_3), user.email, subject, html_text);
     }
     if (opassignee_4 != "---") {
-        sendmail(find_email(opassignee_4), subject, html_text);
+        sendmail(find_email(opassignee_4), user.email, subject, html_text);
     }
+
+    //sendmail_as(user.email, find_email(opassignee_1), find_email(opassignee_2), find_email(opassignee_3), find_email(opassignee_4), subject, html_text_2);
 
     var html_text_2 = '<p><strong>Ticket No:&nbsp;</strong>' + tick_no + '</p>' +
         '<p><strong>Issue  : </strong>' + opticket_issue + '</p>' +
@@ -1123,7 +1121,7 @@ function opentkt_save()
         '<p>You have created the ticket and all the assignees have been notified.&nbsp;</p>' +
         '<p>Thank you.</p>' +
         '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
-    sendmail(user.email, subject, html_text_2);
+    sendmail(user.email, " ", subject, html_text_2);
 
 
     var counter = document.getElementById('counter').value;
@@ -1222,10 +1220,11 @@ function close_case(com_id, dom_id, counter, owner, tick_id, location, issue)
 
 
 
-function sendmail(to, subject, text_html)
+function sendmail(to, cc, subject, text_html)
 {
     db.collection('mail').add({
         to: to,
+        cc: cc,
         message: {
             subject: subject,
             text: "text",
@@ -1233,3 +1232,5 @@ function sendmail(to, subject, text_html)
         }
     }).then(() => console.log('Queued email for delivery!'));
 }
+
+
