@@ -286,8 +286,8 @@ function dotable(id, dataset, domain_flag, report_flag)
                                 info = table.page.info(),
                                     pageNum = info.page < info.pages ? info.page + 1 : 1;
                                 table.page(pageNum).draw(!1);
-                                table.columns.adjust().draw();
-                                table.rows.adjust().draw();
+                                //   table.columns.adjust().draw();
+                                //    table.rows.adjust().draw();
                             }
 
                         }, inter)
