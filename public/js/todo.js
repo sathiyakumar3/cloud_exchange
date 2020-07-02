@@ -1232,5 +1232,3 @@ function sendmail(to, cc, subject, text_html)
         }
     }).then(() => console.log('Queued email for delivery!'));
 }
-
-
