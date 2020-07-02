@@ -370,6 +370,13 @@ function buildnavitree()
                         tempname + '_chat"></div></div><input type="text" class="form-control  rounded-outline-input rounded-input" id="add_' + tempname +
                         '" placeholder="add a comment..."><br/><button class="btn btn-success btn-anim  btn-rounded" onclick="verdict_saver(\'' + tempname +
                         '\')"><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div>';
+
+
+
+
+
+
+
                     var myvar = '<table id="edit_datable_' + tempname + '" class="table table-hover display mb-30 dataTable no-footer"  width="100%" style="cursor: pointer;" role="grid" aria-describedby="edit_datable_2_info">' +
                         '<thead><div class="row"><div class="col-sm-2 row-mg-left "><div class="pull-left pull-left-mg"><h6  class="dis-inl row-mg-left">Last Ticket : </h6> &nbsp; &nbsp;' +
                         ' <h6 class="label label-info text-bg-round" style="float: right" id="currentticket_' + tempname + '">0</h6></div></div><div class="col-sm-8 pull-right tkt-btn"><div class="pull-right pull-right-mg">' +

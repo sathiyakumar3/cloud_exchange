@@ -23,6 +23,25 @@ function reload_table(dom_id)
         }, 175);
 }
 
+
+
+
+
+function stringDivider(str, width, spaceReplacer)
+{
+    if (str.length > width) {
+        var p = width
+        for (; p > 0 && str[p] != ' '; p--) {
+        }
+        if (p > 0) {
+            var left = str.substring(0, p);
+            var right = str.substring(p + 1);
+            return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
+        }
+    }
+    return str;
+}
+
 function processrow(reportflag, row, i) //
 {
 
@@ -39,9 +58,11 @@ function processrow(reportflag, row, i) //
 
     row[2] = row[2].replace(/<\/?[^>]+(>|$)/g, "");
     row[3] = row[3].replace(/<\/?[^>]+(>|$)/g, "");
-    row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, ""), row[7] = tabletolable(row[11]),
+    row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, ""), row[7] = tabletolable(row[11], true),
         row[21] = datetimeshortformat(row[21]);
     //  row[22] = tabletoimage(row[22]);
+
+
     row[8] = tabletoimage(row[12], 35), row[9] = tabletoimage(row[13], 35) + tabletoimage(row[14], 35) + tabletoimage(row[15], 35) + tabletoimage(row[16], 35),
 
         row[18] = tabletoname(row[13]) + tabletoname(row[14]) + tabletoname(row[15]) + tabletoname(row[16]),
@@ -78,20 +99,36 @@ function processrow(reportflag, row, i) //
 
     row[10] = buttons;
     increment_tag(row[2] + "_label2");
+    if (document.getElementById(row[2] + "_label2").innerText > 5) {
 
+    }
+
+    row[2] + "_label2"
     var created_on_date = datetimeshortformat(row[17]),
         date1 = new Date(created_on_date),
         Difference_In_Time = date2.getTime() - date1.getTime(),
         Difference_In_Days = Math.round(Difference_In_Time / 864e5);
-    row[6] = Difference_In_Days > 7 && '<span class="label label-danger">Not Started</span>' == row[7] ? '<span class="inline-block txt-danger weight-500">' + Difference_In_Days + ' Days&nbsp;&nbsp;<i class="fas fa-exclamation"></i></span>' : '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>",
-        row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
-        row[3] = '<p class="txt-dark weight-500">' + row[3] + "</p>", row[4] = '<p class="txt-dark mb-10">' + row[4] + "</p>",
-        increment_tag("lb_allsit");
+
+    if (Difference_In_Days > 7 && '<span class="label label-danger">Not Started</span>' == row[7]) {
+        row[6] = '<span class="inline-block txt-danger weight-500">'
+            + Difference_In_Days + ' Days&nbsp;&nbsp;<i class="fas fa-exclamation"></i></span>';
+        document.getElementById(row[2] + "_label2").className = "label label-info";
+    } else {
+        row[6] = '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>";
+    }
+
+
+
+    row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
+        row[3] = '<p class="txt-dark weight-500">' + stringDivider(row[3], 30, "<br/>\n") + "</p>";
+    // row[4] = '<p class="txt-dark mb-10">' + stringDivider(row[4], 30, "<br/>\n") + "</p>",
+    row[4] = element_add(row[12], row[4], "", 60);
+    increment_tag("lb_allsit");
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
         ("Urgent Action" == row[11] || "Not Started" == row[11] || "On Progress" == row[11]) && (dataSet3.push(row),
             increment_tag("lb_atten")), "Not Started" == row[11] && increment_tag("stats_aq");
     if (row[23] != "---") {
-        row[23] = element_add(row[22], row[23], row[21]);
+        row[23] = element_add(row[22], row[23], row[21], 35);
     }
 
     if (user.uid == row[13] || user.uid == row[14] || user.uid == row[15] || user.uid == row[16]) {
@@ -106,29 +143,32 @@ function processrow(reportflag, row, i) //
 
 
 
+<<<<<<< HEAD
 
 
 
 function element_add(image_id, message, timetamp)
+=======
+function element_add(image_id, message, timetamp, wrap)
+>>>>>>> 9e0f62fe73e32d343b39dac0d129a5542d3ac373
 {
 
-    var dsa = '<div class="container-fluid">' +
-        '<div class=" pull-left mr-20">' +
+
+    var dsa = '<div class="sl-item">' +
+        '<a href="javascript:void(0)">' +
+        '<div class="sl-avatar">' +
         tabletoimage(image_id, 25) +
         '</div>' +
-        '<div class="sender-details   pull-left">' +
-        '<span class="capitalize-font pr-5 txt-dark block font-15 weight-500 head-font">' + message + '</span>' +
-        '</span>' +
-        '</div>' +
-        '<div class="pull-right">' +
-        '<div class="inline-block mr-5">' +
-        '<span class="inbox-detail-time-1 font-12">' + timetamp + '</span>' +
-        '</div>' +
+        '<div class="sl-content">' +
+        '<span class="inline-block capitalize-font  pull-left truncate head-notifications">' + stringDivider(message, wrap, "<br/>\n") + '</span>' +
 
-        '</div>' +
         '<div class="clearfix"></div>' +
+        '<span class="inline-block font-11  pull-right notifications-time">' + timetamp + '</span>' +
+        '</div>' +
+        '</a>' +
         '</div>';
 
+<<<<<<< HEAD
         var uio = '<a href="#" class="list-group-item">'+
 											'<span class="badge transparent-badge badge-info capitalize-font">just now</span>'+
 											'<i class="zmdi zmdi-calendar-check pull-left"></i><p class="pull-left">Calendar updated</p>'+
@@ -142,6 +182,8 @@ function element_add(image_id, message, timetamp)
         '</div>' +
         '<div class="status offline"></div>' +
         '<div class="clearfix"></div></div>';
+=======
+>>>>>>> 9e0f62fe73e32d343b39dac0d129a5542d3ac373
 
     return dsa
 }
@@ -186,7 +228,26 @@ function cleantable(domain, dataset)
     for (i = 0; i < dataset.length; i++) domain == dataset[i][2].replace(/<\/?[^>]+(>|$)/g, "") && dataset.splice(i, 1);
 }
 var loo2p;
+var inputOptionsPromise = new Promise(function (resolve)
+{
+    // get your data and pass it to resolve()
+    setTimeout(function ()
+    {
+        resolve({
+            'C': 'Closed',
+            'F': 'Follow Up',
+            'N': 'Not Started',
+            'O': 'On Progress',
+            'S': 'Skipped',
+            'U': 'Urgent',
+        })
+    }, 2000)
+})
 
+function removefollowup()
+{
+    fetch_tickets(total_op, 'E');
+}
 function dotable(id, dataset, domain_flag, report_flag)
 {
     var reports_text = "The information is from cloudexchange.lk",
@@ -248,8 +309,8 @@ function dotable(id, dataset, domain_flag, report_flag)
                                 info = table.page.info(),
                                     pageNum = info.page < info.pages ? info.page + 1 : 1;
                                 table.page(pageNum).draw(!1);
-                                table.columns.adjust().draw();
-                                table.rows.adjust().draw();
+                                //   table.columns.adjust().draw();
+                                //    table.rows.adjust().draw();
                             }
 
                         }, inter)
@@ -272,6 +333,20 @@ function dotable(id, dataset, domain_flag, report_flag)
 
 
             }
+        },
+            , {
+            text: "Remove Cases",
+            className: "btn btn-success btn-rounded",
+            action: function ()
+            {
+                fetch_tickets(total_op, 'G')
+
+                /*  Swal.fire({
+                     input: 'select',
+                     inputOptions: inputOptionsPromise
+                 }) */
+
+            }
         }]
 
     var table = $(id).DataTable({
@@ -284,6 +359,8 @@ function dotable(id, dataset, domain_flag, report_flag)
         buttons: buttons_pack,
         destroy: !0,
         data: dataset,
+        responsive: true,
+
         createdRow: function (row, data, dataIndex)
         {
             user = firebase.auth().currentUser;
@@ -315,7 +392,12 @@ function dotable(id, dataset, domain_flag, report_flag)
         }, {
             title: "Status"
         }, {
+<<<<<<< HEAD
             title: "From"
+=======
+            title: "Created by",
+            visible: !1
+>>>>>>> 9e0f62fe73e32d343b39dac0d129a5542d3ac373
         }, {
             title: "To"
         }, {
@@ -359,7 +441,7 @@ function dotable(id, dataset, domain_flag, report_flag)
         }, {
             title: "Message",
             visible: true,
-            responsivePriority: 2
+
         }, {
             "className": 'details-control',
             "orderable": false,
@@ -461,7 +543,7 @@ function format(doc, dom, status, counter)
             }
             a = a + '<div class="sl-item"><a href="javascript:void(0)"><div class="sl-avatar avatar avatar-sm avatar-circle"><img class="img-responsive img-circle" src="' + t.data().photoURL + '" alt="avatar">' +
                 '</div><div class="sl-content"><p class="inline-block"><span class="capitalize-font txt-primary mr-5 weight-500">' + t.data().name +
-                '</span></p><p>' + tabletolable(t.data().status) + '' + but + '</p><p  class="txt-dark"><span>' + t.data().message + '</span></p><span class="block txt-grey font-12 capitalize-font">' +
+                '</span></p><p>' + tabletolable(t.data().status, true) + '' + but + '</p><p  class="txt-dark"><span>' + t.data().message + '</span></p><span class="block txt-grey font-12 capitalize-font">' +
                 '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + datetimeshortformat(t.data().timestamp) + '</span>' +
                 '</div></a></div>';
 
@@ -519,20 +601,21 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
 
     db.collection("domains").doc(dom).collection("tickets").doc(doc).update(packet).then(function ()
     {
-        db.collection("domains").doc(dom).collection("tickets").doc(doc).collection("history").doc().set({
+        db.collection("domains").doc(dom).collection("tickets").doc(doc).collection("history").add({
             name: user.displayName,
             message: message,
             photoURL: document.getElementById("topProImg").src,
             status: status,
             timestamp: created_on
         })
-            .then(function ()
+            .then(function (docRef)
             {
 
                 if (!report_flag) {
                     var table = $('#edit_datable_' + dom).DataTable(
 
                     );
+
                     format(doc, dom, status, counter);
                     var updated = table.row(counter).data();
                     updated[11] = status;
@@ -552,7 +635,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                     table.cell({
                         row: counter,
                         column: 7,
-                    }).data(tabletolable(status)).draw();
+                    }).data(tabletolable(status, true)).draw();
                     table.cell({
                         row: counter,
                         column: 10,
@@ -569,7 +652,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                     '<p><strong>Location : </strong>' + location + '</p>' +
 
                     '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
-                sendmail(find_email(owner), subject, html_text_2);
+                sendmail(find_email(owner), find_email(user.email), subject, html_text_2);
             })
             .catch(function (error)
             {
@@ -602,7 +685,7 @@ function delete_history(doc, dom, counter, id)
 
 }
 
-function fetch_tickets(t)
+function fetch_tickets(t, alpha)
 {
 
 
@@ -676,7 +759,7 @@ function fetch_tickets(t)
                 {
                     document.getElementById("stats_tc").innerText = Number(document.getElementById("stats_tc").innerText) + Number(doc.data().id);
                     document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
-                    db.collection("domains").doc(t.id).collection("tickets").where("status", ">", "D").get().then(function (querySnapshot)
+                    db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot)
                     {
                         querySnapshot.forEach(function (doc)
                         {
@@ -727,11 +810,16 @@ function tabletoimage(id, size)
 function find_email(id)
 {
 
+    if (id != "---") {
+        let obj = user_profiles.find(o => o.id === id);
 
-    let obj = user_profiles.find(o => o.id === id);
+        var email = obj.email;
+        return email;
+    } else {
+        return " ";
+    }
 
-    var email = obj.email;
-    return email;
+
 
 
 }
@@ -771,7 +859,7 @@ function tabletoname(id)
 }
 
 
-function tabletolable(expression)
+function tabletolable(expression, animation)
 {
     switch (expression) {
         case 'Not Started':
@@ -787,7 +875,12 @@ function tabletolable(expression)
             return '<span class="label c_color3">Follow Up</span>'
             break;
         case 'Urgent Action':
-            return '<span class="label c_color2 blink_text">Urgent Action!</span>'
+            if (animation) {
+                return '<span class="label c_color2 blink_text">Urgent Action!</span>'
+            } else {
+                return '<span class="label c_color2">Urgent Action!</span>'
+            }
+
             break;
         case 'Closed':
             return '<span class="label label-primary">Closed</span>'
@@ -982,18 +1075,9 @@ function edittkt_save()
                     '<p>Please disregard this email, if you have received this information prior.&nbsp;</p>' +
                     '<p>Thank you.</p>' +
                     '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
-                if (assigned_to1 != "---") {
-                    sendmail(find_email(assigned_to1), subject, html_text);
-                }
-                if (assigned_to2 != "---") {
-                    sendmail(find_email(assigned_to2), subject, html_text);
-                }
-                if (assigned_to3 != "---") {
-                    sendmail(find_email(assigned_to3), subject, html_text);
-                }
-                if (assigned_to4 != "---") {
-                    sendmail(find_email(assigned_to4), subject, html_text);
-                }
+
+
+                // sendmail_as(user.email, find_email(assigned_to1), find_email(assigned_to2), find_email(assigned_to3), find_email(assigned_to4), subject, html_text_2);
                 goodnews("Email notifications sent.")
             }
         })
@@ -1038,17 +1122,19 @@ function opentkt_save()
         '<p>Thank you.</p>' +
         '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
     if (opassignee_1 != "---") {
-        sendmail(find_email(opassignee_1), subject, html_text);
+        sendmail(find_email(opassignee_1), user.email, subject, html_text);
     }
     if (opassignee_2 != "---") {
-        sendmail(find_email(opassignee_2), subject, html_text);
+        sendmail(find_email(opassignee_2), user.email, subject, html_text);
     }
     if (opassignee_3 != "---") {
-        sendmail(find_email(opassignee_3), subject, html_text);
+        sendmail(find_email(opassignee_3), user.email, subject, html_text);
     }
     if (opassignee_4 != "---") {
-        sendmail(find_email(opassignee_4), subject, html_text);
+        sendmail(find_email(opassignee_4), user.email, subject, html_text);
     }
+
+    //sendmail_as(user.email, find_email(opassignee_1), find_email(opassignee_2), find_email(opassignee_3), find_email(opassignee_4), subject, html_text_2);
 
     var html_text_2 = '<p><strong>Ticket No:&nbsp;</strong>' + tick_no + '</p>' +
         '<p><strong>Issue  : </strong>' + opticket_issue + '</p>' +
@@ -1062,7 +1148,7 @@ function opentkt_save()
         '<p>You have created the ticket and all the assignees have been notified.&nbsp;</p>' +
         '<p>Thank you.</p>' +
         '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
-    sendmail(user.email, subject, html_text_2);
+    sendmail(user.email, " ", subject, html_text_2);
 
 
     var counter = document.getElementById('counter').value;
@@ -1103,7 +1189,7 @@ function generateReport()
         con_values = [];
     document.getElementById("lb_report").innerHTML = "0", values.forEach(function (entry)
     {
-        con_values.push(tabletolable(entry));
+        con_values.push(tabletolable(entry, false));
     });
     var dtrange = document.getElementById("dtrange").value;
     document.getElementById("it-range").innerHTML = con_values, [s_date_ticks, e_date_ticks] = dtrange.split(" - "),
@@ -1161,10 +1247,11 @@ function close_case(com_id, dom_id, counter, owner, tick_id, location, issue)
 
 
 
-function sendmail(to, subject, text_html)
+function sendmail(to, cc, subject, text_html)
 {
     db.collection('mail').add({
         to: to,
+        cc: cc,
         message: {
             subject: subject,
             text: "text",
@@ -1172,3 +1259,5 @@ function sendmail(to, subject, text_html)
         }
     }).then(() => console.log('Queued email for delivery!'));
 }
+
+
