@@ -117,6 +117,7 @@ function processrow(reportflag, row, i) //
         row[6] = '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>";
     }
 
+    
 
 
     row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
@@ -190,9 +191,14 @@ function todolist()
 
 function increment_tag(t)
 {
-    console.log(document.getElementById(t).innerText+ " : "+t);
-    document.getElementById(t).innerText = Number(document.getElementById(t).innerText) + 1;
+    var item = document.getElementById(t);
+    var number = item.innerHTML;
+    number++;
+    item.innerHTML = number;
 }
+
+
+
 
 function decrement_tag(t)
 {
@@ -659,6 +665,9 @@ function delete_history(doc, dom, counter, id)
 
 function fetch_tickets(t, alpha)
 {
+
+
+
     loaded = false;
      loader();
     dataSet2 = [];
@@ -725,7 +734,7 @@ function fetch_tickets(t, alpha)
 
                 })
             }
-           // document.getElementById(t.id + '_label2').innerText = 0;
+            document.getElementById(t.id + '_label2').innerText = 0;
               
             db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function (querySnapshot)
             {
@@ -1238,3 +1247,5 @@ function sendmail(to, cc, subject, text_html)
         }
     }).then(() => console.log('Queued email for delivery!'));
 }
+
+
