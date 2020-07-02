@@ -324,8 +324,11 @@ function toTitleCase(e)
 function loader(_success)
 {
     var obj2 = document.querySelector('.loader_com');
+    obj2.classList.add('hider');
     //obj2.classList.add('hider')
-    var obj = document.querySelector('.preloader'); obj.classList.add('show');
+    var obj = document.querySelector('.preloader');
+
+    obj.classList.add('show');
 
     var w = 0, t = setInterval(function ()
     {

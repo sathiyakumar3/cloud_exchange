@@ -1,7 +1,8 @@
+
 var dataSet2 = [];
 var dataSet3 = [];
 var dats = [];
-
+var loaded = false;
 function loadtable(id, dataset, reportflag)
 {
     for (i = 0; i < dataset.length; i++) {
@@ -94,16 +95,15 @@ function processrow(reportflag, row, i) //
         row[8] = "";
         row[9] = "";
     }
-
-
-
     row[10] = buttons;
+
     increment_tag(row[2] + "_label2");
-    if (document.getElementById(row[2] + "_label2").innerText > 5) {
+  //  console.log(document.getElementById(row[2] + "_label2").innerText);
+/*     if (document.getElementById(row[2] + "_label2").innerText > 5) {
 
-    }
+    } */
 
-    row[2] + "_label2"
+    //row[2] + "_label2"
     var created_on_date = datetimeshortformat(row[17]),
         date1 = new Date(created_on_date),
         Difference_In_Time = date2.getTime() - date1.getTime(),
@@ -141,16 +141,7 @@ function processrow(reportflag, row, i) //
     return row
 }
 
-
-
-<<<<<<< HEAD
-
-
-
-function element_add(image_id, message, timetamp)
-=======
 function element_add(image_id, message, timetamp, wrap)
->>>>>>> 9e0f62fe73e32d343b39dac0d129a5542d3ac373
 {
 
 
@@ -168,22 +159,6 @@ function element_add(image_id, message, timetamp, wrap)
         '</a>' +
         '</div>';
 
-<<<<<<< HEAD
-        var uio = '<a href="#" class="list-group-item">'+
-											'<span class="badge transparent-badge badge-info capitalize-font">just now</span>'+
-											'<i class="zmdi zmdi-calendar-check pull-left"></i><p class="pull-left">Calendar updated</p>'+
-											'<div class="clearfix"></div>'+
-										'</a>';
-
-    var text = '<div class="chat-data">' + tabletoimage(image_id, 25) +
-        '<div class="user-data">' +
-        '<span class="name block capitalize-font">' + message + '</span>' +
-        '<span class="time block truncate txt-grey">' + timetamp + '</span>' +
-        '</div>' +
-        '<div class="status offline"></div>' +
-        '<div class="clearfix"></div></div>';
-=======
->>>>>>> 9e0f62fe73e32d343b39dac0d129a5542d3ac373
 
     return dsa
 }
@@ -215,6 +190,7 @@ function todolist()
 
 function increment_tag(t)
 {
+    console.log(document.getElementById(t).innerText+ " : "+t);
     document.getElementById(t).innerText = Number(document.getElementById(t).innerText) + 1;
 }
 
@@ -392,12 +368,8 @@ function dotable(id, dataset, domain_flag, report_flag)
         }, {
             title: "Status"
         }, {
-<<<<<<< HEAD
-            title: "From"
-=======
             title: "Created by",
             visible: !1
->>>>>>> 9e0f62fe73e32d343b39dac0d129a5542d3ac373
         }, {
             title: "To"
         }, {
@@ -687,8 +659,8 @@ function delete_history(doc, dom, counter, id)
 
 function fetch_tickets(t, alpha)
 {
-
-
+    loaded = false;
+     loader();
     dataSet2 = [];
     dataSet3 = [];
     dataset = [];
@@ -704,12 +676,13 @@ function fetch_tickets(t, alpha)
     document.getElementById('lb_atten').innerText = 0;
     document.getElementById('lb_allsit').innerText = 0;
     // document.getElementById('currentusers_' + t.name).innerHTML = "";
+    
+    var counter_t = 0;
+    var total_size = t.length;
     t.forEach(function (t)
     {
-
-
-
-
+       
+      
         var dataSet = [];
         if (t.name != "Cloud_Exchange") {
             var ass_combo = "";
@@ -752,7 +725,8 @@ function fetch_tickets(t, alpha)
 
                 })
             }
-            document.getElementById(t.id + '_label2').innerText = 0;
+           // document.getElementById(t.id + '_label2').innerText = 0;
+              
             db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function (querySnapshot)
             {
                 querySnapshot.forEach(function (doc)
@@ -768,6 +742,11 @@ function fetch_tickets(t, alpha)
                         });
                         document.getElementById("stats_oc").innerText = Number(document.getElementById("stats_oc").innerText) + dataSet.length;
                         loadtable('#edit_datable_' + t.id, dataSet, false);
+                        counter_t++;
+                        if(counter_t+1==total_size){                            
+                            loaded = true;    
+                        }
+                      
 
                     }).catch(function (error)
                     {
