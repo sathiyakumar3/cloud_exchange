@@ -35,8 +35,17 @@ function chat(t)
 { $("#content").load("content/chat.html?id=" + t), document.getElementById("idtest").value = t }
 function site(domainid, roler)
 {
+
+
+
+
+
+
     document.getElementById("content").style.display = "block";
     document.getElementById("content_home_page").style.display = "none";
+    document.getElementById("content_devices").style.display = "none";
+    document.getElementById("content_chat").style.display = "none";
+    document.getElementById("content_todo").style.display = "none";
     $('#content').load("content/site.html" + "?id=" + domainid, function (responseTxt, statusTxt, xhr)
     {
         if (statusTxt == "success")
@@ -104,7 +113,7 @@ function open_todo()
 {
     fetch_tickets(total_op);
 
-
+    //console.log(total_op);
     document.getElementById("content_chat").style.display = "none";
     document.getElementById("content_devices").style.display = "none";
     document.getElementById("content").style.display = "none";
@@ -304,7 +313,7 @@ function reset_user()
         "emailVerified": user.emailVerified,
         "gender": "Male",
         "live_timestamp": today,
-        "name": user.displayName,
+        "name": "---",
         "navi": false,
         "navi_status": "success",
         "phone": "0877920132",
@@ -333,7 +342,27 @@ function reset_user()
     db.collection("users").doc(user.uid).set(obj)
         .then(function ()
         {
-            goodnews("User has been reset!")
+            goodnews("User has been reset!");
+
+            Swal.fire({
+                title: 'User has been reset!',
+                text: "You want refresh?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!'
+            }).then((result) =>
+            {
+                if (result.value) {
+                    window.location.reload();
+                }
+            })
+
+
+
+
+
         })
         .catch(function (error)
         {
@@ -357,87 +386,105 @@ function reset_user()
     //     console.log("Error getting document:", error);
     // });
 }
+
+
+
 function ProfileUpdate()
 {
-
-
     var e = document.getElementById("UserEmailUpdte").value, t = document.getElementById("UserNameUpdte").value, n = document.getElementById("Userphonnumber").value,
         l = document.getElementById("UserGender").value, d = document.getElementById("UserCountry").value, o = document.getElementById("UserDesignation").value,
         s = document.getElementById("dpoption").checked,
         b = document.getElementById("asoption").checked,
         y = firebase.auth().currentUser;
 
-    var image = document.getElementById("photoUrl").files[0];
-
-    var imageName = image.name;
-
-    var storageRef = firebase.storage().ref('ProfilePicture/' + imageName);
-
-
-    var uploadTask = storageRef.put(image);
-
-
     Swal.fire({
         title: "Please wait.", text: "Initiating...",
         timer: 60000,
         html: '<h6></h6>.', onBeforeOpen: () =>
         {
-            Swal.showLoading(); Swal.getContent().querySelector('h6').textContent = "Uploading Image...";
-
-
+            Swal.showLoading(); Swal.getContent().querySelector('h6').textContent = "Saving...";
         },
     })
 
-
-    uploadTask.on('state_changed', function (snapshot)
-    {
-
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("upload is " + progress + " done");
-        Swal.getContent().querySelector('h6').textContent = "Uploading Imaage : " + Math.round(progress) + " % Complete.";
-        if (Math.round(progress) == 100) {
-            Swal.getContent().querySelector('h6').textContent = "Uploading Complete.";
-        }
-
-
-
-    }, function (error)
-    {
-
-
-    }, function ()
-    {
-        Swal.getContent().querySelector('h6').textContent = "Saving to database.";
-
-        uploadTask.snapshot.ref.getDownloadURL().then(function (downlaodURL)
+    if (document.getElementById("photoUrl").files.length != 0) {
+        var image = document.getElementById("photoUrl").files[0];
+        var imageName = image.name;
+        var storageRef = firebase.storage().ref('ProfilePicture/' + imageName);
+        var uploadTask = storageRef.put(image);
+        uploadTask.on('state_changed', function (snapshot)
         {
 
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-            db.collection("users").doc(y.uid).set({
-                name: t, email: e, phone: n,
-                photoUrl: downlaodURL,
-                gender: l,
-                country: d, designation: o, dp_options: s, as_options: b
-            }, { merge: !0 }).then(function ()
-            {
-                goodnews('Saved successfully!');
-                document.getElementById("main_page_name").innerText = t;
-                document.getElementById("main_page_desig").innerText = o;
-                document.getElementById("topProImg").src = downlaodURL;
-                document.getElementById("main_page_pic").src = downlaodURL;
+            Swal.getContent().querySelector('h6').textContent = "Uploading Imaage : " + Math.round(progress) + " % Complete.";
+            if (Math.round(progress) == 100) {
+                Swal.getContent().querySelector('h6').textContent = "Uploading Complete.";
+            }
 
-            }).then(function ()
+        }, function ()
+        {
+        }, function ()
+        {
+
+            uploadTask.snapshot.ref.getDownloadURL().then(function (downlaodURL)
             {
-                s ? (document.getElementById("dp_op_list_title").style.display = "block",
-                    document.getElementById("dp_op_list_1").style.display = "block",
-                    document.getElementById("dp_op_list_2").style.display = "block",
-                    document.getElementById("dp_op_list_3").style.display = "block",
-                    document.getElementById("dp_op_line").style.display = "block") : (document.getElementById("dp_op_list_title").style.display = "none",
-                        document.getElementById("dp_op_list_1").style.display = "none", document.getElementById("dp_op_list_2").style.display = "none",
-                        document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none")
-            }).catch(function (e) { badnews(e); })
+
+                db.collection("users").doc(y.uid).set({
+                    name: t, email: e, phone: n,
+                    photoUrl: downlaodURL,
+                    gender: l,
+                    country: d, designation: o, dp_options: s, as_options: b
+                }, { merge: !0 }).then(function ()
+                {
+
+
+                    var name = document.getElementById("topProImg").src;
+                    var storageRef = firebase.storage().refFromURL(name);
+                    storageRef.delete();
+                    document.getElementById("photoUrl").value = "";
+                    goodnews('Saved successfully!');
+                    document.getElementById("main_page_name").innerText = t;
+                    document.getElementById("main_page_desig").innerText = o;
+                    document.getElementById("topProImg").src = downlaodURL;
+                    document.getElementById("main_page_pic").src = downlaodURL;
+
+                }).then(function ()
+                {
+                    s ? (document.getElementById("dp_op_list_title").style.display = "block",
+                        document.getElementById("dp_op_list_1").style.display = "block",
+                        document.getElementById("dp_op_list_2").style.display = "block",
+                        document.getElementById("dp_op_list_3").style.display = "block",
+                        document.getElementById("dp_op_line").style.display = "block") : (document.getElementById("dp_op_list_title").style.display = "none",
+                            document.getElementById("dp_op_list_1").style.display = "none", document.getElementById("dp_op_list_2").style.display = "none",
+                            document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none");
+
+                }).catch(function (e) { badnews(e); })
+
+            });
         });
-    });
+    } else {
+
+        db.collection("users").doc(y.uid).set({
+            name: t, email: e, phone: n,
+            gender: l,
+            country: d, designation: o, dp_options: s, as_options: b
+        }, { merge: !0 }).then(function ()
+        {
+            goodnews('Saved successfully!');
+            document.getElementById("main_page_name").innerText = t;
+            document.getElementById("main_page_desig").innerText = o;
+        }).then(function ()
+        {
+            s ? (document.getElementById("dp_op_list_title").style.display = "block",
+                document.getElementById("dp_op_list_1").style.display = "block",
+                document.getElementById("dp_op_list_2").style.display = "block",
+                document.getElementById("dp_op_list_3").style.display = "block",
+                document.getElementById("dp_op_line").style.display = "block") : (document.getElementById("dp_op_list_title").style.display = "none",
+                    document.getElementById("dp_op_list_1").style.display = "none", document.getElementById("dp_op_list_2").style.display = "none",
+                    document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none");
+
+        }).catch(function (e) { badnews(e); })
+    }
 }
 
 
@@ -534,3 +581,24 @@ var offline_indi = setInterval(function ()
 //     {
 //         console.log("Error getting documents: ", error);
 //     });
+/*
+var storageRef2 = firebase.storage().ref("https://firebasestorage.googleapis.com/v0/b/poised-charger-184507-910c4.appspot.com/o/ProfilePicture%2Fwallhaven-14048.png?alt=media&amp;token=df5f3fa9-de53-4126-808f-cb2d7ae539e3");
+// Create a reference to the file to delete
+
+
+// Delete the file
+storageRef2.delete().then(function ()
+{
+    // File deleted successfully
+    console.log("Delted!");
+}).catch(function (error)
+{
+    console.log(error);
+    // Uh-oh, an error occurred!
+});
+ */
+
+function Clean_Cache()
+{
+    window.location.reload(true);
+}
