@@ -109,7 +109,7 @@ function processrow(reportflag, row, i) //
         Difference_In_Time = date2.getTime() - date1.getTime(),
         Difference_In_Days = Math.round(Difference_In_Time / 864e5);
 
-    if (Difference_In_Days > 7 && '<span class="label label-danger">Not Started</span>' == row[7]) {
+    if (Difference_In_Days > 7 && "Not Started" == row[11]) {
         row[6] = '<span class="inline-block txt-danger weight-500">'
             + Difference_In_Days + ' Days&nbsp;&nbsp;<i class="fas fa-exclamation"></i></span>';
         document.getElementById(row[2] + "_label2").className = "label label-info";
