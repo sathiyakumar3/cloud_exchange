@@ -235,7 +235,7 @@ function dotable(id, dataset, domain_flag, report_flag)
 {
     var reports_text = "The information is from cloudexchange.lk",
         selection = {
-            columns: [2, 3, 4, 5, 6, 7, 18, 19, 21, 22, 23]
+            columns: [2, 3, 4, 5, 7, 18, 19, 21, 23]
         },
         buttons_pack = [{
             extend: "copy",
@@ -314,20 +314,6 @@ function dotable(id, dataset, domain_flag, report_flag)
                 })
 
 
-
-            }
-        },
-            , {
-            text: "Remove Cases",
-            className: "btn btn-success btn-rounded",
-            action: function ()
-            {
-                fetch_tickets(total_op, 'G')
-
-                /*  Swal.fire({
-                     input: 'select',
-                     inputOptions: inputOptionsPromise
-                 }) */
 
             }
         }]
@@ -887,7 +873,6 @@ function tabletolable(expression, animation)
         case 'Solved':
             return '<span class="label label-success">Solved</span>'
             break;
-            Solved
         default:
             return '<span class="label label-info">ERROR</span>'
             break
@@ -1182,23 +1167,25 @@ function generateReport()
         con_values = [];
     document.getElementById("lb_report").innerHTML = "0", values.forEach(function (entry)
     {
-        con_values.push(tabletolable(entry, false));
+        con_values.push(tabletolable(entry, false) + '<span class="block" id="report_label_' + entry + '">0</span>');
     });
     var dtrange = document.getElementById("dtrange").value;
     document.getElementById("it-range").innerHTML = con_values, [s_date_ticks, e_date_ticks] = dtrange.split(" - "),
-        s_date_ticks = new Date(s_date_ticks), e_date_ticks = new Date(e_date_ticks), db.collection("domains").doc(sel1).collection("tickets").orderBy("created_on", "asc").startAt(s_date_ticks).endAt(e_date_ticks).get().then(function (querySnapshot)
+        s_date_ticks = new Date(s_date_ticks), e_date_ticks = new Date(e_date_ticks);
+
+    db.collection("domains").doc(sel1).collection("tickets").orderBy("created_on", "asc").startAt(s_date_ticks).endAt(e_date_ticks).get().then(function (querySnapshot)
+    {
+        querySnapshot.forEach(function (doc)
         {
-            querySnapshot.forEach(function (doc)
-            {
-                values.includes(doc.data().status) && (dataSet.push([doc.id, doc.data().id, sel1, doc.data().location, doc.data().issue, "DUM", "DUM", "DUM", "DUM", "DUM", "DUM", doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, "DUM", "DUM", doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"]),
-                    increment_tag("lb_report"));
-            }), loadtable("#example", dataSet, !0);
-            var el = document.getElementById("div1");
-            el.classList.remove("hidden");
-        }).catch(function (error)
-        {
-            console.log(error), badnews(error);
-        }), document.getElementById("gn-site").innerHTML = sel1, document.getElementById("dt-range").innerHTML = dtrange;
+            values.includes(doc.data().status) && (dataSet.push([doc.id, doc.data().id, sel1, doc.data().location, doc.data().issue, "DUM", "DUM", "DUM", "DUM", "DUM", "DUM", doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, "DUM", "DUM", doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"]),
+                increment_tag("lb_report"), increment_tag("report_label_" + doc.data().status));
+        }), loadtable("#example", dataSet, !0);
+        var el = document.getElementById("div1");
+        el.classList.remove("hidden");
+    }).catch(function (error)
+    {
+        console.log(error), badnews(error);
+    }), document.getElementById("gn-site").innerHTML = sel1, document.getElementById("dt-range").innerHTML = dtrange;
 }
 
 function undo_close_case(com_id, dom_id, counter, owner, tick_id, location, issue)
