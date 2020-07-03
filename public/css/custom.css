@@ -18,9 +18,13 @@
 .bounce{
     transition:0.3s cubic-bezier(0,1.2,.2,1.5);
   }
-  
+
   .bounce:hover{
     transform:scale(1.5,1.5);
+  }
+  .dashboard {
+    margin: 0 auto;
+    border-radius: 5px;
   }
 
 .soft_zoom {
@@ -288,4 +292,9 @@ font-size: 15px !important;
 
 .c_color5{
   background-color: #c74d15 !important;
+}
+
+.remove-mg{
+  padding: 0px !important;
+  margin: 0px !important;
 }

@@ -97,17 +97,6 @@ function open_devices()
     document.getElementById("content_chat").style.display = "none";
     document.getElementById("content_todo").style.display = "none";
 }
-function open_chat()
-{
-
-
-    fetch_chat(total_op);
-    document.getElementById("content_chat").style.display = "block";
-    document.getElementById("content_devices").style.display = "none";
-    document.getElementById("content").style.display = "none";
-    document.getElementById("content_home_page").style.display = "none";
-    document.getElementById("content_todo").style.display = "none";
-}
 
 function open_todo()
 {
