@@ -117,7 +117,7 @@ function processrow(reportflag, row, i) //
         row[6] = '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>";
     }
 
-    
+
 
 
     row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
@@ -332,6 +332,8 @@ function dotable(id, dataset, domain_flag, report_flag)
         }]
 
     var table = $(id).DataTable({
+        // sScrollX: true,
+        
         order: [
             [20, "desc"]
         ],
@@ -341,7 +343,8 @@ function dotable(id, dataset, domain_flag, report_flag)
         buttons: buttons_pack,
         destroy: !0,
         data: dataset,
-        responsive: true,
+
+
 
         createdRow: function (row, data, dataIndex)
         {
@@ -426,7 +429,11 @@ function dotable(id, dataset, domain_flag, report_flag)
             "data": null,
             "defaultContent": '',
             visible: !report_flag
-        }]
+        }],
+
+        
+     
+        
 
     })
 
@@ -591,7 +598,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
 
                 if (!report_flag) {
                     var table = $('#edit_datable_' + dom).DataTable(
-
+                        
                     );
 
                     format(doc, dom, status, counter);
@@ -608,7 +615,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                 } else {
                     format(doc, dom, status, counter);
                     var table = $('#example').DataTable(
-
+                      {"scrollX": true}
                     );
                     table.cell({
                         row: counter,
@@ -685,13 +692,13 @@ function fetch_tickets(t, alpha)
     document.getElementById('lb_atten').innerText = 0;
     document.getElementById('lb_allsit').innerText = 0;
     // document.getElementById('currentusers_' + t.name).innerHTML = "";
-    
+
     var counter_t = 0;
     var total_size = t.length;
     t.forEach(function (t)
     {
-       
-      
+
+
         var dataSet = [];
         if (t.name != "Cloud_Exchange") {
             var ass_combo = "";
@@ -735,7 +742,7 @@ function fetch_tickets(t, alpha)
                 })
             }
             document.getElementById(t.id + '_label2').innerText = 0;
-              
+
             db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function (querySnapshot)
             {
                 querySnapshot.forEach(function (doc)
@@ -752,10 +759,10 @@ function fetch_tickets(t, alpha)
                         document.getElementById("stats_oc").innerText = Number(document.getElementById("stats_oc").innerText) + dataSet.length;
                         loadtable('#edit_datable_' + t.id, dataSet, false);
                         counter_t++;
-                        if(counter_t+1==total_size){                            
-                            loaded = true;    
+                        if(counter_t+1==total_size){
+                            loaded = true;
                         }
-                      
+
 
                     }).catch(function (error)
                     {
@@ -915,7 +922,7 @@ function call_ticket_modal(t, i, y)
 function tktedit(com_id, dom_id, counter)
 {
     var oTable = $("#edit_datable_" + dom_id).dataTable(
-
+     
     ),
         dataset = oTable.fnGetData(),
         ticketid = dataset[counter][1],
@@ -1036,7 +1043,7 @@ function edittkt_save()
 
         var data = processrow(false, [com_id, ticketid, dom_id, location, issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', status, user.uid, assigned_to1, assigned_to2, assigned_to3, assigned_to4, opticket_date, 'DUM', 'DUM', ticketid, opticket_date, user.uid, "---"], counter);
         var table = $('#edit_datable_' + dom_id).DataTable(
-
+          
         );
         table.row(counter).data(data).draw();
 
@@ -1159,7 +1166,7 @@ function opentkt_save()
     {
         var data = processrow(false, [doc.id, tick_no, domain_case, opticket_location, opticket_issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', opstatus, user.uid, opassignee_1, opassignee_2, opassignee_3, opassignee_4, opticket_date, 'DUM', 'DUM', tick_no, opticket_date, user.uid, "---"], counter++);
         var table = $('#edit_datable_' + domain_case).DataTable(
-
+         
         );
         table.row.add(data).draw();
     }).catch(function (error)
@@ -1247,5 +1254,3 @@ function sendmail(to, cc, subject, text_html)
         }
     }).then(() => console.log('Queued email for delivery!'));
 }
-
-

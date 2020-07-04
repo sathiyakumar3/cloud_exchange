@@ -27,6 +27,30 @@
     border-radius: 5px;
   }
 
+.soft_zoom {
+ 
+  
+  animation: attention 8s ease infinite;
+}
+
+@keyframes attention {
+  9% {
+    transform: none;
+  }
+  12% {
+    transform: scale(1.05);
+  }
+  16% {
+    transform: scale(0.95);
+  }
+  20% {
+    transform: scale(1.03);
+  }
+  24% {
+    transform: scale(1);
+  }
+}
+
 #datepicker>span:hover{cursor:pointer}
 .tab{overflow:hidden;border:1px solid #ccc;background-color:#f1f1f1}
 .tab button{background-color:inherit;float:left;border:none;outline:0;cursor:pointer;padding:14px 16px;transition:.3s}
