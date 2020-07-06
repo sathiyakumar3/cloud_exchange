@@ -97,15 +97,15 @@ var option9 = { "tooltip": { "align": "centre", "formatter": "It's a measure of 
 var sparkResize; $(window).on("resize", function ()
 { clearTimeout(sparkResize); eChart_5.resize(); eChart_6.resize(); eChart_7.resize(); eChart_9.resize() }).resize(); function sparklineLogin(peak_logs, off_logs, day_logs, voltage_1_logs, voltage_2_logs, voltage_3_logs, current_1_logs, current_2_logs, current_3_logs)
 {
-  if ($('#spark_1').length > 0) { $("#spark_1").sparkline(peak_logs, { type: 'bar', width: '100%', height: '35', barWidth: '5', barSpacing: '5', barColor: '#667add', highlightSpotColor: '#667add' }) }
-  if ($('#spark_2').length > 0) { $("#spark_2").sparkline(off_logs, { type: 'bar', width: '100%', height: '35', barWidth: '5', barSpacing: '5', barColor: '#667add', highlightSpotColor: '#667add' }) }
-  if ($('#spark_3').length > 0) { $("#spark_3").sparkline(day_logs, { type: 'bar', width: '100%', height: '35', barWidth: '5', barSpacing: '5', barColor: '#667add', highlightSpotColor: '#667add' }) }
-  if ($('#voltage_1_sparklines').length > 0) { $("#voltage_1_sparklines").sparkline(voltage_1_logs, { type: 'line', width: '100%', height: '45', barWidth: '10', resize: !0, barSpacing: '10', barColor: '#667add', highlightSpotColor: '#667add' }) }
-  if ($('#voltage_2_sparklines').length > 0) { $("#voltage_2_sparklines").sparkline(voltage_2_logs, { type: 'line', width: '100%', height: '45', barWidth: '10', resize: !0, barSpacing: '10', barColor: '#667add', highlightSpotColor: '#667add' }) }
-  if ($('#voltage_3_sparklines').length > 0) { $("#voltage_3_sparklines").sparkline(voltage_3_logs, { type: 'line', width: '100%', height: '45', lineColor: '#ce6300', fillColor: '#ffa505', minSpotColor: '#667add', maxSpotColor: '#667add', spotColor: '#667add', highlightLineColor: 'rgba(0, 0, 0, 0.6)', highlightSpotColor: '#7f3f00' }) }
-  if ($('#current_1_sparklines').length > 0) { $("#current_1_sparklines").sparkline(current_1_logs, { type: 'bar', width: '100%', height: '45', barWidth: '10', resize: !0, barSpacing: '10', barColor: '#ffa505', highlightSpotColor: '#667add' }) }
-  if ($('#current_2_sparklines').length > 0) { $("#current_2_sparklines").sparkline(current_2_logs, { type: 'bar', width: '100%', height: '45', barWidth: '10', resize: !0, barSpacing: '10', barColor: '#ffa505', highlightSpotColor: '#667add' }) }
-  if ($('#current_3_sparklines').length > 0) { $("#current_3_sparklines").sparkline(current_3_logs, { type: 'bar', width: '100%', height: '45', barWidth: '10', resize: !0, barSpacing: '10', barColor: '#ffa505', highlightSpotColor: '#667add' }) }
+  // if ($('#spark_1').length > 0) { $("#spark_1").sparkline(peak_logs, { type: 'bar', width: '100%', height: '35', barWidth: '5', barSpacing: '5', barColor: '#667add', highlightSpotColor: '#667add' }) }
+  // if ($('#spark_2').length > 0) { $("#spark_2").sparkline(off_logs, { type: 'bar', width: '100%', height: '35', barWidth: '5', barSpacing: '5', barColor: '#667add', highlightSpotColor: '#667add' }) }
+  // if ($('#spark_3').length > 0) { $("#spark_3").sparkline(day_logs, { type: 'bar', width: '100%', height: '35', barWidth: '5', barSpacing: '5', barColor: '#667add', highlightSpotColor: '#667add' }) }
+  // if ($('#voltage_1_sparklines').length > 0) { $("#voltage_1_sparklines").sparkline(voltage_1_logs, { type: 'line', width: '100%', height: '45', barWidth: '10', resize: !0, barSpacing: '10', barColor: '#667add', highlightSpotColor: '#667add' }) }
+  // if ($('#voltage_2_sparklines').length > 0) { $("#voltage_2_sparklines").sparkline(voltage_2_logs, { type: 'line', width: '100%', height: '45', barWidth: '10', resize: !0, barSpacing: '10', barColor: '#667add', highlightSpotColor: '#667add' }) }
+  // if ($('#voltage_3_sparklines').length > 0) { $("#voltage_3_sparklines").sparkline(voltage_3_logs, { type: 'line', width: '100%', height: '45', lineColor: '#ce6300', fillColor: '#ffa505', minSpotColor: '#667add', maxSpotColor: '#667add', spotColor: '#667add', highlightLineColor: 'rgba(0, 0, 0, 0.6)', highlightSpotColor: '#7f3f00' }) }
+  // if ($('#current_1_sparklines').length > 0) { $("#current_1_sparklines").sparkline(current_1_logs, { type: 'bar', width: '100%', height: '45', barWidth: '10', resize: !0, barSpacing: '10', barColor: '#ffa505', highlightSpotColor: '#667add' }) }
+  // if ($('#current_2_sparklines').length > 0) { $("#current_2_sparklines").sparkline(current_2_logs, { type: 'bar', width: '100%', height: '45', barWidth: '10', resize: !0, barSpacing: '10', barColor: '#ffa505', highlightSpotColor: '#667add' }) }
+  // if ($('#current_3_sparklines').length > 0) { $("#current_3_sparklines").sparkline(current_3_logs, { type: 'bar', width: '100%', height: '45', barWidth: '10', resize: !0, barSpacing: '10', barColor: '#ffa505', highlightSpotColor: '#667add' }) }
   return new Promise(function (resolve, reject)
   { if (!0) { resolve("Stuff worked!") } else { reject(Error("It broke")) } })
 }
