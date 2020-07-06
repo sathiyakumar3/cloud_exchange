@@ -63,8 +63,8 @@ $(document).ready(function ()
           if (!blocked) {
             if (doc.data().timestamp != undefined) {
               var last_updated = datetimeformat(doc.data().timestamp); document.getElementById('lastlog2').innerHTML = last_updated;
-              oldtimestamp = doc.data().timestamp; newtimestamp = Date.now(); difference =
-                ((newtimestamp - oldtimestamp.toMillis()) / 1000) || 0;
+              oldtimestamp = doc.data().timestamp; newtimestamp = Date.now();
+              difference = ((newtimestamp - oldtimestamp.toMillis()) / 1000) || 0;
 
               if (difference > 60) { document.getElementById("subcripText").innerHTML = name + " - " + "<i class='fas fa-sync fa-spin'></i>" + " <font color='White'>[NOT LIVE]</font> &nbsp;&nbsp;&nbsp; |  &nbsp;&nbsp;&nbsp; " + domainer + "  &nbsp;&nbsp;&nbsp;" }
               else { document.getElementById("subcripText").innerHTML = name + " - " + "<i class='fas fa-sync fa-spin'></i>" + " <font color='Lime'>[LIVE]</font> &nbsp;&nbsp;&nbsp; |  &nbsp;&nbsp;&nbsp; " + domainer + "  &nbsp;&nbsp;&nbsp;" }
@@ -134,7 +134,9 @@ function gen_cust_gra2()
   {
     size = snapshot.size; snapshot.forEach(doc =>
     {
-      timestamp_original = doc.data().timestamp.toDate(); timestamp_hour = doc.data().timestamp.toDate().getHours(); timestamp_reformat = (doc.data().timestamp).toDate().getDate() + "-" + ((doc.data().timestamp).toDate().getMonth() + 1) + "-" + (doc.data().timestamp).toDate().getFullYear() + "  " + (doc.data().timestamp).toDate().getHours() + ":" + (doc.data().timestamp).toDate().getMinutes(); timestamp_shortdate = (doc.data().timestamp).toDate().getDate() + "-" + ((doc.data().timestamp).toDate().getMonth() + 1) + "-" + (doc.data().timestamp).toDate().getFullYear(); timestamp_firstday = doc.data().timestamp.toDate().setDate(1); day = doc.data().timestamp.toDate().getDate(); hourlydata.push({ date: timestamp_original, value: doc.data().consumption }); if (h_maximum < doc.data().consumption) { h_maximum = doc.data().consumption; h_maximum_timestamp = day; h_maximum_hour = timestamp_hour }
+      timestamp_original = doc.data().timestamp.toDate(); timestamp_hour = doc.data().timestamp.toDate().getHours(); timestamp_reformat = (doc.data().timestamp).toDate().getDate() + "-" + ((doc.data().timestamp).toDate().getMonth() + 1) + "-" + (doc.data().timestamp).toDate().getFullYear() + "  " + (doc.data().timestamp).toDate().getHours() + ":" + (doc.data().timestamp).toDate().getMinutes(); timestamp_shortdate = (doc.data().timestamp).toDate().getDate() + "-" + ((doc.data().timestamp).toDate().getMonth() + 1) + "-" + (doc.data().timestamp).toDate().getFullYear(); timestamp_firstday = doc.data().timestamp.toDate().setDate(1); day = doc.data().timestamp.toDate().getDate();
+
+      hourlydata.push({ date: timestamp_original, value: doc.data().consumption }); if (h_maximum < doc.data().consumption) { h_maximum = doc.data().consumption; h_maximum_timestamp = day; h_maximum_hour = timestamp_hour }
       tabledata.push([timestamp_original, timestamp_reformat, doc.data().voltage_1 + (" V"), doc.data().voltage_2 + (" V"), doc.data().voltage_3 + (" V"), doc.data().current_1 + (" A"), doc.data().current_2 + (" A"), doc.data().current_3 + (" A"), doc.data().power_factor, doc.data().consumption]); date = new Date(doc.data().timestamp.toDate()); date.setDate(date.getDate() - 1); if (day != yday) {
         dailydata.push({ date: date, value: Math.round(dailyconsump) }); totaldays = totaldays + 1; yesterdayer = dailyconsump; if (d_maximum < dailyconsump) { d_maximum = dailyconsump }
         dailyconsump = 0
@@ -145,7 +147,7 @@ function gen_cust_gra2()
       yday = doc.data().timestamp.toDate().getDate(); radar.push({ date: timestamp_firstday, [timestamp_shortdate]: doc.data().consumption }); if (timestamp_reformat_logs.includes(timestamp_shortdate) == !1) { timestamp_reformat_logs.push(timestamp_shortdate) }
       if (timestamp_hour > 22 || timestamp_hour <= 5) { off = off + doc.data().consumption; off_logs.push(doc.data().consumption) } else if (timestamp_hour > 18 && timestamp_hour <= 22) { peak = peak + doc.data().consumption; peak_logs.push(doc.data().consumption) } else {
         day_time = day_time + doc.data().consumption;
-        console.log(doc.data().consumption);
+
 
         day_logs.push(doc.data().consumption)
       }
@@ -155,7 +157,7 @@ function gen_cust_gra2()
     })
   }).then(function ()
   {
-    console.log(day_time);
+
     if (size != 0) {
 
       var peakp = Math.round((peak / monthly) * 100); var offp = Math.round((off / monthly) * 100); var dayp = Math.round((day_time / monthly) * 100); var avr = Math.round(monthly / totaldays); var percen = Math.round((yesterdayer / avr) * 100); enddate.setDate(enddate.getDate() - 1); var numofdays = new Date(enddate.getFullYear(), enddate.getMonth(), 0).getDate(); document.getElementById('peak').innerHTML = "Peak Usage - " + Math.round(peak) + " kWh"; document.getElementById('off').innerHTML = "Off Peak Usage- " + Math.round(off) + " kWh"; document.getElementById('day').innerHTML = "Day Usage -" + Math.round(day_time) + " kWh"; document.getElementById('totalc').innerHTML = "Total Usage for the Period- " + Math.round(monthly) + " kWh"; if (refreshflag == !1) { document.getElementById('monthl').innerHTML = numberWithCommas(monthly); document.getElementById('todayer').innerHTML = numberWithCommas(dailyconsump); document.getElementById('yesterdayer').innerHTML = numberWithCommas(yesterdayer); document.getElementById('todper').innerHTML = percen; document.getElementById('avg').innerHTML = numberWithCommas(avr) + " kWh"; document.getElementById('change').innerHTML = -(avr - yesterdayer) + " kWh"; document.getElementById('daytime1').innerHTML = numberWithCommas(day_time); document.getElementById('offtime1').innerHTML = numberWithCommas(off); document.getElementById('peaktime1').innerHTML = numberWithCommas(peak); document.getElementById('Predicted').innerHTML = numberWithCommas(avr * numofdays); document.getElementById('DAverage').innerHTML = numberWithCommas(avr); document.getElementById('monthi2').innerHTML = monthNames[startdate.getMonth()]; document.getElementById('monthi').innerHTML = monthNames[startdate.getMonth()]; document.getElementById('montho').innerHTML = monthNames[startdate.getMonth()]; document.getElementById('peak_consi').innerHTML = h_maximum; document.getElementById('houro').innerHTML = ordinal_suffix_of(h_maximum_hour); document.getElementById('dateo').innerHTML = ordinal_suffix_of(h_maximum_timestamp); document.getElementById('iconz').innerHTML = trendicon(yesterdayer - avr); document.getElementById('trende').value = percen; refreshflag = !0 }
