@@ -59,22 +59,18 @@ function processrow(reportflag, row, i) //
 
     row[2] = row[2].replace(/<\/?[^>]+(>|$)/g, "");
     row[3] = row[3].replace(/<\/?[^>]+(>|$)/g, "");
-    row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, ""), row[7] = tabletolable(row[11], true),
+    row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, "");
+    row[23] = row[23].replace(/<\/?[^>]+(>|$)/g, "");
+    row[7] = tabletolable(row[11], true),
         row[21] = datetimeshortformat(row[21]);
     //  row[22] = tabletoimage(row[22]);
-
-
     row[8] = tabletoimage(row[12], 35), row[9] = tabletoimage(row[13], 35) + tabletoimage(row[14], 35) + tabletoimage(row[15], 35) + tabletoimage(row[16], 35),
-
         row[18] = tabletoname(row[13]) + tabletoname(row[14]) + tabletoname(row[15]) + tabletoname(row[16]),
         row[19] = tabletoname(row[12]), increment_tag("total_oc_tickets");
     var butns = "'" + row[0] + "','" + row[2] + "','" + i + "','" + row[12] + "','" + row[1] + "','" + row[3] + "','" + row[4] + "'";
-
-
     if (user.uid == row[12]) {
         buttons = '<a href="#" onclick=tktedit("' + row[0] + '","' + row[2] + '","' + i + '") class="text-inverse text-success" title="Edit" data-toggle="modal" data-target="#edit_ticket_modal"><i class="fas fa-edit fa-lg"></i></a> &nbsp;&nbsp;<a href="javascript:void(0)" onclick=tktdelete("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-times fa-lg"></i></a>';
         if ('Solved' == row[11]) {
-
             buttons = buttons + '&nbsp;&nbsp;<a href="javascript:void(0)" onclick="close_case(' + butns + ')"  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check fa-lg"></i></a>&nbsp;&nbsp;';
         }
     } else {
@@ -126,6 +122,7 @@ function processrow(reportflag, row, i) //
     row[4] = element_add(row[12], row[4], "", 60);
     increment_tag("lb_allsit");
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
+        row[1] = '<h5 class="capitalize-font txt-primary mr-5 weight-500">' + row[1] + "</h5>",
         ("Urgent Action" == row[11] || "Not Started" == row[11] || "On Progress" == row[11]) && (dataSet3.push(row),
             increment_tag("lb_atten")), "Not Started" == row[11] && increment_tag("stats_aq");
     if (row[23] != "---") {
