@@ -98,10 +98,10 @@ function processrow(reportflag, row, i) //
     row[10] = buttons;
 
     increment_tag(row[2] + "_label2");
-  //  console.log(document.getElementById(row[2] + "_label2").innerText);
-/*     if (document.getElementById(row[2] + "_label2").innerText > 5) {
-
-    } */
+    //  console.log(document.getElementById(row[2] + "_label2").innerText);
+    /*     if (document.getElementById(row[2] + "_label2").innerText > 5) {
+    
+        } */
 
     //row[2] + "_label2"
     var created_on_date = datetimeshortformat(row[17]),
@@ -319,7 +319,7 @@ function dotable(id, dataset, domain_flag, report_flag)
 
     var table = $(id).DataTable({
         // sScrollX: true,
-        
+
         order: [
             [20, "desc"]
         ],
@@ -416,11 +416,6 @@ function dotable(id, dataset, domain_flag, report_flag)
             "defaultContent": '',
             visible: !report_flag
         }],
-
-        
-     
-        
-
     })
 
 
@@ -584,7 +579,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
 
                 if (!report_flag) {
                     var table = $('#edit_datable_' + dom).DataTable(
-                        
+
                     );
 
                     format(doc, dom, status, counter);
@@ -601,7 +596,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                 } else {
                     format(doc, dom, status, counter);
                     var table = $('#example').DataTable(
-                      {"scrollX": true}
+                        { "scrollX": true }
                     );
                     table.cell({
                         row: counter,
@@ -623,11 +618,12 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                     '<p><strong>Location : </strong>' + location + '</p>' +
 
                     '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
-                sendmail(find_email(owner), find_email(user.email), subject, html_text_2);
+
+                //               sendmail(find_email(owner), find_email(user.email), subject, html_text_2);
             })
             .catch(function (error)
             {
-                badnews("Saving history ", error);
+                badnews("Saving history " + error);
 
                 // console.log(error);
             });
@@ -662,7 +658,7 @@ function fetch_tickets(t, alpha)
 
 
     loaded = false;
-     loader();
+    loader();
     dataSet2 = [];
     dataSet3 = [];
     dataset = [];
@@ -745,7 +741,7 @@ function fetch_tickets(t, alpha)
                         document.getElementById("stats_oc").innerText = Number(document.getElementById("stats_oc").innerText) + dataSet.length;
                         loadtable('#edit_datable_' + t.id, dataSet, false);
                         counter_t++;
-                        if(counter_t+1==total_size){
+                        if (counter_t + 1 == total_size) {
                             loaded = true;
                         }
 
@@ -907,7 +903,7 @@ function call_ticket_modal(t, i, y)
 function tktedit(com_id, dom_id, counter)
 {
     var oTable = $("#edit_datable_" + dom_id).dataTable(
-     
+
     ),
         dataset = oTable.fnGetData(),
         ticketid = dataset[counter][1],
@@ -1028,7 +1024,7 @@ function edittkt_save()
 
         var data = processrow(false, [com_id, ticketid, dom_id, location, issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', status, user.uid, assigned_to1, assigned_to2, assigned_to3, assigned_to4, opticket_date, 'DUM', 'DUM', ticketid, opticket_date, user.uid, "---"], counter);
         var table = $('#edit_datable_' + dom_id).DataTable(
-          
+
         );
         table.row(counter).data(data).draw();
 
@@ -1151,7 +1147,7 @@ function opentkt_save()
     {
         var data = processrow(false, [doc.id, tick_no, domain_case, opticket_location, opticket_issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', opstatus, user.uid, opassignee_1, opassignee_2, opassignee_3, opassignee_4, opticket_date, 'DUM', 'DUM', tick_no, opticket_date, user.uid, "---"], counter++);
         var table = $('#edit_datable_' + domain_case).DataTable(
-         
+
         );
         table.row.add(data).draw();
     }).catch(function (error)
