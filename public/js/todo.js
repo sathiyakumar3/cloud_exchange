@@ -11,14 +11,6 @@ function loadtable(id, dataset, reportflag)
     dotable(id, dataset, !1, reportflag),
         document.getElementById("stats_cc").innerText = Number(document.getElementById("stats_tc").innerText) - Number(document.getElementById("stats_oc").innerText);
 
-    var item = document.getElementById("stats_cc");
-    var item2 = document.getElementById("stats_tc");
-    var item3 = document.getElementById("stats_oc");
-    var number2 = item2.innerHTML;
-    var number3 = item3.innerHTML;
-    item.innerHTML = number2 - number3;
-
-
 }
 
 function reload_table(dom_id)
@@ -54,6 +46,7 @@ function stringDivider(str, width, spaceReplacer)
 function processrow(reportflag, row, i) //
 {
 
+    //  chartdata["closed"] = chartdata["closed"] + 1;
     var date2 = new Date(),
         user = firebase.auth().currentUser;
     var buttons = '';
@@ -63,22 +56,32 @@ function processrow(reportflag, row, i) //
     row[8] = "";
     row[9] = "";
     row[10] = "";
+
     row[2] = row[2].replace(/<\/?[^>]+(>|$)/g, "");
     row[3] = row[3].replace(/<\/?[^>]+(>|$)/g, "");
     row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, ""), row[7] = tabletolable(row[11], true),
         row[21] = datetimeshortformat(row[21]);
+    //  row[22] = tabletoimage(row[22]);
+
+
     row[8] = tabletoimage(row[12], 35), row[9] = tabletoimage(row[13], 35) + tabletoimage(row[14], 35) + tabletoimage(row[15], 35) + tabletoimage(row[16], 35),
+
         row[18] = tabletoname(row[13]) + tabletoname(row[14]) + tabletoname(row[15]) + tabletoname(row[16]),
         row[19] = tabletoname(row[12]), increment_tag("total_oc_tickets");
     var butns = "'" + row[0] + "','" + row[2] + "','" + i + "','" + row[12] + "','" + row[1] + "','" + row[3] + "','" + row[4] + "'";
+
+
     if (user.uid == row[12]) {
         buttons = '<a href="#" onclick=tktedit("' + row[0] + '","' + row[2] + '","' + i + '") class="text-inverse text-success" title="Edit" data-toggle="modal" data-target="#edit_ticket_modal"><i class="fas fa-edit fa-lg"></i></a> &nbsp;&nbsp;<a href="javascript:void(0)" onclick=tktdelete("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-times fa-lg"></i></a>';
         if ('Solved' == row[11]) {
-            buttons = buttons + '&nbsp;&nbsp;<a href="javascript:void(0)" onclick="close_case(' + butns + ')"  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check fa-lg soft_zoom"></i></a>&nbsp;&nbsp;';
+
+            buttons = buttons + '&nbsp;&nbsp;<a href="javascript:void(0)" onclick="close_case(' + butns + ')"  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check fa-lg"></i></a>&nbsp;&nbsp;';
         }
     } else {
         buttons = buttons + '<i class="fas fa-lock"></i>';
     }
+
+
 
     if (reportflag) {
         if (user.uid == row[12] && 'Closed' == row[11]) {
@@ -93,11 +96,12 @@ function processrow(reportflag, row, i) //
         row[9] = "";
     }
     row[10] = buttons;
+
     increment_tag(row[2] + "_label2");
-    //  console.log(document.getElementById(row[2] + "_label2").innerText);
-    /*     if (document.getElementById(row[2] + "_label2").innerText > 5) {
-    
-        } */
+  //  console.log(document.getElementById(row[2] + "_label2").innerText);
+/*     if (document.getElementById(row[2] + "_label2").innerText > 5) {
+
+    } */
 
     //row[2] + "_label2"
     var created_on_date = datetimeshortformat(row[17]),
@@ -105,11 +109,10 @@ function processrow(reportflag, row, i) //
         Difference_In_Time = date2.getTime() - date1.getTime(),
         Difference_In_Days = Math.round(Difference_In_Time / 864e5);
 
-    if (Difference_In_Days > 7 && "Not Started" == row[11]) {
-        row[6] = '<span class="inline-block txt-danger weight-500 soft_zoom">'
+    if (Difference_In_Days > 7 && '<span class="label label-danger">Not Started</span>' == row[7]) {
+        row[6] = '<span class="inline-block txt-danger weight-500">'
             + Difference_In_Days + ' Days&nbsp;&nbsp;<i class="fas fa-exclamation"></i></span>';
         document.getElementById(row[2] + "_label2").className = "label label-info";
-
     } else {
         row[6] = '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>";
     }
@@ -128,10 +131,6 @@ function processrow(reportflag, row, i) //
     if (row[23] != "---") {
         row[23] = element_add(row[22], row[23], row[21], 35);
     }
-
-
-
-    row[1] = '<span class="block txt-primary weight-500 font-18 ">' + row[1] + '</span>';
 
     if (user.uid == row[13] || user.uid == row[14] || user.uid == row[15] || user.uid == row[16]) {
         dataSet2.push(row),
@@ -319,7 +318,8 @@ function dotable(id, dataset, domain_flag, report_flag)
         }]
 
     var table = $(id).DataTable({
-        "scrollX": true,
+        // sScrollX: true,
+        
         order: [
             [20, "desc"]
         ],
@@ -409,13 +409,23 @@ function dotable(id, dataset, domain_flag, report_flag)
             title: "Message",
             visible: true,
 
-        }]
+        }, {
+            "className": 'details-control',
+            "orderable": false,
+            "data": null,
+            "defaultContent": '',
+            visible: !report_flag
+        }],
+
+        
+     
+        
 
     })
 
 
     // Add event listener for opening and closing details
-    $(id + ' tbody').on('click', 'tr', function ()
+    $(id + ' tbody').on('click', 'td.details-control', function ()
     {
         var tr = $(this).closest('tr');
         var row = table.row(tr);
@@ -574,7 +584,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
 
                 if (!report_flag) {
                     var table = $('#edit_datable_' + dom).DataTable(
-                        { "scrollX": true }
+                        
                     );
 
                     format(doc, dom, status, counter);
@@ -591,7 +601,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                 } else {
                     format(doc, dom, status, counter);
                     var table = $('#example').DataTable(
-                        { "scrollX": true }
+                      {"scrollX": true}
                     );
                     table.cell({
                         row: counter,
@@ -652,7 +662,7 @@ function fetch_tickets(t, alpha)
 
 
     loaded = false;
-    loader();
+     loader();
     dataSet2 = [];
     dataSet3 = [];
     dataset = [];
@@ -723,9 +733,7 @@ function fetch_tickets(t, alpha)
             {
                 querySnapshot.forEach(function (doc)
                 {
-                    var item = document.getElementById("stats_tc");
-                    var number = item.innerHTML;
-                    item.innerHTML = Number(number) + Number(doc.data().id);
+                    document.getElementById("stats_tc").innerText = Number(document.getElementById("stats_tc").innerText) + Number(doc.data().id);
                     document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
                     db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot)
                     {
@@ -734,16 +742,10 @@ function fetch_tickets(t, alpha)
 
                             dataSet.push([doc.id, doc.data().id, t.id, doc.data().location, doc.data().issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, 'DUM', 'DUM', doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"])
                         });
-
-                        var item = document.getElementById("stats_oc");
-                        var number = item.innerHTML;
-                        item.innerHTML = Number(number) + dataSet.length;
-
-
-
+                        document.getElementById("stats_oc").innerText = Number(document.getElementById("stats_oc").innerText) + dataSet.length;
                         loadtable('#edit_datable_' + t.id, dataSet, false);
                         counter_t++;
-                        if (counter_t + 1 == total_size) {
+                        if(counter_t+1==total_size){
                             loaded = true;
                         }
 
@@ -905,7 +907,7 @@ function call_ticket_modal(t, i, y)
 function tktedit(com_id, dom_id, counter)
 {
     var oTable = $("#edit_datable_" + dom_id).dataTable(
-        { "scrollX": true }
+     
     ),
         dataset = oTable.fnGetData(),
         ticketid = dataset[counter][1],
@@ -940,7 +942,7 @@ function tktedit(com_id, dom_id, counter)
 
 function tktdelete(com_id, dom_id, counter)
 {
-    var table = $('#edit_datable_' + dom_id).DataTable({ "scrollX": true });
+    var table = $('#edit_datable_' + dom_id).DataTable();
     var updated = table.row(counter).data();
 
     Swal.fire({
@@ -1026,7 +1028,7 @@ function edittkt_save()
 
         var data = processrow(false, [com_id, ticketid, dom_id, location, issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', status, user.uid, assigned_to1, assigned_to2, assigned_to3, assigned_to4, opticket_date, 'DUM', 'DUM', ticketid, opticket_date, user.uid, "---"], counter);
         var table = $('#edit_datable_' + dom_id).DataTable(
-            { "scrollX": true }
+          
         );
         table.row(counter).data(data).draw();
 
@@ -1149,7 +1151,7 @@ function opentkt_save()
     {
         var data = processrow(false, [doc.id, tick_no, domain_case, opticket_location, opticket_issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', opstatus, user.uid, opassignee_1, opassignee_2, opassignee_3, opassignee_4, opticket_date, 'DUM', 'DUM', tick_no, opticket_date, user.uid, "---"], counter++);
         var table = $('#edit_datable_' + domain_case).DataTable(
-            { "scrollX": true }
+         
         );
         table.row.add(data).draw();
     }).catch(function (error)
