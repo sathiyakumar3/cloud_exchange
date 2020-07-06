@@ -113,9 +113,6 @@ function processrow(reportflag, row, i) //
         row[6] = '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>";
     }
 
-
-
-
     row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
         row[3] = '<p class="txt-dark weight-500">' + stringDivider(row[3], 30, "<br/>\n") + "</p>";
     // row[4] = '<p class="txt-dark mb-10">' + stringDivider(row[4], 30, "<br/>\n") + "</p>",
@@ -433,6 +430,8 @@ function dotable(id, dataset, domain_flag, report_flag)
         var ass_3 = data[15];
         var ass_4 = data[16];
         var owner = data[12];
+
+        data[1] = data[1].replace(/<\/?[^>]+(>|$)/g, "");
 
         var status = data[11];
         if (row.child.isShown()) {
