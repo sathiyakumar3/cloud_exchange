@@ -341,15 +341,18 @@ function dotable(id, dataset, domain_flag, report_flag)
         },
 
 
-        columns: [{
+        columns: [
+            {
             title: "Doc ID",
             visible: !1
-        }, {
+        }, 
+        {
             title: "ID"
 
         }, {
             title: "Domain",
             visible: domain_flag
+            
 
         }, {
             title: "Location"
@@ -1022,7 +1025,26 @@ function edittkt_save()
     }).then(function ()
     {
 
-        var data = processrow(false, [com_id, ticketid, dom_id, location, issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', status, user.uid, assigned_to1, assigned_to2, assigned_to3, assigned_to4, opticket_date, 'DUM', 'DUM', ticketid, opticket_date, user.uid, "---"], counter);
+        var data = processrow(false, 
+            [
+                com_id, 
+                ticketid, 
+                dom_id, 
+                location, 
+                issue, 
+                'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 
+                status, 
+                user.uid, 
+                assigned_to1, 
+                assigned_to2, 
+                assigned_to3, 
+                assigned_to4, 
+                opticket_date,
+                 'DUM', 'DUM', 
+                 ticketid, 
+                 opticket_date,
+                  user.uid, 
+                  "---"], counter);
         var table = $('#edit_datable_' + dom_id).DataTable(
 
         );

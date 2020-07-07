@@ -23,8 +23,51 @@ function gen_cust_gra2()
     else {
       badnews("No records found in the given range.");
     }
-    snapshot.forEach(doc => { var capacity = doc.data().capacity; var chw_enter = doc.data().chw_enter; var chw_flow = doc.data().chw_flow; var chw_leave = doc.data().chw_leave; var chw_press_drop = doc.data().chw_press_drop; var cond_pressure = doc.data().cond_pressure; var control_setpoint = doc.data().control_setpoint; var cop = doc.data().cop; var cow_enter = doc.data().cow_enter; var cow_leave = doc.data().cow_leave; var evap_pressure = doc.data().evap_pressure; var expan_valve_posi = doc.data().expan_valve_posi; var num_of_compressors = doc.data().num_of_compressors; var offset = doc.data().offset; var ref_kw = doc.data().ref_kw; var refrig_liq_level = doc.data().refrig_liq_level; var setpoint = doc.data().setpoint; var total_input_power = doc.data().total_input_power; var totalcurrent = doc.data().totalcurrent; var timedate1_temp = doc.data().timestamp.toDate(); tabledata.push([timedate1_temp, capacity + " %", chw_enter + " °C", chw_flow + " l/s", chw_leave + " °C", chw_press_drop + " kPa", cond_pressure + " kPa", control_setpoint + " °C", cop, cow_enter + " °C", cow_leave + " °C", evap_pressure + " kPa", expan_valve_posi + " %", num_of_compressors, offset, ref_kw + " kW", refrig_liq_level + " %", setpoint + " °C", total_input_power + " kW", totalcurrent + " A"]); devicechart.push({ date: timedate1_temp, cap: capacity, CHWEnt: chw_enter, ChwF: chw_flow, Chwl: chw_leave, Chwpd: chw_press_drop, cs: control_setpoint, cop: cop, cow: cow_enter, cowl: cow_leave, ep: evap_pressure, evp: expan_valve_posi, nop: num_of_compressors, ofs: offset, refkw: ref_kw, rll: refrig_liq_level, stp: setpoint, tip: total_input_power, tc: totalcurrent }) })
-  }).then(function ()
+    snapshot.forEach(doc => { var capacity = doc.data().capacity; var chw_enter = doc.data().chw_enter; var chw_flow = doc.data().chw_flow; var chw_leave = doc.data().chw_leave; var chw_press_drop = doc.data().chw_press_drop; var cond_pressure = doc.data().cond_pressure; var control_setpoint = doc.data().control_setpoint; var cop = doc.data().cop; var cow_enter = doc.data().cow_enter; var cow_leave = doc.data().cow_leave; var evap_pressure = doc.data().evap_pressure; var expan_valve_posi = doc.data().expan_valve_posi; var num_of_compressors = doc.data().num_of_compressors; var offset = doc.data().offset; var ref_kw = doc.data().ref_kw; var refrig_liq_level = doc.data().refrig_liq_level; var setpoint = doc.data().setpoint; var total_input_power = doc.data().total_input_power; var totalcurrent = doc.data().totalcurrent; var timedate1_temp = doc.data().timestamp.toDate(); 
+      tabledata.push(
+        [
+          timedate1_temp,
+          capacity + " %",
+          chw_enter + " °C",
+          chw_flow + " l/s", 
+          chw_leave + " °C", 
+          chw_press_drop + " kPa", 
+          cond_pressure + " kPa", 
+          control_setpoint + " °C", 
+          cop, 
+          cow_enter + " °C", 
+          cow_leave + " °C", 
+          evap_pressure + " kPa", 
+          expan_valve_posi + " %", 
+          num_of_compressors, 
+          offset, 
+          ref_kw + " kW", 
+          refrig_liq_level + " %", 
+          setpoint + " °C", 
+          total_input_power + " kW" 
+          ]); devicechart.push(
+            { 
+              date: timedate1_temp,
+              cap: capacity,
+              CHWEnt: chw_enter,
+              ChwF: chw_flow,
+              Chwl: chw_leave,
+              Chwpd: chw_press_drop,
+              cs: control_setpoint,
+              cop: cop,
+              cow: cow_enter,
+              cowl: cow_leave,
+              ep: evap_pressure,
+              evp: expan_valve_posi,
+              nop: num_of_compressors,
+              ofs: offset,
+              refkw: ref_kw,
+              rll: refrig_liq_level,
+              stp: setpoint,
+              tip: total_input_power
+               }) })
+  
+    }).then(function ()
   { document.getElementById('loaddata').innerHTML = "Datasets - [" + s_date_format + "] to [" + e_date_format + "]"; multiplecharts(values, devicechart, !1); loadtable(tabledata) })
     .catch(function (error)
     {
@@ -96,7 +139,28 @@ $(document).ready(function ()
               snapshot.forEach(doc =>
               {
                 if (addflag) {
-                  var capacity = doc.data().capacity; var chw_enter = doc.data().chw_enter; var chw_flow = doc.data().chw_flow; var chw_leave = doc.data().chw_leave; var chw_press_drop = doc.data().chw_press_drop; var cond_pressure = doc.data().cond_pressure; var control_setpoint = doc.data().control_setpoint; var cop = doc.data().cop; var cow_enter = doc.data().cow_enter; var cow_leave = doc.data().cow_leave; var evap_pressure = doc.data().evap_pressure; var expan_valve_posi = doc.data().expan_valve_posi; var num_of_compressors = doc.data().num_of_compressors; var offset = doc.data().offset; var ref_kw = doc.data().ref_kw; var refrig_liq_level = doc.data().refrig_liq_level; var setpoint = doc.data().setpoint; var total_input_power = doc.data().total_input_power; var totalcurrent = doc.data().totalcurrent; var timedate1_temp = doc.data().timestamp.toDate(); tabledata.push([timedate1_temp, capacity + " %", chw_enter + " °C", chw_flow + " l/s", chw_leave + " °C", chw_press_drop + " kPa", cond_pressure + " kPa", control_setpoint + " °C", cop, cow_enter + " °C", cow_leave + " °C", evap_pressure + " kPa", expan_valve_posi + " %", num_of_compressors, offset, ref_kw + " kW", refrig_liq_level + " %", setpoint + " °C", total_input_power + " kW", totalcurrent + " A"]);
+                  var capacity = doc.data().capacity; var chw_enter = doc.data().chw_enter; var chw_flow = doc.data().chw_flow; var chw_leave = doc.data().chw_leave; var chw_press_drop = doc.data().chw_press_drop; var cond_pressure = doc.data().cond_pressure; var control_setpoint = doc.data().control_setpoint; var cop = doc.data().cop; var cow_enter = doc.data().cow_enter; var cow_leave = doc.data().cow_leave; var evap_pressure = doc.data().evap_pressure; var expan_valve_posi = doc.data().expan_valve_posi; var num_of_compressors = doc.data().num_of_compressors; var offset = doc.data().offset; var ref_kw = doc.data().ref_kw; var refrig_liq_level = doc.data().refrig_liq_level; var setpoint = doc.data().setpoint; var total_input_power = doc.data().total_input_power; var totalcurrent = doc.data().totalcurrent; var timedate1_temp = doc.data().timestamp.toDate(); tabledata.push(
+                    [
+                      timedate1_temp,
+                      capacity + " %",
+                      chw_enter + " °C", 
+                      chw_flow + " l/s", 
+                      chw_leave + " °C", 
+                      chw_press_drop + " kPa", 
+                      cond_pressure + " kPa", 
+                      control_setpoint + " °C", 
+                      cop, 
+                      cow_enter + " °C", 
+                      cow_leave + " °C", 
+                      evap_pressure + " kPa", 
+                      expan_valve_posi + " %", 
+                      num_of_compressors, 
+                      offset, 
+                      ref_kw + " kW", 
+                      refrig_liq_level + " %", 
+                      setpoint + " °C", 
+                      total_input_power + " kW"
+                    ]);
                   devicechart.push({ date: timedate1_temp, cap: capacity, CHWEnt: chw_enter, ChwF: chw_flow, Chwl: chw_leave, Chwpd: chw_press_drop, cs: control_setpoint, cop: cop, cow: cow_enter, cowl: cow_leave, ep: evap_pressure, cp: cond_pressure, evp: expan_valve_posi, nop: num_of_compressors, ofs: offset, refkw: ref_kw, rll: refrig_liq_level, stp: setpoint, tip: total_input_power, tc: totalcurrent })
 
                 }
@@ -240,7 +304,27 @@ function multiplecharts(e, devicechart, t)
 function loadtable(tabledata)
 {
   $(document).ready(function ()
-  { $('#dbtable').DataTable({ destroy: !0, dom: 'Bfrtip', buttons: ['copy', 'csv', 'excel', 'pdf'], data: tabledata, columns: [{ title: "Date and Time" }, { title: "Capacity" }, { title: "CHW Entering Temperature" }, { title: "CHW Flow" }, { title: "chw Leave" }, { title: "CHW Press Drop" }, { title: "control setpoint" }, { title: "cop" }, { title: "cow" }, { title: "cow leave" }, { title: "evap pressure" }, { title: "expan valve posi" }, { title: "num of compressors" }, { title: "offset" }, { title: "ref kw" }, { title: "refrig liq level" }, { title: "setpoint" }, { title: "total input power" }, { title: "totalcurrent" }] }) }); tabledata = []
+  { $('#dbtable002').DataTable({ destroy: !0, dom: 'Bfrtip', buttons: ['copy', 'csv', 'excel', 'pdf'], data: tabledata, columns: [
+    { title: "Date and Time" },
+    { title: "Capacity" },
+      { title: "CHW Entering Temperature" },
+    { title: "CHW Flow" }, 
+    { title: "chw Leave" }, 
+    { title: "CHW Press Drop" }, 
+    { title: "control setpoint" }, 
+    { title: "cop" }, 
+    { title: "cow" }, 
+    { title: "cow leave" }, 
+    { title: "evap pressure" }, 
+    { title: "expan valve posi" }, 
+    { title: "num of compressors" }, 
+    { title: "offset" }, 
+    { title: "ref kw" }, 
+    { title: "refrig liq level" }, 
+    { title: "setpoint" }, 
+    { title: "total input power" }, 
+    { title: "totalcurrent" }
+  ] }) }); tabledata = []
 }
 
 
@@ -347,3 +431,1177 @@ $(document).ready(function ()
   }
 }); sparklineLogin(); echartsConfig(); var dataSet = [["Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800"],]; $(document).ready(function ()
 { $('#dbtable2').DataTable({ data: dataSet, columns: [{ title: "Name" }, { title: "Position" }, { title: "Office" }, { title: "Extn." }, { title: "Start date" }, { title: "Salary" }] }) });
+
+
+
+
+
+// Analytics JS section
+
+am4core.ready(function() {
+
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
+  
+  // Create chart instance
+  var chart = am4core.create("ChillerEfficency", am4charts.XYChart);
+  
+  // Add data
+  chart.data = [{
+    "ax": 1,
+    "ay": 0.5,
+    "bx": 1,
+    "by": 2.2
+  }, {
+    "ax": 2,
+    "ay": 1.3,
+    "bx": 2,
+    "by": 4.9
+  }, {
+    "ax": 3,
+    "ay": 2.3,
+    "bx": 3,
+    "by": 5.1
+  }, {
+    "ax": 4,
+    "ay": 2.8,
+    "bx": 4,
+    "by": 5.3
+  }, {
+    "ax": 5,
+    "ay": 3.5,
+    "bx": 5,
+    "by": 6.1
+  }, {
+    "ax": 6,
+    "ay": 5.1,
+    "bx": 6,
+    "by": 8.3
+  }, {
+    "ax": 7,
+    "ay": 6.7,
+    "bx": 7,
+    "by": 10.5
+  }, {
+    "ax": 8,
+    "ay": 8,
+    "bx": 8,
+    "by": 12.3
+  }, {
+    "ax": 9,
+    "ay": 8.9,
+    "bx": 9,
+    "by": 14.5
+  }, {
+    "ax": 10,
+    "ay": 9.7,
+    "bx": 10,
+    "by": 15
+  }, {
+    "ax": 11,
+    "ay": 10.4,
+    "bx": 11,
+    "by": 18.8
+  }, {
+    "ax": 12,
+    "ay": 11.7,
+    "bx": 12,
+    "by": 19
+  }];
+  
+  // Create axes
+  var valueAxisX = chart.xAxes.push(new am4charts.ValueAxis());
+  valueAxisX.title.text = 'X Axis';
+  valueAxisX.renderer.minGridDistance = 40;
+  
+  // Create value axis
+  var valueAxisY = chart.yAxes.push(new am4charts.ValueAxis());
+  valueAxisY.title.text = 'Y Axis';
+  
+  // Create series
+  var lineSeries = chart.series.push(new am4charts.LineSeries());
+  lineSeries.dataFields.valueY = "ay";
+  lineSeries.dataFields.valueX = "ax";
+  lineSeries.strokeOpacity = 0;
+  
+  var lineSeries2 = chart.series.push(new am4charts.LineSeries());
+  lineSeries2.dataFields.valueY = "by";
+  lineSeries2.dataFields.valueX = "bx";
+  lineSeries2.strokeOpacity = 0;
+  
+  // Add a bullet
+  var bullet = lineSeries.bullets.push(new am4charts.Bullet());
+  
+  // Add a triangle to act as am arrow
+  var arrow = bullet.createChild(am4core.Triangle);
+  arrow.horizontalCenter = "middle";
+  arrow.verticalCenter = "middle";
+  arrow.strokeWidth = 0;
+  arrow.fill = chart.colors.getIndex(0);
+  arrow.direction = "top";
+  arrow.width = 12;
+  arrow.height = 12;
+  
+  // Add a bullet
+  var bullet2 = lineSeries2.bullets.push(new am4charts.Bullet());
+  
+  // Add a triangle to act as am arrow
+  var arrow2 = bullet2.createChild(am4core.Triangle);
+  arrow2.horizontalCenter = "middle";
+  arrow2.verticalCenter = "middle";
+  arrow2.rotation = 180;
+  arrow2.strokeWidth = 0;
+  arrow2.fill = chart.colors.getIndex(3);
+  arrow2.direction = "top";
+  arrow2.width = 12;
+  arrow2.height = 12;
+  
+  //add the trendlines
+  var trend = chart.series.push(new am4charts.LineSeries());
+  trend.dataFields.valueY = "value2";
+  trend.dataFields.valueX = "value";
+  trend.strokeWidth = 2
+  trend.stroke = chart.colors.getIndex(0);
+  trend.strokeOpacity = 0.7;
+  trend.data = [
+    { "value": 1, "value2": 2 },
+    { "value": 12, "value2": 11 }
+  ];
+  
+  var trend2 = chart.series.push(new am4charts.LineSeries());
+  trend2.dataFields.valueY = "value2";
+  trend2.dataFields.valueX = "value";
+  trend2.strokeWidth = 2
+  trend2.stroke = chart.colors.getIndex(3);
+  trend2.strokeOpacity = 0.7;
+  trend2.data = [
+    { "value": 1, "value2": 1 },
+    { "value": 12, "value2": 19 }
+  ];
+  
+  // //scrollbars
+  // chart.scrollbarX = new am4core.Scrollbar();
+  // chart.scrollbarY = new am4core.Scrollbar();
+  
+  }); // end am4core.ready()
+
+
+  ////////////////////////////////////////
+
+  am4core.ready(function() {
+
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    // Create chart instance
+    var chart = am4core.create("ChillerEfficency2", am4charts.XYChart);
+    
+    // Add data
+    chart.data = [{
+      "ax": 1,
+      "ay": 0.5,
+      "bx": 1,
+      "by": 2.2
+    }, {
+      "ax": 2,
+      "ay": 1.3,
+      "bx": 2,
+      "by": 4.9
+    }, {
+      "ax": 3,
+      "ay": 2.3,
+      "bx": 3,
+      "by": 5.1
+    }, {
+      "ax": 4,
+      "ay": 2.8,
+      "bx": 4,
+      "by": 5.3
+    }, {
+      "ax": 5,
+      "ay": 3.5,
+      "bx": 5,
+      "by": 6.1
+    }, {
+      "ax": 6,
+      "ay": 5.1,
+      "bx": 6,
+      "by": 8.3
+    }, {
+      "ax": 7,
+      "ay": 6.7,
+      "bx": 7,
+      "by": 10.5
+    }, {
+      "ax": 8,
+      "ay": 8,
+      "bx": 8,
+      "by": 12.3
+    }, {
+      "ax": 9,
+      "ay": 8.9,
+      "bx": 9,
+      "by": 14.5
+    }, {
+      "ax": 10,
+      "ay": 9.7,
+      "bx": 10,
+      "by": 15
+    }, {
+      "ax": 11,
+      "ay": 10.4,
+      "bx": 11,
+      "by": 18.8
+    }, {
+      "ax": 12,
+      "ay": 11.7,
+      "bx": 12,
+      "by": 19
+    }];
+    
+    // Create axes
+    var valueAxisX = chart.xAxes.push(new am4charts.ValueAxis());
+    valueAxisX.title.text = 'X Axis';
+    valueAxisX.renderer.minGridDistance = 40;
+    
+    // Create value axis
+    var valueAxisY = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxisY.title.text = 'Y Axis';
+    
+    // Create series
+    var lineSeries = chart.series.push(new am4charts.LineSeries());
+    lineSeries.dataFields.valueY = "ay";
+    lineSeries.dataFields.valueX = "ax";
+    lineSeries.strokeOpacity = 0;
+    
+    var lineSeries2 = chart.series.push(new am4charts.LineSeries());
+    lineSeries2.dataFields.valueY = "by";
+    lineSeries2.dataFields.valueX = "bx";
+    lineSeries2.strokeOpacity = 0;
+    
+    // Add a bullet
+    var bullet = lineSeries.bullets.push(new am4charts.Bullet());
+    
+    // Add a triangle to act as am arrow
+    var arrow = bullet.createChild(am4core.Triangle);
+    arrow.horizontalCenter = "middle";
+    arrow.verticalCenter = "middle";
+    arrow.strokeWidth = 0;
+    arrow.fill = chart.colors.getIndex(0);
+    arrow.direction = "top";
+    arrow.width = 12;
+    arrow.height = 12;
+    
+    // Add a bullet
+    var bullet2 = lineSeries2.bullets.push(new am4charts.Bullet());
+    
+    // Add a triangle to act as am arrow
+    var arrow2 = bullet2.createChild(am4core.Triangle);
+    arrow2.horizontalCenter = "middle";
+    arrow2.verticalCenter = "middle";
+    arrow2.rotation = 180;
+    arrow2.strokeWidth = 0;
+    arrow2.fill = chart.colors.getIndex(3);
+    arrow2.direction = "top";
+    arrow2.width = 12;
+    arrow2.height = 12;
+    
+    //add the trendlines
+    var trend = chart.series.push(new am4charts.LineSeries());
+    trend.dataFields.valueY = "value2";
+    trend.dataFields.valueX = "value";
+    trend.strokeWidth = 2
+    trend.stroke = chart.colors.getIndex(0);
+    trend.strokeOpacity = 0.7;
+    trend.data = [
+      { "value": 1, "value2": 2 },
+      { "value": 12, "value2": 11 }
+    ];
+    
+    var trend2 = chart.series.push(new am4charts.LineSeries());
+    trend2.dataFields.valueY = "value2";
+    trend2.dataFields.valueX = "value";
+    trend2.strokeWidth = 2
+    trend2.stroke = chart.colors.getIndex(3);
+    trend2.strokeOpacity = 0.7;
+    trend2.data = [
+      { "value": 1, "value2": 1 },
+      { "value": 12, "value2": 19 }
+    ];
+    
+    // //scrollbars
+    // chart.scrollbarX = new am4core.Scrollbar();
+    // chart.scrollbarY = new am4core.Scrollbar();
+    
+    }); // end am4core.ready()
+
+  //////////////////////////////////////
+
+  am4core.ready(function() {
+
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    // Create chart instance
+    var chart = am4core.create("ChillerEfficency3", am4charts.XYChart);
+    
+    // Add data
+    chart.data = [{
+      "ax": 1,
+      "ay": 0.5,
+      "bx": 1,
+      "by": 2.2
+    }, {
+      "ax": 2,
+      "ay": 1.3,
+      "bx": 2,
+      "by": 4.9
+    }, {
+      "ax": 3,
+      "ay": 2.3,
+      "bx": 3,
+      "by": 5.1
+    }, {
+      "ax": 4,
+      "ay": 2.8,
+      "bx": 4,
+      "by": 5.3
+    }, {
+      "ax": 5,
+      "ay": 3.5,
+      "bx": 5,
+      "by": 6.1
+    }, {
+      "ax": 6,
+      "ay": 5.1,
+      "bx": 6,
+      "by": 8.3
+    }, {
+      "ax": 7,
+      "ay": 6.7,
+      "bx": 7,
+      "by": 10.5
+    }, {
+      "ax": 8,
+      "ay": 8,
+      "bx": 8,
+      "by": 12.3
+    }, {
+      "ax": 9,
+      "ay": 8.9,
+      "bx": 9,
+      "by": 14.5
+    }, {
+      "ax": 10,
+      "ay": 9.7,
+      "bx": 10,
+      "by": 15
+    }, {
+      "ax": 11,
+      "ay": 10.4,
+      "bx": 11,
+      "by": 18.8
+    }, {
+      "ax": 12,
+      "ay": 11.7,
+      "bx": 12,
+      "by": 19
+    }];
+    
+    // Create axes
+    var valueAxisX = chart.xAxes.push(new am4charts.ValueAxis());
+    valueAxisX.title.text = 'X Axis';
+    valueAxisX.renderer.minGridDistance = 40;
+    
+    // Create value axis
+    var valueAxisY = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxisY.title.text = 'Y Axis';
+    
+    // Create series
+    var lineSeries = chart.series.push(new am4charts.LineSeries());
+    lineSeries.dataFields.valueY = "ay";
+    lineSeries.dataFields.valueX = "ax";
+    lineSeries.strokeOpacity = 0;
+    
+    var lineSeries2 = chart.series.push(new am4charts.LineSeries());
+    lineSeries2.dataFields.valueY = "by";
+    lineSeries2.dataFields.valueX = "bx";
+    lineSeries2.strokeOpacity = 0;
+    
+    // Add a bullet
+    var bullet = lineSeries.bullets.push(new am4charts.Bullet());
+    
+    // Add a triangle to act as am arrow
+    var arrow = bullet.createChild(am4core.Triangle);
+    arrow.horizontalCenter = "middle";
+    arrow.verticalCenter = "middle";
+    arrow.strokeWidth = 0;
+    arrow.fill = chart.colors.getIndex(0);
+    arrow.direction = "top";
+    arrow.width = 12;
+    arrow.height = 12;
+    
+    // Add a bullet
+    var bullet2 = lineSeries2.bullets.push(new am4charts.Bullet());
+    
+    // Add a triangle to act as am arrow
+    var arrow2 = bullet2.createChild(am4core.Triangle);
+    arrow2.horizontalCenter = "middle";
+    arrow2.verticalCenter = "middle";
+    arrow2.rotation = 180;
+    arrow2.strokeWidth = 0;
+    arrow2.fill = chart.colors.getIndex(3);
+    arrow2.direction = "top";
+    arrow2.width = 12;
+    arrow2.height = 12;
+    
+    //add the trendlines
+    var trend = chart.series.push(new am4charts.LineSeries());
+    trend.dataFields.valueY = "value2";
+    trend.dataFields.valueX = "value";
+    trend.strokeWidth = 2
+    trend.stroke = chart.colors.getIndex(0);
+    trend.strokeOpacity = 0.7;
+    trend.data = [
+      { "value": 1, "value2": 2 },
+      { "value": 12, "value2": 11 }
+    ];
+    
+    var trend2 = chart.series.push(new am4charts.LineSeries());
+    trend2.dataFields.valueY = "value2";
+    trend2.dataFields.valueX = "value";
+    trend2.strokeWidth = 2
+    trend2.stroke = chart.colors.getIndex(3);
+    trend2.strokeOpacity = 0.7;
+    trend2.data = [
+      { "value": 1, "value2": 1 },
+      { "value": 12, "value2": 19 }
+    ];
+    
+    // //scrollbars
+    // chart.scrollbarX = new am4core.Scrollbar();
+    // chart.scrollbarY = new am4core.Scrollbar();
+    
+    }); // end am4core.ready()
+  
+  /////////////////////////////////////
+
+  am4core.ready(function() {
+
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    var chart = am4core.create("evapApproach", am4charts.PieChart3D);
+    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+    
+    chart.data = [
+      {
+        country: "Lithuania",
+        litres: 501.9
+      },
+      {
+        country: "Czech Republic",
+        litres: 301.9
+      },
+      {
+        country: "Ireland",
+        litres: 201.1
+      },
+      {
+        country: "Germany",
+        litres: 165.8
+      },
+      {
+        country: "Australia",
+        litres: 139.9
+      },
+      {
+        country: "Austria",
+        litres: 128.3
+      }
+    ];
+    
+    chart.innerRadius = am4core.percent(40);
+    chart.depth = 120;
+    
+    // chart.legend = new am4charts.Legend();
+    
+    var series = chart.series.push(new am4charts.PieSeries3D());
+    series.dataFields.value = "litres";
+    series.dataFields.depthValue = "litres";
+    series.dataFields.category = "country";
+    series.slices.template.cornerRadius = 5;
+    series.colors.step = 3;
+    
+    }); // end am4core.ready()
+
+    //////////////////////////////////////////////
+    am4core.ready(function() {
+
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      // Themes end
+      
+      var chart = am4core.create("evapApproach2", am4charts.PieChart3D);
+      chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+      
+      chart.data = [
+        {
+          country: "Lithuania",
+          litres: 501.9
+        },
+        {
+          country: "Czech Republic",
+          litres: 301.9
+        },
+        {
+          country: "Ireland",
+          litres: 201.1
+        },
+        {
+          country: "Germany",
+          litres: 165.8
+        },
+        {
+          country: "Australia",
+          litres: 139.9
+        },
+        {
+          country: "Austria",
+          litres: 128.3
+        }
+      ];
+      
+      chart.innerRadius = am4core.percent(40);
+      chart.depth = 120;
+      
+      // chart.legend = new am4charts.Legend();
+      
+      var series = chart.series.push(new am4charts.PieSeries3D());
+      series.dataFields.value = "litres";
+      series.dataFields.depthValue = "litres";
+      series.dataFields.category = "country";
+      series.slices.template.cornerRadius = 5;
+      series.colors.step = 3;
+      
+      }); // end am4core.ready()
+    /////////////////////////////////////////////
+    var dataSet = [
+      [ "1", "Marketing Designer", "12:00:00 AM", "02:00:00 AM", "2" ],
+      [ "1", "Marketing Designer", "12:00:00 AM", "02:00:00 AM", "2" ],
+      [ "1", "Marketing Designer", "12:00:00 AM", "02:00:00 AM", "2" ],
+      [ "1", "Marketing Designer", "12:00:00 AM", "02:00:00 AM", "2" ]
+    ];
+
+    $(document).ready(function() {
+      $('#almTB').DataTable( {
+          data: dataSet,
+          columns: [
+              { title: "No" },
+              { title: "Alarm" },
+              { title: "Time ACT" },
+              { title: "Time DA" },
+              { title: "Propaty" }
+            
+          ]
+      } );
+  } );
+
+    ////////////////////////////////////////////
+    am4core.ready(function() {
+
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      // Themes end
+      
+      // Create chart instance
+      var chart = am4core.create("CHWStemp", am4charts.XYChart);
+      
+      // Add data
+      chart.data = [{
+        "ax": 1,
+        "ay": 0.5,
+        "bx": 1,
+        "by": 2.2
+      }, {
+        "ax": 2,
+        "ay": 1.3,
+        "bx": 2,
+        "by": 4.9
+      }, {
+        "ax": 3,
+        "ay": 2.3,
+        "bx": 3,
+        "by": 5.1
+      }, {
+        "ax": 4,
+        "ay": 2.8,
+        "bx": 4,
+        "by": 5.3
+      }, {
+        "ax": 5,
+        "ay": 3.5,
+        "bx": 5,
+        "by": 6.1
+      }, {
+        "ax": 6,
+        "ay": 5.1,
+        "bx": 6,
+        "by": 8.3
+      }, {
+        "ax": 7,
+        "ay": 6.7,
+        "bx": 7,
+        "by": 10.5
+      }, {
+        "ax": 8,
+        "ay": 8,
+        "bx": 8,
+        "by": 12.3
+      }, {
+        "ax": 9,
+        "ay": 8.9,
+        "bx": 9,
+        "by": 14.5
+      }, {
+        "ax": 10,
+        "ay": 9.7,
+        "bx": 10,
+        "by": 15
+      }, {
+        "ax": 11,
+        "ay": 10.4,
+        "bx": 11,
+        "by": 18.8
+      }, {
+        "ax": 12,
+        "ay": 11.7,
+        "bx": 12,
+        "by": 19
+      }];
+      
+      // Create axes
+      var valueAxisX = chart.xAxes.push(new am4charts.ValueAxis());
+      valueAxisX.title.text = 'X Axis';
+      valueAxisX.renderer.minGridDistance = 40;
+      
+      // Create value axis
+      var valueAxisY = chart.yAxes.push(new am4charts.ValueAxis());
+      valueAxisY.title.text = 'Y Axis';
+      
+      // Create series
+      var lineSeries = chart.series.push(new am4charts.LineSeries());
+      lineSeries.dataFields.valueY = "ay";
+      lineSeries.dataFields.valueX = "ax";
+      lineSeries.strokeOpacity = 0;
+      
+      var lineSeries2 = chart.series.push(new am4charts.LineSeries());
+      lineSeries2.dataFields.valueY = "by";
+      lineSeries2.dataFields.valueX = "bx";
+      lineSeries2.strokeOpacity = 0;
+      
+      // Add a bullet
+      var bullet = lineSeries.bullets.push(new am4charts.Bullet());
+      
+      // Add a triangle to act as am arrow
+      var arrow = bullet.createChild(am4core.Triangle);
+      arrow.horizontalCenter = "middle";
+      arrow.verticalCenter = "middle";
+      arrow.strokeWidth = 0;
+      arrow.fill = chart.colors.getIndex(0);
+      arrow.direction = "top";
+      arrow.width = 12;
+      arrow.height = 12;
+      
+      // Add a bullet
+      var bullet2 = lineSeries2.bullets.push(new am4charts.Bullet());
+      
+      // Add a triangle to act as am arrow
+      var arrow2 = bullet2.createChild(am4core.Triangle);
+      arrow2.horizontalCenter = "middle";
+      arrow2.verticalCenter = "middle";
+      arrow2.rotation = 180;
+      arrow2.strokeWidth = 0;
+      arrow2.fill = chart.colors.getIndex(3);
+      arrow2.direction = "top";
+      arrow2.width = 12;
+      arrow2.height = 12;
+      
+      //add the trendlines
+      var trend = chart.series.push(new am4charts.LineSeries());
+      trend.dataFields.valueY = "value2";
+      trend.dataFields.valueX = "value";
+      trend.strokeWidth = 2
+      trend.stroke = chart.colors.getIndex(0);
+      trend.strokeOpacity = 0.7;
+      trend.data = [
+        { "value": 1, "value2": 2 },
+        { "value": 12, "value2": 11 }
+      ];
+      
+      var trend2 = chart.series.push(new am4charts.LineSeries());
+      trend2.dataFields.valueY = "value2";
+      trend2.dataFields.valueX = "value";
+      trend2.strokeWidth = 2
+      trend2.stroke = chart.colors.getIndex(3);
+      trend2.strokeOpacity = 0.7;
+      trend2.data = [
+        { "value": 1, "value2": 1 },
+        { "value": 12, "value2": 19 }
+      ];
+      
+      // //scrollbars
+      // chart.scrollbarX = new am4core.Scrollbar();
+      // chart.scrollbarY = new am4core.Scrollbar();
+      
+      }); // end am4core.ready()
+    ////////////////////////////////////////////
+    am4core.ready(function() {
+
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      // Themes end
+      
+      // Create chart instance
+      var chart = am4core.create("CHWRtemp", am4charts.XYChart);
+      
+      // Add data
+      chart.data = [{
+        "ax": 1,
+        "ay": 0.5,
+        "bx": 1,
+        "by": 2.2
+      }, {
+        "ax": 2,
+        "ay": 1.3,
+        "bx": 2,
+        "by": 4.9
+      }, {
+        "ax": 3,
+        "ay": 2.3,
+        "bx": 3,
+        "by": 5.1
+      }, {
+        "ax": 4,
+        "ay": 2.8,
+        "bx": 4,
+        "by": 5.3
+      }, {
+        "ax": 5,
+        "ay": 3.5,
+        "bx": 5,
+        "by": 6.1
+      }, {
+        "ax": 6,
+        "ay": 5.1,
+        "bx": 6,
+        "by": 8.3
+      }, {
+        "ax": 7,
+        "ay": 6.7,
+        "bx": 7,
+        "by": 10.5
+      }, {
+        "ax": 8,
+        "ay": 8,
+        "bx": 8,
+        "by": 12.3
+      }, {
+        "ax": 9,
+        "ay": 8.9,
+        "bx": 9,
+        "by": 14.5
+      }, {
+        "ax": 10,
+        "ay": 9.7,
+        "bx": 10,
+        "by": 15
+      }, {
+        "ax": 11,
+        "ay": 10.4,
+        "bx": 11,
+        "by": 18.8
+      }, {
+        "ax": 12,
+        "ay": 11.7,
+        "bx": 12,
+        "by": 19
+      }];
+      
+      // Create axes
+      var valueAxisX = chart.xAxes.push(new am4charts.ValueAxis());
+      valueAxisX.title.text = 'X Axis';
+      valueAxisX.renderer.minGridDistance = 40;
+      
+      // Create value axis
+      var valueAxisY = chart.yAxes.push(new am4charts.ValueAxis());
+      valueAxisY.title.text = 'Y Axis';
+      
+      // Create series
+      var lineSeries = chart.series.push(new am4charts.LineSeries());
+      lineSeries.dataFields.valueY = "ay";
+      lineSeries.dataFields.valueX = "ax";
+      lineSeries.strokeOpacity = 0;
+      
+      var lineSeries2 = chart.series.push(new am4charts.LineSeries());
+      lineSeries2.dataFields.valueY = "by";
+      lineSeries2.dataFields.valueX = "bx";
+      lineSeries2.strokeOpacity = 0;
+      
+      // Add a bullet
+      var bullet = lineSeries.bullets.push(new am4charts.Bullet());
+      
+      // Add a triangle to act as am arrow
+      var arrow = bullet.createChild(am4core.Triangle);
+      arrow.horizontalCenter = "middle";
+      arrow.verticalCenter = "middle";
+      arrow.strokeWidth = 0;
+      arrow.fill = chart.colors.getIndex(0);
+      arrow.direction = "top";
+      arrow.width = 12;
+      arrow.height = 12;
+      
+      // Add a bullet
+      var bullet2 = lineSeries2.bullets.push(new am4charts.Bullet());
+      
+      // Add a triangle to act as am arrow
+      var arrow2 = bullet2.createChild(am4core.Triangle);
+      arrow2.horizontalCenter = "middle";
+      arrow2.verticalCenter = "middle";
+      arrow2.rotation = 180;
+      arrow2.strokeWidth = 0;
+      arrow2.fill = chart.colors.getIndex(3);
+      arrow2.direction = "top";
+      arrow2.width = 12;
+      arrow2.height = 12;
+      
+      //add the trendlines
+      var trend = chart.series.push(new am4charts.LineSeries());
+      trend.dataFields.valueY = "value2";
+      trend.dataFields.valueX = "value";
+      trend.strokeWidth = 2
+      trend.stroke = chart.colors.getIndex(0);
+      trend.strokeOpacity = 0.7;
+      trend.data = [
+        { "value": 1, "value2": 2 },
+        { "value": 12, "value2": 11 }
+      ];
+      
+      var trend2 = chart.series.push(new am4charts.LineSeries());
+      trend2.dataFields.valueY = "value2";
+      trend2.dataFields.valueX = "value";
+      trend2.strokeWidth = 2
+      trend2.stroke = chart.colors.getIndex(3);
+      trend2.strokeOpacity = 0.7;
+      trend2.data = [
+        { "value": 1, "value2": 1 },
+        { "value": 12, "value2": 19 }
+      ];
+      
+      // //scrollbars
+      // chart.scrollbarX = new am4core.Scrollbar();
+      // chart.scrollbarY = new am4core.Scrollbar();
+      
+      }); // end am4core.ready()
+    ////////////////////////////////////////////
+
+    am4core.ready(function() {
+
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      // Themes end
+      
+      // Create chart instance
+      var chart = am4core.create("CDWStemp", am4charts.XYChart);
+      
+      // Add data
+      chart.data = [{
+        "ax": 1,
+        "ay": 0.5,
+        "bx": 1,
+        "by": 2.2
+      }, {
+        "ax": 2,
+        "ay": 1.3,
+        "bx": 2,
+        "by": 4.9
+      }, {
+        "ax": 3,
+        "ay": 2.3,
+        "bx": 3,
+        "by": 5.1
+      }, {
+        "ax": 4,
+        "ay": 2.8,
+        "bx": 4,
+        "by": 5.3
+      }, {
+        "ax": 5,
+        "ay": 3.5,
+        "bx": 5,
+        "by": 6.1
+      }, {
+        "ax": 6,
+        "ay": 5.1,
+        "bx": 6,
+        "by": 8.3
+      }, {
+        "ax": 7,
+        "ay": 6.7,
+        "bx": 7,
+        "by": 10.5
+      }, {
+        "ax": 8,
+        "ay": 8,
+        "bx": 8,
+        "by": 12.3
+      }, {
+        "ax": 9,
+        "ay": 8.9,
+        "bx": 9,
+        "by": 14.5
+      }, {
+        "ax": 10,
+        "ay": 9.7,
+        "bx": 10,
+        "by": 15
+      }, {
+        "ax": 11,
+        "ay": 10.4,
+        "bx": 11,
+        "by": 18.8
+      }, {
+        "ax": 12,
+        "ay": 11.7,
+        "bx": 12,
+        "by": 19
+      }];
+      
+      // Create axes
+      var valueAxisX = chart.xAxes.push(new am4charts.ValueAxis());
+      valueAxisX.title.text = 'X Axis';
+      valueAxisX.renderer.minGridDistance = 40;
+      
+      // Create value axis
+      var valueAxisY = chart.yAxes.push(new am4charts.ValueAxis());
+      valueAxisY.title.text = 'Y Axis';
+      
+      // Create series
+      var lineSeries = chart.series.push(new am4charts.LineSeries());
+      lineSeries.dataFields.valueY = "ay";
+      lineSeries.dataFields.valueX = "ax";
+      lineSeries.strokeOpacity = 0;
+      
+      var lineSeries2 = chart.series.push(new am4charts.LineSeries());
+      lineSeries2.dataFields.valueY = "by";
+      lineSeries2.dataFields.valueX = "bx";
+      lineSeries2.strokeOpacity = 0;
+      
+      // Add a bullet
+      var bullet = lineSeries.bullets.push(new am4charts.Bullet());
+      
+      // Add a triangle to act as am arrow
+      var arrow = bullet.createChild(am4core.Triangle);
+      arrow.horizontalCenter = "middle";
+      arrow.verticalCenter = "middle";
+      arrow.strokeWidth = 0;
+      arrow.fill = chart.colors.getIndex(0);
+      arrow.direction = "top";
+      arrow.width = 12;
+      arrow.height = 12;
+      
+      // Add a bullet
+      var bullet2 = lineSeries2.bullets.push(new am4charts.Bullet());
+      
+      // Add a triangle to act as am arrow
+      var arrow2 = bullet2.createChild(am4core.Triangle);
+      arrow2.horizontalCenter = "middle";
+      arrow2.verticalCenter = "middle";
+      arrow2.rotation = 180;
+      arrow2.strokeWidth = 0;
+      arrow2.fill = chart.colors.getIndex(3);
+      arrow2.direction = "top";
+      arrow2.width = 12;
+      arrow2.height = 12;
+      
+      //add the trendlines
+      var trend = chart.series.push(new am4charts.LineSeries());
+      trend.dataFields.valueY = "value2";
+      trend.dataFields.valueX = "value";
+      trend.strokeWidth = 2
+      trend.stroke = chart.colors.getIndex(0);
+      trend.strokeOpacity = 0.7;
+      trend.data = [
+        { "value": 1, "value2": 2 },
+        { "value": 12, "value2": 11 }
+      ];
+      
+      var trend2 = chart.series.push(new am4charts.LineSeries());
+      trend2.dataFields.valueY = "value2";
+      trend2.dataFields.valueX = "value";
+      trend2.strokeWidth = 2
+      trend2.stroke = chart.colors.getIndex(3);
+      trend2.strokeOpacity = 0.7;
+      trend2.data = [
+        { "value": 1, "value2": 1 },
+        { "value": 12, "value2": 19 }
+      ];
+      
+      // //scrollbars
+      // chart.scrollbarX = new am4core.Scrollbar();
+      // chart.scrollbarY = new am4core.Scrollbar();
+      
+      }); // end am4core.ready()
+
+      /////////////////////////////////////////////////////////
+      am4core.ready(function() {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+        
+        // Create chart instance
+        var chart = am4core.create("COWRtemp", am4charts.XYChart);
+        
+        // Add data
+        chart.data = [{
+          "ax": 1,
+          "ay": 0.5,
+          "bx": 1,
+          "by": 2.2
+        }, {
+          "ax": 2,
+          "ay": 1.3,
+          "bx": 2,
+          "by": 4.9
+        }, {
+          "ax": 3,
+          "ay": 2.3,
+          "bx": 3,
+          "by": 5.1
+        }, {
+          "ax": 4,
+          "ay": 2.8,
+          "bx": 4,
+          "by": 5.3
+        }, {
+          "ax": 5,
+          "ay": 3.5,
+          "bx": 5,
+          "by": 6.1
+        }, {
+          "ax": 6,
+          "ay": 5.1,
+          "bx": 6,
+          "by": 8.3
+        }, {
+          "ax": 7,
+          "ay": 6.7,
+          "bx": 7,
+          "by": 10.5
+        }, {
+          "ax": 8,
+          "ay": 8,
+          "bx": 8,
+          "by": 12.3
+        }, {
+          "ax": 9,
+          "ay": 8.9,
+          "bx": 9,
+          "by": 14.5
+        }, {
+          "ax": 10,
+          "ay": 9.7,
+          "bx": 10,
+          "by": 15
+        }, {
+          "ax": 11,
+          "ay": 10.4,
+          "bx": 11,
+          "by": 18.8
+        }, {
+          "ax": 12,
+          "ay": 11.7,
+          "bx": 12,
+          "by": 19
+        }];
+        
+        // Create axes
+        var valueAxisX = chart.xAxes.push(new am4charts.ValueAxis());
+        valueAxisX.title.text = 'X Axis';
+        valueAxisX.renderer.minGridDistance = 40;
+        
+        // Create value axis
+        var valueAxisY = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxisY.title.text = 'Y Axis';
+        
+        // Create series
+        var lineSeries = chart.series.push(new am4charts.LineSeries());
+        lineSeries.dataFields.valueY = "ay";
+        lineSeries.dataFields.valueX = "ax";
+        lineSeries.strokeOpacity = 0;
+        
+        var lineSeries2 = chart.series.push(new am4charts.LineSeries());
+        lineSeries2.dataFields.valueY = "by";
+        lineSeries2.dataFields.valueX = "bx";
+        lineSeries2.strokeOpacity = 0;
+        
+        // Add a bullet
+        var bullet = lineSeries.bullets.push(new am4charts.Bullet());
+        
+        // Add a triangle to act as am arrow
+        var arrow = bullet.createChild(am4core.Triangle);
+        arrow.horizontalCenter = "middle";
+        arrow.verticalCenter = "middle";
+        arrow.strokeWidth = 0;
+        arrow.fill = chart.colors.getIndex(0);
+        arrow.direction = "top";
+        arrow.width = 12;
+        arrow.height = 12;
+        
+        // Add a bullet
+        var bullet2 = lineSeries2.bullets.push(new am4charts.Bullet());
+        
+        // Add a triangle to act as am arrow
+        var arrow2 = bullet2.createChild(am4core.Triangle);
+        arrow2.horizontalCenter = "middle";
+        arrow2.verticalCenter = "middle";
+        arrow2.rotation = 180;
+        arrow2.strokeWidth = 0;
+        arrow2.fill = chart.colors.getIndex(3);
+        arrow2.direction = "top";
+        arrow2.width = 12;
+        arrow2.height = 12;
+        
+        //add the trendlines
+        var trend = chart.series.push(new am4charts.LineSeries());
+        trend.dataFields.valueY = "value2";
+        trend.dataFields.valueX = "value";
+        trend.strokeWidth = 2
+        trend.stroke = chart.colors.getIndex(0);
+        trend.strokeOpacity = 0.7;
+        trend.data = [
+          { "value": 1, "value2": 2 },
+          { "value": 12, "value2": 11 }
+        ];
+        
+        var trend2 = chart.series.push(new am4charts.LineSeries());
+        trend2.dataFields.valueY = "value2";
+        trend2.dataFields.valueX = "value";
+        trend2.strokeWidth = 2
+        trend2.stroke = chart.colors.getIndex(3);
+        trend2.strokeOpacity = 0.7;
+        trend2.data = [
+          { "value": 1, "value2": 1 },
+          { "value": 12, "value2": 19 }
+        ];
+        
+        // //scrollbars
+        // chart.scrollbarX = new am4core.Scrollbar();
+        // chart.scrollbarY = new am4core.Scrollbar();
+        
+        }); // end am4core.ready()

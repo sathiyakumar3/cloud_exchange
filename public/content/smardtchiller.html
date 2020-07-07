@@ -2,7 +2,50 @@
 <html lang="en">
 
 <head>
+	<style>
+		#ChillerEfficency {
+		  width: 100%;
+		  height: 300px;
+		}
 
+		#ChillerEfficency2 {
+		  width: 100%;
+		  height: 300px;
+		}
+
+		#ChillerEfficency3 {
+		  width: 100%;
+		  height: 300px;
+		}
+
+		#evapApproach {
+		  width: 100%;
+		  height: 300px;
+		}
+
+		#evapApproach2 {
+		  width: 100%;
+		  height: 300px;
+		}
+		
+		#CHWStemp{
+			width: 100%;
+			height: 300px;
+		}
+		#CHWRtemp{
+			width: 100%;
+			height: 300px;
+		}
+		#CDWStemp{
+			width:100%;
+			height: 300px;
+		}
+		#COWRtemp{
+			width: 100%;
+			height: 300px;
+			
+		}
+		</style> 
 </head>
 
 <body>
@@ -55,9 +98,16 @@
 										role="tab" id="follo_tab_8" href="#follo_8"><i
 											class="fas fa-chart-line mr-10"></i><span>Reports</span></a>
 								</li>
+								
 								<li role="presentation" class="next"><a aria-expanded="true" data-toggle="tab"
-										role="tab" id="follo_tab_9" href="#follo_9" onclick="AlarmsTab()"><i
-											class="fas fa-bell mr-10"></i><span>Alarms</span></a>
+									role="tab" id="follo_tab_9" href="#follo_9" onclick="AlarmsTab()"><i
+										class="fas fa-bell mr-10"></i><span>Alarms</span></a>
+							</li>
+
+							<li role="presentation" class="next"><a aria-expanded="true" data-toggle="tab"
+								role="tab" id="follo_tab_7" href="#follo_7"><i
+									class="fas fa-line-chart mr-10"></i><span>Analytics</span></a>
+							
 								</li>
 								<li class="pull-right pul-right-mg">
 									<button class="btn btn-primary btn-block btn-anim btn-rounded" data-toggle="modal"
@@ -546,9 +596,9 @@
 																	role="tabpanel">
 																	<div class="table-wrap">
 																		<div class="table-responsive">
-																			<table id="dbtable"
+																			<table id="dbtable002"
 																				class="table table-hover display  pb-30"
-																				width="100%"></table>
+																				width="100%"></table> 
 																		</div>
 																	</div>
 																</div>
@@ -635,6 +685,81 @@
 									<!--/row2-->
 								</div>
 								<!-- /alarms-->
+								<!-- Analytics-->
+								
+
+
+
+								<div id="follo_7" class="tab-pane fade" role="tabpanel">
+									<div class="row"> <!-- row no 1-->
+										<div class="col-sm-6">
+											<div class="panel panel-default card-view">
+											<div id="ChillerEfficency"></div>
+										</div>
+										</div>
+
+										<div class="col-sm-3">
+											<div class="panel panel-default card-view">
+											<div id="ChillerEfficency2"></div>
+										</div>
+										</div>
+
+										<div class="col-sm-3">
+											<div class="panel panel-default card-view">
+											<div id="ChillerEfficency3"></div>
+										</div>
+										</div>
+									</div>
+									<div class="row"><!-- row no 2-->
+										<div class="col-sm-3">
+											<div class="panel panel-default card-view">
+												<div id="evapApproach"></div>
+											</div>
+										</div>
+										
+										<div class="col-sm-3">
+											<div class="panel panel-default card-view">
+												<div id="evapApproach2"></div>
+											</div>
+										</div>
+
+										<div class="col-sm-6">
+											<div class="panel panel-default card-view">
+												<div class="table-responsive">
+													
+												<table id="almTB" class="display" width="100%"></table>
+											</div>
+											</div>
+										</div>
+
+									</div>
+									
+
+									<div class="row"> <!-- row no 3-->
+										<div class="col-sm-3">
+											<div class="panel panel-default card-view">
+												<div id="CHWStemp"></div>
+											</div>	
+										</div>
+										<div class="col-sm-3">
+											<div class="panel panel-default card-view">
+												<div id="CHWRtemp"></div>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="panel panel-default card-view">
+												<div id="CDWStemp"></div>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="panel panel-default card-view">
+												<div id="COWRtemp"></div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<!-- /Analytics -->
 							</div>
 						</div>
 					</div>
