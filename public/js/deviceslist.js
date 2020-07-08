@@ -374,10 +374,7 @@ function buildnavitree()
 
 
 
-
-
-
-                    var myvar = '<div class="table-responsive"><table   id="edit_datable_' + tempname + '" class="table table-hover display  mb-30 dataTable no-footer"  width="100%" style="cursor: pointer;" role="grid" aria-describedby="edit_datable_2_info">' +
+                    var myvar ='<div class="table-responsive"><table   id="edit_datable_' + tempname + '" class="table table-hover display  mb-30 dataTable no-footer"  width="100%" style="cursor: pointer;" role="grid" aria-describedby="edit_datable_2_info">' +
                         '<thead><div class="row"><div class="col-sm-2 row-mg-left "><div class="pull-left pull-left-mg"><h6  class="dis-inl row-mg-left">Last Ticket : </h6> &nbsp; &nbsp;' +
                         ' <h6 class="label label-info text-bg-round" style="float: right" id="currentticket_' + tempname + '">0</h6></div></div><div class="col-sm-8 pull-right tkt-btn"><div class="pull-right pull-right-mg">' +
                         '&nbsp;&nbsp;' +
