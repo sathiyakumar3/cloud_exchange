@@ -380,6 +380,8 @@ $(document).ready(function ()
 // update site
 function updateSite()
 {
+  console.log("working");
+  
   /*   var domainid = document.getElementById("idtest").value;
     var sdescription = document.getElementById('sDescription').value;
     var slocation = document.getElementById('sLocation').value;

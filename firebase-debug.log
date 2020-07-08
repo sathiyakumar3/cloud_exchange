@@ -290,3 +290,211 @@
 [info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
 [debug] [2020-07-08T03:15:24.009Z] [worker-~diagnostic~-f24059d3-3b86-41d7-b3b2-ed5a31458396]: exited 
 [debug] [2020-07-08T03:15:24.010Z] [worker-~diagnostic~-f24059d3-3b86-41d7-b3b2-ed5a31458396]: FINISHED 
+[debug] [2020-07-08T03:28:14.629Z] ----------------------------------------------------------------------
+[debug] [2020-07-08T03:28:14.631Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\dushm\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-07-08T03:28:14.632Z] CLI Version:   8.2.0
+[debug] [2020-07-08T03:28:14.632Z] Platform:      win32
+[debug] [2020-07-08T03:28:14.632Z] Node Version:  v10.15.3
+[debug] [2020-07-08T03:28:14.633Z] Time:          Wed Jul 08 2020 08:58:14 GMT+0530 (India Standard Time)
+[debug] [2020-07-08T03:28:14.633Z] ----------------------------------------------------------------------
+[debug] [2020-07-08T03:28:14.633Z] 
+[debug] [2020-07-08T03:28:14.641Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-07-08T03:28:14.642Z] > authorizing via signed-in user
+[debug] [2020-07-08T03:28:14.642Z] [iam] checking project poised-charger-184507-910c4 for permissions ["firebase.projects.get"]
+[debug] [2020-07-08T03:28:14.644Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/poised-charger-184507-910c4:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-07-08T03:28:15.838Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 03:28:17 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=951","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-07-08T03:28:15.839Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/poised-charger-184507-910c4  
+ 
+[debug] [2020-07-08T03:28:16.265Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 03:28:17 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from 'F:\cloud_exchange'...
+[info] 
+[debug] [2020-07-08T03:28:16.276Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/poised-charger-184507-910c4/webApps/-/config  
+ 
+[debug] [2020-07-08T03:28:17.592Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 03:28:19 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
+[info] +  functions: Using node@10 from host.
+[info] +  functions: functions emulator started at http://localhost:5001
+[info] i  functions: Watching "F:\cloud_exchange\functions" for Cloud Functions...
+[debug] [2020-07-08T03:28:18.363Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-07-08T03:28:18.364Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 
+[debug] [2020-07-08T03:28:18.364Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-07-08T03:28:18.364Z] [worker-~diagnostic~-80f34d61-5c7f-40ec-965b-975209f05462]: Assigning socketPath: \\?\pipe\F:\cloud_exchange\functions\14152 
+[debug] [2020-07-08T03:28:18.365Z] [worker-~diagnostic~-80f34d61-5c7f-40ec-965b-975209f05462]: BUSY 
+[debug] [2020-07-08T03:28:18.759Z] [runtime-status] [14152] Functions runtime initialized. {"cwd":"F:\\cloud_exchange\\functions","node_version":"10.15.3"} 
+[debug] [2020-07-08T03:28:18.759Z] [runtime-status] [14152] Disabled runtime features: undefined 
+[debug] [2020-07-08T03:28:18.762Z] [runtime-status] [14152] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.1","resolution":"F:\\cloud_exchange\\functions\\node_modules\\firebase-admin\\lib\\index.js"} 
+[warn] !  The Cloud Functions emulator requires the module "firebase-admin" to be version >8.9.0 so your version is too old. You can probably fix this by running "npm install firebase-admin@latest" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2020-07-08T03:28:18.785Z] [worker-~diagnostic~-80f34d61-5c7f-40ec-965b-975209f05462]: exited 
+[debug] [2020-07-08T03:28:18.785Z] [worker-~diagnostic~-80f34d61-5c7f-40ec-965b-975209f05462]: FINISHED 
+[debug] [2020-07-08T06:13:50.070Z] ----------------------------------------------------------------------
+[debug] [2020-07-08T06:13:50.072Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\dushm\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-07-08T06:13:50.072Z] CLI Version:   8.2.0
+[debug] [2020-07-08T06:13:50.072Z] Platform:      win32
+[debug] [2020-07-08T06:13:50.072Z] Node Version:  v10.15.3
+[debug] [2020-07-08T06:13:50.073Z] Time:          Wed Jul 08 2020 11:43:50 GMT+0530 (India Standard Time)
+[debug] [2020-07-08T06:13:50.073Z] ----------------------------------------------------------------------
+[debug] [2020-07-08T06:13:50.073Z] 
+[debug] [2020-07-08T06:13:50.083Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-07-08T06:13:50.083Z] > authorizing via signed-in user
+[debug] [2020-07-08T06:13:50.083Z] [iam] checking project poised-charger-184507-910c4 for permissions ["firebase.projects.get"]
+[debug] [2020-07-08T06:13:50.088Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-07-08T06:13:50.088Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-07-08T06:13:50.291Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 06:13:50 GMT","server":"scaffolding on HTTPServer2","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-07-08T06:13:50.456Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/poised-charger-184507-910c4:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-07-08T06:13:51.710Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 06:13:51 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=1046","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-07-08T06:13:51.711Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/poised-charger-184507-910c4  
+ 
+[debug] [2020-07-08T06:13:52.179Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 06:13:52 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from 'F:\cloud_exchange'...
+[info] 
+[debug] [2020-07-08T06:13:52.183Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/poised-charger-184507-910c4/webApps/-/config  
+ 
+[debug] [2020-07-08T06:13:53.415Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 06:13:53 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
+[info] +  functions: Using node@10 from host.
+[info] +  functions: functions emulator started at http://localhost:5001
+[info] i  functions: Watching "F:\cloud_exchange\functions" for Cloud Functions...
+[debug] [2020-07-08T06:13:54.257Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-07-08T06:13:54.257Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 
+[debug] [2020-07-08T06:13:54.257Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-07-08T06:13:54.257Z] [worker-~diagnostic~-05264a73-795d-4a44-b38e-fc2d5614ea7f]: Assigning socketPath: \\?\pipe\F:\cloud_exchange\functions\15040 
+[debug] [2020-07-08T06:13:54.258Z] [worker-~diagnostic~-05264a73-795d-4a44-b38e-fc2d5614ea7f]: BUSY 
+[debug] [2020-07-08T06:13:54.668Z] [runtime-status] [15040] Functions runtime initialized. {"cwd":"F:\\cloud_exchange\\functions","node_version":"10.15.3"} 
+[debug] [2020-07-08T06:13:54.669Z] [runtime-status] [15040] Disabled runtime features: undefined 
+[debug] [2020-07-08T06:13:54.672Z] [runtime-status] [15040] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.1","resolution":"F:\\cloud_exchange\\functions\\node_modules\\firebase-admin\\lib\\index.js"} 
+[warn] !  The Cloud Functions emulator requires the module "firebase-admin" to be version >8.9.0 so your version is too old. You can probably fix this by running "npm install firebase-admin@latest" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2020-07-08T06:13:54.695Z] [worker-~diagnostic~-05264a73-795d-4a44-b38e-fc2d5614ea7f]: exited 
+[debug] [2020-07-08T06:13:54.696Z] [worker-~diagnostic~-05264a73-795d-4a44-b38e-fc2d5614ea7f]: FINISHED 
+[debug] [2020-07-08T07:18:37.067Z] ----------------------------------------------------------------------
+[debug] [2020-07-08T07:18:37.069Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\dushm\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-07-08T07:18:37.069Z] CLI Version:   8.2.0
+[debug] [2020-07-08T07:18:37.069Z] Platform:      win32
+[debug] [2020-07-08T07:18:37.069Z] Node Version:  v10.15.3
+[debug] [2020-07-08T07:18:37.070Z] Time:          Wed Jul 08 2020 12:48:37 GMT+0530 (India Standard Time)
+[debug] [2020-07-08T07:18:37.070Z] ----------------------------------------------------------------------
+[debug] [2020-07-08T07:18:37.071Z] 
+[debug] [2020-07-08T07:18:37.080Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-07-08T07:18:37.080Z] > authorizing via signed-in user
+[debug] [2020-07-08T07:18:37.080Z] [iam] checking project poised-charger-184507-910c4 for permissions ["firebase.projects.get"]
+[debug] [2020-07-08T07:18:37.083Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-07-08T07:18:37.083Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-07-08T07:18:37.299Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 07:18:37 GMT","server":"scaffolding on HTTPServer2","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-07-08T07:18:37.307Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/poised-charger-184507-910c4:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-07-08T07:18:38.467Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 07:18:38 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=984","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-07-08T07:18:38.470Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/poised-charger-184507-910c4  
+ 
+[debug] [2020-07-08T07:18:38.823Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 07:18:38 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from 'F:\cloud_exchange'...
+[info] 
+[debug] [2020-07-08T07:18:38.836Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/poised-charger-184507-910c4/webApps/-/config  
+ 
+[debug] [2020-07-08T07:18:40.176Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 07:18:40 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
+[info] +  functions: Using node@10 from host.
+[info] +  functions: functions emulator started at http://localhost:5001
+[info] i  functions: Watching "F:\cloud_exchange\functions" for Cloud Functions...
+[debug] [2020-07-08T07:18:40.927Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-07-08T07:18:40.927Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 
+[debug] [2020-07-08T07:18:40.927Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-07-08T07:18:40.928Z] [worker-~diagnostic~-77e6d959-7bea-44c0-81e5-bfd8908a8236]: Assigning socketPath: \\?\pipe\F:\cloud_exchange\functions\13624 
+[debug] [2020-07-08T07:18:40.928Z] [worker-~diagnostic~-77e6d959-7bea-44c0-81e5-bfd8908a8236]: BUSY 
+[debug] [2020-07-08T07:18:41.334Z] [runtime-status] [13624] Functions runtime initialized. {"cwd":"F:\\cloud_exchange\\functions","node_version":"10.15.3"} 
+[debug] [2020-07-08T07:18:41.335Z] [runtime-status] [13624] Disabled runtime features: undefined 
+[debug] [2020-07-08T07:18:41.339Z] [runtime-status] [13624] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.1","resolution":"F:\\cloud_exchange\\functions\\node_modules\\firebase-admin\\lib\\index.js"} 
+[warn] !  The Cloud Functions emulator requires the module "firebase-admin" to be version >8.9.0 so your version is too old. You can probably fix this by running "npm install firebase-admin@latest" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2020-07-08T07:18:41.364Z] [worker-~diagnostic~-77e6d959-7bea-44c0-81e5-bfd8908a8236]: exited 
+[debug] [2020-07-08T07:18:41.364Z] [worker-~diagnostic~-77e6d959-7bea-44c0-81e5-bfd8908a8236]: FINISHED 
+[debug] [2020-07-08T07:22:55.184Z] ----------------------------------------------------------------------
+[debug] [2020-07-08T07:22:55.186Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\dushm\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-07-08T07:22:55.186Z] CLI Version:   8.2.0
+[debug] [2020-07-08T07:22:55.186Z] Platform:      win32
+[debug] [2020-07-08T07:22:55.186Z] Node Version:  v10.15.3
+[debug] [2020-07-08T07:22:55.187Z] Time:          Wed Jul 08 2020 12:52:55 GMT+0530 (India Standard Time)
+[debug] [2020-07-08T07:22:55.187Z] ----------------------------------------------------------------------
+[debug] [2020-07-08T07:22:55.187Z] 
+[debug] [2020-07-08T07:22:55.194Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-07-08T07:22:55.195Z] > authorizing via signed-in user
+[debug] [2020-07-08T07:22:55.195Z] [iam] checking project poised-charger-184507-910c4 for permissions ["firebase.projects.get"]
+[debug] [2020-07-08T07:22:55.197Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/poised-charger-184507-910c4:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-07-08T07:22:56.369Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 07:22:56 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=980","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-07-08T07:22:56.370Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/poised-charger-184507-910c4  
+ 
+[debug] [2020-07-08T07:22:56.846Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 07:22:56 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from 'F:\cloud_exchange'...
+[info] 
+[debug] [2020-07-08T07:22:56.857Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/poised-charger-184507-910c4/webApps/-/config  
+ 
+[debug] [2020-07-08T07:22:58.168Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 07:22:58 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
+[info] +  functions: Using node@10 from host.
+[info] +  functions: functions emulator started at http://localhost:5001
+[info] i  functions: Watching "F:\cloud_exchange\functions" for Cloud Functions...
+[debug] [2020-07-08T07:22:58.976Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-07-08T07:22:58.976Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 
+[debug] [2020-07-08T07:22:58.976Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-07-08T07:22:58.976Z] [worker-~diagnostic~-a670a74b-57a4-438a-a917-3f1dfb46821a]: Assigning socketPath: \\?\pipe\F:\cloud_exchange\functions\12500 
+[debug] [2020-07-08T07:22:58.977Z] [worker-~diagnostic~-a670a74b-57a4-438a-a917-3f1dfb46821a]: BUSY 
+[debug] [2020-07-08T07:22:59.382Z] [runtime-status] [12500] Functions runtime initialized. {"cwd":"F:\\cloud_exchange\\functions","node_version":"10.15.3"} 
+[debug] [2020-07-08T07:22:59.383Z] [runtime-status] [12500] Disabled runtime features: undefined 
+[debug] [2020-07-08T07:22:59.386Z] [runtime-status] [12500] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.1","resolution":"F:\\cloud_exchange\\functions\\node_modules\\firebase-admin\\lib\\index.js"} 
+[warn] !  The Cloud Functions emulator requires the module "firebase-admin" to be version >8.9.0 so your version is too old. You can probably fix this by running "npm install firebase-admin@latest" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2020-07-08T07:22:59.403Z] [worker-~diagnostic~-a670a74b-57a4-438a-a917-3f1dfb46821a]: exited 
+[debug] [2020-07-08T07:22:59.403Z] [worker-~diagnostic~-a670a74b-57a4-438a-a917-3f1dfb46821a]: FINISHED 
+[debug] [2020-07-08T07:26:12.631Z] ----------------------------------------------------------------------
+[debug] [2020-07-08T07:26:12.633Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\dushm\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-07-08T07:26:12.633Z] CLI Version:   8.2.0
+[debug] [2020-07-08T07:26:12.634Z] Platform:      win32
+[debug] [2020-07-08T07:26:12.634Z] Node Version:  v10.15.3
+[debug] [2020-07-08T07:26:12.635Z] Time:          Wed Jul 08 2020 12:56:12 GMT+0530 (India Standard Time)
+[debug] [2020-07-08T07:26:12.635Z] ----------------------------------------------------------------------
+[debug] [2020-07-08T07:26:12.635Z] 
+[debug] [2020-07-08T07:26:12.642Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-07-08T07:26:12.643Z] > authorizing via signed-in user
+[debug] [2020-07-08T07:26:12.643Z] [iam] checking project poised-charger-184507-910c4 for permissions ["firebase.projects.get"]
+[debug] [2020-07-08T07:26:12.645Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/poised-charger-184507-910c4:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-07-08T07:26:13.835Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 07:26:13 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=953","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-07-08T07:26:13.836Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/poised-charger-184507-910c4  
+ 
+[debug] [2020-07-08T07:26:14.242Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 07:26:14 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from 'F:\cloud_exchange'...
+[info] 
+[debug] [2020-07-08T07:26:14.245Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/poised-charger-184507-910c4/webApps/-/config  
+ 
+[debug] [2020-07-08T07:26:15.595Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 08 Jul 2020 07:26:15 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
+[info] +  functions: Using node@10 from host.
+[info] +  functions: functions emulator started at http://localhost:5001
+[info] i  functions: Watching "F:\cloud_exchange\functions" for Cloud Functions...
+[debug] [2020-07-08T07:26:16.328Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-07-08T07:26:16.328Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 
+[debug] [2020-07-08T07:26:16.328Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-07-08T07:26:16.329Z] [worker-~diagnostic~-292175ea-5dea-47ff-9405-c961582673e9]: Assigning socketPath: \\?\pipe\F:\cloud_exchange\functions\9220 
+[debug] [2020-07-08T07:26:16.329Z] [worker-~diagnostic~-292175ea-5dea-47ff-9405-c961582673e9]: BUSY 
+[debug] [2020-07-08T07:26:16.732Z] [runtime-status] [9220] Functions runtime initialized. {"cwd":"F:\\cloud_exchange\\functions","node_version":"10.15.3"} 
+[debug] [2020-07-08T07:26:16.733Z] [runtime-status] [9220] Disabled runtime features: undefined 
+[debug] [2020-07-08T07:26:16.736Z] [runtime-status] [9220] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.1","resolution":"F:\\cloud_exchange\\functions\\node_modules\\firebase-admin\\lib\\index.js"} 
+[warn] !  The Cloud Functions emulator requires the module "firebase-admin" to be version >8.9.0 so your version is too old. You can probably fix this by running "npm install firebase-admin@latest" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2020-07-08T07:26:16.760Z] [worker-~diagnostic~-292175ea-5dea-47ff-9405-c961582673e9]: exited 
+[debug] [2020-07-08T07:26:16.761Z] [worker-~diagnostic~-292175ea-5dea-47ff-9405-c961582673e9]: FINISHED 
