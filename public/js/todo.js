@@ -474,6 +474,7 @@ function format_lock(doc)
 
 function ter(doc, dom, status, counter, owner, tick_id, location, issue)
 {
+    
     var myvar = '<div class="panel-body ">' +
         '									<div class="streamline user-activity" id="his_' + doc + '">' +
         ' <div class="spinner" id="loading_nava"><div class="bounce1" ></div><div class="bounce2"></div><div class="bounce3"></div></div>' +
@@ -492,7 +493,8 @@ function ter(doc, dom, status, counter, owner, tick_id, location, issue)
         '								</select></div > ' +
         '<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" ><button class="btn btn-success btn-anim  btn-rounded" id =\'button_' + doc + '\'  onclick=\'save_history_info("' + doc + '","' + dom + '","' + counter + '","' + owner + '","' + tick_id + '","' + location + '","' + issue + '")\'><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div></div>' +
         '</div>';
-    return myvar
+    return myvar 
+
 }
 
 
@@ -736,6 +738,8 @@ function fetch_tickets(t, alpha)
                     document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
                     db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot)
                     {
+                   
+                   
                         querySnapshot.forEach(function (doc)
                         {
 

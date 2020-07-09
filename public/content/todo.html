@@ -745,6 +745,61 @@
 		</div>
 	</div>
 
+	<!-- ######################### -->
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="pull-left">
+				<h6 class="panel-title inline-block txt-dark">Last Ticket : <span class="label label-info">4</span></h6>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="pull-right">
+				<div class="fileupload btn btn-success btn-rounded  btn-anim"><i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span>
+					
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="row">
+
+		<div class="col-sm-12">
+			<div class="pull-left">
+				Available Users : <div class="dis-inl"> <img src="https://firebasestorage.googleapis.com/v0/b/poised-charger-184507-910c4.appspot.com/o/ProfilePicture%2Fsanjaya.jpg?alt=media&amp;token=4d76603c-73f7-4935-b9a5-bd93e8d0bef3" class="img-circle bounce sender-img" alt="user" height="35" width="35" title="Sanjaya"></div> <br/>
+				Description : <div class="dis-inl">For test LEC </div><br/>
+				Site : <div class="dis-inl">LEC</div> <br/> 
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="table-responsive">
+				<table id="examplet4" class="display" width="100%"></table>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		var dataSet = [
+		[ "Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675" ]
+		];
+		$(document).ready(function() {
+    $('#examplet4').DataTable( {
+        data: dataSet,
+        columns: [
+            { title: "Name" },
+            { title: "Position" },
+            { title: "Office" },
+            { title: "Extn." },
+            { title: "Start date" },
+            { title: "Salary" }
+        ]
+    } );
+} );
+	</script>
+
+	<!-- ############################ -->
 
 	</div>
 
