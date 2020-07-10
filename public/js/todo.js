@@ -1,4 +1,3 @@
-
 var dataSet2 = [];
 var dataSet3 = [];
 var dats = [];
@@ -30,16 +29,16 @@ function reload_table(dom_id)
 
 function stringDivider(str, width, spaceReplacer)
 {
-    if (str.length > width) {
-        var p = width
-        for (; p > 0 && str[p] != ' '; p--) {
-        }
-        if (p > 0) {
-            var left = str.substring(0, p);
-            var right = str.substring(p + 1);
-            return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
-        }
-    }
+    /*  if (str.length > width) {
+         var p = width
+         for (; p > 0 && str[p] != ' '; p--) {
+         }
+         if (p > 0) {
+             var left = str.substring(0, p);
+             var right = str.substring(p + 1);
+             return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
+         }
+     } */
     return str;
 }
 
@@ -56,14 +55,16 @@ function processrow(reportflag, row, i) //
     row[8] = "";
     row[9] = "";
     row[10] = "";
-
     row[2] = row[2].replace(/<\/?[^>]+(>|$)/g, "");
     row[3] = row[3].replace(/<\/?[^>]+(>|$)/g, "");
     row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, "");
+    row[2] = row[2].replace(/['"]+/g, "");
+    row[3] = row[3].replace(/['"]+/g, "");
+    row[4] = row[4].replace(/['"]+/g, "");
     row[23] = row[23].replace(/<\/?[^>]+(>|$)/g, "");
     row[7] = tabletolable(row[11], true),
         row[21] = datetimeshortformat(row[21]);
-    //  row[22] = tabletoimage(row[22]);
+
     row[8] = tabletoimage(row[12], 35), row[9] = tabletoimage(row[13], 35) + tabletoimage(row[14], 35) + tabletoimage(row[15], 35) + tabletoimage(row[16], 35),
         row[18] = tabletoname(row[13]) + tabletoname(row[14]) + tabletoname(row[15]) + tabletoname(row[16]),
         row[19] = tabletoname(row[12]), increment_tag("total_oc_tickets");
@@ -92,14 +93,7 @@ function processrow(reportflag, row, i) //
         row[9] = "";
     }
     row[10] = buttons;
-
     increment_tag(row[2] + "_label2");
-    //  console.log(document.getElementById(row[2] + "_label2").innerText);
-    /*     if (document.getElementById(row[2] + "_label2").innerText > 5) {
-    
-        } */
-
-    //row[2] + "_label2"
     var created_on_date = datetimeshortformat(row[17]),
         date1 = new Date(created_on_date),
         Difference_In_Time = date2.getTime() - date1.getTime(),
@@ -115,7 +109,6 @@ function processrow(reportflag, row, i) //
 
     row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
         row[3] = '<p class="txt-dark weight-500">' + stringDivider(row[3], 30, "<br/>\n") + "</p>";
-    // row[4] = '<p class="txt-dark mb-10">' + stringDivider(row[4], 30, "<br/>\n") + "</p>",
     row[4] = element_add(row[12], row[4], "", 60);
     increment_tag("lb_allsit");
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
@@ -129,17 +122,13 @@ function processrow(reportflag, row, i) //
     if (user.uid == row[13] || user.uid == row[14] || user.uid == row[15] || user.uid == row[16]) {
         dataSet2.push(row),
             increment_tag("lb_todo");
-        //   buttons = buttons + '<a href="javascript:void(0)" onclick=close_case("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-check"></i></a>&nbsp;&nbsp;';
     }
 
-    // currentusers_
     return row
 }
 
 function element_add(image_id, message, timetamp, wrap)
 {
-
-
     var dsa = '<div class="sl-item">' +
         '<a href="javascript:void(0)">' +
         '<div class="sl-avatar">' +
@@ -153,8 +142,6 @@ function element_add(image_id, message, timetamp, wrap)
         '</div>' +
         '</a>' +
         '</div>';
-
-
     return dsa
 }
 
@@ -190,8 +177,6 @@ function increment_tag(t)
     number++;
     item.innerHTML = number;
 }
-
-
 
 
 function decrement_tag(t)
@@ -337,82 +322,80 @@ function dotable(id, dataset, domain_flag, report_flag)
 
         columns: [
             {
-            title: "Doc ID",
-            visible: !1
-        }, 
-        {
-            title: "ID"
+                title: "Doc ID",
+                visible: !1
+            },
+            {
+                title: "ID"
 
-        }, {
-            title: "Domain",
-            visible: domain_flag
-            
+            }, {
+                title: "Domain",
+                visible: domain_flag
+            }, {
+                title: "Location"
+            }, {
+                title: "Issue",
+                responsivePriority: 1
+            }, {
+                title: "Date Created."
+            }, {
+                title: "Pending"
+            }, {
+                title: "Status"
+            }, {
+                title: "Created by",
+                visible: !1
+            }, {
+                title: "To"
+            }, {
+                title: "Actions"
+            }, {
+                title: "Status",
+                visible: !1
+            }, {
+                title: "Update",
+                visible: !1
+            }, {
+                title: "Assign 1",
+                visible: !1
+            }, {
+                title: "Assign 2",
+                visible: !1
+            }, {
+                title: "Assign 3",
+                visible: !1
+            }, {
+                title: "Assign 4",
+                visible: !1
+            }, {
+                title: "Date",
+                visible: !1
+            }, {
+                title: "Assigned to",
+                visible: !1
+            }, {
+                title: "Created by to",
+                visible: !1
+            }, {
+                title: "Ticket Sorting",
+                visible: !1
+            }, {
+                title: "Last Updated",
+                visible: report_flag
+            }, {
+                title: "Updated by",
+                visible: !1
+            }, {
+                title: "Message",
+                visible: true,
 
-        }, {
-            title: "Location"
-        }, {
-            title: "Issue",
-            responsivePriority: 1
-        }, {
-            title: "Date Created."
-        }, {
-            title: "Pending"
-        }, {
-            title: "Status"
-        }, {
-            title: "Created by",
-            visible: !1
-        }, {
-            title: "To"
-        }, {
-            title: "Actions"
-        }, {
-            title: "Status",
-            visible: !1
-        }, {
-            title: "Update",
-            visible: !1
-        }, {
-            title: "Assign 1",
-            visible: !1
-        }, {
-            title: "Assign 2",
-            visible: !1
-        }, {
-            title: "Assign 3",
-            visible: !1
-        }, {
-            title: "Assign 4",
-            visible: !1
-        }, {
-            title: "Date",
-            visible: !1
-        }, {
-            title: "Assigned to",
-            visible: !1
-        }, {
-            title: "Created by to",
-            visible: !1
-        }, {
-            title: "Ticket Sorting",
-            visible: !1
-        }, {
-            title: "Last Updated",
-            visible: report_flag
-        }, {
-            title: "Updated by",
-            visible: !1
-        }, {
-            title: "Message",
-            visible: true,
-
-        }, {
-            "className": 'details-control',
-            "orderable": false,
-            "data": null,
-            "defaultContent": '',
-            visible: !report_flag
-        }],
+            }, {
+                "className": 'details-control',
+                "orderable": false,
+                "data": null,
+                "defaultContent": '',
+                visible: !report_flag
+            }],
     })
 
 
@@ -434,6 +417,8 @@ function dotable(id, dataset, domain_flag, report_flag)
         var ass_4 = data[16];
         var owner = data[12];
 
+
+        iss = iss.replace(/(?:^[\s\u00a0]+)|(?:[\s\u00a0]+$)/g, '');
         data[1] = data[1].replace(/<\/?[^>]+(>|$)/g, "");
 
         var status = data[11];
@@ -470,7 +455,7 @@ function format_lock(doc)
 
 function ter(doc, dom, status, counter, owner, tick_id, location, issue)
 {
-    
+    console.log(issue);
     var myvar = '<div class="panel-body ">' +
         '									<div class="streamline user-activity" id="his_' + doc + '">' +
         ' <div class="spinner" id="loading_nava"><div class="bounce1" ></div><div class="bounce2"></div><div class="bounce3"></div></div>' +
@@ -489,7 +474,7 @@ function ter(doc, dom, status, counter, owner, tick_id, location, issue)
         '								</select></div > ' +
         '<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" ><button class="btn btn-success btn-anim  btn-rounded" id =\'button_' + doc + '\'  onclick=\'save_history_info("' + doc + '","' + dom + '","' + counter + '","' + owner + '","' + tick_id + '","' + location + '","' + issue + '")\'><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div></div>' +
         '</div>';
-    return myvar 
+    return myvar
 
 }
 
@@ -537,6 +522,12 @@ function format(doc, dom, status, counter)
 
 function save_history_info(doc, dom, counter, owner, tick_id, location, issue)
 {
+    console.log(doc);
+    console.log(dom);
+    console.log(counter);
+    console.log(tick_id);
+    console.log(location);
+    console.log(issue);
     var status = document.getElementById("his_op_" + doc).value;
     var message = document.getElementById("his_text_" + doc).value;
     save_history(doc, dom, counter, status, message, false, owner, tick_id, location, issue);
@@ -546,6 +537,9 @@ function save_history_info(doc, dom, counter, owner, tick_id, location, issue)
 function save_history(doc, dom, counter, status, message, report_flag, owner, tick_id, location, issue)
 {
     // console.log("runing slave");
+
+
+
     var created_on = new Date();
     var user = firebase.auth().currentUser;
 
@@ -734,8 +728,8 @@ function fetch_tickets(t, alpha)
                     document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
                     db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot)
                     {
-                   
-                   
+
+
                         querySnapshot.forEach(function (doc)
                         {
 
@@ -946,7 +940,7 @@ function tktdelete(com_id, dom_id, counter)
 
     Swal.fire({
         title: 'Are you sure?',
-        text: "You are about to delete ticket no : " + updated[1],
+        text: "You are about to delete ticket no : " + updated[1].replace(/<\/?[^>]+(>|$)/g, ""),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -1025,26 +1019,26 @@ function edittkt_save()
     }).then(function ()
     {
 
-        var data = processrow(false, 
+        var data = processrow(false,
             [
-                com_id, 
-                ticketid, 
-                dom_id, 
-                location, 
-                issue, 
-                'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 
-                status, 
-                user.uid, 
-                assigned_to1, 
-                assigned_to2, 
-                assigned_to3, 
-                assigned_to4, 
+                com_id,
+                ticketid,
+                dom_id,
+                location,
+                issue,
+                'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM',
+                status,
+                user.uid,
+                assigned_to1,
+                assigned_to2,
+                assigned_to3,
+                assigned_to4,
                 opticket_date,
-                 'DUM', 'DUM', 
-                 ticketid, 
-                 opticket_date,
-                  user.uid, 
-                  "---"], counter);
+                'DUM', 'DUM',
+                ticketid,
+                opticket_date,
+                user.uid,
+                "---"], counter);
         var table = $('#edit_datable_' + dom_id).DataTable(
 
         );
