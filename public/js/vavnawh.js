@@ -102,7 +102,7 @@ function load_design_slider(i)
 function loadtable(tabledata)
 {
   $(document).ready(function ()
-  { $('#dbtable').DataTable({ destroy: !0, dom: 'Bfrtip', buttons: ['copy', 'csv', 'excel', 'pdf'], data: tabledata, columns: [{ title: "Time and Date" }, { title: "Supply Air Temperature" }, { title: "Supply Air Pressure" }, { title: "Return Air Temperature" }, { title: "Damper Position" }, { title: "Air Quality Index" }, { title: "Zone Air Temperature" }, { title: "Zone Air Humdity" }] }) })
+  { $('#dbtable003').DataTable({ destroy: !0, dom: 'Bfrtip', buttons: ['copy', 'csv', 'excel', 'pdf'], data: tabledata, columns: [{ title: "Time and Date" }, { title: "Supply Air Temperature" }, { title: "Supply Air Pressure" }, { title: "Return Air Temperature" }, { title: "Damper Position" }, { title: "Air Quality Index" }, { title: "Zone Air Temperature" }, { title: "Zone Air Humdity" }] }) })
 }
 function sparklineLogin(i, r, e, l)
 {

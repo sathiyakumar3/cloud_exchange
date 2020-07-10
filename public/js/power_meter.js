@@ -121,7 +121,7 @@ function generatechart(hourlydata, dailydata, d_maximum)
 function loadtable(tabledata)
 {
   $(document).ready(function ()
-  { $('#dbtable').DataTable({ destroy: !0, dom: 'Bfrtip', buttons: ['copy', 'csv', 'excel', 'pdf'], data: tabledata, columns: [{ title: "Sorter", visible: !1, }, { title: "Date and Time" }, { title: "Voltage 1" }, { title: "Voltage 2" }, { title: "Voltage 3" }, { title: "Current 1" }, { title: "Current 2" }, { title: "Current 3" }, { title: "Power Factor" }, { title: "Consumption" }] }) }); tabledata = []; return new Promise(function (resolve, reject)
+  { $('#dbtable001').DataTable({ destroy: !0, dom: 'Bfrtip', buttons: ['copy', 'csv', 'excel', 'pdf'], data: tabledata, columns: [{ title: "Sorter", visible: !1, }, { title: "Date and Time" }, { title: "Voltage 1" }, { title: "Voltage 2" }, { title: "Voltage 3" }, { title: "Current 1" }, { title: "Current 2" }, { title: "Current 3" }, { title: "Power Factor" }, { title: "Consumption" }] }) }); tabledata = []; return new Promise(function (resolve, reject)
   { if (!0) { resolve("Stuff worked!") } else { reject(Error("It broke")) } })
 }
 function gen_cust_gra2()
