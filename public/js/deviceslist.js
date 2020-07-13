@@ -370,9 +370,7 @@ function buildnavitree()
                         tempname + '_chat"></div></div><input type="text" class="form-control  rounded-outline-input rounded-input" id="add_' + tempname +
                         '" placeholder="add a comment..."><br/><button class="btn btn-success btn-anim  btn-rounded" onclick="verdict_saver(\'' + tempname +
                         '\')"><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div>';
-
-                    
-                    
+ 
 
                     var myvar ='<div class="table-responsive"><table   id="edit_datable_' + tempname + '" class="table table-hover display  mb-30 dataTable no-footer"  width="100%" style="cursor: pointer;" role="grid" aria-describedby="edit_datable_2_info">' +
                         '<thead><div class="row"><div class="col-sm-2 row-mg-left "><div class="pull-left pull-left-mg"><h6  class="dis-inl row-mg-left">Last Ticket : </h6> &nbsp; &nbsp;' +
@@ -387,7 +385,9 @@ function buildnavitree()
                     new_tab_pro2 = new_tab_pro2 + '<div id="' + tempname + '_tab2' + '" class="tab-pane fade' + gg + '" role="tabpanel">' +
                         myvar + '</div>';
                     gg = "", bb = "";
+                
                 }
+                
                 //<h6 style="float: left"> Available Users : </h6> &nbsp; &nbsp;<div id="currentusers_' + tempname + '" class="button-list mt-25"</div>
                 var tree = document.createDocumentFragment();
                 var a = document.createElement("a");

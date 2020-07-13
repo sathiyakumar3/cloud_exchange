@@ -69,6 +69,12 @@
 											class="fa fa-pencil"></i><span class="btn-text">edit
 											profile</span></button>
 
+
+											<!-- <script>
+$(window).load(function(){
+$('#editprofilemodal').modal('show');
+ });
+</script> -->
 								</div>
 							</div>
 
@@ -577,7 +583,7 @@
 
 
 		</div> -->
-
+  
 	</div>
 	</div>
 
@@ -600,13 +606,26 @@
 			</div>
 		</div>
 	</div>
+	 <script>
+	$(window).load(function(){
+		$('#exampleModalCenter').modal('show');
+		 });
+	</script>
+
 
 
 </body>
+
+
 <script>
 	$('#pie_chart_4').easyPieChart({
 		barColor: 'rgba(17,157,210,1)', lineWidth: 20, animate: 1000, rotate: 0, update: 0, size: 165, lineCap: 'round', trackColor: 'rgba(33,33,33,0.1)', scaleColor: !1,
 		onStep: function (from, to, percent) { $(this.el).find('.percent').text(Math.round(percent)) }
 	});</script>
+
+
+
+
+
 
 </html>
