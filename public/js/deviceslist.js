@@ -7,7 +7,7 @@ firebase.auth().onAuthStateChanged(function (n)
 
             doc.exists ? null != n ? buildnavitree() : window.location = "index.html" : reset_user();
             if (doc.data().name === "") {
-                console.log("working");
+                
                 $('#editprofilemodal').modal('show');
             }
 
