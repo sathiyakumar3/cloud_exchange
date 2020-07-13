@@ -20,8 +20,6 @@ firebase.auth().onAuthStateChanged(function (n)
         window.location = "index.html";
     }
 
- 
-
    
 });
 
