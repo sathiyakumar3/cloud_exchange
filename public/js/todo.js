@@ -9,7 +9,6 @@ function loadtable(id, dataset, reportflag)
     }
     dotable(id, dataset, !1, reportflag),
         document.getElementById("stats_cc").innerText = Number(document.getElementById("stats_tc").innerText) - Number(document.getElementById("stats_oc").innerText);
-
 }
 
 function reload_table(dom_id)
@@ -29,39 +28,52 @@ function reload_table(dom_id)
 
 function stringDivider(str, width, spaceReplacer)
 {
-    /*  if (str.length > width) {
-         var p = width
-         for (; p > 0 && str[p] != ' '; p--) {
-         }
-         if (p > 0) {
-             var left = str.substring(0, p);
-             var right = str.substring(p + 1);
-             return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
-         }
-     } */
+    if (str.length > width) {
+        var p = width
+        for (; p > 0 && str[p] != ' '; p--) {
+        }
+        if (p > 0) {
+            var left = str.substring(0, p);
+            var right = str.substring(p + 1);
+            return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
+        }
+    }
     return str;
+}
+
+function strip(a)
+{
+
+
+    var index = 0;
+    for (index = 0; index < a.length; ++index) {
+        if (index == 17 || index == 21) {
+
+        } else {
+            var tmp = document.createElement("DIV");
+            tmp.innerHTML = a[index];
+
+            a[index] = tmp.textContent || tmp.innerText || "";
+            a[index].replace(/&lt;br&gt;/g, " ");
+
+        }
+    }
+
+    return a
 }
 
 function processrow(reportflag, row, i) //
 {
-    //  chartdata["closed"] = chartdata["closed"] + 1;
+
+
+    row = strip(row);
+
     var date2 = new Date(),
         user = firebase.auth().currentUser;
     var buttons = '';
-    row[5] = "";
-    row[6] = "";
-    row[7] = "";
-    row[8] = "";
-    row[9] = "";
-    row[10] = "";
-    row[2] = row[2].replace(/<\/?[^>]+(>|$)/g, "");
-    row[3] = row[3].replace(/<\/?[^>]+(>|$)/g, "");
-    row[4] = row[4].replace(/<\/?[^>]+(>|$)/g, "");
-    row[2] = row[2].replace(/['"]+/g, "");
-    row[3] = row[3].replace(/['"]+/g, "");
-    row[4] = row[4].replace(/['"]+/g, "");
-    row[23] = row[23].replace(/<\/?[^>]+(>|$)/g, "");
+
     row[7] = tabletolable(row[11], true),
+
         row[21] = datetimeshortformat(row[21]);
 
     row[8] = tabletoimage(row[12], 35), row[9] = tabletoimage(row[13], 35) + tabletoimage(row[14], 35) + tabletoimage(row[15], 35) + tabletoimage(row[16], 35),
@@ -107,8 +119,9 @@ function processrow(reportflag, row, i) //
     }
 
     row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
-        row[3] = '<p class="txt-dark weight-500">' + stringDivider(row[3], 30, "<br/>\n") + "</p>";
-    row[4] = element_add(row[12], row[4], "", 60);
+        row[3] = '<p class="txt-dark weight-500">' + stringDivider(row[3], 75, "<br/>\n") + "</p>";
+    var test = stringDivider(row[4], 30, "<br/>\n");
+    row[4] = element_add(row[12], test, "", 60);
     increment_tag("lb_allsit");
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
         row[1] = '<h5 class="capitalize-font txt-primary mr-5 weight-500">' + row[1] + "</h5>",
@@ -122,6 +135,7 @@ function processrow(reportflag, row, i) //
         dataSet2.push(row),
             increment_tag("lb_todo");
     }
+
 
     return row
 }
@@ -334,7 +348,7 @@ function dotable(id, dataset, domain_flag, report_flag)
                 title: "Location"
             }, {
                 title: "Issue",
-                responsivePriority: 1
+                //  responsivePriority: 1
             }, {
                 title: "Date Created."
             }, {
@@ -404,22 +418,18 @@ function dotable(id, dataset, domain_flag, report_flag)
         var tr = $(this).closest('tr');
         var row = table.row(tr);
         var data = row.data();
+        data = strip(data);
         var counter = row.index();
-        var doc = data[0].replace(/<\/?[^>]+(>|$)/g, "");
-        var dom = data[2].replace(/<\/?[^>]+(>|$)/g, "");
-        var loc = data[3].replace(/<\/?[^>]+(>|$)/g, "");
-        var iss = data[4].replace(/<\/?[^>]+(>|$)/g, "");
+        var doc = data[0];
+        var dom = data[2];
+        var loc = data[3];
+        var iss = data[4];
         var user = firebase.auth().currentUser;
         var ass_1 = data[13];
         var ass_2 = data[14];
         var ass_3 = data[15];
         var ass_4 = data[16];
         var owner = data[12];
-
-
-        iss = iss.replace(/(?:^[\s\u00a0]+)|(?:[\s\u00a0]+$)/g, '');
-        data[1] = data[1].replace(/<\/?[^>]+(>|$)/g, "");
-
         var status = data[11];
         if (row.child.isShown()) {
             row.child.hide();
@@ -613,7 +623,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
 
                     '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
 
-                //               sendmail(find_email(owner), find_email(user.email), subject, html_text_2);
+                sendmail(find_email(owner), find_email(user.email), subject, html_text_2);
             })
             .catch(function (error)
             {
@@ -683,9 +693,9 @@ function fetch_tickets(t, alpha)
             n.text = "---", n.value = "---", ass_combo.add(n);
             var rest = [];
             rest = t.user_list;
-            document.getElementById('currentusers_' + t.name).innerHTML = "";
-            document.getElementById('description_' + t.name).innerHTML = t.description;
-            document.getElementById('title_' + t.name).innerHTML = t.name;
+            //document.getElementById('currentusers_' + t.name).innerHTML = "";
+            // document.getElementById('description_' + t.name).innerHTML = t.description;
+            // document.getElementById('title_' + t.name).innerHTML = t.name;
             if (rest.length != 0) {
                 rest.forEach(function (entry)
                 {
@@ -696,7 +706,7 @@ function fetch_tickets(t, alpha)
 
                         n.text = obj.name;
                         n.value = obj.id, ass_combo.add(n);
-                        document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id, 35);
+                        //   document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id, 35);
                     } catch (e) {
 
                         Swal.fire({
@@ -724,7 +734,7 @@ function fetch_tickets(t, alpha)
                 querySnapshot.forEach(function (doc)
                 {
                     document.getElementById("stats_tc").innerText = Number(document.getElementById("stats_tc").innerText) + Number(doc.data().id);
-                    document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
+                    //   document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
                     db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot)
                     {
 
@@ -901,8 +911,9 @@ function tktedit(com_id, dom_id, counter)
     var oTable = $("#edit_datable_" + dom_id).dataTable(
 
     ),
+
         dataset = oTable.fnGetData(),
-        ticketid = dataset[counter][1],
+        ticketid = dataset[counter][1].replace(/<\/?[^>]+(>|$)/g, ""),
         location = dataset[counter][3].replace(/<\/?[^>]+(>|$)/g, ""),
         issue = dataset[counter][4].replace(/<\/?[^>]+(>|$)/g, ""),
         status = dataset[counter][11],
