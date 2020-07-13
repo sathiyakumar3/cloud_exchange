@@ -2,15 +2,9 @@
 <html lang="en">
 
 <head>
-
-
-
-
 	<link rel=stylesheet href=https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css>
 	<link rel=stylesheet href=https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css>
 	<link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css" rel="stylesheet">
-
-
 	<style>
 		td.details-control {
 			background: url('https://datatables.net/examples/resources/details_open.png') no-repeat center center;
@@ -27,19 +21,16 @@
 	</style>
 </head>
 
-
 <body>
-
 	<div class="preloader">
 		<div class="table-struct full-width full-height" style="height: 969px;">
 			<div class="table-cell vertical-align-middle auth-form-wrap">
-				<div class="auth-form  ml-auto mr-auto no-float">
+				<div class="auth-form ml-auto mr-auto no-float">
 					<div class="row">
 						<div class="col-sm-12 col-xs-12">
-							<div class="mb-30 text-center "> <i class="fas fa-clipboard-list fa-10x"></i>
-								<br>
-								<br> <span class="block error-head txt-primary mb-10" id="loader_text">500</span>
-								<span class="nonecase-font mb-20 block error-comment">Please wait.</span>
+							<div class="mb-30 text-center "> <i class="fas fa-clipboard-list fa-10x"></i><br><br><span
+									class="block error-head txt-primary mb-10" id="loader_text">500</span><span
+									class="nonecase-font mb-20 block error-comment">Please wait.</span>
 								<p>We are setting things up for you.</p>
 							</div>
 						</div>
@@ -49,26 +40,8 @@
 		</div>
 	</div>
 	<div class="row pl-10 pr-10 loader_com hider" id="content_page">
-
 		<div class="container-fluid">
-			<!-- Title -->
-			<!-- <div class="row heading-bg">
-				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-					<h5 class="txt-dark">Help Desk</h5>
-				</div>
-
-				<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-					<ol class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="#"><span>Help Desk</span></a></li>
-
-					</ol>
-				</div>
-
-			</div> -->
-
 			<div class="row">
-
 				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
 					<div class="panel panel-default card-view pa-0">
 						<div class="panel-wrapper collapse in">
@@ -76,14 +49,13 @@
 								<div class="sm-data-box">
 									<div class="container-fluid">
 										<div class="row">
-											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-												<span class="txt-dark block counter soft_zoom"><span
-														class="counter-anim" id="stats_oc">0</span></span>
-												<span class="weight-500 uppercase-font block font-13" id="">Open
-													Cases</span>
-											</div>
-											<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-												<i class="icon-social-dropbox data-right-rep-icon txt-light-grey"></i>
+											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left"><span
+													class="txt-dark block counter soft_zoom">
+													<spanclass="counter-anim" id="stats_oc">0
+												</span></span><span class="weight-500 uppercase-font block font-13"
+													id="">OpenCases</span></div>
+											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right"><i
+													class="icon-social-dropbox data-right-rep-icon txt-light-grey"></i>
 											</div>
 										</div>
 									</div>
@@ -99,14 +71,13 @@
 								<div class="sm-data-box">
 									<div class="container-fluid">
 										<div class="row">
-											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-												<span class="txt-dark block counter soft_zoom"><span
-														class="counter-anim" id="stats_cc">0</span></span>
-												<span class="weight-500 uppercase-font block">Closed Cases</span>
-											</div>
-											<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-												<i class="icon-flag  data-right-rep-icon txt-light-grey"></i>
-											</div>
+											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left"><span
+													class="txt-dark block counter soft_zoom">
+													<spanclass="counter-anim" id="stats_cc">0
+												</span></span><span class="weight-500 uppercase-font block">Closed
+													Cases</span></div>
+											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right"><i
+													class="icon-flag data-right-rep-icon txt-light-grey"></i></div>
 										</div>
 									</div>
 								</div>
@@ -121,14 +92,13 @@
 								<div class="sm-data-box">
 									<div class="container-fluid">
 										<div class="row">
-											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-												<span class="txt-dark block counter soft_zoom"><span
-														class="counter-anim" id="stats_aq">0</span></span>
-												<span class="weight-500 uppercase-font block">Not Started</span>
-											</div>
-											<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-												<i class="icon-info data-right-rep-icon txt-light-grey"></i>
-											</div>
+											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left"><span
+													class="txt-dark block counter soft_zoom">
+													<spanclass="counter-anim" id="stats_aq">0
+												</span></span><span class="weight-500 uppercase-font block">Not
+													Started</span></div>
+											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right"><i
+													class="icon-info data-right-rep-icon txt-light-grey"></i></div>
 										</div>
 									</div>
 								</div>
@@ -143,14 +113,13 @@
 								<div class="sm-data-box">
 									<div class="container-fluid">
 										<div class="row">
-											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-												<span class="txt-dark block counter soft_zoom"><span
-														class="counter-anim" id="stats_tc">1</span></span>
-												<span class="weight-500 uppercase-font block">Total Cases</span>
-											</div>
-											<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-												<i class="icon-layers data-right-rep-icon txt-light-grey"></i>
-											</div>
+											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left"><span
+													class="txt-dark block counter soft_zoom">
+													<spanclass="counter-anim" id="stats_tc">1
+												</span></span><span class="weight-500 uppercase-font block">Total
+													Cases</span></div>
+											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right"><i
+													class="icon-layers data-right-rep-icon txt-light-grey"></i></div>
 										</div>
 									</div>
 								</div>
@@ -159,29 +128,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!--- ###################################################################################################### -->
-			<!-- <div class="row">
-				<div class="col-lg-12 col-sm-12">
-					<div class="panel panel-default card-view">
-						<div class="panel-wrapper collapse in">
-							<div class="panel-body">
-								<div class="tab-struct custom-tab-1 mt-0">
-
-
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> -->
-
-
-			<!--- ###################################################################################################### -->
-
-
-
 			<div class="row">
 				<div class="col-lg-12 col-sm-12">
 					<div class="panel panel-default card-view">
@@ -191,140 +137,88 @@
 							</div>
 							<div class="pull-right">
 								<ul>
-									<li class="pull-right pul-right-mg ms-hover">
-										<button class="btn btn-rounded btn-success sucess-color btn-anim"
-											data-toggle="modal" data-target="#reportModal"><i
-												class="fas fa-file-medical-alt"></i><span
-												class="btn-text">Report</span></button>
-										<button class="btn btn-rounded btn-primary  primary-color btn-anim full-screen"
-											data-toggle="modal" data-target=""><i
-												class="far fa-window-maximize"></i><span
-												class="btn-text">Fullscreen</span></button>
-										<button class="btn btn-rounded btn-primary  primary-color btn-anim"
-											onclick="removefollowup()"><i class="far fa-window-maximize"></i><span
-												class="btn-text">Followups</span></button>
-									</li>
+									<li class="pull-right pul-right-mg ms-hover"><button
+											class="btn btn-rounded btn-success sucess-color btn-anim"
+											data-toggle="modal" data-target="#reportModal">
+											<iclass="fas fa-file-medical-alt"></i>
+												<spanclass="btn-text">Report</span>
+										</button><button
+											class="btn btn-rounded btn-primary primary-color btn-anim full-screen"
+											data-toggle="modal" data-target="">
+											<iclass="far fa-window-maximize"></i>
+												<spanclass="btn-text">Fullscreen</span>
+										</button><button class="btn btn-rounded btn-primary primary-color btn-anim"
+											onclick="removefollowup()"><i class="far fa-window-maximize"></i>
+											<spanclass="btn-text">Followups</span>
+										</button></li>
 								</ul>
-							</div>
-							<br /><br />
-
+							</div><br /><br />
 						</div>
-
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
-
 								<div class="tab-struct custom-tab-1 mt-0">
 									<ul role="tablist" class="nav nav-tabs" id="myTabs_7">
 										<li class="" role="presentation"><a aria-expanded="true" data-toggle="tab"
-												role="tab" id="home_tab_8" href="#home_8" onclick="todolist()"><i
-													class="fas fa-tasks mr-10"></i><span>To-Do List</span>&nbsp;&nbsp;
-												<div class="pull-right"><span class="label label-primary"
-														id="lb_todo">0</span></div>
+												role="tab" id="home_tab_8" href="#home_8" onclick="todolist()">
+												<iclass="fas fa-tasks mr-10"></i><span>To-Do List</span>&nbsp;&nbsp;<div
+														class="pull-right"><span class="label label-primary"
+															id="lb_todo">0</span></div>
 											</a></li>
-
 										<li class="" role="presentation"><a aria-expanded="true" data-toggle="tab"
-												role="tab" id="home_tab_9" href="#home_9" onclick="load_atten()"><i
-													class="fas fa-running mr-10"></i><span>Attention!</span>&nbsp;&nbsp;
-												<div class="pull-right"><span class="label label-danger "
-														id="lb_atten">0</span></div></a></li>
-
+												role="tab" id="home_tab_9" href="#home_9" onclick="load_atten()">
+												<iclass="fas fa-running mr-10"></i><span>Attention!</span>&nbsp;&nbsp;
+													<div class="pull-right"><span class="label label-danger "
+															id="lb_atten">0</span></div>
+											</a></li>
 										<li class="active" role="presentation"><a aria-expanded="true" data-toggle="tab"
-												role="tab" id="home_tab_7" href="#home_7"><i
-													class="fas fa-th-list mr-10"></i><span>All Sites</span>&nbsp;&nbsp;
-												<div class="pull-right"><span class="label label-info"
-														id="lb_allsit">0</span></div></a></li>
+												role="tab" id="home_tab_7" href="#home_7">
+												<iclass="fas fa-th-list mr-10"></i><span>All Sites</span>&nbsp;&nbsp;
+													<div class="pull-right"><span class="label label-info"
+															id="lb_allsit">0</span></div>
+											</a></li>
 										<li class="" role="presentation"><a aria-expanded="true" data-toggle="tab"
 												role="tab" id="home_tab_7" href="#home_99">
-
 										<li role=" presentation" class="hidden" id="div1"><a data-toggle="tab"
 												id="profile_tab_7" role="tab" class="txt-primary" href="#profile_7"
-												aria-expanded="false"><i
-													class="fas fa-chart-line mr-10"></i><span>Reports</span>&nbsp;&nbsp;
-												<div class="pull-right"><span class="label label-danger "
-														id="lb_report">0</span></div></a></li>
-
-
-
+												aria-expanded="false">
+												<iclass="fas fa-chart-line mr-10"></i><span>Reports</span>&nbsp;&nbsp;
+													<div class="pull-right"><span class="label label-danger "
+															id="lb_report">0</span></div>
+											</a></li>
 									</ul>
-
 									<div class="tab-content" id="myTabContent_7">
 										<div id="home_8" class="tab-pane fade" role="tabpanel">
-
-											<!-- 				<span class="mb-5 tikt-name">Dushmantha Weerasinghe</span> <br />
-											<span class="text-muted ">dushmantha@lankaenergy.lk</span><br /><br />
-											<span class="dis-inl tkt-st">
-												<span class="text-success">Total
-													:&nbsp;<span>1</span></span>&nbsp;&nbsp;
-												<span class="text-primary">Open :&nbsp;<span>1</span></span>&nbsp;&nbsp;
-												<span class="text-danger">Closed :&nbsp;<span>1</span></span>
-
-											</span>
-
-											<div class="cus-sat-stat weight-500 txt-primary text-center mt-5">
-												<span class="counter-anim">70</span><span>%</span>
-											</div>
-											<div class="progress-anim mt-20">
-												<div class="progress">
-													<div class="progress-bar progress-bar-primary
-													wow animated progress-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0"
-														aria-valuemax="100"></div>
-												</div>
-											</div>
-
- -->
+											<!-- <span class="mb-5 tikt-name">Dushmantha Weerasinghe</span> <br/><span class="text-muted ">dushmantha@lankaenergy.lk</span><br/><br/><span class="dis-inl tkt-st"><span class="text-success">Total:&nbsp;<span>1</span></span>&nbsp;&nbsp;<span class="text-primary">Open :&nbsp;<span>1</span></span>&nbsp;&nbsp;<span class="text-danger">Closed :&nbsp;<span>1</span></span></span><div class="cus-sat-stat weight-500 txt-primary text-center mt-5"><span class="counter-anim">70</span><span>%</span></div><div class="progress-anim mt-20"><div class="progress"><div class="progress-bar progress-bar-primarywow animated progress-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0"aria-valuemax="100"></div></div></div>-->
 											<div class="table-responsive">
 												<table id="newtb" class="display " width="100%"
 													style="margin-bottom: 19px;"></table>
 											</div>
 										</div>
-
 										<div id="home_9" class="tab-pane fade" role="tabpanel">
-
 											<div class="table-responsive">
 												<table id="tab2" class="display " width="100%"
 													style="margin-bottom: 19px;"></table>
 											</div>
 										</div>
-
-
 										<div id="home_7" class="tab-pane fade active in" role="tabpanel">
 											<ul role="tablist" class="nav nav-pills nav-pills-rounded" id="myTabs_12">
 											</ul>
 											<div class="tab-content" id="myTabContent_12"></div>
 										</div>
-
 										<div id="profile_7" class="tab-pane fade" role="tabpanel">
 											<div class="pull-left">
-												<h5>Site : &nbsp; <b><span id="gn-site" class="text-success"></span></b>
-													</br>Date Range :
-													&nbsp; <b><span id="dt-range" class="text-info"></span></br>Items
-														Included :
-														&nbsp; <b>
-
-															<span id="it-range" class="text-info"></span>
-															</br></h5>
-												<br />
-
+												<h5>Site : &nbsp; <b><span id="gn-site"
+															class="text-success"></span></b></br>Date Range :&nbsp;
+													<b><span id="dt-range" class="text-info"></span></br>ItemsIncluded
+														:&nbsp; <b><span id="it-range" class="text-info"></span></br>
+												</h5><br />
 											</div>
-											<!-- 		<div class="pull-right">
-												<button class="btn btn-rounded btn-success btn-anim" data-toggle="modal"
-													data-target="#reportModal"><i
-														class="fas fa-file-medical-alt"></i><span
-														class="btn-text">Report</span></button>
-											</div> -->
+											<!-- <div class="pull-right"><button class="btn btn-rounded btn-success btn-anim" data-toggle="modal"data-target="#reportModal"><iclass="fas fa-file-medical-alt"></i><spanclass="btn-text">Report</span></button></div>-->
 											<div class="clearfix"></div>
 											<div class="table-responsive">
-												<table id="example" class="display" style="width:100%">
-												</table>
-
-
-
+												<table id="example" class="display" style="width:100%"></table>
 											</div>
-
-
 										</div>
-
-
 									</div>
 								</div>
 							</div>
@@ -332,174 +226,8 @@
 					</div>
 				</div>
 			</div>
-			<!-- 			<div class="panel panel-default card-view">
-				<div class="panel-wrapper collapse in">
-					<div class="panel-body">
-
-						<div id="testimonial_slider" data-ride="carousel"
-							class="carousel slide testimonial-slider-wrap text-slider">
-							<ol class="carousel-indicators">
-								<li data-target="#testimonial_slider" data-slide-to="0" class="active"></li>
-								<li data-target="#testimonial_slider" data-slide-to="1" class=""></li>
-								<li data-target="#testimonial_slider" data-slide-to="2" class=""></li>
-								<li data-target="#testimonial_slider" data-slide-to="3" class=""></li>
-								<li data-target="#testimonial_slider" data-slide-to="4" class=""></li>
-								<li data-target="#testimonial_slider" data-slide-to="5" class=""></li>
-								<li data-target="#testimonial_slider" data-slide-to="6" class=""></li>
-							</ol>
-							<div role="listbox" class="carousel-inner mb-50" id="list_panel">
-								<div class="item active">
-									<div class="testimonial-wrap text-center  pl-30 pr-30">
-										<img class="img-circle" src="dist/img/user1.png" alt="First slide image">
-										<p class="mt-20 font-16">"Activist, criteria planned giving dignity, committed
-											democratizing
-											the global financial system progressive."</p>
-										<span class="testi-pers-name block mt-15  txt-dark capitalize-font head-font">
-											Jens Brincker
-										</span>
-										<span class="testi-pers-desg block capitalize-font">
-											Interaction Designer
-										</span>
-									</div>
-								</div>
-								<div class="item">
-									<div class="testimonial-wrap text-center  pl-30 pr-30">
-										<img class="img-circle" src="dist/img/user2.png" alt="First slide image">
-										<p class="mt-20 font-16">"Nelson Mandela equal opportunity change accelerate
-											pathway to a
-											better life invest our ambitions catalyst."</p>
-										<span class="testi-pers-name block mt-15  txt-dark capitalize-font head-font">
-											Mark Hay
-										</span>
-										<span class="testi-pers-desg block capitalize-font">
-											Interface Designer
-										</span>
-									</div>
-								</div>
-
-
-
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div> -->
-			<!-- ******************************************** -->
-
-			<!-- ******************************************** -->
-
-
-			<div class="table-responsive">
-				<table id="example22" class="table-responsive" width="100%"></table>
-			</div>
-			<!--
-
-			<script>
-
-				var data = [
-
-					{
-						"id": "1",
-						"name": "Tiger Nixon",
-						"position": "System Architect",
-						"salary": "$320,800",
-						"start_date": "2011/04/25",
-						"office": "Edinburgh",
-						"extn": "5421",
-						"delete": '&nbsp;&nbsp;<a href="javascript: void (0)" onclick="tktdelete(& quot; xr5gSk1bRyKmnFgDYQ0u& quot;,& quot; LEC_Office & quot;,& quot; 0 & quot;) " class="text - inverse text - danger" title="Delete" data-toggle="tooltip"><i class="zmdi zmdi - delete"></i></a>',
-
-					},
-					{
-						"id": "2",
-						"name": "Garrett Winters",
-						"position": "Alarm sound comes from server room",
-						"salary": "$170,750",
-						"start_date": "2011/07/25",
-						"office": "Tokyo",
-						"extn": '<a href="#" onclick="tktedit(&quot;UmqDcdFhu8JoV4DzLAvQ&quot;,&quot;LEC_Office&quot;,&quot;3&quot;,false)" class="text-inverse text-success" title="Edit" data-toggle="modal" data-target="#edit_ticket_modal"><i class="fas fa-edit"></i></a>',
-						"delete": '&nbsp;&nbsp;<a href="javascript: void (0)" onclick="tktdelete(& quot; xr5gSk1bRyKmnFgDYQ0u& quot;,& quot; LEC_Office & quot;,& quot; 0 & quot;) " class="text - inverse text - danger" title="Delete" data-toggle="tooltip"><i class="zmdi zmdi - delete"></i></a>',
-
-					},
-				];
-
-
-
-				/* Formatting function for row details - modify as you need */
-				function format(d) {
-
-					return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-						'<tr>' +
-						'<td>' + 'Sathiyakumar' + '</td>' +
-						'<td>' + d.position + '</td>' +
-						'<td>' + d.extn + '&nbsp;&nbsp;<a href="javascript:void(0)" onclick="tktdelete(&quot;qVjuF9y474Q4M4uLDqAP&quot;,&quot;Cinn_Lakeside&quot;,&quot;4&quot;)" class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="zmdi zmdi-delete"></i></a>' + '</td>' +
-
-
-						'</tr>' +
-						'<tr>' +
-						'<td>' + 'Punyudha' + '</td>' +
-						'<td>' + 'Humidity sensor readings faulty.' + '</td>' +
-						'<td>' + d.extn + d.delete + '</td>' +
-
-						'</tr>' +
-						'<tr>' +
-						'<td><a href = "#" onclick = "tktedit(&quot;UmqDcdFhu8JoV4DzLAvQ&quot;,&quot;LEC_Office&quot;,&quot;3&quot;,false)" class="text-inverse text-success" title = "Edit" data - toggle="modal" data - target="#edit_ticket_modal" > <i class="fas fa-plus"></i></a></td>' +
-						'<td></td>' +
-						'</tr>' +
-						'</table>';
-				}
-
-				$(document).ready(function () {
-					var table = $('#example22').DataTable({
-						data: data,
-						"columns": [
-							{
-								"className": 'details-control',
-								"orderable": false,
-								"data": null,
-								"defaultContent": ''
-							},
-							{ "data": "name" },
-							{ "data": "position" },
-							{ "data": "office" },
-							{ "data": "salary" }
-						],
-						"order": [[1, 'asc']]
-					});
-
-					// Add event listener for opening and closing details
-					$('#example22 tbody').on('click', 'td.details-control', function () {
-						var tr = $(this).closest('tr');
-						var row = table.row(tr);
-						console.log(tr);
-						console.log(row);
-						console.log(row.data());
-						if (row.child.isShown())
-						{
-							// This row is already open - close it
-							row.child.hide();
-							tr.removeClass('shown');
-						}
-						else
-						{
-							// Open this row
-							row.child(format(row.data())).show();
-							tr.addClass('shown');
-						}
-					});
-				});
-			</script> -->
-
-
-
-
-			<!-- <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"
-				type="text/javascript">
-				</script> -->
-
 			<script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"
 				type="text/javascript"></script>
-
 			<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
 			<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -507,319 +235,143 @@
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 			<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 			<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-
 		</div>
 	</div>
 	</div>
-
 	</div>
-
-
-
-	<!-- /Main Content -->
-
 	</div>
-
-
-
-	<!-- open ticket -->
-
 	<div class="modal fade" id="open_ticket_modal" role="dialog">
 		<div class="modal-dialog">
-
-			<!-- Modal content-->
 			<div class="modal-content">
-				<!-- 		<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" id="open_tic_title">Open</h4>
-				</div> -->
+				<!-- <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="open_tic_title">Open</h4></div>-->
 				<div class="modal-body">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h5 class="modal-title" id="open_tic_title">
-							<strong>&nbsp&nbspOpen</strong></h5>
-					</div>
-					</br>
-					<form class="form-horizontal" action="/action_page.php">
-						<input type="hidden" id="domain_case" />
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="email">Location:</label>
+					<div class="modal-header"><button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h5 class="modal-title" id="open_tic_title"><strong>&nbsp&nbspOpen</strong></h5>
+					</div></br>
+					<form class="form-horizontal" action="/action_page.php"><input type="hidden" id="domain_case" />
+						<div class="form-group"><label class="control-label col-sm-2" for="email">Location:</label>
+							<div class="col-sm-10"><input type="text" class="form-control" id="opticket_location"
+									name="email"></div>
+						</div>
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Issue:</label>
+							<div class="col-sm-10"><input type="text" class="form-control" id="opticket_issue"
+									name="email"></div>
+						</div>
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Date:</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="opticket_location" name="email">
+								<div class="input-group date" id="datetimepicker1"><input type="text"
+										class="form-control"><span class="input-group-addon"><span
+											class="fa fa-calendar"></span></span></div>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Issue:</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="opticket_issue" name="email">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Date:</label>
-							<div class="col-sm-10">
-								<div class="input-group date" id="datetimepicker1">
-									<input type="text" class="form-control">
-									<span class="input-group-addon">
-										<span class="fa fa-calendar"></span>
-									</span>
-								</div>
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Status:</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="opstatus">
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Status:</label>
+							<div class="col-sm-10"><select class="form-control" id="opstatus">
 									<option>Not Started</option>
 									<option>On Progress</option>
 									<option>Urgent Action</option>
 									<option>Skipped</option>
 									<option>Follow Up</option>
-
-
-
-								</select>
+								</select></div>
+						</div>
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 1:</label>
+							<div class="col-sm-10"><select class="form-control" id="opassignee_1" required></select>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Assignee 1:</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="opassignee_1" required>
-								</select>
-							</div>
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 2:</label>
+							<div class="col-sm-10"><select class="form-control" id="opassignee_2"></select></div>
 						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Assignee 2:</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="opassignee_2">
-								</select>
-							</div>
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 3:</label>
+							<div class="col-sm-10"><select class="form-control" id="opassignee_3"></select></div>
 						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Assignee 3:</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="opassignee_3">
-								</select>
-							</div>
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 4:</label>
+							<div class="col-sm-10"><select class="form-control" id="opassignee_4"></select></div>
 						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Assignee 4:</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="opassignee_4">
-								</select>
-							</div>
-						</div>
-
-
 				</div>
-				<div class="modal-footer">
-					<button type="submit" onclick="opentkt_save()"
-						class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal"><i
-							class="fas fa-save"></i><span class="btn-text">Add
-					</button>
-					<button type="button" class="btn btn-default waves-effect btn-rounded btn-anim"
-						data-dismiss="modal"><i class="fas fa-window-close"></i><span
-							class="btn-text">close</span></button>
-				</div>
+				<div class="modal-footer"><button type="submit" onclick="opentkt_save()"
+						class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal">
+						<iclass="fas fa-save"></i><span class="btn-text">Add
+					</button><button type="button" class="btn btn-default waves-effect btn-rounded btn-anim"
+						data-dismiss="modal"><i class="fas fa-window-close"></i>
+						<spanclass="btn-text">close</span>
+					</button></div>
 			</div>
 			</form>
 		</div>
 	</div>
-
-
 	<div class="modal fade" id="edit_ticket_modal" role="dialog">
 		<div class="modal-dialog">
-
-			<!-- Modal content-->
 			<div class="modal-content">
-				<!-- 		<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" id="open_tic_title">Open</h4>
-				</div> -->
+				<!-- <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title" id="open_tic_title">Open</h4></div>-->
 				<div class="modal-body">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h5 class="modal-title" id="ticket_edt_head">
-							<strong>&nbsp&nbsp Update</strong></h5>
-					</div>
-					</br>
+					<div class="modal-header"><button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h5 class="modal-title" id="ticket_edt_head"><strong>&nbsp&nbsp Update</strong></h5>
+					</div></br>
 					<form class="form-horizontal" action="/action_page.php">
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="email">Location:</label>
+						<div class="form-group"><label class="control-label col-sm-2" for="email">Location:</label>
+							<div class="col-sm-10"><input type="text" class="form-control" id="edtticket_location"
+									name="email"></div>
+						</div>
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Issue:</label>
+							<div class="col-sm-10"><input type="text" class="form-control" id="edtticket_issue"
+									name="email"></div>
+						</div>
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Date:</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="edtticket_location" name="email">
+								<div class="input-group date" id="datetimepicker2"><input type="text"
+										class="form-control" id="edtdate"><span class="input-group-addon"><span
+											class="fa fa-calendar"></span></span></div>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Issue:</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="edtticket_issue" name="email">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Date:</label>
-							<div class="col-sm-10">
-								<div class="input-group date" id="datetimepicker2">
-									<input type="text" class="form-control" id="edtdate">
-									<span class="input-group-addon">
-										<span class="fa fa-calendar"></span>
-									</span>
-								</div>
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Status:</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="edtstatus">
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Status:</label>
+							<div class="col-sm-10"><select class="form-control" id="edtstatus">
 									<option>Not Started</option>
 									<option>On Progress</option>
 									<option>Urgent Action</option>
 									<option>Skipped</option>
 									<option>Follow Up</option>
-
-
-
-								</select>
-							</div>
+								</select></div>
 						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Assignee 1:</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="edtassignee1">
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 1:</label>
+							<div class="col-sm-10"><select class="form-control" id="edtassignee1">
 									<option></option>
-								</select>
-							</div>
+								</select></div>
 						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Assignee 2:</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="edtassignee2">
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 2:</label>
+							<div class="col-sm-10"><select class="form-control" id="edtassignee2">
 									<option></option>
-								</select>
-							</div>
+								</select></div>
 						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Assignee 3</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="edtassignee3">
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 3</label>
+							<div class="col-sm-10"><select class="form-control" id="edtassignee3">
 									<option></option>
-								</select>
-							</div>
+								</select></div>
 						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Assignee 4</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="edtassignee4">
+						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 4</label>
+							<div class="col-sm-10"><select class="form-control" id="edtassignee4">
 									<option></option>
-								</select>
-							</div>
-						</div>
-						<input type="hidden" id="com_id" />
-						<input type="hidden" id="dom_id" />
-						<input type="hidden" id="counter" />
-						<input type="hidden" id="ticket_edt_id" />
-
-
-
-
-
+								</select></div>
+						</div><input type="hidden" id="com_id" /><input type="hidden" id="dom_id" /><input type="hidden"
+							id="counter" /><input type="hidden" id="ticket_edt_id" />
 				</div>
-				<div class="modal-footer">
-					<button type="submit" onclick="edittkt_save()"
-						class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal"><i
-							class="fas fa-save"></i><span class="btn-text">Update
-					</button>
-					<button type="button" class="btn btn-default waves-effect btn-rounded btn-anim"
-						data-dismiss="modal"><i class="fas fa-window-close"></i><span
-							class="btn-text">close</span></button>
-				</div>
+				<div class="modal-footer"><button type="submit" onclick="edittkt_save()"
+						class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal">
+						<iclass="fas fa-save"></i><span class="btn-text">Update
+					</button><button type="button" class="btn btn-default waves-effect btn-rounded btn-anim"
+						data-dismiss="modal"><i class="fas fa-window-close"></i>
+						<spanclass="btn-text">close</span>
+					</button></div>
 			</div>
 			</form>
 		</div>
 	</div>
-
-<<<<<<< HEAD
-=======
-	<!-- ######################### -->
-	<div class="row">
-		<div class="col-sm-6">
-			<div class="pull-left">
-				<h6 class="panel-title inline-block txt-dark">Last Ticket : <span class="label label-info">4</span></h6>
-			</div>
-		</div>
-		<div class="col-sm-6">
-			<div class="pull-right">
-				<div class="fileupload btn btn-success btn-rounded  btn-anim"><i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span>
-					
-				</div>
-			</div>
-		</div>
-
 	</div>
-	<div class="row">
-
-		<div class="col-sm-12">
-			<div class="pull-left">
-				Available Users : <div class="dis-inl"> <img src="https://firebasestorage.googleapis.com/v0/b/poised-charger-184507-910c4.appspot.com/o/ProfilePicture%2Fsanjaya.jpg?alt=media&amp;token=4d76603c-73f7-4935-b9a5-bd93e8d0bef3" class="img-circle bounce sender-img" alt="user" height="35" width="35" title="Sanjaya"> 
-					<img src="https://firebasestorage.googleapis.com/v0/b/poised-charger-184507-910c4.appspot.com/o/ProfilePicture%2Fsanjaya.jpg?alt=media&amp;token=4d76603c-73f7-4935-b9a5-bd93e8d0bef3" class="img-circle bounce sender-img" alt="user" height="35" width="35" title="Sanjaya">
-					<img src="https://firebasestorage.googleapis.com/v0/b/poised-charger-184507-910c4.appspot.com/o/ProfilePicture%2Fsanjaya.jpg?alt=media&amp;token=4d76603c-73f7-4935-b9a5-bd93e8d0bef3" class="img-circle bounce sender-img" alt="user" height="35" width="35" title="Sanjaya">
-					<img src="https://firebasestorage.googleapis.com/v0/b/poised-charger-184507-910c4.appspot.com/o/ProfilePicture%2Fsanjaya.jpg?alt=media&amp;token=4d76603c-73f7-4935-b9a5-bd93e8d0bef3" class="img-circle bounce sender-img" alt="user" height="35" width="35" title="Sanjaya">
-					<img src="https://firebasestorage.googleapis.com/v0/b/poised-charger-184507-910c4.appspot.com/o/ProfilePicture%2Fsanjaya.jpg?alt=media&amp;token=4d76603c-73f7-4935-b9a5-bd93e8d0bef3" class="img-circle bounce sender-img" alt="user" height="35" width="35" title="Sanjaya">
-				
-				</div> <br/>
-				Description : <div class="dis-inl">For test LEC </div><br/>
-				Site : <div class="dis-inl">LEC</div> <br/> 
-			</div>
-		</div>
 	</div>
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="table-responsive">
-				<table id="examplet4" class="display" width="100%"></table>
-			</div>
-		</div>
-	</div>
-
-
-	<script>
-		var dataSet = [
-		[ "Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675" ]
-		];
-		$(document).ready(function() {
-    $('#examplet4').DataTable( {
-        data: dataSet,
-        columns: [
-            { title: "Name" },
-            { title: "Position" },
-            { title: "Office" },
-            { title: "Extn." },
-            { title: "Start date" },
-            { title: "Salary" }
-        ]
-    } );
-} );
-	</script>
-
->>>>>>> 1069480ce038ae193b3716b5a930df6b476dd6ed
-	<!-- ############################ -->
-
-	</div>
-
-	<!-- /Main Content -->
-	</div>
-	<!-- report modal -->
 	<div class="modal fade" id="reportModal" role="dialog">
 		<div class="modal-dialog ">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Generate Report</h4>
 				</div>
 				<div class="modal-body">
@@ -827,83 +379,45 @@
 						<form>
 							<div class="row">
 								<div class="col-sm-6">
-									<div class="form-group mb-10">
-										<label class="control-label mb-10 text-left">1. Select Date Range for the
-											Report.</label>
-										<input class="form-control input-daterange-datepicker" type="text"
-											name="daterange" id="dtrange" />
-									</div>
+									<div class="form-group mb-10"><label class="control-label mb-10 text-left">1. Select
+											Date Range for theReport.</label><input
+											class="form-control input-daterange-datepicker" type="text" name="daterange"
+											id="dtrange" /></div>
 								</div>
 							</div>
-
 							<div class="row">
-
 								<div class="col-sm-12">
-									<div class="form-group">
-										<label class="control-label mb-10 text-left">2. Select the statues you expect to
-											see in the reports.</label>
-										<select id='pre-selected-options' multiple='multiple'>
+									<div class="form-group"><label class="control-label mb-10 text-left">2. Select the
+											statues you expect tosee in the reports.</label><select
+											id='pre-selected-options' multiple='multiple'>
 											<option value='Closed'>Closed</option>
 											<option value='Not Started'>Not Started</option>
 											<option value='On Progress'>On Progress</option>
 											<option value='Urgent Action'>Urgent Action</option>
 											<option value='Skipped' selected>Skipped</option>
 											<option value='Follow Up' selected>Follow Up</option>
-										</select>
-									</div>
+										</select></div>
 								</div>
-
-
 							</div>
-
 							<div class="row">
 								<div class="col-sm-12">
-									<div class="form-group">
-										<label class="control-label mb-10 text-left">3. Which Site do you want the
-											report to be generated?</label>
-										<select class="form-control" id="sel1">
-
-										</select>
-									</div>
+									<div class="form-group"><label class="control-label mb-10 text-left">3. Which Site
+											do you want thereport to be generated?</label><select class="form-control"
+											id="sel1"></select></div>
 								</div>
 							</div>
-
 						</form>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-sucess alrm-tb-2-btn btn-rounded" data-dismiss="modal"
-						onclick="generateReport()">Generate</button>
-					<button type="button" class="btn btn-default btn-rounded" data-dismiss="modal">Close</button>
-				</div>
+				<div class="modal-footer"><button type="button" class="btn btn-sucess alrm-tb-2-btn btn-rounded"
+						data-dismiss="modal" onclick="generateReport()">Generate</button><button type="button"
+						class="btn btn-default btn-rounded" data-dismiss="modal">Close</button></div>
 			</div>
 		</div>
 	</div>
-
-
-
-
 	<script src="dist/js/form-picker-data.js"></script>
 	<script src="dist/js/form-advance-data.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-
-
-
-
-
 </body>
-<script>
-	$('#input[name="daterange"]').daterangepicker({
-		timePicker: !0, format: "MM/DD/YYYY h:mm A",
-		startDate: moment().startOf('month'),
-		endDate: moment(), timePickerIncrement: 30, timePicker12Hour: !0, timePickerSeconds: !1, buttonClasses: ["btn", "btn-sm"], applyClass: "btn-success", cancelClass: "btn-default"
-	}, function (e, t) { s_date = new Date(e), e_date = new Date(t), s_date_format = e.format("DD-MM-YYYY- h:mm"), e_date_format = e.format("DD-MM-YYYY- h:mm") });
-
-
-</script>
-
-
-
-<!-- >
-
-</html>
+<script>$('#input[name="daterange"]').daterangepicker({ timePicker: !0, format: "MM/DD/YYYY h:mm A", startDate: moment().startOf('month'), endDate: moment(), timePickerIncrement: 30, timePicker12Hour: !0, timePickerSeconds: !1, buttonClasses: ["btn", "btn-sm"], applyClass: "btn-success", cancelClass: "btn-default" }, function (e, t) { s_date = new Date(e), e_date = new Date(t), s_date_format = e.format("DD-MM-YYYY- h:mm"), e_date_format = e.format("DD-MM-YYYY- h:mm") });</script>
+<!-- ></html>
