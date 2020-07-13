@@ -6,7 +6,8 @@ firebase.auth().onAuthStateChanged(function (n)
         {
 
             doc.exists ? null != n ? buildnavitree() : window.location = "index.html" : reset_user();
-            if (doc.data().name == "---") {
+            if (doc.data().name === "") {
+                
                 $('#editprofilemodal').modal('show');
             }
 
@@ -18,6 +19,10 @@ firebase.auth().onAuthStateChanged(function (n)
     } else {
         window.location = "index.html";
     }
+
+ 
+
+   
 });
 
 
