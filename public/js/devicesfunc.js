@@ -321,6 +321,23 @@ function toTitleCase(e)
     { return e.charAt(0).toUpperCase() + e.substr(1).toLowerCase() })
 }
 
+function sendmail2()
+{
+    console.log("TEsting...");
+
+    const Http = new XMLHttpRequest();
+    const url = 'https://jsonplaceholder.typicode.com/posts';
+    Http.open("GET", url);
+    Http.send();
+
+    Http.onreadystatechange = (e) =>
+    {
+        console.log(Http.responseText)
+    }
+
+
+}
+
 function loader(_success)
 {
     var obj2 = document.querySelector('.loader_com');

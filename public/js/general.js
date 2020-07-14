@@ -23,6 +23,7 @@ function open_page(pagename)
     document.getElementById("content_devices").style.display = "none";
     document.getElementById("content_chat").style.display = "none";
     document.getElementById("content_todo").style.display = "none";
+
     $('#content').load("content/" + pagename + ".html");
 }
 
@@ -46,6 +47,7 @@ function site(domainid, roler)
     document.getElementById("content_devices").style.display = "none";
     document.getElementById("content_chat").style.display = "none";
     document.getElementById("content_todo").style.display = "none";
+
     $('#content').load("content/site.html" + "?id=" + domainid, function (responseTxt, statusTxt, xhr)
     {
         if (statusTxt == "success")
@@ -66,6 +68,7 @@ function open_item(e, n, t, s, l)
     document.getElementById("content_devices").style.display = "none";
     document.getElementById("content_chat").style.display = "none";
     document.getElementById("content_todo").style.display = "none";
+
     $("#content").load("content/" + e + ".html?id=" + n + "?domain=" + t, function (responseTxt, statusTxt, xhr)
     {
         if (statusTxt == "success")
@@ -86,6 +89,7 @@ function open_home_page()
     document.getElementById("content_todo").style.display = "none";
 
 
+
 }
 
 function open_devices()
@@ -96,6 +100,7 @@ function open_devices()
     document.getElementById("content_home_page").style.display = "none";
     document.getElementById("content_chat").style.display = "none";
     document.getElementById("content_todo").style.display = "none";
+
 }
 
 function open_todo()
@@ -108,12 +113,17 @@ function open_todo()
     document.getElementById("content").style.display = "none";
     document.getElementById("content_home_page").style.display = "none";
     document.getElementById("content_todo").style.display = "block";
+
 }
+
+
 
 $('#content_home_page').load("content/home_page.html");
 $('#content_devices').load("content/device_table.html");
 $('#content_chat').load("content/chat.html");
 $('#content_todo').load("content/todo.html");
+
+
 function badnews(error)
 { Swal.fire("Warning", String(error), 'error'); }
 function goodnews(text)
@@ -477,6 +487,7 @@ function ProfileUpdate()
 }
 
 
+
 var offline_indi = setInterval(function ()
 {
     1 != navigator.onLine && (clearInterval(offline_indi),
@@ -591,3 +602,9 @@ function Clean_Cache()
 {
     window.location.reload(true);
 }
+
+
+
+
+  
+  

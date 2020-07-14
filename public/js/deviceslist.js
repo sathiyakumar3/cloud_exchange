@@ -6,7 +6,8 @@ firebase.auth().onAuthStateChanged(function (n)
         {
 
             doc.exists ? null != n ? buildnavitree() : window.location = "index.html" : reset_user();
-            if (doc.data().name == "---") {
+            if (doc.data().name === "") {
+
                 $('#editprofilemodal').modal('show');
             }
 
@@ -18,6 +19,10 @@ firebase.auth().onAuthStateChanged(function (n)
     } else {
         window.location = "index.html";
     }
+
+
+
+
 });
 
 
@@ -316,7 +321,6 @@ function buildnavitree()
             document.getElementById("main_page_name").innerText = res[1] || "", document.getElementById("main_page_desig").innerText = doc.data().designation || "",
                 document.getElementById("used_docs").innerText = numberWithCommas(used_docs2), document.getElementById("UserEmailUpdte").value = doc.data().email || "",
                 document.getElementById("UserNameUpdte").value = displayName,
-
                 document.getElementById("Userphonnumber").value = phoneno,
                 document.getElementById("UserGender").value = gender, document.getElementById("UserCountry").value = country,
                 document.getElementById("UserDesignation").value = UserDesignation, document.getElementById("domainload").innerHTML = "- Available Sites",
@@ -371,26 +375,35 @@ function buildnavitree()
                         '" placeholder="add a comment..."><br/><button class="btn btn-success btn-anim  btn-rounded" onclick="verdict_saver(\'' + tempname +
                         '\')"><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div>';
 
-
-
-
-
-
-
-                    var myvar = '<div class="table-responsive"><table   id="edit_datable_' + tempname + '" class="table table-hover display  mb-30 dataTable no-footer"  width="100%" style="cursor: pointer;" role="grid" aria-describedby="edit_datable_2_info">' +
-                        '<thead><div class="row"><div class="col-sm-2 row-mg-left "><div class="pull-left pull-left-mg"><h6  class="dis-inl row-mg-left">Last Ticket : </h6> &nbsp; &nbsp;' +
+                    var temp3 = '<div class="row" > <div class="col-sm-2 row-mg-left "><div class="pull-left pull-left-mg"><h6 class="dis-inl row-mg-left">Last Ticket : </h6> &nbsp; &nbsp;' +
                         ' <h6 class="label label-info text-bg-round" style="float: right" id="currentticket_' + tempname + '">0</h6></div></div><div class="col-sm-8 pull-right tkt-btn"><div class="pull-right pull-right-mg">' +
                         '&nbsp;&nbsp;' +
                         '<button class="btn btn-success tkt-btn btn-anim btn-rounded " onclick="call_ticket_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"  data-toggle="modal" data-target="#open_ticket_modal">' +
-                        '<i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span></button></div></div></div>' +
-                        '<div class="row dis-inl remove-mg"><div class="col-sm-12 dis-inl row-mg-left"><h6 class="dis-inl">Available Users : &nbsp;&nbsp&nbsp;&nbsp</h6><div class="dis-inl" id="currentusers_' + tempname + '"</div></div><div class="row dis-inl"><div class=""><h6 class="dis-inl">Description : &nbsp;&nbsp&nbsp;&nbsp</h6><div class="dis-inl" id="description_' + tempname + '"</div></div><div class="row dis-inl"><div class=""><h6 class="dis-inl">Site : &nbsp;&nbsp&nbsp;&nbsp</h6><div class="dis-inl" id="title_' + tempname + '"</div></div></tr></tbody></table > </div>  <select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select >';
+                        '<i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span></button></div></div ></div > ' +
+                        '<div class="row dis-inl remove-mg"><div class="col-sm-12 dis-inl row-mg-left"><h6 class="dis-inl">Available Users : &nbsp;&nbsp&nbsp;&nbsp</h6><div class="dis-inl" id="currentusers_' + tempname + '"</div></div><div class="row dis-inl"><div class=""><h6 class="dis-inl">Description : &nbsp;&nbsp&nbsp;&nbsp</h6><div class="dis-inl" id="description_' + tempname + '"</div></div><div class="row dis-inl"><div class=""><h6 class="dis-inl">Site : &nbsp;&nbsp&nbsp;&nbsp</h6><div class="dis-inl" id="title_' + tempname + '"</div></div></div>';
+
+                    var tests =
+                        '<div class="table-responsive col-sm-12">' +
+                        '<table id="edit_datable_' + tempname + '" class="table table-hover display compact  mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" ">' +
+                        '</table>' +
+
+                        '</div><select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select>';
+
+
+
+
+                    var myvar = '<table  id="edit_datable_' + tempname + '" class="table table-hover display  wrap mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" aria-describedby="edit_datable_2_info"></table>  <select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select ></div>';
+
+
                     new_tab2 = new_tab2 + '<li role="presentation" class="' + bb + ' margin-top-tkt"><a data-toggle="tab"' + 'id="' + tempname + '1_tab2' + '"  onclick = "reload_table(\'' + tempname + '\')" role="tab"' + 'href="#' + tempname + '_tab2' + '"' +
                         'aria-expanded="true"><i class="' + tempicon + '"></i> &nbsp;&nbsp' + tempname + ' &nbsp; &nbsp; <div class="pull-right"><span class="label label-primary" id="' + tempname +
                         '_label2' + '">0</span></div></a></li>';
                     new_tab_pro2 = new_tab_pro2 + '<div id="' + tempname + '_tab2' + '" class="tab-pane fade' + gg + '" role="tabpanel">' +
-                        myvar + '</div>';
+                        tests + '</div>';
                     gg = "", bb = "";
+
                 }
+
                 //<h6 style="float: left"> Available Users : </h6> &nbsp; &nbsp;<div id="currentusers_' + tempname + '" class="button-list mt-25"</div>
                 var tree = document.createDocumentFragment();
                 var a = document.createElement("a");
