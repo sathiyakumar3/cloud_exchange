@@ -4,15 +4,23 @@ var dats = [];
 var loaded = false;
 function loadtable(id, dataset, reportflag)
 {
+    
+    
     for (i = 0; i < dataset.length; i++) {
         processrow(reportflag, dataset[i], i);
     }
     dotable(id, dataset, !1, reportflag),
         document.getElementById("stats_cc").innerText = Number(document.getElementById("stats_tc").innerText) - Number(document.getElementById("stats_oc").innerText);
+      
+     
 }
 
 function reload_table(dom_id)
 {
+    
+    document.getElementById("main_title_help").innerHTML =  '<i class="'+document.getElementById("icon_"+dom_id).innerHTML+'  mr-10 " ></i>'+document.getElementById("title_"+dom_id).innerHTML +" - "+ document.getElementById("description_"+dom_id).innerHTML;
+    document.getElementById("current_user_list").innerHTML =  document.getElementById("currentusers_"+dom_id).innerHTML
+    
     setTimeout(
         function ()
         {
@@ -22,6 +30,39 @@ function reload_table(dom_id)
         }, 175);
 }
 
+function load_atten()
+{
+    document.getElementById("main_title_help").innerHTML =  '<h6 class="panel-title txt-dark" id="main_title_help"><i class="fas fa-handshake mr-20 mr-10" ></i>Help Desk - Attention</h6>';
+    document.getElementById("current_user_list").innerHTML = "";
+ 
+
+
+    dotable("#tab2", dataSet3, true, false);
+    /*     setTimeout(
+            function ()
+            {
+                var table = $("#tab2").DataTable();
+                table.columns.adjust().draw();
+                 console.log("Readjusted");
+            }, 1000); */
+}
+
+function todolist()
+{
+    document.getElementById("main_title_help").innerHTML =  '<h6 class="panel-title txt-dark" id="main_title_help"><i class="fas fa-handshake mr-20 mr-10" ></i>Help Desk - To Do List</h6>';
+    document.getElementById("current_user_list").innerHTML = "";
+ 
+
+    dotable("#newtb", dataSet2, true, false);
+
+    /*     setTimeout(
+            function ()
+            {
+                var table = $("#newtb").DataTable();
+                  table.columns.adjust().draw();
+                    console.log("Readjusted");
+            }, 1000); */
+}
 
 
 
@@ -42,7 +83,7 @@ function stringDivider(str, width, spaceReplacer)
 }
 
 function strip(a)
-{
+{  
 
 
     var index = 0;
@@ -52,13 +93,11 @@ function strip(a)
         } else {
             var tmp = document.createElement("DIV");
             tmp.innerHTML = a[index];
-
-            a[index] = tmp.textContent || tmp.innerText || "";
-            a[index].replace(/&lt;br&gt;/g, " ");
-
+            a[index] = tmp.textContent || tmp.innerText || "";          
+            a[index] = a[index].replace("\n"," ");
         }
     }
-
+ 
     return a
 }
 
@@ -119,16 +158,16 @@ function processrow(reportflag, row, i) //
     }
 
     row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
-        row[3] = '<p class="txt-dark weight-500">' + stringDivider(row[3], 75, "<br/>\n") + "</p>";
-    var test = stringDivider(row[4], 30, "<br/>\n");
-    row[4] = element_add(row[12], test, "", 60);
+        row[3] = '<p class="txt-dark weight-500">' + stringDivider(row[3], 30, "<br/>\n") + "</p>";
+
+    row[4] = element_add(row[12], stringDivider(row[4], 75, "<br/>\n"), "", 60);
     increment_tag("lb_allsit");
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
         row[1] = '<h5 class="capitalize-font txt-primary mr-5 weight-500">' + row[1] + "</h5>",
         ("Urgent Action" == row[11] || "Not Started" == row[11] || "On Progress" == row[11]) && (dataSet3.push(row),
             increment_tag("lb_atten")), "Not Started" == row[11] && increment_tag("stats_aq");
     if (row[23] != "---") {
-        row[23] = element_add(row[22], row[23], row[21], 35);
+        row[23] = element_add(row[22], row[23], row[21], 45);
     }
 
     if (user.uid == row[13] || user.uid == row[14] || user.uid == row[15] || user.uid == row[16]) {
@@ -158,30 +197,8 @@ function element_add(image_id, message, timetamp, wrap)
     return dsa
 }
 
-function load_atten()
-{
-    dotable("#tab2", dataSet3, true, false);
-    /*     setTimeout(
-            function ()
-            {
-                var table = $("#tab2").DataTable();
-                table.columns.adjust().draw();
-                 console.log("Readjusted");
-            }, 1000); */
-}
 
-function todolist()
-{
-    dotable("#newtb", dataSet2, true, false);
 
-    /*     setTimeout(
-            function ()
-            {
-                var table = $("#newtb").DataTable();
-                  table.columns.adjust().draw();
-                    console.log("Readjusted");
-            }, 1000); */
-}
 
 function increment_tag(t)
 {
@@ -350,7 +367,8 @@ function dotable(id, dataset, domain_flag, report_flag)
                 title: "Issue",
                 //  responsivePriority: 1
             }, {
-                title: "Date Created."
+                title: "Date Created",
+                responsivePriority: 1
             }, {
                 title: "Pending"
             }, {
@@ -622,8 +640,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                     '<p><strong>Location : </strong>' + location + '</p>' +
 
                     '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
-
-                sendmail(find_email(owner), find_email(user.email), subject, html_text_2);
+              sendmail(find_email(owner), find_email(user.email), subject, html_text_2);
             })
             .catch(function (error)
             {
@@ -658,8 +675,7 @@ function delete_history(doc, dom, counter, id)
 
 function fetch_tickets(t, alpha)
 {
-
-
+   
 
     loaded = false;
     loader();
@@ -668,6 +684,7 @@ function fetch_tickets(t, alpha)
     dataset = [];
 
     var user = firebase.auth().currentUser;
+   
 
     document.getElementById('stats_oc').innerText = 0;
     document.getElementById('stats_cc').innerText = 0;
@@ -677,7 +694,7 @@ function fetch_tickets(t, alpha)
     document.getElementById('lb_todo').innerText = 0;
     document.getElementById('lb_atten').innerText = 0;
     document.getElementById('lb_allsit').innerText = 0;
-    // document.getElementById('currentusers_' + t.name).innerHTML = "";
+  //  document.getElementById('currentusers_' + t.name).innerHTML = "";
 
     var counter_t = 0;
     var total_size = t.length;
@@ -693,9 +710,11 @@ function fetch_tickets(t, alpha)
             n.text = "---", n.value = "---", ass_combo.add(n);
             var rest = [];
             rest = t.user_list;
-            //document.getElementById('currentusers_' + t.name).innerHTML = "";
-            // document.getElementById('description_' + t.name).innerHTML = t.description;
-            // document.getElementById('title_' + t.name).innerHTML = t.name;
+           document.getElementById('currentusers_' + t.name).innerHTML = "";
+          document.getElementById('description_' + t.name).innerHTML = t.description;
+//getsiteicon
+          document.getElementById('title_' + t.name).innerHTML = t.name;
+         document.getElementById('icon_' + t.name).innerHTML = getsiteicon(t.type);
             if (rest.length != 0) {
                 rest.forEach(function (entry)
                 {
@@ -706,7 +725,7 @@ function fetch_tickets(t, alpha)
 
                         n.text = obj.name;
                         n.value = obj.id, ass_combo.add(n);
-                        //   document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id, 35);
+                      document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id, 35);
                     } catch (e) {
 
                         Swal.fire({
@@ -734,7 +753,7 @@ function fetch_tickets(t, alpha)
                 querySnapshot.forEach(function (doc)
                 {
                     document.getElementById("stats_tc").innerText = Number(document.getElementById("stats_tc").innerText) + Number(doc.data().id);
-                    //   document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
+                       document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
                     db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot)
                     {
 
@@ -898,13 +917,22 @@ function call_ticket_modal(t, i, y)
     });
     $('#datetimepicker1').data("DateTimePicker").date(moment());
     document.getElementById("domain_case").value = t;
-    document.getElementById("open_tic_title").innerHTML = '<i class="' + i + '"></i>' + "&nbsp;&nbsp;" + t;
+    document.getElementById("open_tic_title").innerHTML = 'Open New Ticket - <i class="' + i + '"></i>' + "&nbsp;&nbsp;" + t;
     document.getElementById("opassignee_1").innerHTML = document.getElementById('combo_' + t).innerHTML;
     document.getElementById("opassignee_2").innerHTML = document.getElementById('combo_' + t).innerHTML;
     document.getElementById("opassignee_3").innerHTML = document.getElementById('combo_' + t).innerHTML;
     document.getElementById("opassignee_4").innerHTML = document.getElementById('combo_' + t).innerHTML;
 
 }
+
+function call_report_modal(t, i, y)
+{
+    var ass_combo = "";
+    ass_combo = document.getElementById('combo_' + t);
+    document.getElementById("sel1").value = t;
+    document.getElementById("report_title").innerHTML = 'Generate Report - <i class="' + i + '"></i>' + "&nbsp;&nbsp;" + t;
+}
+
 
 function tktedit(com_id, dom_id, counter)
 {

@@ -373,21 +373,31 @@ function buildnavitree()
                         new_tab_pro = new_tab_pro + '<div id="' + tempname + '_tab" class="tab-pane fade' + gg + '" role="tabpanel"><div class="panel-body"><div class="streamline user-activity"id="' +
                         tempname + '_chat"></div></div><input type="text" class="form-control  rounded-outline-input rounded-input" id="add_' + tempname +
                         '" placeholder="add a comment..."><br/><button class="btn btn-success btn-anim  btn-rounded" onclick="verdict_saver(\'' + tempname +
-                        '\')"><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div>';
-
-                    var temp3 = '<div class="row" > <div class="col-sm-2 row-mg-left "><div class="pull-left pull-left-mg"><h6 class="dis-inl row-mg-left">Last Ticket : </h6> &nbsp; &nbsp;' +
-                        ' <h6 class="label label-info text-bg-round" style="float: right" id="currentticket_' + tempname + '">0</h6></div></div><div class="col-sm-8 pull-right tkt-btn"><div class="pull-right pull-right-mg">' +
-                        '&nbsp;&nbsp;' +
-                        '<button class="btn btn-success tkt-btn btn-anim btn-rounded " onclick="call_ticket_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"  data-toggle="modal" data-target="#open_ticket_modal">' +
-                        '<i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span></button></div></div ></div > ' +
-                        '<div class="row dis-inl remove-mg"><div class="col-sm-12 dis-inl row-mg-left"><h6 class="dis-inl">Available Users : &nbsp;&nbsp&nbsp;&nbsp</h6><div class="dis-inl" id="currentusers_' + tempname + '"</div></div><div class="row dis-inl"><div class=""><h6 class="dis-inl">Description : &nbsp;&nbsp&nbsp;&nbsp</h6><div class="dis-inl" id="description_' + tempname + '"</div></div><div class="row dis-inl"><div class=""><h6 class="dis-inl">Site : &nbsp;&nbsp&nbsp;&nbsp</h6><div class="dis-inl" id="title_' + tempname + '"</div></div></div>';
-
-                    var tests =
+                        '\')"><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div>';                       
+                      
+                        var hidden_tags = 
+                        '<div class="form-control tkt-opt-hide" id="currentusers_' + tempname + '">44444</div>'+
+                        '<div class="form-control tkt-opt-hide" id="description_' + tempname + '"></div>'+
+                        '<div class="form-control tkt-opt-hide" id="title_' + tempname + '"></div>'+
+                        '<div class="form-control tkt-opt-hide" id="icon_' + tempname + '"></div>';
+                      
+                    var top_essentials = '<div class="row">'+
+                    '<div class="col-sm-2 row-mg-left"><div class="pull-left pull-left-mg"><h6 class="dis-inl row-mg-left">Last Ticket :</h6> &nbsp;&nbsp;' +
+                        '<h6 class="label label-info text-bg-round" style="float: right" id="currentticket_' + tempname + '">0</h6></div></div>'+
+                      '<div class="col-sm-8 pull-right tkt-btn"><div class="pull-right pull-right-mg">&nbsp;&nbsp;' +
+'<button class="btn btn-success tkt-btn btn-anim btn-rounded " onclick="call_ticket_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"  data-toggle="modal" data-target="#open_ticket_modal">' +
+'<i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span></button>&nbsp;&nbsp;&nbsp;&nbsp;'+
+													'<button class="btn btn-rounded btn-primary btn-anim"'+ 'onclick="call_report_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"'+
+                                                    'data-toggle="modal" data-target="#reportModal"><iclass="fas fa-file-medical-alt"></i>'+
+                                                        '<spanclass="btn-text">Report</span>'+
+                                                '</button>'+
+                        '</div></div>'+
+                        '</div>';                   
+                     
+                    var tests = top_essentials +
                         '<div class="table-responsive col-sm-12">' +
                         '<table id="edit_datable_' + tempname + '" class="table table-hover display compact  mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" ">' +
-                        '</table>' +
-
-                        '</div><select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select>';
+                        '</table></div><select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select>'+hidden_tags;
 
 
 
