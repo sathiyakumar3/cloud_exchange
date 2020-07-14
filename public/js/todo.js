@@ -19,8 +19,9 @@ function reload_table(dom_id)
 {
     
     document.getElementById("main_title_help").innerHTML =  '<i class="'+document.getElementById("icon_"+dom_id).innerHTML+'  mr-10 " ></i>'+document.getElementById("title_"+dom_id).innerHTML +" - "+ document.getElementById("description_"+dom_id).innerHTML;
-    document.getElementById("current_user_list").innerHTML =  document.getElementById("currentusers_"+dom_id).innerHTML
+    document.getElementById("current_user_list").innerHTML =  document.getElementById("currentusers_"+dom_id).innerHTML;
     
+    document.getElementById("ticket_currnet").innerHTML =  document.getElementById("currentticket_"+dom_id).innerHTML;
     setTimeout(
         function ()
         {

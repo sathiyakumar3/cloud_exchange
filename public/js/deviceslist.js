@@ -376,14 +376,13 @@ function buildnavitree()
                         '\')"><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div>';                       
                       
                         var hidden_tags = 
-                        '<div class="form-control tkt-opt-hide" id="currentusers_' + tempname + '">44444</div>'+
+                        '<div class="form-control tkt-opt-hide" id="currentusers_' + tempname + '"></div>'+
+                        '<div class="form-control tkt-opt-hide" id="currentticket_' + tempname + '"></div>'+
                         '<div class="form-control tkt-opt-hide" id="description_' + tempname + '"></div>'+
                         '<div class="form-control tkt-opt-hide" id="title_' + tempname + '"></div>'+
                         '<div class="form-control tkt-opt-hide" id="icon_' + tempname + '"></div>';
                       
                     var top_essentials = '<div class="row">'+
-                    '<div class="col-sm-2 row-mg-left"><div class="pull-left pull-left-mg"><h6 class="dis-inl row-mg-left">Last Ticket :</h6> &nbsp;&nbsp;' +
-                        '<h6 class="label label-info text-bg-round" style="float: right" id="currentticket_' + tempname + '">0</h6></div></div>'+
                       '<div class="col-sm-8 pull-right tkt-btn"><div class="pull-right pull-right-mg">&nbsp;&nbsp;' +
 '<button class="btn btn-success tkt-btn btn-anim btn-rounded " onclick="call_ticket_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"  data-toggle="modal" data-target="#open_ticket_modal">' +
 '<i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span></button>&nbsp;&nbsp;&nbsp;&nbsp;'+
