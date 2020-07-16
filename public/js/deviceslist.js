@@ -285,6 +285,7 @@ function setup_networkchart(e)
 var total_op = [];
 var tabledata = [];
 var user_profiles = [];
+var site_profile = [];
 var temp = [];
 
 function buildnavitree()
@@ -338,12 +339,19 @@ function buildnavitree()
             };
             for (i in total_op) {
                 children = total_op[i].children;
-
+           
                 var tempname = total_op[i].name,
                     tempid = total_op[i].id,
                     temptype = total_op[i].type,
                     role = total_op[i].role,
                     option1 = document.createElement("option");
+
+                    site_profile.push({
+                        name: tempname,
+                        id: tempid,
+                        type: temptype,
+                        role: role
+                    });
                 option1.text = tempname, option1.value = tempname, document.getElementById("changeDomain2").add(option1);
                 var rest = [];
                 rest = total_op[i].user_list, 0 != rest.length && rest.forEach(function (entry)
@@ -393,8 +401,7 @@ function buildnavitree()
                         '</div></div>'+
                         '</div>';                   
                      
-                    var tests = top_essentials +
-                        '<div class="table-responsive col-sm-12">' +
+                    var tests =   '<div class="table-responsive col-sm-12">' +
                         '<table id="edit_datable_' + tempname + '" class="table table-hover display compact  mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" ">' +
                         '</table></div><select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select>'+hidden_tags;
 
@@ -526,9 +533,9 @@ function buildnavitree()
             var percentage = Math.round(used_docs2 / available_docs2 * 100),
                 progress_bar = '	<div class="row"><span class="font-12 head-font txt-dark">' + numberWithCommas(used_docs2) + " / " + numberWithCommas(available_docs2) + '<span class="pull-right">' + percentage + ' %</span></span><div class="progress progress-xs mb-0 "><div class="progress-bar progress-bar-success" style="width: ' + percentage + '%"></div></div></div>';
             tabledata.push(["", "", "", "", "", "", "", "Total", progress_bar, ""]),
-                document.getElementById("changeDomain3").innerHTML = document.getElementById("changeDomain2").innerHTML;
+            document.getElementById("changeDomain3").innerHTML = document.getElementById("changeDomain2").innerHTML;
             document.getElementById("sel1").innerHTML = document.getElementById("changeDomain2").innerHTML;
-
+            document.getElementById("domain_case2").innerHTML = document.getElementById("changeDomain2").innerHTML;    
             check_new_sites_added(user, total_op);
             check_live_update(user, user_devices, live_timestamp, as_options);
             return resolve(devicesum)

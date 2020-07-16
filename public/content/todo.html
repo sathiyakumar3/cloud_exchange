@@ -181,7 +181,7 @@
 															id="lb_atten">0</span></div>
 											</a></li>
 										<li class="active" role="presentation"><a aria-expanded="true" data-toggle="tab"
-												role="tab" id="home_tab_7" href="#home_7">
+												role="tab" id="home_tab_7" href="#home_7" onclick="load_allsites()"> 
 												<iclass="fas fa-th-list mr-10"></i><span>All Sites</span>&nbsp;&nbsp;
 													<div class="pull-right"><span class="label label-info"
 															id="lb_allsit">0</span></div>
@@ -195,13 +195,14 @@
 													<div class="pull-right"><span class="label label-danger "
 															id="lb_report">0</span></div>
 											</a></li>
-											<li class=" pull-right"><a aria-expanded="true">
-												<iclass="fas fa-th-list mr-10"></i><span>Current Ticket</span>&nbsp;&nbsp;
+											<li class=" pull-right"><a aria-expanded="true" id="last_Ticket_id">
+												<iclass="fas fa-th-list mr-10"></i><span>Last Ticket</span>&nbsp;&nbsp;
 													<div class="pull-right"><span class="label label-info"
 															id="ticket_currnet">0</span></div>
 															
 											</a></li>
 									</ul>
+								
 									<div class="tab-content" id="myTabContent_7">
 										<div id="home_8" class="tab-pane fade" role="tabpanel">
 											<!-- <span class="mb-5 tikt-name">Dushmantha Weerasinghe</span> <br/><span class="text-muted ">dushmantha@lankaenergy.lk</span><br/><br/><span class="dis-inl tkt-st"><span class="text-success">Total:&nbsp;<span>1</span></span>&nbsp;&nbsp;<span class="text-primary">Open :&nbsp;<span>1</span></span>&nbsp;&nbsp;<span class="text-danger">Closed :&nbsp;<span>1</span></span></span><div class="cus-sat-stat weight-500 txt-primary text-center mt-5"><span class="counter-anim">70</span><span>%</span></div><div class="progress-anim mt-20"><div class="progress"><div class="progress-bar progress-bar-primarywow animated progress-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0"aria-valuemax="100"></div></div></div>-->
@@ -235,6 +236,12 @@
 												<table id="example" class="display" style="width:100%"></table>
 											</div>
 										</div>
+										<button class="btn btn-success soft_zoom tkt-btn btn-anim btn-rounded" id="setting_panel_btn"  data-toggle="modal" data-target="#open_ticket_modal"><i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span></button>
+
+
+
+
+									
 									</div>
 								</div>
 							</div>
@@ -265,24 +272,33 @@
 							aria-hidden="true">×</button>
 						<h5 class="modal-title" id="open_tic_title"><strong>&nbsp&nbspOpen</strong></h5>
 					</div></br>
-					<form class="form-horizontal" action="/action_page.php"><input type="hidden" id="domain_case" />
+					<form class="form-horizontal" action="/action_page.php">
+
+
+						<div class="form-group"><label class="control-label col-sm-2"  for="pwd">Site :</label>
+							<div class="col-sm-10">
+							<select class="form-control" onchange="changeform_ticket();"
+							id="domain_case2"></select></div>
+							</div>
+
+
 						<div class="form-group"><label class="control-label col-sm-2" for="email">Location:</label>
 							<div class="col-sm-10"><input type="text" class="form-control" id="opticket_location"
-									name="email"></div>
+									name="email" disabled></div>
 						</div>
 						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Issue:</label>
 							<div class="col-sm-10"><input type="text" class="form-control" id="opticket_issue"
-									name="email"></div>
+									name="email" disabled></div>
 						</div>
 						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Date:</label>
 							<div class="col-sm-10">
-								<div class="input-group date" id="datetimepicker1"><input type="text"
+								<div class="input-group date" id="datetimepicker1" disabled><input type="text"
 										class="form-control"><span class="input-group-addon"><span
 											class="fa fa-calendar"></span></span></div>
 							</div>
 						</div>
 						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Status:</label>
-							<div class="col-sm-10"><select class="form-control" id="opstatus">
+							<div class="col-sm-10"><select class="form-control" id="opstatus" disabled>
 									<option>Not Started</option>
 									<option>On Progress</option>
 									<option>Urgent Action</option>
@@ -291,17 +307,17 @@
 								</select></div>
 						</div>
 						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 1:</label>
-							<div class="col-sm-10"><select class="form-control" id="opassignee_1" required></select>
+							<div class="col-sm-10"><select class="form-control" id="opassignee_1" required disabled></select>
 							</div>
 						</div>
 						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 2:</label>
-							<div class="col-sm-10"><select class="form-control" id="opassignee_2"></select></div>
+							<div class="col-sm-10"><select class="form-control" id="opassignee_2" disabled></select></div>
 						</div>
 						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 3:</label>
-							<div class="col-sm-10"><select class="form-control" id="opassignee_3"></select></div>
+							<div class="col-sm-10"><select class="form-control" id="opassignee_3" disabled></select></div>
 						</div>
 						<div class="form-group"><label class="control-label col-sm-2" for="pwd">Assignee 4:</label>
-							<div class="col-sm-10"><select class="form-control" id="opassignee_4"></select></div>
+							<div class="col-sm-10"><select class="form-control" id="opassignee_4" disabled></select></div>
 						</div>
 				</div>
 				<div class="modal-footer"><button type="submit" onclick="opentkt_save()"
@@ -390,40 +406,39 @@
 				<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h5 class="modal-title" id="report_title"><strong>&nbsp&nbspOpen</strong></h5>
 				</div>
+
 				<div class="modal-body">
-					<div class="form-wrap">
-						<form>
-							<div class="row">
-								<div class="col-sm-6">
-									<div class="form-group mb-10"><label class="control-label mb-10 text-left">1. Select
-											Date Range for theReport.</label><input
-											class="form-control input-daterange-datepicker" type="text" name="daterange"
-											id="dtrange" /></div>
+				
+					<form class="form-horizontal" action="/action_page.php">
+
+						<div class="form-group mb-10"><label class="control-label col-sm-2">Range</label><div class="col-sm-10"><input
+							class="form-control input-daterange-datepicker" type="text" name="daterange"
+							id="dtrange" /></div></div>
+
+					
+							<div class="form-group"><label class="control-label col-sm-2">Statuses</label><div class="col-sm-10"><select
+								id='pre-selected-options' multiple='multiple'>
+								<option value='Closed'>Closed</option>
+								<option value='Not Started'>Not Started</option>
+								<option value='On Progress'>On Progress</option>
+								<option value='Urgent Action'>Urgent Action</option>
+								<option value='Skipped' selected>Skipped</option>
+								<option value='Follow Up' selected>Follow Up</option>
+							</select></div></div>
+							<div class="form-group"><label class="control-label col-sm-2"  for="pwd">Site :</label>
+								<div class="col-sm-10">
+								<select class="form-control" onchange="changeform_domain();"
+								id="sel1"></select></div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="form-group"><label class="control-label mb-10 text-left">2. Select the
-											statues you expect tosee in the reports.</label><select
-											id='pre-selected-options' multiple='multiple'>
-											<option value='Closed'>Closed</option>
-											<option value='Not Started'>Not Started</option>
-											<option value='On Progress'>On Progress</option>
-											<option value='Urgent Action'>Urgent Action</option>
-											<option value='Skipped' selected>Skipped</option>
-											<option value='Follow Up' selected>Follow Up</option>
-										</select></div>
-								</div>
-							</div>
-							<div class="row">
-						
-									<div class="form-group"><select class="form-control tkt-opt-hide"
-											id="sel1"></select></div>
-								
-							</div>
-						</form>
-					</div>
+							
+
 				</div>
+
+
+
+
+
+
 				<div class="modal-footer"><button type="button" class="btn btn-sucess alrm-tb-2-btn btn-rounded"
 						data-dismiss="modal" onclick="generateReport()">Generate</button><button type="button"
 						class="btn btn-default btn-rounded" data-dismiss="modal">Close</button></div>

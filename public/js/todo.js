@@ -2,43 +2,45 @@ var dataSet2 = [];
 var dataSet3 = [];
 var dats = [];
 var loaded = false;
-function loadtable(id, dataset, reportflag)
-{
-    
-    
+function loadtable(id, dataset, reportflag,domain_id)
+{    
     for (i = 0; i < dataset.length; i++) {
         processrow(reportflag, dataset[i], i);
     }
-    dotable(id, dataset, !1, reportflag),
+    dotable(id, dataset, !1, reportflag,domain_id),
         document.getElementById("stats_cc").innerText = Number(document.getElementById("stats_tc").innerText) - Number(document.getElementById("stats_oc").innerText);
-      
      
 }
-
+function load_allsites(){
+ //   document.getElementById("last_Ticket_id").style.visibility = "visible";
+}
 function reload_table(dom_id)
-{
-    
-    document.getElementById("main_title_help").innerHTML =  '<i class="'+document.getElementById("icon_"+dom_id).innerHTML+'  mr-10 " ></i>'+document.getElementById("title_"+dom_id).innerHTML +" - "+ document.getElementById("description_"+dom_id).innerHTML;
-    document.getElementById("current_user_list").innerHTML =  document.getElementById("currentusers_"+dom_id).innerHTML;
-    
-    document.getElementById("ticket_currnet").innerHTML =  document.getElementById("currentticket_"+dom_id).innerHTML;
+{    
+    load_info(dom_id);
     setTimeout(
         function ()
         {
             var table = $('#edit_datable_' + dom_id).DataTable();
             //       console.log(table.rows().data());
             table.columns.adjust().draw();
-        }, 175);
+        }, 175);        
+}
+
+function load_info(dom_id){
+    document.getElementById("last_Ticket_id").style.visibility = "visible";
+    document.getElementById("domain_case2").value = dom_id;  
+    changeform_ticket();
+    document.getElementById("main_title_help").innerHTML =  '<i class="'+document.getElementById("icon_"+dom_id).innerHTML+'  mr-10 " ></i>'+document.getElementById("title_"+dom_id).innerHTML +" - "+ document.getElementById("description_"+dom_id).innerHTML;
+    document.getElementById("current_user_list").innerHTML =  document.getElementById("currentusers_"+dom_id).innerHTML;    
+    document.getElementById("ticket_currnet").innerHTML =  document.getElementById("currentticket_"+dom_id).innerHTML;
 }
 
 function load_atten()
 {
+    document.getElementById("last_Ticket_id").style.visibility = "hidden";
     document.getElementById("main_title_help").innerHTML =  '<h6 class="panel-title txt-dark" id="main_title_help"><i class="fas fa-handshake mr-20 mr-10" ></i>Help Desk - Attention</h6>';
     document.getElementById("current_user_list").innerHTML = "";
- 
-
-
-    dotable("#tab2", dataSet3, true, false);
+     dotable("#tab2", dataSet3, true, false,"none");
     /*     setTimeout(
             function ()
             {
@@ -50,11 +52,12 @@ function load_atten()
 
 function todolist()
 {
+    document.getElementById("last_Ticket_id").style.visibility = "hidden";
     document.getElementById("main_title_help").innerHTML =  '<h6 class="panel-title txt-dark" id="main_title_help"><i class="fas fa-handshake mr-20 mr-10" ></i>Help Desk - To Do List</h6>';
     document.getElementById("current_user_list").innerHTML = "";
  
 
-    dotable("#newtb", dataSet2, true, false);
+    dotable("#newtb", dataSet2, true, false,"none");
 
     /*     setTimeout(
             function ()
@@ -84,10 +87,7 @@ function stringDivider(str, width, spaceReplacer)
 }
 
 function strip(a)
-{  
-
-
-    var index = 0;
+{  var index = 0;
     for (index = 0; index < a.length; ++index) {
         if (index == 17 || index == 21) {
 
@@ -97,19 +97,15 @@ function strip(a)
             a[index] = tmp.textContent || tmp.innerText || "";          
             a[index] = a[index].replace("\n"," ");
         }
-    }
- 
+    } 
     return a
 }
 
 function processrow(reportflag, row, i) //
 {
-
-
     row = strip(row);
-
     var date2 = new Date(),
-        user = firebase.auth().currentUser;
+    user = firebase.auth().currentUser;
     var buttons = '';
 
     row[7] = tabletolable(row[11], true),
@@ -151,7 +147,7 @@ function processrow(reportflag, row, i) //
         Difference_In_Days = Math.round(Difference_In_Time / 864e5);
 
     if (Difference_In_Days > 7 && '<span class="label label-danger">Not Started</span>' == row[7]) {
-        row[6] = '<span class="inline-block txt-danger weight-500">'
+        row[6] = '<span class="inline-block txt-danger soft_zoom weight-500">'
             + Difference_In_Days + ' Days&nbsp;&nbsp;<i class="fas fa-exclamation"></i></span>';
         document.getElementById(row[2] + "_label2").className = "label label-info";
     } else {
@@ -161,14 +157,14 @@ function processrow(reportflag, row, i) //
     row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
         row[3] = '<p class="txt-dark weight-500">' + stringDivider(row[3], 30, "<br/>\n") + "</p>";
 
-    row[4] = element_add(row[12], stringDivider(row[4], 75, "<br/>\n"), "", 60);
+    row[4] = element_add(row[12], stringDivider(row[4], 75, "<br/>\n"), "", 50);
     increment_tag("lb_allsit");
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
         row[1] = '<h5 class="capitalize-font txt-primary mr-5 weight-500">' + row[1] + "</h5>",
         ("Urgent Action" == row[11] || "Not Started" == row[11] || "On Progress" == row[11]) && (dataSet3.push(row),
             increment_tag("lb_atten")), "Not Started" == row[11] && increment_tag("stats_aq");
     if (row[23] != "---") {
-        row[23] = element_add(row[22], row[23], row[21], 45);
+        row[23] = element_add(row[22], row[23], row[21], 40);
     }
 
     if (user.uid == row[13] || user.uid == row[14] || user.uid == row[15] || user.uid == row[16]) {
@@ -240,41 +236,42 @@ function removefollowup()
 {
     fetch_tickets(total_op, 'E');
 }
-function dotable(id, dataset, domain_flag, report_flag)
+function dotable(id, dataset, domain_flag, report_flag,domain_id)
 {
+    var button_class = "btn btn-primary btn-rounded";
     var reports_text = "The information is from cloudexchange.lk",
         selection = {
             columns: [2, 3, 4, 5, 7, 18, 19, 21, 23]
         },
         buttons_pack = [{
             extend: "copy",
-            className: "btn btn-primary btn-rounded",
+            className: button_class,
             messageTop: reports_text,
             exportOptions: selection,
             background: !1
         }, {
             extend: "csvHtml5",
-            className: "btn btn-primary btn-rounded",
+            className: button_class,
             messageTop: reports_text,
             exportOptions: selection
         }, {
             extend: "excelHtml5",
-            className: "btn btn-primary btn-rounded",
+            className: button_class,
             messageTop: reports_text,
             exportOptions: selection
         }, {
             extend: "pdfHtml5",
-            className: "btn btn-primary btn-rounded",
+            className: button_class,
             messageTop: reports_text,
             exportOptions: selection
         }, {
             extend: "print",
-            className: "btn btn-primary btn-rounded",
+            className: button_class,
             messageTop: reports_text,
             exportOptions: selection
         }, {
             text: "Page-Cycle",
-            className: "btn btn-success btn-rounded",
+            className: button_class,
             action: function ()
             {
 
@@ -325,7 +322,24 @@ function dotable(id, dataset, domain_flag, report_flag)
 
 
             }
-        }]
+        },{
+            text: "Report",
+            className: button_class,
+            action: function ()
+            {
+                $("#reportModal").modal();
+                call_report_modal(domain_id);
+              
+
+
+
+            }
+        }
+
+    
+    
+    
+    ]
 
     var table = $(id).DataTable({
         // sScrollX: true,
@@ -333,14 +347,12 @@ function dotable(id, dataset, domain_flag, report_flag)
         order: [
             [20, "desc"]
         ],
-        dom: "frtipB",
+        dom: 'frtipB ',
         bInfo: !1,
         pageLength: 10,
         buttons: buttons_pack,
         destroy: !0,
-        data: dataset,
-
-
+        data: dataset,            
 
         createdRow: function (row, data, dataIndex)
         {
@@ -676,7 +688,7 @@ function delete_history(doc, dom, counter, id)
 
 function fetch_tickets(t, alpha)
 {
-   
+   var open_flag = true;
 
     loaded = false;
     loader();
@@ -696,15 +708,14 @@ function fetch_tickets(t, alpha)
     document.getElementById('lb_atten').innerText = 0;
     document.getElementById('lb_allsit').innerText = 0;
   //  document.getElementById('currentusers_' + t.name).innerHTML = "";
-
     var counter_t = 0;
     var total_size = t.length;
     t.forEach(function (t)
     {
-
-
         var dataSet = [];
+        
         if (t.name != "Cloud_Exchange") {
+   
             var ass_combo = "";
             ass_combo = document.getElementById('combo_' + t.name);
             var n = document.createElement("option");
@@ -748,7 +759,7 @@ function fetch_tickets(t, alpha)
                 })
             }
             document.getElementById(t.id + '_label2').innerText = 0;
-
+            
             db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function (querySnapshot)
             {
                 querySnapshot.forEach(function (doc)
@@ -765,7 +776,7 @@ function fetch_tickets(t, alpha)
                             dataSet.push([doc.id, doc.data().id, t.id, doc.data().location, doc.data().issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, 'DUM', 'DUM', doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"])
                         });
                         document.getElementById("stats_oc").innerText = Number(document.getElementById("stats_oc").innerText) + dataSet.length;
-                        loadtable('#edit_datable_' + t.id, dataSet, false);
+                        loadtable('#edit_datable_' + t.id, dataSet, false,t.id);
                         counter_t++;
                         if (counter_t + 1 == total_size) {
                             loaded = true;
@@ -783,6 +794,11 @@ function fetch_tickets(t, alpha)
                 console.log(error);
                 badnews(error)
             })
+            if(open_flag){
+                load_info(t.name);
+                open_flag = false;
+            }
+                     
         }
     })
 }
@@ -807,7 +823,17 @@ function tabletoimage(id, size)
     }
 }
 
+function find_siteicon(id)
+{
 
+    if (id != "---") {
+        let obj = site_profile.find(o => o.id === id);
+        var type = obj.type;
+        return type;
+    } else {
+        return " ";
+    }
+}
 
 
 function find_email(id)
@@ -821,10 +847,6 @@ function find_email(id)
     } else {
         return " ";
     }
-
-
-
-
 }
 
 function find_name(id)
@@ -903,11 +925,9 @@ function tabletolable(expression, animation)
     }
 }
 
-function call_ticket_modal(t, i, y)
-{
-    var ass_combo = "";
-    ass_combo = document.getElementById('combo_' + t);
-    $('#datetimepicker1').datetimepicker({
+function changeform_ticket(){
+
+ $('#datetimepicker1').datetimepicker({
         useCurrent: !1,
         icons: {
             time: "fa fa-clock-o",
@@ -917,23 +937,41 @@ function call_ticket_modal(t, i, y)
         },
     });
     $('#datetimepicker1').data("DateTimePicker").date(moment());
-    document.getElementById("domain_case").value = t;
-    document.getElementById("open_tic_title").innerHTML = 'Open New Ticket - <i class="' + i + '"></i>' + "&nbsp;&nbsp;" + t;
-    document.getElementById("opassignee_1").innerHTML = document.getElementById('combo_' + t).innerHTML;
-    document.getElementById("opassignee_2").innerHTML = document.getElementById('combo_' + t).innerHTML;
-    document.getElementById("opassignee_3").innerHTML = document.getElementById('combo_' + t).innerHTML;
-    document.getElementById("opassignee_4").innerHTML = document.getElementById('combo_' + t).innerHTML;
-
+ var t = document.getElementById("domain_case2").value;
+ document.getElementById("opassignee_1").disabled = false;
+ document.getElementById("opassignee_2").disabled = false;
+ document.getElementById("opassignee_3").disabled = false;
+ document.getElementById("opassignee_4").disabled = false; 
+ document.getElementById("opticket_issue").disabled = false;
+ document.getElementById("opticket_location").disabled = false;
+ 
+ document.getElementById("datetimepicker1").disabled = false;
+ document.getElementById("opstatus").disabled = false;
+ document.getElementById("opassignee_1").innerHTML = document.getElementById('combo_' + t).innerHTML;
+ document.getElementById("opassignee_2").innerHTML = document.getElementById('combo_' + t).innerHTML;
+ document.getElementById("opassignee_3").innerHTML = document.getElementById('combo_' + t).innerHTML;
+ document.getElementById("opassignee_4").innerHTML = document.getElementById('combo_' + t).innerHTML;
+ document.getElementById("open_tic_title").innerHTML = 'New Ticket - <i class="' + getsiteicon(find_siteicon(t)) + '"></i>' + "&nbsp;&nbsp;" + t;
 }
 
-function call_report_modal(t, i, y)
-{
-    var ass_combo = "";
-    ass_combo = document.getElementById('combo_' + t);
-    document.getElementById("sel1").value = t;
-    document.getElementById("report_title").innerHTML = 'Generate Report - <i class="' + i + '"></i>' + "&nbsp;&nbsp;" + t;
+
+
+function changeform_domain(){
+    var t = document.getElementById("sel1").value;
+    call_report_modal(t);
 }
 
+
+function call_report_modal(domain_id)
+{   if(domain_id!="none"){
+    document.getElementById("sel1").value = domain_id;
+    document.getElementById("report_title").innerHTML = 'Generate Report - <i class="'  + getsiteicon(find_siteicon(domain_id)) + '"></i>' + "&nbsp;&nbsp;" + domain_id;
+}else{
+    document.getElementById("sel1").selectedIndex = -1; 
+    document.getElementById("report_title").innerHTML = 'Generate Report ';
+}
+   
+} 
 
 function tktedit(com_id, dom_id, counter)
 {
@@ -1125,13 +1163,13 @@ function edittkt_save()
 
 function opentkt_save()
 {
-    var domain_case = document.getElementById("domain_case").value,
+    var domain_case = document.getElementById("domain_case2").value,
         tick_no = Number(document.getElementById("currentticket_" + domain_case).innerHTML) + 1;
     document.getElementById("stats_oc").innerHTML = Number(document.getElementById("stats_oc").innerHTML) + 1,
         document.getElementById("stats_tc").innerHTML = Number(document.getElementById("stats_tc").innerHTML) + 1,
         document.getElementById("currentticket_" + domain_case).innerHTML = tick_no, document.getElementById("ticket_edt_id").innerHTML = tick_no;
     var user = firebase.auth().currentUser,
-        domain_case = document.getElementById("domain_case").value,
+        domain_case = document.getElementById("domain_case2").value,
         opticket_location = document.getElementById("opticket_location").value,
         opticket_issue = document.getElementById("opticket_issue").value,
         opticket_date = $("#datetimepicker1").data("DateTimePicker").date();
@@ -1232,7 +1270,7 @@ function generateReport()
         {
             values.includes(doc.data().status) && (dataSet.push([doc.id, doc.data().id, sel1, doc.data().location, doc.data().issue, "DUM", "DUM", "DUM", "DUM", "DUM", "DUM", doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, "DUM", "DUM", doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"]),
                 increment_tag("lb_report"), increment_tag("report_label_" + doc.data().status));
-        }), loadtable("#example", dataSet, !0);
+        }), loadtable("#example", dataSet, !0,sel1);
         var el = document.getElementById("div1");
         el.classList.remove("hidden");
     }).catch(function (error)

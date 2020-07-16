@@ -10,6 +10,7 @@ function getsiteicon(temptype)
     switch (temptype) { case 'Airport': tempicon = "fas fa-plane-departure"; break; case 'Agriculture': tempicon = "fas fa-seedling"; break; case 'Apartment': tempicon = "far fa-building"; break; case 'Automobile': tempicon = "fa fa-car"; break; case 'Bank': tempicon = "fas fa-landmark"; break; case 'Church': tempicon = "fas fa-church"; break; case 'City': tempicon = "fas fa-city"; break; case 'Industry': tempicon = "fas fa-industry"; break; case 'Home': tempicon = "fas fa-home"; break; case 'Hotel': tempicon = "fas fa-hotel"; break; case 'Hospital': tempicon = "fas fa-hospital-alt"; break; case 'Kovil': tempicon = "fas fa-gopuram"; break; case 'School/College': tempicon = "fas fa-school"; break; case 'public': tempicon = "fa fa-cloud "; break; case 'Medical Clinic': tempicon = "fas fa-clinic-medical"; break; case 'Mosque': tempicon = "fas fa-mosque"; break; case 'Vihara': tempicon = "fas fa-vihara"; break; case 'Office': tempicon = "fas fa-briefcase"; break; case 'Supermarket': tempicon = "fas fa-store-alt"; break; case 'University': tempicon = "fas fa-university"; break; default: tempicon = "far fa-building" }
     return tempicon
 }
+
 function getdeviceicon(type2)
 {
     var devicon = "fas fa-qrcode"; switch (type2) { case 'power_meter': devicon = "fas fa-bolt"; break; case 'vavnawh': devicon = "fas fa-fan"; break; case 'smardtchiller': devicon = "fas fa-snowflake"; break; case 'smardtchiller_v2': devicon = "fas fa-snowflake"; break; case 'ahu': devicon = "fas fa-wind"; break; default: devicon = "fas fa-qrcode" }
