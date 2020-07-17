@@ -2,13 +2,31 @@ var dataSet2 = [];
 var dataSet3 = [];
 var dats = [];
 var loaded = false;
+
+function sendmail2()
+{
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function ()
+    {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+        }
+    };
+    xhttp.open("POST", "https://reqres.in/api/users/2", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send("Your JSON Data Here");
+
+}
+
+
+
 function loadtable(id, dataset, reportflag, domain_id)
 {
     for (i = 0; i < dataset.length; i++) {
         processrow(reportflag, dataset[i], i);
     }
     dotable(id, dataset, !1, reportflag, domain_id),
-        document.getElementById("stats_cc").innerText = Number(document.getElementById("stats_tc").innerText) - Number(document.getElementById("stats_oc").innerText);
+        document.getElementById("stats_cc").innerText = Number(document.getElementById("stats_tc2").innerText) - Number(document.getElementById("stats_oc").innerText);
 
 }
 
@@ -40,13 +58,13 @@ function load_atten()
     document.getElementById("main_title_help").innerHTML = '<h6 class="panel-title txt-dark" id="main_title_help"><i class="fas fa-handshake mr-20 mr-10" ></i>Help Desk - Attention</h6>';
     document.getElementById("current_user_list").innerHTML = "";
     dotable("#tab2", dataSet3, true, false, "none");
-    /*     setTimeout(
-            function ()
-            {
-                var table = $("#tab2").DataTable();
-                table.columns.adjust().draw();
-                 console.log("Readjusted");
-            }, 1000); */
+    setTimeout(
+        function ()
+        {
+            var table = $("#tab2").DataTable();
+            table.columns.adjust().draw();
+            console.log("Readjusted");
+        }, 1000);
 }
 
 function todolist()
@@ -58,13 +76,13 @@ function todolist()
 
     dotable("#newtb", dataSet2, true, false, "none");
 
-    /*     setTimeout(
-            function ()
-            {
-                var table = $("#newtb").DataTable();
-                  table.columns.adjust().draw();
-                    console.log("Readjusted");
-            }, 1000); */
+    setTimeout(
+        function ()
+        {
+            var table = $("#newtb").DataTable();
+            table.columns.adjust().draw();
+            console.log("Readjusted");
+        }, 1000);
 }
 
 
@@ -161,8 +179,12 @@ function processrow(reportflag, row, i) //
     }
 
     if (user.uid == row[13] || user.uid == row[14] || user.uid == row[15] || user.uid == row[16]) {
-        dataSet2.push(row),
+        if ("Follow Up" != row[11] && "Solved" != row[11]) {
+            dataSet2.push(row);
             increment_tag("lb_todo");
+        }
+
+
     }
     return row
 }
@@ -688,7 +710,7 @@ function fetch_tickets(t, alpha)
     document.getElementById('stats_oc').innerText = 0;
     document.getElementById('stats_cc').innerText = 0;
     document.getElementById('stats_aq').innerText = 0;
-    document.getElementById('stats_tc').innerText = 0;
+    document.getElementById('stats_tc2').innerText = 0;
     document.getElementById('total_oc_tickets').innerText = 0;
     document.getElementById('lb_todo').innerText = 0;
     document.getElementById('lb_atten').innerText = 0;
@@ -750,7 +772,11 @@ function fetch_tickets(t, alpha)
             {
                 querySnapshot.forEach(function (doc)
                 {
-                    document.getElementById("stats_tc").innerText = Number(document.getElementById("stats_tc").innerText) + Number(doc.data().id);
+                    document.getElementById("stats_tc2").innerText = 89;
+                    document.getElementById("stats_tc2").innerText = document.getElementById("stats_tc2").innerText + Number(doc.data().id);
+
+
+
                     document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
                     db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot)
                     {
@@ -1155,7 +1181,7 @@ function opentkt_save()
     var domain_case = document.getElementById("domain_case2").value,
         tick_no = Number(document.getElementById("currentticket_" + domain_case).innerHTML) + 1;
     document.getElementById("stats_oc").innerHTML = Number(document.getElementById("stats_oc").innerHTML) + 1,
-        document.getElementById("stats_tc").innerHTML = Number(document.getElementById("stats_tc").innerHTML) + 1,
+        document.getElementById("stats_tc2").innerHTML = Number(document.getElementById("stats_tc2").innerHTML) + 1,
         document.getElementById("currentticket_" + domain_case).innerHTML = tick_no, document.getElementById("ticket_edt_id").innerHTML = tick_no;
     var user = firebase.auth().currentUser,
         domain_case = document.getElementById("domain_case2").value,
