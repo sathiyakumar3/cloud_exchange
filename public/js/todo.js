@@ -11,10 +11,7 @@ function loadtable(id, dataset, reportflag, domain_id)
         document.getElementById("stats_cc").innerText = Number(document.getElementById("stats_tc").innerText) - Number(document.getElementById("stats_oc").innerText);
 
 }
-function load_allsites()
-{
-    //   document.getElementById("last_Ticket_id").style.visibility = "visible";
-}
+
 function reload_table(dom_id)
 {
     load_info(dom_id);
@@ -99,6 +96,7 @@ function strip(a)
             tmp.innerHTML = a[index];
             a[index] = tmp.textContent || tmp.innerText || "";
             a[index] = a[index].replace("\n", " ");
+            a[index] = a[index].replace(/["']/g, "")
         }
     }
     return a
@@ -110,11 +108,8 @@ function processrow(reportflag, row, i) //
     var date2 = new Date(),
         user = firebase.auth().currentUser;
     var buttons = '';
-
     row[7] = tabletolable(row[11], true),
-
         row[21] = datetimeshortformat(row[21]);
-
     row[8] = tabletoimage(row[12], 35), row[9] = tabletoimage(row[13], 35) + tabletoimage(row[14], 35) + tabletoimage(row[15], 35) + tabletoimage(row[16], 35),
         row[18] = tabletoname(row[13]) + tabletoname(row[14]) + tabletoname(row[15]) + tabletoname(row[16]),
         row[19] = tabletoname(row[12]), increment_tag("total_oc_tickets");
@@ -127,9 +122,6 @@ function processrow(reportflag, row, i) //
     } else {
         buttons = buttons + '<i class="fas fa-lock"></i>';
     }
-
-
-
     if (reportflag) {
         if (user.uid == row[12] && 'Closed' == row[11]) {
             buttons = '<a href="javascript:void(0)" onclick="undo_close_case(' + butns + ')"   class="text-inverse text-sucess" title="" data-toggle="tooltip"><i class="fas fa-undo"></i> Re-Open</a> ';
@@ -156,10 +148,8 @@ function processrow(reportflag, row, i) //
     } else {
         row[6] = '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>";
     }
-
     row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
         row[3] = '<p class="txt-dark weight-500">' + stringDivider(row[3], 30, "<br/>\n") + "</p>";
-
     row[4] = element_add(row[12], stringDivider(row[4], 75, "<br/>\n"), "", 50);
     increment_tag("lb_allsit");
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
@@ -174,8 +164,6 @@ function processrow(reportflag, row, i) //
         dataSet2.push(row),
             increment_tag("lb_todo");
     }
-
-
     return row
 }
 
@@ -345,8 +333,6 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id)
         ]
 
     var table = $(id).DataTable({
-        // sScrollX: true,
-
         order: [
             [20, "desc"]
         ],
@@ -356,7 +342,6 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id)
         buttons: buttons_pack,
         destroy: !0,
         data: dataset,
-
         createdRow: function (row, data, dataIndex)
         {
             user = firebase.auth().currentUser;

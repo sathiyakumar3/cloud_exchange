@@ -2,9 +2,6 @@
 <html lang="en">
 
 <head>
-	<link rel=stylesheet href=https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css>
-	<link rel=stylesheet href=https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css>
-	<link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css" rel="stylesheet">
 	<style>
 		td.details-control {
 			background: url('https://datatables.net/examples/resources/details_open.png') no-repeat center center;
@@ -139,28 +136,9 @@
 								<h6 class="panel-title txt-dark" id="main_title_help"><i
 										class="fas fa-handshake mr-20 mr-10"></i>Help Desk</h6>
 							</div>
-
-
 							<div class="pull-right">
-
-
-
-
-
 								<div class="dropdown  pull-left">
 									<div class="" id="current_user_list"></div>
-									<!--
-								<a class="dropdown-toggle weight-500" id="examplePanelDropdown" data-toggle="dropdown" href="#" aria-expanded="false" role="button">									
-										<span>Options</span> 
-										<i class="fas fa-chevron-circle-down"></i>
-									</a>
-									<ul class="dropdown-menu bullet dropdown-menu-right" role="menu">
-										<li role="presentation"><a href="#" role="menuitem"><i class="icon wb-reply"  data-toggle="modal" data-target="#reportModal"></i> Generate Report</a></li>
-										<li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-share anim full-screen" aria-hidden="true"></i> Full Screen</a></li>									
-										<li class="divider" role="presentation"></li>
-										<li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-settings" aria-hidden="true"></i>Advanced</a></li>
-									</ul>
-									-->
 								</div>
 							</div>
 							<div class="clearfix"></div>
@@ -182,10 +160,10 @@
 															id="lb_atten">0</span></div>
 											</a></li>
 										<li class="active" role="presentation"><a aria-expanded="true" data-toggle="tab"
-												role="tab" id="home_tab_7" href="#home_7" onclick="load_allsites()">
-												<iclass="fas fa-th-list mr-10"></i><span>All Sites</span>&nbsp;&nbsp;
-													<div class="pull-right"><span class="label label-info"
-															id="lb_allsit">0</span></div>
+												role="tab" id="home_tab_7" href="#home_7" ">
+												<iclass=" fas fa-th-list mr-10"></i><span>All Sites</span>&nbsp;&nbsp;
+												<div class="pull-right"><span class="label label-info"
+														id="lb_allsit">0</span></div>
 											</a></li>
 										<li class="" role="presentation"><a aria-expanded="true" data-toggle="tab"
 												role="tab" id="home_tab_7" href="#home_99">
@@ -200,7 +178,6 @@
 												<iclass="fas fa-th-list mr-10"></i><span>Last Ticket</span>&nbsp;&nbsp;
 													<div class="pull-right"><span class="label label-info"
 															id="ticket_currnet">0</span></div>
-
 											</a></li>
 									</ul>
 
@@ -218,7 +195,6 @@
 												<table id="tab2"
 													class="table table-hover display compact  mb-30 dataTable no-footer"
 													width="100%" style="cursor: pointer;" role="grid"> </table>
-
 											</div>
 
 										</div>
@@ -235,7 +211,6 @@
 														:&nbsp; <b><span id="it-range" class="text-info"></span></br>
 												</h5><br />
 											</div>
-											<!-- <div class="pull-right"><button class="btn btn-rounded btn-success btn-anim" data-toggle="modal"data-target="#reportModal"><iclass="fas fa-file-medical-alt"></i><spanclass="btn-text">Report</span></button></div>-->
 											<div class="clearfix"></div>
 											<div class="table-responsive">
 												<table id="example"
@@ -247,10 +222,6 @@
 											id="setting_panel_btn" data-toggle="modal"
 											data-target="#open_ticket_modal"><i class="fas fa-ticket-alt"></i><span
 												class="btn-text">Open Ticket</span></button>
-
-
-
-
 
 									</div>
 								</div>
@@ -270,9 +241,8 @@
 			<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
 		</div>
 	</div>
-	</div>
-	</div>
-	</div>
+
+	<!-- Open New Ticket-->
 	<div class="modal fade" id="open_ticket_modal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -280,7 +250,7 @@
 				<div class="modal-body">
 					<div class="modal-header"><button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">×</button>
-						<h5 class="modal-title" id="open_tic_title"><strong>&nbsp&nbspOpen</strong></h5>
+						<h5 class="modal-title" id="open_tic_title"><strong>&nbsp&nbspNew Ticket</strong></h5>
 					</div></br>
 					<form class="form-horizontal" action="/action_page.php">
 
@@ -345,6 +315,7 @@
 			</form>
 		</div>
 	</div>
+	<!-- Edit New Ticket-->
 	<div class="modal fade" id="edit_ticket_modal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -412,13 +383,12 @@
 			</form>
 		</div>
 	</div>
-	</div>
-	</div>
+	<!-- Generate Report-->
 	<div class="modal fade" id="reportModal" role="dialog">
 		<div class="modal-dialog ">
 			<div class="modal-content">
 				<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h5 class="modal-title" id="report_title"><strong>&nbsp&nbspOpen</strong></h5>
+					<h5 class="modal-title" id="report_title"><strong>&nbsp&nbspGenerate Report</strong></h5>
 				</div>
 
 				<div class="modal-body">
@@ -460,9 +430,11 @@
 			</div>
 		</div>
 	</div>
-	<script src="dist/js/form-picker-data.js"></script>
-	<script src="dist/js/form-advance-data.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+
 </body>
-<script>$('#input[name="daterange"]').daterangepicker({ timePicker: !0, format: "MM/DD/YYYY h:mm A", startDate: moment().startOf('month'), endDate: moment(), timePickerIncrement: 30, timePicker12Hour: !0, timePickerSeconds: !1, buttonClasses: ["btn", "btn-sm"], applyClass: "btn-success", cancelClass: "btn-default" }, function (e, t) { s_date = new Date(e), e_date = new Date(t), s_date_format = e.format("DD-MM-YYYY- h:mm"), e_date_format = e.format("DD-MM-YYYY- h:mm") });</script>
-<!-- ></html>
+<script src="dist/js/form-picker-data.js"></script>
+<script src="dist/js/form-advance-data.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+</html>
