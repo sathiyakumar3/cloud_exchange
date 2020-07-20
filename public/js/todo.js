@@ -25,8 +25,8 @@ function loadtable2(id, dataset, reportflag, domain_id)
     for (i = 0; i < dataset.length; i++) {
         processrow(reportflag, dataset[i], i);
     }
-    dotable(id, dataset, !1, reportflag, domain_id),
-        document.getElementById("stats_cc").innerText = Number(document.getElementById("stats_tc2").innerText) - Number(document.getElementById("stats_oc").innerText);
+    dotable(id, dataset, !1, reportflag, domain_id);
+
 
 }
 
@@ -695,6 +695,7 @@ function delete_history(doc, dom, counter, id)
 
 }
 
+
 function fetch_tickets(t, alpha)
 {
     var open_flag = true;
@@ -706,8 +707,8 @@ function fetch_tickets(t, alpha)
     dataset = [];
 
     var user = firebase.auth().currentUser;
-
-
+    var total_cases_tick = 0;
+    var total_open_cases = 0;
     document.getElementById('stats_oc').innerText = 0;
     document.getElementById('stats_cc').innerText = 0;
     document.getElementById('stats_aq').innerText = 0;
@@ -771,12 +772,11 @@ function fetch_tickets(t, alpha)
 
             db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function (querySnapshot)
             {
+
                 querySnapshot.forEach(function (doc)
                 {
 
-                    document.getElementById("stats_tc2").innerText = Number(document.getElementById("stats_tc2").innerText) + Number(doc.data().id);
-
-
+                    total_cases_tick = total_cases_tick + Number(doc.data().id);
 
                     document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
                     db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot)
@@ -788,11 +788,15 @@ function fetch_tickets(t, alpha)
 
                             dataSet.push([doc.id, doc.data().id, t.id, doc.data().location, doc.data().issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, 'DUM', 'DUM', doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"])
                         });
-                        document.getElementById("stats_oc").innerText = Number(document.getElementById("stats_oc").innerText) + dataSet.length;
+                        total_open_cases = total_open_cases + dataSet.length;
                         loadtable2('#edit_datable_' + t.id, dataSet, false, t.id);
                         counter_t++;
                         if (counter_t + 1 == total_size) {
                             loaded = true;
+                            document.getElementById("stats_tc2").innerText = total_cases_tick;
+                            document.getElementById("stats_oc").innerText = total_open_cases;
+                            document.getElementById("stats_cc").innerText = total_cases_tick - total_open_cases;
+
                         }
 
 
