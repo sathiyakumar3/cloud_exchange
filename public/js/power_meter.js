@@ -1,3 +1,5 @@
+
+
 var loaded = false; loader();
 
 var device_id = null; const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; var s_date = new Date();
@@ -33,7 +35,9 @@ $(document).ready(function ()
 {
   device_id = document.getElementById("idtest").value; domainer = document.getElementById("domainname").value; name = document.getElementById("devname").value; role = document.getElementById("role1").value; document.getElementById("dvicetypetest").innerHTML = name;
   document.getElementById("sitenavi").innerHTML = domainer;
-  document.getElementById('dName').innerHTML = device_id; var load_indi = document.getElementById("li_" + device_id).innerHTML; load_indi = load_indi.replace('&nbsp;&nbsp;<i class="fas fa-spinner fa-spin"></i>', ''); db.collection("devices").doc(device_id).get().then(doc =>
+  document.getElementById('dName').innerHTML = device_id; var load_indi = document.getElementById("li_" + device_id).innerHTML;
+  load_indi = load_indi.replace('&nbsp;&nbsp;<i class="fas fa-spinner fa-spin"></i>', '');
+  db.collection("devices").doc(device_id).get().then(doc =>
   {
     name = doc.data().name;
     description = doc.data().description;
@@ -126,11 +130,15 @@ function loadtable(tabledata)
 }
 function gen_cust_gra2()
 {
-  var startdate = s_date; var enddate = e_date; var hourlydata = []; var dailydata = []; var dailyconsump = 0; var timestamp_hour; var timestamp_original; var timestamp_reformat;
-  var timestamp_shortdate; var timestamp_firstday; var yesterdayer; var peak = 123; var off = 0; var day_time = 0; var totaldays = 0; var monthly = 0; var date; var peak_logs = [];
+  var startdate = s_date; var enddate = e_date; var hourlydata = []; var dailydata = []; var dailyconsump = 0;
+  var timestamp_hour; var timestamp_original; var timestamp_reformat;
+  var timestamp_shortdate; var timestamp_firstday; var yesterdayer; var peak = 123; var off = 0;
+  var day_time = 0; var totaldays = 0; var monthly = 0; var date; var peak_logs = [];
   var off_logs = []; var day_logs = []; var voltage_1_logs = []; var voltage_2_logs = []; var voltage_3_logs = []; var current_1_logs = []; var current_2_logs = [];
-  var current_3_logs = []; var d_maximum = 0; var h_maximum = 0; var day, yday = 0; var size; var counter = 0; document.getElementById('loaddata').innerHTML = "Datasets - loading...";
-  var tabledata = []; formdvid = document.getElementById('formdvid').value; db.collection("devices").doc(formdvid).collection("logs").orderBy("timestamp", "asc").startAt(startdate).endAt(enddate).get().then(snapshot =>
+  var current_3_logs = []; var d_maximum = 0; var h_maximum = 0; var day, yday = 0; var size; var counter = 0;
+  document.getElementById('loaddata').innerHTML = "Datasets - loading...";
+  var tabledata = []; formdvid = document.getElementById('formdvid').value;
+  db.collection("devices").doc(formdvid).collection("logs").orderBy("timestamp", "asc").startAt(startdate).endAt(enddate).get().then(snapshot =>
   {
     size = snapshot.size; snapshot.forEach(doc =>
     {
@@ -224,3 +232,39 @@ function loadradar(test)
   chart.data = radar; chart.cursor = new am4charts.RadarCursor();
   chart.legend = new am4charts.Legend();
 }
+
+function cleandatasets()
+{
+  var totaldatasets = 0;
+  var deleted = 0;
+  var allcheck = 0;
+
+  var device_id = document.getElementById('formdvid').value;
+  db.collection("devices").doc(device_id).collection("logs")
+    .get()
+    .then(function (querySnapshot)
+    {
+      totaldatasets = querySnapshot.size;
+      querySnapshot.forEach(function (doc)
+      {
+        if (doc.data().timestamp == null) {
+          db.collection("devices").doc(device_id).collection("logs").doc(doc.id).delete();
+          deleted++;
+        }
+        // doc.data() is never undefined for query doc snapshots
+        allcheck++;
+        if (allcheck == totaldatasets) {
+          console.log("Checked : " + deleted + "/" + totaldatasets);
+          goodnews("Cleaned : " + deleted + "/" + totaldatasets)
+        }
+      });
+    })
+    .catch(function (error)
+    {
+      console.log("Error getting documents: ", error);
+    });
+
+}
+
+//.where("consumption", "<", 1).where("current_1", "<", 1).where("current_2", "<", 1).where("current_3", "<", 1).where("voltage_1", "<", 1).where("voltage_2", "<", 1).where("voltage_3", "<", 1).where("power_factor", "<", 1).where("reactive_power", "<", 1)
+

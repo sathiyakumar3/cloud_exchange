@@ -20,7 +20,7 @@ function sendmail2()
 
 
 
-function loadtable(id, dataset, reportflag, domain_id)
+function loadtable2(id, dataset, reportflag, domain_id)
 {
     for (i = 0; i < dataset.length; i++) {
         processrow(reportflag, dataset[i], i);
@@ -251,6 +251,7 @@ function removefollowup()
 }
 function dotable(id, dataset, domain_flag, report_flag, domain_id)
 {
+
     var button_class = "btn btn-primary btn-rounded";
     var reports_text = "The information is from cloudexchange.lk",
         selection = {
@@ -772,8 +773,8 @@ function fetch_tickets(t, alpha)
             {
                 querySnapshot.forEach(function (doc)
                 {
-                    document.getElementById("stats_tc2").innerText = 89;
-                    document.getElementById("stats_tc2").innerText = document.getElementById("stats_tc2").innerText + Number(doc.data().id);
+
+                    document.getElementById("stats_tc2").innerText = Number(document.getElementById("stats_tc2").innerText) + Number(doc.data().id);
 
 
 
@@ -788,7 +789,7 @@ function fetch_tickets(t, alpha)
                             dataSet.push([doc.id, doc.data().id, t.id, doc.data().location, doc.data().issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, 'DUM', 'DUM', doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"])
                         });
                         document.getElementById("stats_oc").innerText = Number(document.getElementById("stats_oc").innerText) + dataSet.length;
-                        loadtable('#edit_datable_' + t.id, dataSet, false, t.id);
+                        loadtable2('#edit_datable_' + t.id, dataSet, false, t.id);
                         counter_t++;
                         if (counter_t + 1 == total_size) {
                             loaded = true;
@@ -1285,7 +1286,7 @@ function generateReport()
         {
             values.includes(doc.data().status) && (dataSet.push([doc.id, doc.data().id, sel1, doc.data().location, doc.data().issue, "DUM", "DUM", "DUM", "DUM", "DUM", "DUM", doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, "DUM", "DUM", doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"]),
                 increment_tag("lb_report"), increment_tag("report_label_" + doc.data().status));
-        }), loadtable("#example", dataSet, !0, sel1);
+        }), loadtable2("#example", dataSet, !0, sel1);
         var el = document.getElementById("div1");
         el.classList.remove("hidden");
     }).catch(function (error)

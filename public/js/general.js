@@ -162,12 +162,16 @@ function datetimeshortformat(t)
 
 function adDevice()
 {
-    var DeviceName = document.getElementById("DeviceName").value; var DeviceId = document.getElementById("DeviceId").value; var dDescription = document.getElementById("dDescription").value; var dType = document.getElementById("dType").value; var domain = document.getElementById("changeDomain2").value; var publickey = document.getElementById("Pkey").value; var publickey_format = document.getElementById("pKey_format").value; var dlogint = document.getElementById("range").value * 60; var dminlog = document.getElementById("range2").value; var today = new Date(); var user = firebase.auth().currentUser; db.collection("devices").doc(DeviceId).get().then(function (doc)
+    var DeviceName = document.getElementById("DeviceName").value; var DeviceId = document.getElementById("DeviceId").value; var dDescription = document.getElementById("dDescription").value; var dType = document.getElementById("dType").value; var domain = document.getElementById("changeDomain2").value; var publickey = document.getElementById("Pkey").value; var publickey_format = document.getElementById("pKey_format").value;
+    var dlogint = document.getElementById("range").value * 60;
+    var dminlog = document.getElementById("range2").value;
+    var today = new Date(); var user = firebase.auth().currentUser; db.collection("devices").doc(DeviceId).get().then(function (doc)
     {
         if (doc.exists) { Swal.fire({ title: "\"" + DeviceId + "\" is already used.", text: "Please use a different ID", dangerMode: !0, }).then((willDelete) => { if (willDelete) { $('#exampleModal').modal('show') } }) } else {
             db.collection("types").doc(dType).collection('datasets').doc('live').get().then(function (doc)
             {
-                var nio = doc.data();
+                var nio = doc.data(); today = new Date();
+                console.log(today);
                 db.collection("devices").doc(DeviceId).set({
                     name: DeviceName, description: dDescription, publickey: publickey, format: publickey_format, type: dType, created_on: today, delete_flag: !1, owner: user.uid,
 
@@ -184,7 +188,7 @@ function adDevice()
                     live_update: true,
                     log_update: true,
                     alarm_update: true,
-                    live_timestamp: created_on
+                    live_timestamp: today
                 });
 
                 db.collection("devices").doc(DeviceId).collection('datasets').doc('live').set(nio);
@@ -607,5 +611,4 @@ function Clean_Cache()
 
 
 
-  
-  
+
