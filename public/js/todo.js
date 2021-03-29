@@ -90,16 +90,16 @@ function todolist()
 
 function stringDivider(str, width, spaceReplacer)
 {
-    if (str.length > width) {
-        var p = width
-        for (; p > 0 && str[p] != ' '; p--) {
-        }
-        if (p > 0) {
-            var left = str.substring(0, p);
-            var right = str.substring(p + 1);
-            return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
-        }
-    }
+    /*   if (str.length > width) {
+          var p = width
+          for (; p > 0 && str[p] != ' '; p--) {
+          }
+          if (p > 0) {
+              var left = str.substring(0, p);
+              var right = str.substring(p + 1);
+              return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
+          }
+      } */
     return str;
 }
 
@@ -114,7 +114,8 @@ function strip(a)
             tmp.innerHTML = a[index];
             a[index] = tmp.textContent || tmp.innerText || "";
             a[index] = a[index].replace("\n", " ");
-            a[index] = a[index].replace(/["']/g, "")
+            a[index] = a[index].replace(/["']/g, "");
+
         }
     }
     return a
