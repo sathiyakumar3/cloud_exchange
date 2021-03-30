@@ -85,12 +85,41 @@ function todolist()
         }, 1000);
 }
 
+function testWhite(x) {
+    var white = new RegExp(/^\s$/);
+    return white.test(x.charAt(0));
+};
+
+function wordWrap(str, maxWidth) {
+    var newLineStr = "\n"; done = false; res = '';
+    while (str.length > maxWidth) {                 
+        found = false;
+        // Inserts new line at first whitespace of the line
+        for (i = maxWidth - 1; i >= 0; i--) {
+            if (testWhite(str.charAt(i))) {
+                res = res + [str.slice(0, i), newLineStr].join('');
+                str = str.slice(i + 1);
+                found = true;
+                break;
+            }
+        }
+        // Inserts new line at maxWidth position, the word is too long to wrap
+        if (!found) {
+            res += [str.slice(0, maxWidth), newLineStr].join('');
+            str = str.slice(maxWidth);
+        }
+
+    }
+
+    return res + str;
+}
+
 
 
 
 function stringDivider(str, width, spaceReplacer)
 {
-    /*   if (str.length > width) {
+/*        if (str.length > width) {
           var p = width
           for (; p > 0 && str[p] != ' '; p--) {
           }
@@ -99,7 +128,9 @@ function stringDivider(str, width, spaceReplacer)
               var right = str.substring(p + 1);
               return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
           }
-      } */
+      }  */
+     // console.log(str);
+     // str = wordWrap(str, 20);
     return str;
 }
 
@@ -122,7 +153,7 @@ function strip(a)
 }
 
 function processrow(reportflag, row, i) //
-{
+{   console.log(row);
     row = strip(row);
     var date2 = new Date(),
         user = firebase.auth().currentUser;
@@ -169,7 +200,8 @@ function processrow(reportflag, row, i) //
     }
     row[5] = '<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + created_on_date,
         row[3] = '<p class="txt-dark weight-500">' + stringDivider(row[3], 30, "<br/>\n") + "</p>";
-    row[4] = element_add(row[12], stringDivider(row[4], 75, "<br/>\n"), "", 50);
+   // row[4] = element_add(row[12], stringDivider(row[4], 75, "<br/>\n"), "", 50);
+   row[4] = element_add(row[12], row[4], "", 50);
     increment_tag("lb_allsit");
     row[2] = '<span class="capitalize-font txt-primary mr-5 weight-500">' + row[2] + "</span>",
         row[1] = '<h5 class="capitalize-font txt-primary mr-5 weight-500">' + row[1] + "</h5>",
@@ -198,7 +230,7 @@ function element_add(image_id, message, timetamp, wrap)
         tabletoimage(image_id, 25) +
         '</div>' +
         '<div class="sl-content">' +
-        '<span class="inline-block capitalize-font  pull-left truncate head-notifications">' + stringDivider(message, wrap, "<br/>\n") + '</span>' +
+        '<span class="head-notifications">' + stringDivider(message, wrap, "<br/>\n") + '</span>' +
 
         '<div class="clearfix"></div>' +
         '<span class="inline-block font-11  pull-right notifications-time">' + timetamp + '</span>' +
@@ -390,7 +422,10 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id)
                 title: "Location"
             }, {
                 title: "Issue",
-                //  responsivePriority: 1
+                //  responsivePriority: 1,
+             /*    render: function (data, type, full, meta) {
+                    return full.Issue;
+                }, */
             }, {
                 title: "Date Created",
                 responsivePriority: 1
