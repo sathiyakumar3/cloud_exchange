@@ -70,7 +70,7 @@ function loaddata1(domainid)
           } else {
             var subtr = "<a href='#' onclick='test(\"" + doc.id + "\",\"" + domainid + "\",\"" + adname + "\",true)' class='btn btn-danger btn-xs'> Approve? </a>";
           }
-
+/* 
           if (ifadmin == true) {
             var subtr = "<a href='#' onclick='test(\"" + doc.id + "\",\"" + domainid + "\",\"" + adname + "\",false)' class='btn btn-success btn-xs'disabled > Approved </a>";
           }
@@ -78,7 +78,7 @@ function loaddata1(domainid)
           else {
             var subtr = "<a href='#' onclick='test(\"" + doc.id + "\",\"" + domainid + "\",\"" + adname + "\",false)' class='btn btn-success btn-xs' > Approved </a>";
           }
-
+ */
 
           ////////////////////////////////
           /*   if (ifowner == true) {

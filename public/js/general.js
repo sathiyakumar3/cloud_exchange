@@ -88,6 +88,7 @@ function open_home_page()
     document.getElementById("content_devices").style.display = "none";
     document.getElementById("content_chat").style.display = "none";
     document.getElementById("content_todo").style.display = "none";
+  //  document.getElementById("content_jobsheet").style.display = "none";
 
 
 
@@ -101,6 +102,7 @@ function open_devices()
     document.getElementById("content_home_page").style.display = "none";
     document.getElementById("content_chat").style.display = "none";
     document.getElementById("content_todo").style.display = "none";
+   // document.getElementById("content_jobsheet").style.display = "none";
 
 }
 
@@ -114,16 +116,30 @@ function open_todo()
     document.getElementById("content").style.display = "none";
     document.getElementById("content_home_page").style.display = "none";
     document.getElementById("content_todo").style.display = "block";
+   // document.getElementById("content_jobsheet").style.display = "none";
 
 }
 
+function open_jobsheets()
+{
+ fetch_tickets2(total_op, 'D');
+
+    //console.log(total_op);
+    document.getElementById("content_chat").style.display = "none";
+    document.getElementById("content_devices").style.display = "none";
+    document.getElementById("content").style.display = "none";
+    document.getElementById("content_home_page").style.display = "none";
+    document.getElementById("content_todo").style.display = "block";
+    //.getElementById("content_jobsheet").style.display = "block";
+
+}
 
 
 $('#content_home_page').load("content/home_page.html");
 $('#content_devices').load("content/device_table.html");
 $('#content_chat').load("content/chat.html");
 $('#content_todo').load("content/todo.html");
-
+//$('#content_jobsheet').load("content/todo.html");
 
 function badnews(error)
 { Swal.fire("Warning", String(error), 'error'); }
@@ -159,6 +175,19 @@ function datetimeshortformat(t)
         t.toDate().getFullYear();
     return e
 }
+
+
+function formatAMPM(date) {
+    date = new Date(date);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
 
 function adDevice()
 {

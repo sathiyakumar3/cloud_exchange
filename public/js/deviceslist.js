@@ -390,7 +390,7 @@ function buildnavitree()
                         '<div class="form-control tkt-opt-hide" id="title_' + tempname + '"></div>'+
                         '<div class="form-control tkt-opt-hide" id="icon_' + tempname + '"></div>';
                       
-                    var top_essentials = '<div class="row">'+
+      /*               var top_essentials = '<div class="row">'+
                       '<div class="col-sm-8 pull-right tkt-btn"><div class="pull-right pull-right-mg">&nbsp;&nbsp;' +
 '<button class="btn btn-success tkt-btn btn-anim btn-rounded " onclick="call_ticket_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"  data-toggle="modal" data-target="#open_ticket_modal">' +
 '<i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span></button>&nbsp;&nbsp;&nbsp;&nbsp;'+
@@ -399,16 +399,20 @@ function buildnavitree()
                                                         '<spanclass="btn-text">Report</span>'+
                                                 '</button>'+
                         '</div></div>'+
-                        '</div>';                   
+                        '</div>';     */               
                      
-                    var tests =   '<div class="table-responsive col-sm-12">' +
-                        '<table id="edit_datable_' + tempname + '" class="table table-hover display compact  mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" ">' +
-                        '</table></div><select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select>'+hidden_tags;
+                    var tests =   '<div class="table-responsive col-sm-12" id="div_tic_table_' + tempname + '">' +
+                        '<table id="edit_tic_table_' + tempname + '" class="table table-hover display compact  mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" ">' +
+                        '</table>'+              
+                        '</div><select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select>'+hidden_tags+'<div class="table-responsive col-sm-12" id="div_jobs_table_' + tempname + '">' +
+                        '<table id="edit_jobs_table_' + tempname + '" class="table table-hover display compact  mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" ">' +
+                        '</table>'+
+                        '</div>';
 
 
 
-
-                    var myvar = '<table  id="edit_datable_' + tempname + '" class="table table-hover display  wrap mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" aria-describedby="edit_datable_2_info"></table>  <select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select ></div>';
+/* 
+                    var myvar = '<table  id="edit_datable_' + tempname + '" class="table table-hover display  wrap mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" aria-describedby="edit_datable_2_info"></table>  <select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select ></div>'; */
 
 
                     new_tab2 = new_tab2 + '<li role="presentation" class="' + bb + ' margin-top-tkt"><a data-toggle="tab"' + 'id="' + tempname + '1_tab2' + '"  onclick = "reload_table(\'' + tempname + '\')" role="tab"' + 'href="#' + tempname + '_tab2' + '"' +
@@ -447,7 +451,7 @@ function buildnavitree()
                 a.appendChild(div2);
                 var div3 = document.createElement("div");
                 div3.setAttribute("class", "clearfix");
-                a.appendChild(document.createTextNode(tempname));
+                a.appendChild(document.createTextNode(tempname.substring(0, 12)));
                 a.appendChild(div3);
                 tree.appendChild(a);
                 document.getElementById("dsa").appendChild(tree);
