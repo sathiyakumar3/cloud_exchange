@@ -82,7 +82,7 @@ function live_update_refresh()
     live_update(user, user_devices, date)
 }
 
-function check_live_update(e, t, s, n)
+function check_live_update(e, t, s, n,name)
 {
     var i = new Date(),
         a = Date.now(),
@@ -93,7 +93,7 @@ function check_live_update(e, t, s, n)
         else {
             var c = firebase.auth().currentUser;
             document.getElementById("session_status").innerText = "[EXPIRED]", document.getElementById("session_status").className = "cus-sat-stat weight-500 txt-warning text-center mt-5",
-                document.getElementById("subcripText").innerHTML = "   <font color='Orange'>[Session Expired]</font> &nbsp;&nbsp;&nbsp; |  &nbsp;&nbsp;&nbsp; " + c.displayName + "  &nbsp;&nbsp;&nbsp;";
+                document.getElementById("subcripText").innerHTML = "   <font color='Orange'>[Session Expired]</font> &nbsp;&nbsp;&nbsp; |  &nbsp;&nbsp;&nbsp; " + name + "  &nbsp;&nbsp;&nbsp;";
         }
     else {
         document.getElementById("session_status").innerText = "[LIVE]", run_timer(u);
@@ -541,7 +541,7 @@ function buildnavitree()
             document.getElementById("sel1").innerHTML = document.getElementById("changeDomain2").innerHTML;
             document.getElementById("domain_case2").innerHTML = document.getElementById("changeDomain2").innerHTML;    
             check_new_sites_added(user, total_op);
-            check_live_update(user, user_devices, live_timestamp, as_options);
+            check_live_update(user, user_devices, live_timestamp, as_options,displayName);
             return resolve(devicesum)
         }).catch(function (error)
         {

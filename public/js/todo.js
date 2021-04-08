@@ -42,7 +42,7 @@ function load_info(dom_id) {
     document.getElementById("last_Ticket_id").style.visibility = "visible";
     document.getElementById("domain_case2").value = dom_id;
     changeform_ticket();
-    document.getElementById("main_title_help").innerHTML = '<i class="' + document.getElementById("icon_" + dom_id).innerHTML + '  mr-10 " ></i>' + document.getElementById("title_" + dom_id).innerHTML + " - " + document.getElementById("description_" + dom_id).innerHTML;
+    document.getElementById("main_title_help").innerHTML = '<i class="' + document.getElementById("icon_" + dom_id).innerHTML + '" ></i>' + document.getElementById("title_" + dom_id).innerHTML + " - " + document.getElementById("description_" + dom_id).innerHTML;
     document.getElementById("current_user_list").innerHTML = document.getElementById("currentusers_" + dom_id).innerHTML;
     document.getElementById("ticket_currnet").innerHTML = document.getElementById("currentticket_" + dom_id).innerHTML;
 
@@ -50,7 +50,7 @@ function load_info(dom_id) {
 
 function load_atten() {
     document.getElementById("last_Ticket_id").style.visibility = "hidden";
-    document.getElementById("main_title_help").innerHTML = '<h6 class="panel-title txt-dark" id="main_title_help"><i class="fas fa-handshake mr-20 mr-10" ></i>Help Desk - Attention</h6>';
+    document.getElementById("main_title_help").innerHTML = '<h6 class="panel-title txt-dark" id="main_title_help"><i class="fas fa-ticket-alt mr-20" ></i>Tickets - Attention</h6>';
     document.getElementById("current_user_list").innerHTML = "";
     dotable("#tab2", dataSet3, true, false, "none");
     /*     setTimeout(
@@ -64,7 +64,7 @@ function load_atten() {
 
 function todolist() {
     document.getElementById("last_Ticket_id").style.visibility = "hidden";
-    document.getElementById("main_title_help").innerHTML = '<h6 class="panel-title txt-dark" id="main_title_help"><i class="fas fa-handshake mr-20 mr-10" ></i>Help Desk - To Do List</h6>';
+    document.getElementById("main_title_help").innerHTML = '<h6 class="panel-title txt-dark" id="main_title_help"><i class="fas fa-ticket-alt mr-20" ></i>Tickets - To Do List</h6>';
     document.getElementById("current_user_list").innerHTML = "";
 
 
@@ -511,8 +511,13 @@ var vasi = true;
             row.child(ter(doc, dom, status, counter, owner, item_id, loc, iss)).show();
             if (user.uid == ass_1 || user.uid == ass_2 || user.uid == ass_3 || user.uid == ass_4 || user.uid == owner) {
                 format(doc, dom, status, item_id);
-            } else {
-                format_lock(doc);
+                document.getElementById("h_" + doc).innerHTML = "";
+            } else {                
+                  
+                document.getElementById("h_" + doc).innerHTML = "<p class='text-center' ><i class='fas fa-lock'></i>&nbsp;&nbsp;You have not been assigned for this job.</br></p><br>";
+
+              format(doc, dom, status, item_id);
+              format_lock(doc);
             }
 
             tr.addClass('shown');
@@ -547,16 +552,21 @@ function format_lock(doc) {
     document.getElementById("button_" + doc).disabled = true;
     document.getElementById("his_" + doc).disabled = true;
     document.getElementById("his_op_" + doc).disabled = true;
-    var c = document.getElementById("his_" + doc);
-    var b = document.getElementById("his_op_" + doc);
-    c.innerHTML = "<p class='text-center' ><i class='fas fa-lock'></i>&nbsp;&nbsp;You have not been assigned for this job.</br></p>";
+    document.getElementById("his_text_" + doc).disabled = true;
+    document.getElementById("his_op_sel_" + doc).disabled = true;
+    document.getElementById("his_datetime_" + doc).disabled = true;
+
+ 
+/*  var c = document.getElementById("his_" + doc);
+ //   var b = document.getElementById("his_op_" + doc);
+   c.innerHTML = c.innerHTML+"<p class='text-center' ><i class='fas fa-lock'></i>&nbsp;&nbsp;You have not been assigned for this job.</br></p>"; */
     //b.value = "locked";
 
 }
 
 
 function ter(doc, dom, status, counter, owner, tick_id, location, issue) {
-    var lock = '									<div class="streamline user-activity" id="his_' + doc + '">' +
+    var lock = '<div  id="h_' + doc + '"></div><div class="streamline user-activity" id="his_' + doc + '">' +
         ' <div class="spinner" id="loading_nava"><div class="bounce1" ></div><div class="bounce2"></div><div class="bounce3"></div></div>' +
         '</div>';
 
@@ -832,7 +842,9 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                         '<p><strong>Location : </strong>' + location + '</p>' +
 
                         '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
-                    sendmail(find_email(owner), find_email(user.email), subject, html_text_2);
+                      
+                   sendmail(find_email(owner), user.email, subject, html_text_2);
+                   goodnews("Your jobsheet was added successfully!");
                 })
                 .catch(function (error) {
                     badnews("Saving history " + error);
@@ -914,6 +926,9 @@ function close_only_case(doc, dom, counter, status, message, report_flag, owner,
 
 function delete_history(doc, dom, counter, id) {
     var status = document.getElementById("his_op_" + doc).value;
+
+
+    
     db.collection("domains").doc(dom).collection("job_sheets").doc(id).delete()
         .then(function () {
             format(doc, dom, status, counter);
@@ -1281,7 +1296,7 @@ function tktdelete(com_id, dom_id, counter) {
                     'Your file has been deleted,',
                     'success'
                 );
-                //  format_lock(com_id);
+                format_lock(com_id);
 
 
                 //  var data = processrow(false, [com_id, ticketid, dom_id, location, issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', status, user.uid, assigned_to1, assigned_to2, assigned_to3, assigned_to4, opticket_date, 'DUM', 'DUM', ticketid, opticket_date, user.uid, "---"], counter);
@@ -1374,13 +1389,13 @@ function edittkt_save() {
 
                     '<p><strong>Status :</strong> ' + status + '</p>' +
                     '<p><strong>Created By : </strong>' + user.displayName + '</p>' +
-                    '<p>You are receiving this mail as the ticket has been updated and you have have been assinged for this ticket.&nbsp;</p>' +
+                    '<p>You are receiving this mail as the ticket has been updated and you have have been assigned for this ticket.&nbsp;</p>' +
                     '<p>Please disregard this email, if you have received this information prior.&nbsp;</p>' +
                     '<p>Thank you.</p>' +
                     '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
 
 
-                // sendmail_as(user.email, find_email(assigned_to1), find_email(assigned_to2), find_email(assigned_to3), find_email(assigned_to4), subject, html_text_2);
+              sendmail_as(user.email, find_email(assigned_to1), find_email(assigned_to2), find_email(assigned_to3), find_email(assigned_to4), subject, html_text);
                 goodnews("Email notifications sent.")
             }
         })
@@ -1419,7 +1434,7 @@ function opentkt_save() {
 
         '<p><strong>Status :</strong> ' + opstatus + '</p>' +
         '<p><strong>Created By : </strong>' + user.displayName + '</p>' +
-        '<p>You are receiving this mail as you have have been assinged for this ticket.&nbsp;</p>' +
+        '<p>You are receiving this mail as you have have been assigned for this ticket.&nbsp;</p>' +
         '<p>Thank you.</p>' +
         '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
     if (opassignee_1 != "---") {
@@ -1474,6 +1489,7 @@ function opentkt_save() {
 
         );
         table.row.add(data).draw();
+        goodnews("The ticket was added successfully!");
     }).catch(function (error) {
         badnews(error), console.log(error);
     });
