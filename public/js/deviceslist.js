@@ -360,7 +360,7 @@ function buildnavitree()
                     {
                         if (doc.exists) {
                             var name2 = doc.data().name || "default",
-                                photoUrl2 = doc.data().photoUrl || "default",
+                                photoUrl2 = doc.data().photoUrl || "image/blank_profile_pic.jpg",
                                 email2 = doc.data().email || "default";
                             user_profiles.push({
                                 id: entry,
@@ -416,7 +416,7 @@ function buildnavitree()
 
 
                     new_tab2 = new_tab2 + '<li role="presentation" class="' + bb + ' margin-top-tkt"><a data-toggle="tab"' + 'id="' + tempname + '1_tab2' + '"  onclick = "reload_table(\'' + tempname + '\')" role="tab"' + 'href="#' + tempname + '_tab2' + '"' +
-                        'aria-expanded="true"><i class="' + tempicon + '"></i> &nbsp;&nbsp' + tempname + ' &nbsp; &nbsp; <div class="pull-right"><span class="label label-primary" id="' + tempname +
+                        'aria-expanded="true"><i class="' + tempicon + '"></i> &nbsp;&nbsp' + tempname.substring(0, 12) + ' &nbsp; &nbsp; <div class="pull-right"><span class="label label-primary" id="' + tempname +
                         '_label2' + '">0</span></div></a></li>';
                     new_tab_pro2 = new_tab_pro2 + '<div id="' + tempname + '_tab2' + '" class="tab-pane fade' + gg + '" role="tabpanel">' +
                         tests + '</div>';
@@ -572,9 +572,9 @@ function buildnavitree()
         document.getElementById('myTabContent_12').innerHTML = new_tab_pro2;
 
         things();
-        setup_echart(devicesum);
-        setup_networkchart(total_op);
-        add_devices_types();
+      setup_echart(devicesum);
+      setup_networkchart(total_op);
+       add_devices_types();
         checknoti();
     })
 }
@@ -1023,6 +1023,8 @@ function googlefunctions()
     return promise2.then(function (value)
     {
         console.log(value);
+        value = JSON.stringify(value);
+        value = JSON.parse(value);
 
         db.collection("users").doc(user.uid).set(value, {
             merge: !0
@@ -1131,7 +1133,11 @@ function checknoti()
             var a = e.id,
                 o = e.data().roles.owner || !1,
                 n = e.data().roles.admin || !1;
-            d = datetimeformat(e.data().created_on);
+               // console.log(e.data().created_on);
+               // console.log(new Date(e.data().created_on));
+                var d = (e.data().created_on).toDate();
+              //  console.log(ed);
+        //  d = datetimeformat(ed);
             db.collection("domains").doc(e.id).get().then(function (e)
             {
                 e.exists ? (o || n) && loadnotifcation(e.id, e.data().name, d) : db.collection("users").doc(t.uid).collection("requests").doc(a).delete().then(function ()

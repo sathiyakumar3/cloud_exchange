@@ -146,7 +146,8 @@ function badnews(error)
 function goodnews(text)
 { Swal.fire('Success', text, 'success'); }
 function datetimeformat(t)
-{ var e = t.toDate().getDate() + "-" + (t.toDate().getMonth() + 1) + "-" + t.toDate().getFullYear() + "  " + t.toDate().getHours() + ":" + t.toDate().getMinutes() + ":" + t.toDate().getSeconds(); return e }
+{ 
+    var e = t.toDate().getDate() + "-" + (t.toDate().getMonth() + 1) + "-" + t.toDate().getFullYear() + "  " + t.toDate().getHours() + ":" + t.toDate().getMinutes() + ":" + t.toDate().getSeconds(); return e }
 function numberWithCommas(x)
 { x = Math.round(x); return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
 

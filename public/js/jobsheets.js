@@ -251,6 +251,9 @@ function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
 
     document.getElementById(table_id).style.display = "block";
     document.getElementById(other_table).style.display = "none";
+    document.getElementById('home_tab_8').style.display = "none";
+    document.getElementById('home_tab_9').style.display = "none";
+    document.getElementById('home_tab_7').click(); 
     document.getElementById('setting_panel_btn').style.visibility= "hidden";
     document.getElementById(id + '_label2').innerText = dataset.length;
     document.getElementById(id + "_label2").className = "label label-primary";
@@ -259,7 +262,104 @@ function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
     
 
     document.getElementById('total_oc_jobsheets').innerText =  Number(document.getElementById('total_oc_jobsheets').innerText)+dataset.length; 
- 
+    var button_class = "btn btn-primary btn-rounded";
+    var reports_text = "The information is from cloudexchange.lk",
+        selection = {
+            columns: [2, 3, 4, 5, 7, 18, 19, 21, 23]
+        },
+        buttons_pack = [{
+            extend: "copy",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection,
+            background: !1
+        }, {
+            extend: "csvHtml5",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            extend: "excelHtml5",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            extend: "pdfHtml5",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            extend: "print",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            text: "Page-Cycle",
+            className: button_class,
+            action: function () {
+
+                Swal.fire({
+                    title: 'Cycle through pages',
+                    text: "Please enter the interval in seconds.",
+                    input: 'number',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Enable',
+                    cancelButtonText: 'Disable'
+
+                }).then((result) => {
+                    if (result.value) {
+                        var inter = result.value * 1000;
+                        clearInterval(loo2p), loo2p = setInterval(function () {
+
+                            var table = $(id).DataTable();
+                            if (table) {
+                                info = table.page.info(),
+                                    pageNum = info.page < info.pages ? info.page + 1 : 1;
+                                table.page(pageNum).draw(!1);
+                                //   table.columns.adjust().draw();
+                                //    table.rows.adjust().draw();
+                            }
+
+                        }, inter)
+
+                        Swal.fire(
+                            'Page Cycle Enabled',
+                            'The pages will changed for every ' + result.value + ' seconds',
+                            'success'
+                        )
+                    } else {
+                        clearInterval(loo2p);
+                        Swal.fire(
+                            'Page Cycle Disabled!',
+                            'The pages will remain static.',
+                            'success'
+                        )
+                    }
+                })
+
+
+
+            }
+        }, {
+            text: "Report",
+            className: button_class,
+            action: function () {
+                $("#reportModal").modal();
+                call_report_modal(domain_id);
+
+
+
+
+            }
+        }
+
+
+
+
+        ]
     var table = $('#edit_jobs_table_' +id).DataTable({
         order: [
             [8, "desc"]
@@ -267,7 +367,8 @@ function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
         dom: 'frtipB ',
         bInfo: !1,
         pageLength: 10,
-        //   buttons: buttons_pack,
+        buttons: buttons_pack,
+
         destroy: !0,
         data: dataset,
         columnDefs: [
@@ -564,7 +665,7 @@ function fetch_tickets2(t, alpha) {
     document.getElementById('lb_atten').innerText = 0;
     document.getElementById('lb_allsit').innerText = 0;
     //  document.getElementById('currentusers_' + t.name).innerHTML = "";
-    var counter_t = 0;
+    var counter_t = 1;
     var total_size = t.length;
     t.forEach(function (t) {
         var dataSet = [];
@@ -626,7 +727,7 @@ function fetch_tickets2(t, alpha) {
                 querySnapshot.forEach(function (doc) {
                  
                     // console.log(doc.data());
-                    if(doc.data().status!='Closed' || doc.data().status!='Solved'){
+                    if(doc.data().status=='Closed' || doc.data().status=='Solved'){
                         total_open_cases++;
                     }
                     dataSet.push([doc.data().job_num, doc.data().ticket_id, doc.data().message, doc.data().name, doc.data().photoURL, doc.data().status, doc.data().start_time, doc.data().end_time, doc.data().ticket_doc_id, doc.data().timestamp, doc.data().chargable]);
@@ -639,10 +740,13 @@ function fetch_tickets2(t, alpha) {
    
                 loadtable3(t.id, dataSet, false, t.id);
                 counter_t++;
+
                 if (counter_t + 1 == total_size) {
                     loaded = true;
                     document.getElementById("stats_tc").innerText = total_cases_tick;
                     document.getElementById("stats_oc").innerText = total_open_cases;
+                    document.getElementById("lb_allsit").innerText = total_open_cases;
+                    
                     document.getElementById("stats_cc").innerText = total_cases_tick - total_open_cases;
 
                 }
@@ -817,30 +921,6 @@ function changeform_ticket() {
 
 
 
-function generateReport() {
-
-    var sel1 = document.getElementById("sel1").value,
-        dataSet = [],
-        values = $("#pre-selected-options").val(),
-        con_values = [];
-    document.getElementById("lb_report").innerHTML = "0", values.forEach(function (entry) {
-        con_values.push(tabletolable(entry, false) + '<span class="block" id="report_label_' + entry + '">0</span>');
-    });
-    var dtrange = document.getElementById("dtrange").value;
-    document.getElementById("it-range").innerHTML = con_values, [s_date_ticks, e_date_ticks] = dtrange.split(" - "),
-        s_date_ticks = new Date(s_date_ticks), e_date_ticks = new Date(e_date_ticks);
-
-    db.collection("domains").doc(sel1).collection("tickets").orderBy("created_on", "asc").startAt(s_date_ticks).endAt(e_date_ticks).get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-            values.includes(doc.data().status) && (dataSet.push([doc.id, doc.data().id, sel1, doc.data().location, doc.data().issue, "DUM", "DUM", "DUM", "DUM", "DUM", "DUM", doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, "DUM", "DUM", doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"]),
-                increment_tag("lb_report"), increment_tag("report_label_" + doc.data().status));
-        }), loadtable2("#example", dataSet, !0, sel1);
-        var el = document.getElementById("div1");
-        el.classList.remove("hidden");
-    }).catch(function (error) {
-        console.log(error), badnews(error);
-    }), document.getElementById("gn-site").innerHTML = sel1, document.getElementById("dt-range").innerHTML = dtrange;
-}
 
 
 

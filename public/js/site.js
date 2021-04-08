@@ -11,8 +11,7 @@ document.getElementById('add_subs_title2').innerHTML = "loading";
 document.getElementById('add_subs_titledma').innerHTML = "loading, Please wait...";
 document.getElementById('add_subs_titledma2').innerHTML = "loading";
 var user = null;
-$(document).ready(function ()
-{
+$(document).ready(function () {
   // domainid = window.location.href.split("id=")[1];
   domainid = document.getElementById("idtest").value;
   document.getElementById("subcripText").innerHTML = domainid + "   &nbsp;&nbsp;&nbsp; |  &nbsp;&nbsp;&nbsp; Settings  &nbsp;&nbsp;&nbsp;";
@@ -22,12 +21,10 @@ $(document).ready(function ()
 });
 
 
-var refreshchart = setInterval(function ()
-{
+var refreshchart = setInterval(function () {
   user = firebase.auth().currentUser;
   if (domainid != null && user != null) {
-    db.collection("domains").doc(domainid).get().then(function (doc) { domainname = "User Management - " + doc.data().name }).then(function ()
-    {
+    db.collection("domains").doc(domainid).get().then(function (doc) { domainname = "User Management - " + doc.data().name }).then(function () {
       document.getElementById('add_subs_title').innerHTML = domainname;
       document.getElementById('add_subs_title2').innerHTML = domainname;
     })
@@ -40,12 +37,10 @@ var refreshchart = setInterval(function ()
 
 
 
-function loaddata1(domainid)
-{
+function loaddata1(domainid) {
   adminset = [];
   db.collection("domains").doc(domainid).collection("requests")
-    .get(getOptions).then(function (querySnapshot)
-    {
+    .get(getOptions).then(function (querySnapshot) {
       if (querySnapshot.size == 0) {
         loadtable(adminset);
         // document.getElementById('add_subs_title').innerHTML = domainname;
@@ -53,14 +48,12 @@ function loaddata1(domainid)
 
 
       }
-      querySnapshot.forEach(function (doc)
-      {
+      querySnapshot.forEach(function (doc) {
         var approval = doc.data().approval;
         var ifowner = doc.data().roles.owner;
         var ifdeveloper = doc.data().roles.developer;
         var ifadmin = doc.data().roles.admin;
-        db.collection("users").doc(doc.id).get(getOptions).then(function (doc)
-        {
+        db.collection("users").doc(doc.id).get(getOptions).then(function (doc) {
           var adname = doc.data().name || "---";
           var ademail = doc.data().email || "---";;
           var adphone = doc.data().phone || "---";;
@@ -70,15 +63,15 @@ function loaddata1(domainid)
           } else {
             var subtr = "<a href='#' onclick='test(\"" + doc.id + "\",\"" + domainid + "\",\"" + adname + "\",true)' class='btn btn-danger btn-xs'> Approve? </a>";
           }
-/* 
-          if (ifadmin == true) {
-            var subtr = "<a href='#' onclick='test(\"" + doc.id + "\",\"" + domainid + "\",\"" + adname + "\",false)' class='btn btn-success btn-xs'disabled > Approved </a>";
-          }
-
-          else {
-            var subtr = "<a href='#' onclick='test(\"" + doc.id + "\",\"" + domainid + "\",\"" + adname + "\",false)' class='btn btn-success btn-xs' > Approved </a>";
-          }
- */
+          /* 
+                    if (ifadmin == true) {
+                      var subtr = "<a href='#' onclick='test(\"" + doc.id + "\",\"" + domainid + "\",\"" + adname + "\",false)' class='btn btn-success btn-xs'disabled > Approved </a>";
+                    }
+          
+                    else {
+                      var subtr = "<a href='#' onclick='test(\"" + doc.id + "\",\"" + domainid + "\",\"" + adname + "\",false)' class='btn btn-success btn-xs' > Approved </a>";
+                    }
+           */
 
           ////////////////////////////////
           /*   if (ifowner == true) {
@@ -162,12 +155,10 @@ function loaddata1(domainid)
           //   }
           //////////////////////
           adminset.push([adname, buttonrole, ademail, adphone, subtr]);
-        }).then(function ()
-        {
+        }).then(function () {
           loadtable(adminset);
         })
-          .catch(function (error)
-          {
+          .catch(function (error) {
             swal({
               title: "Warning",
               text: "Error loading users information " + error,
@@ -182,10 +173,8 @@ function loaddata1(domainid)
 
 
 
-function loadtable(adminset)
-{
-  table = $(document).ready(function ()
-  {
+function loadtable(adminset) {
+  table = $(document).ready(function () {
     $('#subscriptions_table').DataTable({
       destroy: true,
       data: adminset,
@@ -204,23 +193,19 @@ function loadtable(adminset)
 //
 
 // loads data to the table.
-function loaddata2(domainid)
-{
+function loaddata2(domainid) {
   adminset1 = [];
   db.collection("devices").where("domain", "==", domainid)
     .get()
-    .then(function (querySnapshot)
-    {
+    .then(function (querySnapshot) {
       if (querySnapshot.size == 0) {
         loadtablex(adminset1);
         document.getElementById('add_subs_titledma').innerHTML = domainname;
         document.getElementById('add_subs_titledma2').innerHTML = domainname;
       }
-      querySnapshot.forEach(function (doc)
-      {
+      querySnapshot.forEach(function (doc) {
         deviceid = doc.id;
-        db.collection("devices").doc(deviceid).get(getOptions).then(function (doc)
-        {
+        db.collection("devices").doc(deviceid).get(getOptions).then(function (doc) {
           var adname = doc.data().name || "---";
           var adeaddesc = doc.data().description || "---";;
           var adowner = doc.data().owner || "---";;
@@ -228,21 +213,17 @@ function loaddata2(domainid)
           var adcreatedon = (doc.data().created_on).toDate().getDate() + "-" + ((doc.data().created_on).toDate().getMonth() + 1) + "-" + (doc.data().created_on).toDate().getFullYear() + " " + (doc.data().created_on).toDate().getHours() + ":" + (doc.data().created_on).toDate().getMinutes() + ":" + (doc.data().created_on).toDate().getSeconds() || "---";
           var button = "<a href='#' onclick=dremove(\"" + doc.id + "\") class='btn btn-success btn-xs' > Remove </a>";
 
-          db.collection("users").doc(adowner).get(getOptions).then(function (doc)
-          {
+          db.collection("users").doc(adowner).get(getOptions).then(function (doc) {
             var ususer = doc.data().name || "---";
             var usemail = doc.data().email || "---";;
-            db.collection("types").doc(adtype).get(getOptions).then(function (doc)
-            {
+            db.collection("types").doc(adtype).get(getOptions).then(function (doc) {
               var tyuser = doc.data().name || "---";
               adminset1.push([adname, adeaddesc, ususer, usemail, tyuser, adcreatedon, button]);
-            }).then(function ()
-            {
+            }).then(function () {
               loadtablex(adminset1);
 
             })
-              .catch(function (error)
-              {
+              .catch(function (error) {
                 swal({
                   title: "Warning",
                   text: "Error loading devices information " + error,
@@ -256,8 +237,7 @@ function loaddata2(domainid)
         })
       });
     })
-    .catch(function (error)
-    {
+    .catch(function (error) {
       swal({
         title: "Warning!",
         text: "Error, While reading devices lists. " + error,
@@ -269,10 +249,8 @@ function loaddata2(domainid)
 }
 
 // loads the table with new data
-function loadtablex(adminset)
-{
-  table = $(document).ready(function ()
-  {
+function loadtablex(adminset) {
+  table = $(document).ready(function () {
     $('#subscriptions_table23').DataTable({
       destroy: true,
       data: adminset,
@@ -291,8 +269,7 @@ function loadtablex(adminset)
 
 
 // Removes the device and refreshes the table
-function dremove(deviceid)
-{
+function dremove(deviceid) {
   swal({
     title: "Are you sure?",
     text: "Once deleted from the domain, the device will be available in its owner's sandbox.",
@@ -300,21 +277,18 @@ function dremove(deviceid)
     buttons: true,
     dangerMode: true,
   })
-    .then((willDelete) =>
-    {
+    .then((willDelete) => {
       if (willDelete) {
         db.collection('devices').doc(deviceid).set({
           domain: ""
-        }, { merge: true }).then(function ()
-        {
+        }, { merge: true }).then(function () {
           swal({
             title: "The device has been removed successfully.",
             text: "Do you want to rebuild your navigation tree?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
-          }).then((willDelete) =>
-          {
+          }).then((willDelete) => {
             if (willDelete) {
               rebuildtree();
             } else {
@@ -322,8 +296,7 @@ function dremove(deviceid)
             }
           });
         })
-          .catch(function (error)
-          {
+          .catch(function (error) {
             swal({
               title: "Erro",
               text: "Sorry, the device can not be removed. : " + error,
@@ -343,11 +316,9 @@ function dremove(deviceid)
 
 ////////////////////////////////////////
 
-$(document).ready(function ()
-{
+$(document).ready(function () {
 
-  db.collection("domains").doc(domainid).get().then(function (doc)
-  {
+  db.collection("domains").doc(domainid).get().then(function (doc) {
     document.getElementById('sName').value = doc.data().name || "-";
     document.getElementById('sDescription').value = doc.data().description || "-";
     document.getElementById('sLocation').value = doc.data().location || "-";
@@ -359,12 +330,10 @@ $(document).ready(function ()
     document.getElementById('sownername').value = doc.data().owner_name || "-";
     document.getElementById('sowneremail').value = doc.data().owner_email || "-";
     document.getElementById('sid').value = domainid;
-  }).then(function ()
-  {
+  }).then(function () {
     document.getElementById('addSite').innerHTML = "Site Settings";
   })
-    .catch(function (error)
-    {
+    .catch(function (error) {
       swal({
         title: "Warning",
         text: "Error, loading site information " + error,
@@ -378,8 +347,7 @@ $(document).ready(function ()
 });
 
 // update site
-function updateSite()
-{
+function updateSite() {
   // console.log("working");
 
   var domainid = document.getElementById("idtest").value;
@@ -394,33 +362,102 @@ function updateSite()
     type: sType
 
   })
-    .then(function ()
-    {
+    .then(function () {
       goodnews("The changes has been made successfully!");
 
     })
-    .catch(function (error)
-    {
+    .catch(function (error) {
       badnews(error);
 
     });
 }
 
 
-function timeamp()
-{
+function timeamp() {
 
 }
 // delete site
 
-function deleteSite()
-{
+function deleteSite() {
 
-  db.collection("domains").doc(domainid).delete().then(function ()
-  {
+  db.collection("domains").doc(domainid).delete().then(function () {
     console.log("Document successfully deleted!");
-  }).catch(function (error)
-  {
+  }).catch(function (error) {
     console.error("Error removing document: ", error);
   });
 }
+
+function ulti() {
+  db.collection("domains")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+       
+  
+   
+
+/*             db.collection("users")
+              .get()
+              .then((querySnapshot) => {
+                querySnapshot.forEach((user_doc) => {
+                  console.log(user_doc.id);
+                  if(user_doc.id!='GEAD3iianzYdLcrXO2hAvzGHHHf1'){
+                    console.log(user_doc.data().name +" : "+doc.data().name); */
+                 /*    return db.collection("users").doc('Y9wDG9nkFAMYXBR0m5VrxMHD1tY2').collection("requests").doc(doc.id).update({
+                      approval: true,
+                      created_on:new Date(),
+                      requested_from: 'Y9wDG9nkFAMYXBR0m5VrxMHD1tY2',
+                      roles:{admin:false,developer:false,member:false,owner:true}
+                    })
+                      .then(() => {
+                        console.log("Document successfully updated!");
+                      })
+                      .catch((error) => {
+                        // The document probably doesn't exist.
+                        console.error("Error updating document: ", error);
+                      });  */
+
+
+                      return db.collection('domains').doc(doc.id).collection("requests").doc('Zp0LBAd9PARk9gO3B17jS1zILbw1').delete().then(() => {
+                        console.log("Document successfully deleted!");
+                    }).catch((error) => {
+                        console.error("Error removing document: ", error);
+                    });
+
+                 // }
+         
+/* 
+                });
+              })
+              .catch((error) => {
+                console.log("Error getting documents: ", error);
+              }); */
+
+
+        
+
+
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
+}
+
+
+/* function second_launch(){
+  return db.collection("users").doc('Y9wDG9nkFAMYXBR0m5VrxMHD1tY2').collection("requests").doc('test').set({
+    approval: true,
+    created_on: new Date(),
+    requested_from: 'Y9wDG9nkFAMYXBR0m5VrxMHD1tY2',
+    roles:{admin:false,developer:false,member:true,owner:false}
+  })
+    .then(() => {
+      console.log("Document successfully updated!");
+    })
+    .catch((error) => {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
+    });
+} */
