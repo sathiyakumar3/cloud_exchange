@@ -454,7 +454,7 @@ function buildnavitree() {
                         tests + '</div>';
                     gg = "", bb = "";
 
-                }
+              
 
 
                 var lable_tmp = '';
@@ -565,6 +565,7 @@ function buildnavitree() {
                 newdiv.innerHTML = temk
                 document.getElementById("loading_nava").style.display = "none";
                 document.getElementById(tempname).appendChild(newdiv);
+            }
             }
             var endDate = new Date(),
                 seconds = (endDate.getTime() - startDate.getTime()) / 1e3;
