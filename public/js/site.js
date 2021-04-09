@@ -178,6 +178,7 @@ function loadtable(adminset) {
     $('#subscriptions_table').DataTable({
       destroy: true,
       data: adminset,
+      paging:false,
       columns: [
         { title: "Name" },
         { title: "Role" },
@@ -395,20 +396,31 @@ function ulti() {
 
        
   
-   
+        return db.collection("domains").doc(doc.id).update({
+          owner_email: 'support@eco33.com',
+          owner: 'Y9wDG9nkFAMYXBR0m5VrxMHD1tY2',
+          owner_name:'Ashani'      
+        })
+          .then(() => {
+            console.log("Document successfully updated!");
+          })
+          .catch((error) => {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+          }); 
 
-/*             db.collection("users")
+    /*         db.collection("users")
               .get()
               .then((querySnapshot) => {
                 querySnapshot.forEach((user_doc) => {
                   console.log(user_doc.id);
                   if(user_doc.id!='GEAD3iianzYdLcrXO2hAvzGHHHf1'){
-                    console.log(user_doc.data().name +" : "+doc.data().name); */
-                 /*    return db.collection("users").doc('Y9wDG9nkFAMYXBR0m5VrxMHD1tY2').collection("requests").doc(doc.id).update({
+                    console.log(user_doc.data().name +" : "+doc.data().name); 
+                 return db.collection("users").doc('gTPZ5E0J86N1Dlic2B65cNXqeTC3').collection("requests").doc(doc.id).update({
                       approval: true,
                       created_on:new Date(),
                       requested_from: 'Y9wDG9nkFAMYXBR0m5VrxMHD1tY2',
-                      roles:{admin:false,developer:false,member:false,owner:true}
+                      roles:{admin:true,developer:false,member:false,owner:false}
                     })
                       .then(() => {
                         console.log("Document successfully updated!");
@@ -416,24 +428,16 @@ function ulti() {
                       .catch((error) => {
                         // The document probably doesn't exist.
                         console.error("Error updating document: ", error);
-                      });  */
-
-
-                      return db.collection('domains').doc(doc.id).collection("requests").doc('Zp0LBAd9PARk9gO3B17jS1zILbw1').delete().then(() => {
-                        console.log("Document successfully deleted!");
-                    }).catch((error) => {
-                        console.error("Error removing document: ", error);
-                    });
-
-                 // }
+                      }); 
+                }
          
-/* 
+ 
                 });
               })
               .catch((error) => {
                 console.log("Error getting documents: ", error);
-              }); */
-
+              });
+ */
 
         
 
@@ -446,6 +450,11 @@ function ulti() {
 }
 
 
+/* return db.collection('domains').doc(doc.id).collection("requests").doc('Zp0LBAd9PARk9gO3B17jS1zILbw1').delete().then(() => {
+  console.log("Document successfully deleted!");
+}).catch((error) => {
+  console.error("Error removing document: ", error);
+}); */
 /* function second_launch(){
   return db.collection("users").doc('Y9wDG9nkFAMYXBR0m5VrxMHD1tY2').collection("requests").doc('test').set({
     approval: true,

@@ -134,8 +134,8 @@ function open_jobsheets()
 
 }
 
-
 $('#content_home_page').load("content/home_page.html");
+// 
 $('#content_devices').load("content/device_table.html");
 $('#content_chat').load("content/chat.html");
 $('#content_todo').load("content/todo.html");
@@ -426,11 +426,15 @@ function reset_user()
 function ProfileUpdate()
 {
     var e = document.getElementById("UserEmailUpdte").value, t = document.getElementById("UserNameUpdte").value, n = document.getElementById("Userphonnumber").value,
-        l = document.getElementById("UserGender").value, d = document.getElementById("UserCountry").value, o = document.getElementById("UserDesignation").value,
+        l = document.getElementById("UserGender").value,
+        
+        sys = document.getElementById("sys_use").value,
+        
+        d = document.getElementById("UserCountry").value, o = document.getElementById("UserDesignation").value,
         s = document.getElementById("dpoption").checked,
         b = document.getElementById("asoption").checked,
         y = firebase.auth().currentUser;
-
+        console.log(sys),
     Swal.fire({
         title: "Please wait.", text: "Initiating...",
         timer: 60000,
@@ -466,7 +470,7 @@ function ProfileUpdate()
                 db.collection("users").doc(y.uid).set({
                     name: t, email: e, phone: n,
                     photoUrl: downlaodURL,
-                    gender: l,
+                    gender: l,sys_opt:sys,
                     country: d, designation: o, dp_options: s, as_options: b
                 }, { merge: !0 }).then(function ()
                 {
@@ -475,23 +479,24 @@ function ProfileUpdate()
                     var name = document.getElementById("topProImg").src;
                     var storageRef = firebase.storage().refFromURL(name);
                     storageRef.delete();
-                    document.getElementById("photoUrl").value = "";
+                   // document.getElementById("photoUrl").value = "";
                     goodnews('Saved successfully!');
-                    document.getElementById("main_page_name").innerText = t;
+                   /*  document.getElementById("main_page_name").innerText = t;
                     document.getElementById("main_page_desig").innerText = o;
                     document.getElementById("topProImg").src = downlaodURL;
-                    document.getElementById("main_page_pic").src = downlaodURL;
+                    document.getElementById("main_page_pic").src = downlaodURL; */
+                    window.location.reload();
 
                 }).then(function ()
                 {
-                    s ? (document.getElementById("dp_op_list_title").style.display = "block",
+                 /*    s ? (document.getElementById("dp_op_list_title").style.display = "block",
                         document.getElementById("dp_op_list_1").style.display = "block",
                         document.getElementById("dp_op_list_2").style.display = "block",
                         document.getElementById("dp_op_list_3").style.display = "block",
                         document.getElementById("dp_op_line").style.display = "block") : (document.getElementById("dp_op_list_title").style.display = "none",
                             document.getElementById("dp_op_list_1").style.display = "none", document.getElementById("dp_op_list_2").style.display = "none",
                             document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none");
-
+ */
                 }).catch(function (e) { badnews(e); })
 
             });
@@ -500,22 +505,43 @@ function ProfileUpdate()
 
         db.collection("users").doc(y.uid).set({
             name: t, email: e, phone: n,
-            gender: l,
+            gender: l,sys_opt:sys,
             country: d, designation: o, dp_options: s, as_options: b
         }, { merge: !0 }).then(function ()
         {
-            goodnews('Saved successfully!');
-            document.getElementById("main_page_name").innerText = t;
-            document.getElementById("main_page_desig").innerText = o;
+
+            if(e!=y.email){
+
+                
+                y.updateEmail(e).then(function() {
+                    y.sendEmailVerification().then(function() {
+                        goodnews('Email Verfication Sent!');
+                        window.location.reload();
+                      }).catch(function(error) {
+                       badnews(error);
+                      });
+                  }).catch(function(error) {
+                    badnews(error);
+                  });
+            }else{
+                goodnews('Saved successfully!');
+                window.location.reload();
+            }
+           
+        /*     document.getElementById("main_page_name").innerText = t;
+            document.getElementById("main_page_desig").innerText = o; */
+      
+           
         }).then(function ()
         {
-            s ? (document.getElementById("dp_op_list_title").style.display = "block",
+            window.location.reload();
+          /*   s ? (document.getElementById("dp_op_list_title").style.display = "block",
                 document.getElementById("dp_op_list_1").style.display = "block",
                 document.getElementById("dp_op_list_2").style.display = "block",
                 document.getElementById("dp_op_list_3").style.display = "block",
                 document.getElementById("dp_op_line").style.display = "block") : (document.getElementById("dp_op_list_title").style.display = "none",
                     document.getElementById("dp_op_list_1").style.display = "none", document.getElementById("dp_op_list_2").style.display = "none",
-                    document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none");
+                    document.getElementById("dp_op_list_3").style.display = "none", document.getElementById("dp_op_line").style.display = "none"); */
 
         }).catch(function (e) { badnews(e); })
     }

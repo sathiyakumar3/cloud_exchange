@@ -42,8 +42,10 @@ function load_info(dom_id) {
     document.getElementById("last_Ticket_id").style.visibility = "visible";
     document.getElementById("domain_case2").value = dom_id;
     changeform_ticket();
-    document.getElementById("main_title_help").innerHTML = '<i class="' + document.getElementById("icon_" + dom_id).innerHTML + '" ></i>' + document.getElementById("title_" + dom_id).innerHTML + " - " + document.getElementById("description_" + dom_id).innerHTML;
+ 
+    document.getElementById("main_title_help").innerHTML = '&nbsp; &nbsp; <i class="' + document.getElementById("icon_" + dom_id).innerHTML + '" ></i>&nbsp; &nbsp; ' + document.getElementById("title_" + dom_id).innerHTML + " - " + document.getElementById("description_" + dom_id).innerHTML;
     document.getElementById("current_user_list").innerHTML = document.getElementById("currentusers_" + dom_id).innerHTML;
+   
     document.getElementById("ticket_currnet").innerHTML = document.getElementById("currentticket_" + dom_id).innerHTML;
 
 }
@@ -154,7 +156,7 @@ function processrow(reportflag, row, i) //
         row[21] = datetimeshortformat(row[21]);
     row[8] = tabletoimage(row[12], 35), row[9] = tabletoimage(row[13], 35) + tabletoimage(row[14], 35) + tabletoimage(row[15], 35) + tabletoimage(row[16], 35),
         row[18] = tabletoname(row[13]) + tabletoname(row[14]) + tabletoname(row[15]) + tabletoname(row[16]),
-        row[19] = tabletoname(row[12]), increment_tag("total_oc_tickets");
+        row[19] = tabletoname(row[12]); //increment_tag("total_oc_tickets");
     var butns = "'" + row[0] + "','" + row[2] + "','" + i + "','" + row[12] + "','" + row[1] + "','" + row[3] + "','" + row[4] + "'";
     if (user.uid == row[12]) {
         buttons = '<a href="#" onclick=tktedit("' + row[0] + '","' + row[2] + '","' + i + '") class="text-inverse text-success" title="Edit" data-toggle="modal" data-target="#edit_ticket_modal"><i class="fas fa-edit fa-lg"></i></a> &nbsp;&nbsp;<a href="javascript:void(0)" onclick=tktdelete("' + row[0] + '","' + row[2] + '","' + i + '")  class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-times fa-lg"></i></a>';
@@ -186,7 +188,7 @@ function processrow(reportflag, row, i) //
     if (Difference_In_Days > 7 && '<span class="label label-danger">Not Started</span>' == row[7]) {
         row[6] = '<span class="inline-block txt-danger soft_zoom weight-500">'
             + Difference_In_Days + ' Days&nbsp;&nbsp;<i class="fas fa-exclamation"></i></span>';
-        document.getElementById(row[2] + "_label2").className = "label label-info";
+        document.getElementById(row[2] + "_label2").className = "label label-primary";
     } else {
         row[6] = '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>";
     }
@@ -284,6 +286,11 @@ var vasi = true;
     document.getElementById('home_tab_8').style.display = "block";
     document.getElementById('home_tab_9').style.display = "block";
     document.getElementById('txt_last').innerText = 'Last Ticket No';
+
+
+    document.getElementById(domain_id + '_label2').innerText = dataset.length;
+    document.getElementById(domain_id + "_label2").className = "label label-primary";
+
     var button_class = "btn btn-primary btn-rounded";
     var reports_text = "The information is from cloudexchange.lk",
         selection = {
@@ -387,8 +394,8 @@ var vasi = true;
         order: [
             [20, "desc"]
         ],
-        dom: 'frtipB ',
-        bInfo: !1,
+        dom: 'frtiBp',
+        bInfo: !1,  "searching": false,
         pageLength: 10,
         buttons: buttons_pack,
         destroy: !0,
@@ -957,7 +964,7 @@ function fetch_tickets(t, alpha) {
     document.getElementById('stats_cc').innerText = 0;
     document.getElementById('stats_aq').innerText = 0;
     document.getElementById('stats_tc').innerText = 0;
-    document.getElementById('total_oc_tickets').innerText = 0;
+  //  document.getElementById('total_oc_tickets').innerText = 0;
     document.getElementById('lb_todo').innerText = 0;
     document.getElementById('lb_atten').innerText = 0;
     document.getElementById('lb_allsit').innerText = 0;
@@ -985,14 +992,18 @@ function fetch_tickets(t, alpha) {
                 rest.forEach(function (entry) {
 
                     try {
+                        
                         let obj = user_profiles.find(o => o.id === entry);
+                    
                         var n = document.createElement("option");
 
                         n.text = obj.name;
                         n.value = obj.id, ass_combo.add(n);
                         document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id, 35);
-                    } catch (e) {
 
+                    } catch (e) {
+                      //  console.log(e);
+/* 
                         Swal.fire({
                             title: 'Stray User detected.',
                             text: entry + " at " + t.name,
@@ -1005,7 +1016,7 @@ function fetch_tickets(t, alpha) {
                             if (result.value) {
                                 cleanusers();
                             }
-                        })
+                        }) */
                     }
 
                 })
@@ -1566,4 +1577,8 @@ function sendmail(to, cc, subject, text_html) {
             html: text_html,
         }
     }).then(() => console.log('Queued email for delivery!'));
+}
+
+function clickthis(myCheck){
+    document.getElementById(myCheck).click();
 }

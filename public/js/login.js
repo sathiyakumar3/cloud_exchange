@@ -23,7 +23,32 @@ function flogIn()
 function login()
 {
   document.getElementById("submitbtn").className = "btn btn-default btn-icon left-icon", document.getElementById("submitbtn").value = "Wait..."; var e = document.getElementById("email").value, t = document.getElementById("password").value; firebase.auth().signInWithEmailAndPassword(e, t).then(function ()
-  { firebase.auth().currentUser.emailVerified ? opensiter(!0) : (posterror("Your email address has not been verified."), document.getElementById("submitbtn").className = "btn btn-primary  btn-rounded", document.getElementById("submitbtn").value = "Log in") }).catch(function (e)
+  { 
+    firebase.auth().currentUser.emailVerified ? opensiter(!0) : (
+      firebase.auth().currentUser.sendEmailVerification().then(function() {
+        Swal.fire(
+          'Verification Email Sent!',
+          'Check your inbox',
+          'success'
+        )
+      }).catch(function(error) {
+        Swal.fire(
+          'Try after sometime.',
+          'error',
+          'success'
+        )
+       
+      }),
+    //  posterror("Your email address has not been verified."), 
+    
+    
+     
+    
+    document.getElementById("submitbtn").className = "btn btn-primary  btn-rounded", document.getElementById("submitbtn").value = "Log in")
+  
+  
+  
+  }).catch(function (e)
   { document.getElementById("submitbtn").className = "btn btn-primary  btn-rounded", document.getElementById("submitbtn").value = "Log in"; var t = e.message; posterror(t) })
 
  

@@ -1,9 +1,7 @@
-firebase.auth().onAuthStateChanged(function (n)
-{
+firebase.auth().onAuthStateChanged(function (n) {
     var user = firebase.auth().currentUser;
     if (user != null) {
-        db.collection("users").doc(user.uid).get().then(function (doc)
-        {
+        db.collection("users").doc(user.uid).get().then(function (doc) {
 
             doc.exists ? null != n ? buildnavitree() : window.location = "index.html" : reset_user();
             if (doc.data().name === "") {
@@ -12,8 +10,7 @@ firebase.auth().onAuthStateChanged(function (n)
             }
 
 
-        }).catch(function (error)
-        {
+        }).catch(function (error) {
             console.log("Error getting document:", error);
         });
     } else {
@@ -26,19 +23,14 @@ firebase.auth().onAuthStateChanged(function (n)
 });
 
 
-function cleanusers()
-{
+function cleanusers() {
 
-    db.collection('domains').get().then(function (querySnapshot)
-    {
-        querySnapshot.forEach(function (doc)
-        {
+    db.collection('domains').get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
             var domain_id = doc.id;
 
-            db.collection('domains').doc(domain_id).collection('requests').get().then(function (querySnapshot)
-            {
-                querySnapshot.forEach(function (doc)
-                {
+            db.collection('domains').doc(domain_id).collection('requests').get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
                     var user_id = doc.id;
 
 
@@ -46,21 +38,17 @@ function cleanusers()
 
 
 
-                    db.collection('users').doc(user_id).get().then(function (doc2)
-                    {
+                    db.collection('users').doc(user_id).get().then(function (doc2) {
                         if (!doc2.exists) {
-                            db.collection('domains').doc(domain_id).collection('requests').doc(doc2.id).delete().then(function ()
-                            {
+                            db.collection('domains').doc(domain_id).collection('requests').doc(doc2.id).delete().then(function () {
                                 goodnews("Successfully removed stay entries.");
-                            }).catch(function (error)
-                            {
+                            }).catch(function (error) {
                                 console.error("Error removing document: ", error);
                             });
                         } else {
                             // console.log(user_id + "all good");
                         }
-                    }).catch(function (error)
-                    {
+                    }).catch(function (error) {
                         console.log("Error getting document:", error);
                     });
 
@@ -74,16 +62,14 @@ function cleanusers()
 }
 
 
-function live_update_refresh()
-{
+function live_update_refresh() {
     document.getElementById("session_status").innerHTML = '<div class="spinner" id="loading_nava">' + '<div class="bounce1"></div>' + '<div class="bounce2"></div>' + '<div class="bounce3"></div>' + '</div>';
     var user = firebase.auth().currentUser;
     var date = new Date();
     live_update(user, user_devices, date)
 }
 
-function check_live_update(e, t, s, n,name)
-{
+function check_live_update(e, t, s, n, name) {
     var i = new Date(),
         a = Date.now(),
         r = (a - s) / 1e3,
@@ -101,16 +87,14 @@ function check_live_update(e, t, s, n,name)
     checkstatus(dp_options, user_devices);
 }
 
-function live_update(b, t, live_timestamp)
-{
+function live_update(b, t, live_timestamp) {
     var n = 0;
     Swal.fire({
         title: "Please wait.",
         text: "We are initiating the platform.",
         timer: 60000,
         html: '<h6></h6>.',
-        onBeforeOpen: () =>
-        {
+        onBeforeOpen: () => {
             Swal.showLoading();
             Swal.getContent().querySelector('h6').textContent = "Initiating Cloud Services...";
 
@@ -122,11 +106,9 @@ function live_update(b, t, live_timestamp)
                 sessions_used: sess_usage
             }, {
                 merge: !0
-            }).then(function ()
-            {
+            }).then(function () {
                 Swal.getContent().querySelector('h6').textContent = "Devices Located.";
-                t.forEach(function (m)
-                {
+                t.forEach(function (m) {
                     db.collection('devices').doc(m).collection('datasets').doc('config').set({
                         live_timestamp: live_timestamp,
                         live_update: !0,
@@ -134,15 +116,13 @@ function live_update(b, t, live_timestamp)
                     }, {
                         merge: !0
                     })
-                        .then(function ()
-                        {
+                        .then(function () {
 
                             // Set the "capital" field of the city 'DC'
                             db.collection('devices').doc(m).update({
                                 blocked: false
                             })
-                                .then(function ()
-                                {
+                                .then(function () {
                                     n++;
                                     Swal.getContent().querySelector('h6').textContent = "Initiating device : " + m;
                                     if (n == t.length) {
@@ -162,29 +142,25 @@ function live_update(b, t, live_timestamp)
                                     }
 
                                 })
-                                .catch(function (error)
-                                {
+                                .catch(function (error) {
                                     // The document probably doesn't exist.
                                     console.error("Error updating document: ", error);
                                 });
 
 
 
-                        }).catch(function (error)
-                        {
+                        }).catch(function (error) {
                             console.error("Error writing document: ", error)
                         })
                 })
-            }).catch(function (error)
-            {
+            }).catch(function (error) {
                 console.error("Error writing document: ", error)
             })
         }
     })
 }
 
-function request_extend()
-{
+function request_extend() {
     var user = firebase.auth().currentUser;
     document.getElementById("session_status").innerText = "[EXPIRED]";
     document.getElementById("session_status").className = "cus-sat-stat weight-500 txt-warning text-center mt-5";
@@ -199,31 +175,25 @@ function request_extend()
         timer: 10000,
 
         confirmButtonText: 'Extend',
-        onBeforeOpen: () =>
-        {
+        onBeforeOpen: () => {
 
-            timerInterval = setInterval(() =>
-            {
+            timerInterval = setInterval(() => {
                 Swal.getContent().querySelector('b')
                     .textContent = Math.floor(Swal.getTimerLeft() / 1000)
             }, 100)
         },
-        onClose: () =>
-        {
+        onClose: () => {
             clearInterval(timerInterval)
         }
-    }).then((result) =>
-    {
+    }).then((result) => {
         if (result.value) {
             live_update_refresh()
         }
     })
 }
 
-function run_timer(ava)
-{
-    clearInterval(interval), interval = setInterval(function ()
-    {
+function run_timer(ava) {
+    clearInterval(interval), interval = setInterval(function () {
         var min = Math.floor(ava / 60);
         document.getElementById("min_remain").innerText = min, document.getElementById("sec_remain").innerText = Math.floor(ava - 60 * min);
         var e = (600 - ava) / 600 * 100;
@@ -234,12 +204,10 @@ function run_timer(ava)
     }, 1e3);
 }
 
-function call_search()
-{
+function call_search() {
     document.getElementById("pie_chart_4_text").className = "percent block txt-light weight-500";
     document.getElementById("status_de").innerText = "Search Initiated.";
-    var teste = setInterval(function ()
-    {
+    var teste = setInterval(function () {
         timer = timer + 5;
         if (timer >= 100) {
             clearInterval(teste);
@@ -265,10 +233,8 @@ var type2;
 var timer = 0;
 var interval;
 
-function setup_networkchart(e)
-{
-    am4core.ready(function ()
-    {
+function setup_networkchart(e) {
+    am4core.ready(function () {
         var a;
         am4core.useTheme(am4themes_animated), a = am4core.create("chartdiv22", am4plugins_forceDirected.ForceDirectedTree);
         var t = a.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
@@ -288,11 +254,10 @@ var user_profiles = [];
 var site_profile = [];
 var temp = [];
 
-function buildnavitree()
-{
+function buildnavitree() {
     gg = " active in";
     bb = "active";
-
+    var Promises_ = [];
     var new_tab = "";
     var new_tab_pro = "";
     var new_tab2 = "";
@@ -306,58 +271,117 @@ function buildnavitree()
     var total_devices = 0;
     var used_docs2 = 0;
     var available_docs2 = 0;
+    var sys_opt = 'IoT';
 
-    var promise2 = new Promise(function (resolve, reject)
-    {
+    var promise2 = new Promise(function (resolve, reject) {
 
-        db.collection("users").doc(user.uid).get().then(function (doc)
-        {
+        db.collection("users").doc(user.uid).get().then(function (doc) {
             displayName = doc.data().name || "", phoneno = doc.data().phone || "", gender = doc.data().gender || "",
                 country = doc.data().country || "", UserDesignation = doc.data().designation || "",
                 dp_options = doc.data().dp_options || !1, as_options = doc.data().as_options || !1,
 
-                document.getElementById("topProImg").src = doc.data().photoUrl || "", document.getElementById("main_page_pic").src = doc.data().photoUrl || "",
+                sys_opt = doc.data().sys_opt;
+
+            document.getElementById("topProImg").src = doc.data().photoUrl || "",
+
                 used_docs2 = doc.data().used_docs || 0, available_docs2 = doc.data().available_docs || 0;
             var res = doc.data().name.split(" ", 3);
-            document.getElementById("main_page_name").innerText = res[1] || "", document.getElementById("main_page_desig").innerText = doc.data().designation || "",
-                document.getElementById("used_docs").innerText = numberWithCommas(used_docs2), document.getElementById("UserEmailUpdte").value = doc.data().email || "",
+
+            document.getElementById("UserEmailUpdte").value = doc.data().email || "",
+
                 document.getElementById("UserNameUpdte").value = displayName,
                 document.getElementById("Userphonnumber").value = phoneno,
+                document.getElementById("sys_use").value = sys_opt,
                 document.getElementById("UserGender").value = gender, document.getElementById("UserCountry").value = country,
-                document.getElementById("UserDesignation").value = UserDesignation, document.getElementById("domainload").innerHTML = "- Available Sites",
-                document.getElementById("httpDevices1").innerHTML = doc.data().devicecount, document.getElementById("httSuscription").innerHTML = doc.data().domaincount,
-                document.getElementById("httSandbox").innerHTML = doc.data().sandboxcount, document.getElementById("httpTdevices").innerHTML = doc.data().sandboxcount + doc.data().devicecount,
-                // document.getElementById("numofdvs").innerHTML = doc.data().sandboxcount + doc.data().devicecount;
-                document.getElementById("sessions_usg").innerText = doc.data().sessions_used || 0,
-                document.getElementById("sessions_ava").innerText = doc.data().sessions_available || 0,
-                document.getElementById("sessions_rem").innerText = doc.data().sessions_available - doc.data().sessions_used || 0,
-                live_timestamp = doc.data().live_timestamp.toMillis(), document.getElementById("myDropdown").innerHTML = doc.data().searchopt;
-            total_op = doc.data().user_snippet;
+                document.getElementById("UserDesignation").value = UserDesignation,
+
+
+
+
+
+                 document.getElementById("myDropdown").innerHTML = doc.data().searchopt;
+
+
+                live_timestamp = doc.data().live_timestamp.toMillis(),
+
+
+                total_op = doc.data().user_snippet;
             total_op = total_op[0].children;
+            var application = '';
+
+            switch (sys_opt) {
+                case 'Tickets':
+                    document.getElementById("domainload").innerHTML = "- Ticketing System";
+                    application = 'Ticketing System';
+                    break;
+                case 'Jobsheets':
+                    document.getElementById("domainload").innerHTML = "- Job Sheet System";
+                    application = 'Jobsheets System';
+                    break;
+                case 'IoT':
+               
+                    document.getElementById("domainload").innerHTML = "- Internet of Things";
+                   
+                    document.getElementById("main_page_name").innerText = res[1] || "",
+                        document.getElementById("main_page_desig").innerText = doc.data().designation || ""
+                    document.getElementById("main_page_pic").src = doc.data().photoUrl || "",
+                        document.getElementById("httpDevices1").innerHTML = doc.data().devicecount, document.getElementById("httSuscription").innerHTML = doc.data().domaincount,
+                        document.getElementById("httSandbox").innerHTML = doc.data().sandboxcount, document.getElementById("httpTdevices").innerHTML = doc.data().sandboxcount + doc.data().devicecount,
+                        document.getElementById("numofdvs").innerHTML = doc.data().sandboxcount + doc.data().devicecount;
+
+                    document.getElementById("used_docs").innerText = numberWithCommas(used_docs2),
+                        document.getElementById("sessions_usg").innerText = doc.data().sessions_used || 0,
+                        document.getElementById("sessions_ava").innerText = doc.data().sessions_available || 0,
+                        document.getElementById("sessions_rem").innerText = doc.data().sessions_available - doc.data().sessions_used || 0;
+                    application = 'Internet of Things';
+                    break;
+                default:
+                    document.getElementById("domainload").innerHTML = "- Internet of Things";
+                
+                    document.getElementById("main_page_name").innerText = res[1] || "",
+                        document.getElementById("main_page_desig").innerText = doc.data().designation || ""
+                    document.getElementById("main_page_pic").src = doc.data().photoUrl || "",
+                        document.getElementById("httpDevices1").innerHTML = doc.data().devicecount, document.getElementById("httSuscription").innerHTML = doc.data().domaincount,
+                        document.getElementById("httSandbox").innerHTML = doc.data().sandboxcount, document.getElementById("httpTdevices").innerHTML = doc.data().sandboxcount + doc.data().devicecount,
+                        document.getElementById("numofdvs").innerHTML = doc.data().sandboxcount + doc.data().devicecount;
+
+                    document.getElementById("used_docs").innerText = numberWithCommas(used_docs2),
+                        document.getElementById("sessions_usg").innerText = doc.data().sessions_used || 0,
+                        document.getElementById("sessions_ava").innerText = doc.data().sessions_available || 0,
+                        document.getElementById("sessions_rem").innerText = doc.data().sessions_available - doc.data().sessions_used || 0;
+                    application = 'Internet of Things';
+            }
+
             if (total_op.length == undefined) {
                 new_guy_flag = !0
             };
             for (i in total_op) {
                 children = total_op[i].children;
-           
+
                 var tempname = total_op[i].name,
                     tempid = total_op[i].id,
                     temptype = total_op[i].type,
                     role = total_op[i].role,
                     option1 = document.createElement("option");
 
-                    site_profile.push({
-                        name: tempname,
-                        id: tempid,
-                        type: temptype,
-                        role: role
-                    });
+                site_profile.push({
+                    name: tempname,
+                    id: tempid,
+                    type: temptype,
+                    role: role
+                });
                 option1.text = tempname, option1.value = tempname, document.getElementById("changeDomain2").add(option1);
                 var rest = [];
-                rest = total_op[i].user_list, 0 != rest.length && rest.forEach(function (entry)
+                rest = total_op[i].user_list;
+                if(0 != rest.length)
                 {
-                    temp.includes(entry) || db.collection("users").doc(entry).get().then(function (doc)
-                    {
+                  
+                rest.forEach(function (entry) {
+
+                    const promise3 = new Promise((resolve, reject) => {
+                    
+                    temp.includes(entry) || db.collection("users").doc(entry).get().then(function (doc) {
+                  
                         if (doc.exists) {
                             var name2 = doc.data().name || "default",
                                 photoUrl2 = doc.data().photoUrl || "image/blank_profile_pic.jpg",
@@ -368,12 +392,20 @@ function buildnavitree()
                                 photoUrl: photoUrl2,
                                 email: email2
                             });
+                          
                         }
-                    }).catch(function (error)
-                    {
+                        resolve('success');
+                    }).catch(function (error) {
                         badnews("Error getting document:", error);
-                    }), temp.push(entry);
+                        reject('error');
+                    }),                    
+                    temp.push(entry);                  
                 });
+                Promises_.push(promise3);
+                
+            });
+            }
+             
                 tempicon = getsiteicon(temptype);
                 if (tempname != "Cloud_Exchange") {
                     new_tab = new_tab + '<li role="presentation" class="' + bb + ' margin-top-tkt"><a data-toggle="tab"id="' + tempname + '1_tab" role="tab"href="#' + tempname + '_tab"aria-expanded="true"><i class="' +
@@ -381,56 +413,70 @@ function buildnavitree()
                         new_tab_pro = new_tab_pro + '<div id="' + tempname + '_tab" class="tab-pane fade' + gg + '" role="tabpanel"><div class="panel-body"><div class="streamline user-activity"id="' +
                         tempname + '_chat"></div></div><input type="text" class="form-control  rounded-outline-input rounded-input" id="add_' + tempname +
                         '" placeholder="add a comment..."><br/><button class="btn btn-success btn-anim  btn-rounded" onclick="verdict_saver(\'' + tempname +
-                        '\')"><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div>';                       
-                      
-                        var hidden_tags = 
-                        '<div class="form-control tkt-opt-hide" id="currentusers_' + tempname + '"></div>'+
-                        '<div class="form-control tkt-opt-hide" id="currentticket_' + tempname + '"></div>'+
-                        '<div class="form-control tkt-opt-hide" id="description_' + tempname + '"></div>'+
-                        '<div class="form-control tkt-opt-hide" id="title_' + tempname + '"></div>'+
+                        '\')"><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div>';
+
+                    var hidden_tags =
+                        '<div class="form-control tkt-opt-hide" id="currentusers_' + tempname + '"></div>' +
+                        '<div class="form-control tkt-opt-hide" id="currentticket_' + tempname + '"></div>' +
+                        '<div class="form-control tkt-opt-hide" id="description_' + tempname + '"></div>' +
+                        '<div class="form-control tkt-opt-hide" id="title_' + tempname + '"></div>' +
                         '<div class="form-control tkt-opt-hide" id="icon_' + tempname + '"></div>';
-                      
-      /*               var top_essentials = '<div class="row">'+
-                      '<div class="col-sm-8 pull-right tkt-btn"><div class="pull-right pull-right-mg">&nbsp;&nbsp;' +
-'<button class="btn btn-success tkt-btn btn-anim btn-rounded " onclick="call_ticket_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"  data-toggle="modal" data-target="#open_ticket_modal">' +
-'<i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span></button>&nbsp;&nbsp;&nbsp;&nbsp;'+
-													'<button class="btn btn-rounded btn-primary btn-anim"'+ 'onclick="call_report_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"'+
-                                                    'data-toggle="modal" data-target="#reportModal"><iclass="fas fa-file-medical-alt"></i>'+
-                                                        '<spanclass="btn-text">Report</span>'+
-                                                '</button>'+
-                        '</div></div>'+
-                        '</div>';     */               
-                     
-                    var tests =   '<div class="table-responsive col-sm-12" id="div_tic_table_' + tempname + '">' +
+
+                    /*               var top_essentials = '<div class="row">'+
+                                    '<div class="col-sm-8 pull-right tkt-btn"><div class="pull-right pull-right-mg">&nbsp;&nbsp;' +
+              '<button class="btn btn-success tkt-btn btn-anim btn-rounded " onclick="call_ticket_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"  data-toggle="modal" data-target="#open_ticket_modal">' +
+              '<i class="fas fa-ticket-alt"></i><span class="btn-text">Open Ticket</span></button>&nbsp;&nbsp;&nbsp;&nbsp;'+
+                                                                  '<button class="btn btn-rounded btn-primary btn-anim"'+ 'onclick="call_report_modal(\'' + tempname + "','" + tempicon + '\',\'123\')"'+
+                                                                  'data-toggle="modal" data-target="#reportModal"><iclass="fas fa-file-medical-alt"></i>'+
+                                                                      '<spanclass="btn-text">Report</span>'+
+                                                              '</button>'+
+                                      '</div></div>'+
+                                      '</div>';     */
+
+                    var tests = '<div class="table-responsive col-sm-12" id="div_tic_table_' + tempname + '">' +
                         '<table id="edit_tic_table_' + tempname + '" class="table table-hover display compact  mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" ">' +
-                        '</table>'+              
-                        '</div><select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select>'+hidden_tags+'<div class="table-responsive col-sm-12" id="div_jobs_table_' + tempname + '">' +
+                        '</table>' +
+                        '</div><select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select>' + hidden_tags + '<div class="table-responsive col-sm-12" id="div_jobs_table_' + tempname + '">' +
                         '<table id="edit_jobs_table_' + tempname + '" class="table table-hover display compact  mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" ">' +
-                        '</table>'+
+                        '</table>' +
                         '</div>';
 
 
 
-/* 
-                    var myvar = '<table  id="edit_datable_' + tempname + '" class="table table-hover display  wrap mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" aria-describedby="edit_datable_2_info"></table>  <select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select ></div>'; */
+                    /* 
+                                        var myvar = '<table  id="edit_datable_' + tempname + '" class="table table-hover display  wrap mb-30 dataTable no-footer" width="100%" style="cursor: pointer;" role="grid" aria-describedby="edit_datable_2_info"></table>  <select class="form-control tkt-opt-hide" id="combo_' + tempname + '"></select ></div>'; */
 
 
                     new_tab2 = new_tab2 + '<li role="presentation" class="' + bb + ' margin-top-tkt"><a data-toggle="tab"' + 'id="' + tempname + '1_tab2' + '"  onclick = "reload_table(\'' + tempname + '\')" role="tab"' + 'href="#' + tempname + '_tab2' + '"' +
                         'aria-expanded="true"><i class="' + tempicon + '"></i> &nbsp;&nbsp' + tempname.substring(0, 12) + ' &nbsp; &nbsp; <div class="pull-right"><span class="label label-primary" id="' + tempname +
-                        '_label2' + '">0</span></div></a></li>';
+                        '_label277' + '">0</span></div></a></li>';
                     new_tab_pro2 = new_tab_pro2 + '<div id="' + tempname + '_tab2' + '" class="tab-pane fade' + gg + '" role="tabpanel">' +
                         tests + '</div>';
                     gg = "", bb = "";
 
                 }
 
-                //<h6 style="float: left"> Available Users : </h6> &nbsp; &nbsp;<div id="currentusers_' + tempname + '" class="button-list mt-25"</div>
+
+                var lable_tmp = '';
                 var tree = document.createDocumentFragment();
                 var a = document.createElement("a");
-                a.setAttribute("href", "javascript:void(0);");
-                a.setAttribute("data-toggle", "collapse");
-                a.setAttribute("data-target", "#" + tempname);
-                a.setAttribute("class", cloud_exchange_colour);
+                if (sys_opt == 'Tickets' || sys_opt == 'Jobsheets') {
+                    a.setAttribute("href", "javascript:void(0)");
+                    //   a.setAttribute("id", tempname+"1_tab2");
+                    a.setAttribute("data-toggle", "tab");
+                    a.setAttribute("onclick", "clickthis('" + tempname + "1_tab2" + "')");
+                    //  a.setAttribute("role", "tab");                    
+                    //  a.setAttribute("aria-expanded", false);
+                    lable_tmp = tempname + "_label2";
+                    // lable_tmp = tempname + "_count";
+                } else {
+                    a.setAttribute("href", "javascript:void(0);");
+                    a.setAttribute("data-toggle", "collapse");
+                    a.setAttribute("data-target", "#" + tempname);
+                    lable_tmp = tempname + "_count";
+                }
+
+                //  a.setAttribute("class", cloud_exchange_colour);
                 cloud_exchange_colour = "";
                 var div0 = document.createElement("div");
                 div0.setAttribute("class", "pull-left");
@@ -446,7 +492,7 @@ function buildnavitree()
                 div2.setAttribute("class", "pull-right");
                 var i2 = document.createElement("span");
                 i2.setAttribute("class", "badge");
-                i2.setAttribute("id", tempname + "_count");
+                i2.setAttribute("id", lable_tmp);
                 div2.appendChild(i2);
                 a.appendChild(div2);
                 var div3 = document.createElement("div");
@@ -460,7 +506,7 @@ function buildnavitree()
                 ul.setAttribute("class", "collapse collapse-level-1 ");
                 tree.appendChild(ul);
                 document.getElementById("dsa").appendChild(tree);
-                document.getElementById(tempname + "_count").appendChild(document.createTextNode(children.length))
+                document.getElementById(lable_tmp).appendChild(document.createTextNode(children.length));
                 var newdiv = document.createElement('li');
                 var temk = '<li align="left">' + '<a href="javascript:site(\'' + tempid + '\',\'' + role + '\')" class="txt-grey font-12 mb-5">' + '<i class="fas fa-cog mr-10"></i>';
                 temk = temk + 'Settings';
@@ -481,40 +527,44 @@ function buildnavitree()
                 var role_label = '<span class="label label-' + colour + '">' + role + '</span>';
                 temk = temk + '<div class="pull-right">' + role_label + '</div>' + '<div class="clearfix"></div>' + '</a>';
                 temk = temk + '</li>';
-                for (i in children) {
-                    var name2 = children[i].name || "",
-                        domain2 = children[i].domain || "",
-                        id2 = children[i].id || "",
-                        description2 = children[i].description || "",
-                        role2 = children[i].role || "",
-                        created_on2 = children[i].created_on || "",
-                        log_minimum_points2 = children[i].log_minimum_points || 0;
-                    total_devices++;
-                    var logsize2 = children[i].log_size;
-                    type2 = children[i].type, devicesum[type2] = (devicesum[type2] || 0) + 1;
-                    var percentage = Math.round(logsize2 / log_minimum_points2 * 100),
-                        progress_bar = '	<div class="row"><span class="font-12 head-font txt-dark">' + numberWithCommas(logsize2) + " / " + numberWithCommas(log_minimum_points2) + '<span class="pull-right">' + percentage + ' %</span></span><div class="progress progress-xs mb-0 "><div class="progress-bar progress-bar-primary" style="width: ' + percentage + '%"></div></div></div>',
-                        hyperlink = "javascript:open_item('" + type2 + "','" + id2 + "','" + domain2 + "','" + role2 + "','" + name2 + "')",
-                        hyperlink2 = "javascript:get_device('" + id2 + "')",
-                        test = '&nbsp;&nbsp;<td class="text-nowrap"><a  href="' + hyperlink2 + '" class="mr-25" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a> <a href="' + hyperlink + '" data-toggle="tooltip" data-original-title="Close"> <i class="far fa-eye"></i> </a> </td>';
-                    tabledata.push([total_devices, '<i class="' + getdeviceicon(type2) + '"></i> ', id2, name2, description2, domain2, role_label, '<i class="fa fa-clock-o"></i> ' + created_on2, progress_bar, test]),
-                        void 0 == typearray[type2] ? typearray[type2] = 0 : typearray[type2]++;
-                    var devicon = getdeviceicon(type2),
-                        iyu = document.createElement("i");
-                    iyu.setAttribute("class", devicon + " mr-20 pull-right txt-grey"), user_devices.push(id2);
-                    var ul = document.createElement("ul");
-                    document.getElementById(tempname).appendChild(ul);
-                    var li = document.createElement("li");
-                    li.id = "li_" + id2;
-                    var a = document.createElement("a");
-                    a.href = "javascript:open_item('" + type2 + "','" + id2 + "','" + domain2 + "','" + role2 + "','" + name2 + "')",
-                        a.className = "navi-sub mb-5 text-muted", a.innerHTML = role2 ? +i + 1 + "&nbsp;. &nbsp;" + name2 + " *" : +i + 1 + "&nbsp;. &nbsp;" + name2,
-                        li.className = "sub-nvi-itm", a.id = id2, ul.appendChild(li), li.appendChild(a),
-                        a.appendChild(iyu), a = document.createElement("a"), a.href = hyperlink, a.innerHTML = domain2 + " : " + name2;
+                if (sys_opt == 'IoT' || sys_opt=='') {
+
+                    for (i in children) {
+
+                        var name2 = children[i].name || "",
+                            domain2 = children[i].domain || "",
+                            id2 = children[i].id || "",
+                            description2 = children[i].description || "",
+                            role2 = children[i].role || "",
+                            created_on2 = children[i].created_on || "",
+                            log_minimum_points2 = children[i].log_minimum_points || 0;
+                        total_devices++;
+                        var logsize2 = children[i].log_size;
+                        type2 = children[i].type, devicesum[type2] = (devicesum[type2] || 0) + 1;
+                        var percentage = Math.round(logsize2 / log_minimum_points2 * 100),
+                            progress_bar = '	<div class="row"><span class="font-12 head-font txt-dark">' + numberWithCommas(logsize2) + " / " + numberWithCommas(log_minimum_points2) + '<span class="pull-right">' + percentage + ' %</span></span><div class="progress progress-xs mb-0 "><div class="progress-bar progress-bar-primary" style="width: ' + percentage + '%"></div></div></div>',
+                            hyperlink = "javascript:open_item('" + type2 + "','" + id2 + "','" + domain2 + "','" + role2 + "','" + name2 + "')",
+                            hyperlink2 = "javascript:get_device('" + id2 + "')",
+                            test = '&nbsp;&nbsp;<td class="text-nowrap"><a  href="' + hyperlink2 + '" class="mr-25" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a> <a href="' + hyperlink + '" data-toggle="tooltip" data-original-title="Close"> <i class="far fa-eye"></i> </a> </td>';
+                        tabledata.push([total_devices, '<i class="' + getdeviceicon(type2) + '"></i> ', id2, name2, description2, domain2, role_label, '<i class="fa fa-clock-o"></i> ' + created_on2, progress_bar, test]),
+                            void 0 == typearray[type2] ? typearray[type2] = 0 : typearray[type2]++;
+                        var devicon = getdeviceicon(type2),
+                            iyu = document.createElement("i");
+                        iyu.setAttribute("class", devicon + " mr-20 pull-right txt-grey"), user_devices.push(id2);
+                        var ul = document.createElement("ul");
+                        document.getElementById(tempname).appendChild(ul);
+                        var li = document.createElement("li");
+                        li.id = "li_" + id2;
+                        var a = document.createElement("a");
+                        a.href = "javascript:open_item('" + type2 + "','" + id2 + "','" + domain2 + "','" + role2 + "','" + name2 + "')",
+                            a.className = "navi-sub mb-5 text-muted", a.innerHTML = role2 ? +i + 1 + "&nbsp;. &nbsp;" + name2 + " *" : +i + 1 + "&nbsp;. &nbsp;" + name2,
+                            li.className = "sub-nvi-itm", a.id = id2, ul.appendChild(li), li.appendChild(a),
+                            a.appendChild(iyu), a = document.createElement("a"), a.href = hyperlink, a.innerHTML = domain2 + " : " + name2;
+                    }
                 }
                 newdiv.innerHTML = temk
                 document.getElementById("loading_nava").style.display = "none";
-                document.getElementById(tempname).appendChild(newdiv)
+                document.getElementById(tempname).appendChild(newdiv);
             }
             var endDate = new Date(),
                 seconds = (endDate.getTime() - startDate.getTime()) / 1e3;
@@ -526,35 +576,37 @@ function buildnavitree()
                     loaderBg: "#878787",
                     hideAfter: 3500,
                     stack: 6
-                }), document.getElementById("subcripText").innerHTML = displayName + "&nbsp;&nbsp;&nbsp |   ",
-                document.getElementById("domainload").innerHTML = " - Available Sites", dp_options ? (document.getElementById("dp_op_list_title").style.display = "block",
+                }), document.getElementById("subcripText").innerHTML = application + "&nbsp;&nbsp;&nbsp |  &nbsp;&nbsp;&nbsp" + displayName + "&nbsp;&nbsp;&nbsp |   ",
+                dp_options ? (document.getElementById("dp_op_list_title").style.display = "block",
                     document.getElementById("dp_op_list_1").style.display = "block", document.getElementById("dp_op_list_2").style.display = "block",
                     document.getElementById("dp_op_list_3").style.display = "block", document.getElementById("dp_op_line").style.display = "block") : document.getElementById("dpoption").click(),
                 as_options || document.getElementById("asoption").click();
-        }).then(function ()
-        {
+        }).then(function () {
             document.getElementById("total_dvs").innerText = total_devices;
-            var percentage = Math.round(used_docs2 / available_docs2 * 100),
-                progress_bar = '	<div class="row"><span class="font-12 head-font txt-dark">' + numberWithCommas(used_docs2) + " / " + numberWithCommas(available_docs2) + '<span class="pull-right">' + percentage + ' %</span></span><div class="progress progress-xs mb-0 "><div class="progress-bar progress-bar-success" style="width: ' + percentage + '%"></div></div></div>';
-            tabledata.push(["", "", "", "", "", "", "", "Total", progress_bar, ""]),
+            if (sys_opt == 'IoT' || sys_opt == '') {
+                var percentage = Math.round(used_docs2 / available_docs2 * 100),
+                    progress_bar = '<div class="row"><span class="font-12 head-font txt-dark">' + numberWithCommas(used_docs2) + " / " + numberWithCommas(available_docs2) + '<span class="pull-right">' + percentage + ' %</span></span><div class="progress progress-xs mb-0 "><div class="progress-bar progress-bar-success" style="width: ' + percentage + '%"></div></div></div>';
+                tabledata.push(["", "", "", "", "", "", "", "Total", progress_bar, ""]);
+                check_new_sites_added(user, total_op);
+                check_live_update(user, user_devices, live_timestamp, as_options, displayName);
+            }
+
             document.getElementById("changeDomain3").innerHTML = document.getElementById("changeDomain2").innerHTML;
             document.getElementById("sel1").innerHTML = document.getElementById("changeDomain2").innerHTML;
-            document.getElementById("domain_case2").innerHTML = document.getElementById("changeDomain2").innerHTML;    
-            check_new_sites_added(user, total_op);
-            check_live_update(user, user_devices, live_timestamp, as_options,displayName);
+            document.getElementById("domain_case2").innerHTML = document.getElementById("changeDomain2").innerHTML;
+
             return resolve(devicesum)
-        }).catch(function (error)
-        {
+        }).catch(function (error) {
             if (new_guy_flag) {
                 document.getElementById("subcripText").innerHTML = displayName + "&nbsp;&nbsp;&nbsp; |   ";
                 document.getElementById('domainload').innerHTML = " - Available Sites"
             } else {
+                console.log(error);
                 Swal.fire({
                     title: error,
                     text: "Error Loading user information, Do you want to rebuild your navigation tree?",
                     icon: 'warning',
-                }).then((willDelete) =>
-                {
+                }).then((willDelete) => {
                     if (willDelete) {
                         rebuildtree()
                     } else {
@@ -563,24 +615,58 @@ function buildnavitree()
                 })
             }
         })
+
+
+
     });
-    return promise2.then(function ()
-    {
+    return promise2.then(function () {
         document.getElementById('myTabs_11').innerHTML = new_tab;
+        //   document.getElementById('myTabs_11').style.display = "block",
         document.getElementById('myTabContent_11').innerHTML = new_tab_pro;
         document.getElementById('myTabs_12').innerHTML = new_tab2;
-        document.getElementById('myTabContent_12').innerHTML = new_tab_pro2;
+        console.log(user_profiles);
 
-        things();
-      setup_echart(devicesum);
-      setup_networkchart(total_op);
-       add_devices_types();
+        document.getElementById('myTabContent_12').innerHTML = new_tab_pro2;
+        switch (sys_opt) {
+            case 'Tickets':
+            /*     console.log('...');
+                Promise.all([Promises_]).then(values => {
+                    console.log('came');
+                   
+                  })
+                  .catch(error => {
+                    console.error(error.message)
+                  }); */
+                  setTimeout(function() {  open_todo(); }, 1000);
+                break;
+            case 'Jobsheets':
+                open_jobsheets();
+                break;
+            case 'IoT':
+                things();
+                setup_echart(devicesum);
+                setup_networkchart(total_op);
+                document.getElementById("things_panel").style.display = "block"
+
+                //  document.getElementById("domainload").innerHTML = "- Internet of Things";
+                break;
+            default:
+                things();
+                setup_echart(devicesum);
+                setup_networkchart(total_op);
+                document.getElementById("things_panel").style.display = "block"
+
+            //  document.getElementById("domainload").innerHTML = "- Internet of Things";
+        }
+
+        add_devices_types();
         checknoti();
     })
 }
 
-function things()
-{
+
+
+function things() {
     $('#devices_table').DataTable({
         destroy: !0,
         data: tabledata,
@@ -622,20 +708,16 @@ function things()
 
 
 
-function checkstatus_redo()
-{
+function checkstatus_redo() {
     checkstatus(dp_options, user_devices)
 }
 
-function add_devices_types()
-{
-    db.collection("types").get().then(function (t)
-    {
+function add_devices_types() {
+    db.collection("types").get().then(function (t) {
         var counter_types = 0;
         var length_types = t.size;
         var e = document.getElementById("dType");
-        t.forEach(function (t)
-        {
+        t.forEach(function (t) {
             counter_types++;
             var n = document.createElement("option");
             n.text = t.data().name + " - " + t.data().type, n.value = t.id, e.add(n)
@@ -644,40 +726,31 @@ function add_devices_types()
             }
 
         })
-    }).catch(function (t)
-    {
+    }).catch(function (t) {
         badnews(t);
     })
 }
 
-function check_new_sites_added(e, s)
-{
-    db.collection("users").doc(e.uid).collection("requests").where("approval", "==", !0).get().then(function (e)
-    {
+function check_new_sites_added(e, s) {
+    db.collection("users").doc(e.uid).collection("requests").where("approval", "==", !0).get().then(function (e) {
         e.size >= s.length && rebuildtree("We have added new sites, as one or more requests has been approved.")
     })
 }
 
-function init_site_settings()
-{
-    $("#addsitemodal").on("show.bs.modal", function (t)
-    {
+function init_site_settings() {
+    $("#addsitemodal").on("show.bs.modal", function (t) {
         var e = $(t.relatedTarget).data("id");
-        db.collection("domains").doc(e).get().then(function (t)
-        {
+        db.collection("domains").doc(e).get().then(function (t) {
             document.getElementById("sName").value = t.data().name || "-", document.getElementById("sDescription").value = t.data().description || "-", document.getElementById("sLocation").value = t.data().location || "-", document.getElementById("sid").value = e
-        }).then(function ()
-        {
+        }).then(function () {
             document.getElementById("addSite").innerHTML = "Site Settings"
-        }).catch(function (t)
-        {
+        }).catch(function (t) {
             badnews(t);
         })
     })
 }
 
-function setup_echart(e)
-{
+function setup_echart(e) {
     /*     document.getElementById("numofpms").innerText = e.power_meter,
             document.getElementById("numofscs").innerText = e.smardtchiller,
             document.getElementById("numoftds").innerText = e.vavnawh,
@@ -711,17 +784,14 @@ function setup_echart(e)
             }; t.setOption(n), t.resize() */
 }
 
-function checkstatus(e, t)
-{
+function checkstatus(e, t) {
     var d = [];
     void 0 == e && (e = !1), d = [], d.offline = 0, d.online = 0, d.total = 0;
 
-    t.forEach(function (t)
-    {
+    t.forEach(function (t) {
         var element = document.getElementById("li_" + t),
             m = t;
-        db.collection("devices").doc(m).get().then(function (t)
-        {
+        db.collection("devices").doc(m).get().then(function (t) {
             blocked = t.data().blocked;
             //   console.log(blocked);
             var element = document.getElementById(m);
@@ -734,8 +804,7 @@ function checkstatus(e, t)
             }
 
             // console.log("Device :" + m + "  blocked :" + blocked);
-            db.collection("devices").doc(m).collection("datasets").doc("live").get().then(function (t)
-            {
+            db.collection("devices").doc(m).collection("datasets").doc("live").get().then(function (t) {
 
 
                 d.total = (d.total) + 1, oldtimestamp = t.data().timestamp, newtimestamp = Date.now(),
@@ -753,16 +822,10 @@ function checkstatus(e, t)
                     element.classList.add("text-success")
                 }
 
-            }).then(function ()
-            {
+            }).then(function () {
                 document.getElementById("pie_chart_4_text").className = "percent block txt-dark weight-500";
-                var e = Number((d.online / d.total * 100).toFixed(1));
-                //  console.log(e);
-
-                //  console.log(d.online + "/" + d.total);
                 $("#pie_chart_4").data("easyPieChart").update(e), document.getElementById("num_online").innerText = d.online + "/" + d.total;
-            }).catch(function ()
-            {
+            }).catch(function () {
                 d.not_connected = (d.not_connected || 0) + 1;
                 // element.classList.add("text-muted");
             });
@@ -772,8 +835,7 @@ function checkstatus(e, t)
     });
 }
 
-function rebuildtree(message_text)
-{
+function rebuildtree(message_text) {
     if (message_text == undefined) {
         message_text = "You navigation tree has been rebuilt successfully."
     }
@@ -782,8 +844,7 @@ function rebuildtree(message_text)
         text: "We are rebuilding your navigation tree for you.",
         timer: 60000,
         html: '<h6></h6>.',
-        onBeforeOpen: () =>
-        {
+        onBeforeOpen: () => {
             Swal.showLoading();
             Swal.getContent().querySelector('h6').textContent = "Initiating Cloud Services...";
             document.getElementById('domainload').innerHTML = " Rebuilding...";
@@ -794,14 +855,12 @@ function rebuildtree(message_text)
             const rawdatapath = db.collection("users").doc(user.uid);
             rawdatapath.update({
                 navi: !0
-            }).then(function () { }).then(function ()
-            {
+            }).then(function () { }).then(function () {
                 Swal.getContent().querySelector('h6').textContent = "Initaiating L";
                 document.getElementById("subcripText").innerHTML = "<i class='fas fa-sync fa-spin'></i>" + "&nbsp;&nbsp;&nbsp Rebuilding Navaigation...";
                 googlefunctions();
                 Swal.getContent().querySelector('h6').textContent = "Awaiting reply from Cloud Services.";
-                unsubscribe3 = rawdatapath.onSnapshot(function (doc)
-                {
+                unsubscribe3 = rawdatapath.onSnapshot(function (doc) {
                     counter++;
                     if (counter == 2) {
                         document.getElementById("subcripText").innerHTML = user.displayName + "&nbsp;&nbsp;&nbsp |   ";
@@ -824,16 +883,14 @@ function rebuildtree(message_text)
                         }
                     }
                 })
-            }).catch(function (error)
-            {
+            }).catch(function (error) {
                 badnews(error);
             })
         },
     })
 }
 
-function googlefunctions()
-{
+function googlefunctions() {
     var userlist = [],
         userjson = [];
     var devicesum = [];
@@ -848,13 +905,10 @@ function googlefunctions()
     var devicecount = 0;
     var domaincount = 0;
     var sandboxcount = 0;
-    var promise2 = new Promise(function (resolve, reject)
-    {
-        db.collection("devices").where("owner", "==", user.uid).where("domain", "==", "Cloud_Exchange").get().then(function (querySnapshot)
-        {
+    var promise2 = new Promise(function (resolve, reject) {
+        db.collection("devices").where("owner", "==", user.uid).where("domain", "==", "Cloud_Exchange").get().then(function (querySnapshot) {
             sandboxcount = querySnapshot.size;
-            querySnapshot.forEach(function (doc)
-            {
+            querySnapshot.forEach(function (doc) {
                 ob_de.push({
                     name: doc.data().name,
                     value: 1,
@@ -865,8 +919,7 @@ function googlefunctions()
                     role: "Owner",
                 })
             })
-        }).then(function ()
-        {
+        }).then(function () {
             userlist.push(user.uid);
             userjson.push({
                 name: user.displayName,
@@ -884,8 +937,7 @@ function googlefunctions()
             userlist = [];
 
             //   console.log(userlist);
-            db.collection("users").doc(user.uid).collection('requests').where("approval", "==", !0).get().then(function (querySnapshot)
-            {
+            db.collection("users").doc(user.uid).collection('requests').where("approval", "==", !0).get().then(function (querySnapshot) {
                 domaincount = querySnapshot.size;
                 if (domaincount == 0) {
                     resolve({
@@ -899,8 +951,7 @@ function googlefunctions()
                         "available_docs": 0
                     });
                 }
-                querySnapshot.forEach(function (doc)
-                {
+                querySnapshot.forEach(function (doc) {
                     var user_req_id = doc.id;
                     var owner = doc.data().roles.owner || !1;
                     var admin = doc.data().roles.admin || !1;
@@ -917,28 +968,22 @@ function googlefunctions()
                     } else {
                         roler = "Member"
                     }
-                    db.collection("domains").doc(domainid).get().then((doc) =>
-                    {
+                    db.collection("domains").doc(domainid).get().then((doc) => {
                         if (doc.exists) {
                             var tempname = doc.data().name || "s";
                             var temptype = doc.data().type;
                             var descrip = doc.data().description;
-                            db.collection("domains").doc(domainid).collection('requests').where("approval", "==", !0).get().then(function (querySnapshot)
-                            {
+                            db.collection("domains").doc(domainid).collection('requests').where("approval", "==", !0).get().then(function (querySnapshot) {
                                 userlist = [];
-                                0 != querySnapshot.size && querySnapshot.forEach(function (doc)
-                                {
+                                0 != querySnapshot.size && querySnapshot.forEach(function (doc) {
                                     userlist.includes(doc.id) || userlist.push(doc.id);
                                 });
 
-                            }).then(function ()
-                            {
-                                console.log("all done");
+                            }).then(function () {
+                             
                                 var io = userlist;
-                                db.collection("devices").where("domain", "==", domainid).get().then(function (querySnapshot)
-                                {
-                                    devicecount += querySnapshot.size, querySnapshot.forEach(function (doc)
-                                    {
+                                db.collection("devices").where("domain", "==", domainid).get().then(function (querySnapshot) {
+                                    devicecount += querySnapshot.size, querySnapshot.forEach(function (doc) {
                                         var log_size = doc.data().log_size || 0,
                                             log_minimum_points = Number(doc.data().log_minimum_points || 0);
                                         devicesum[doc.data().type] = (devicesum[type2] || 0) + 1, available_docs = log_minimum_points + available_docs,
@@ -955,8 +1000,7 @@ function googlefunctions()
                                                 log_minimum_points: log_minimum_points
                                             });
                                     });
-                                }).then(function ()
-                                {
+                                }).then(function () {
                                     // console.log("doamin =" + domainid + "   userlist+" + userlist);
                                     ob_do.push({
                                         name: tempname,
@@ -983,14 +1027,12 @@ function googlefunctions()
                                             available_docs: available_docs
                                         }));
 
-                                }).catch(function (error)
-                                {
+                                }).catch(function (error) {
                                     resolve({
                                         navi_status: error
                                     });
                                 });
-                            }).catch(function (error)
-                            {
+                            }).catch(function (error) {
                                 resolve({
                                     "navi_status": error
                                 })
@@ -1000,56 +1042,46 @@ function googlefunctions()
                             domaincount--;
                             db.collection("users").doc(user_req_id).collection('requests').where("approval", "==", !0).delete()
                         }
-                    }).catch(function (error)
-                    {
+                    }).catch(function (error) {
                         resolve({
                             "navi_status": error
                         })
                     })
                 })
-            }).catch(function (error)
-            {
+            }).catch(function (error) {
                 resolve({
                     "navi_status": error
                 })
             })
-        }).catch(function (error)
-        {
+        }).catch(function (error) {
             resolve({
                 "navi_status": error
             })
         })
     });
-    return promise2.then(function (value)
-    {
+    return promise2.then(function (value) {
         console.log(value);
         value = JSON.stringify(value);
         value = JSON.parse(value);
 
         db.collection("users").doc(user.uid).set(value, {
             merge: !0
-        }).catch(function (error)
-        {
+        }).catch(function (error) {
             badnews(error);
         })
     })
 }
 
-function loadnotifcation(t, e, i)
-{
+function loadnotifcation(t, e, i) {
     var n = 0,
         a = '<div class="streamline message-nicescroll-bar">';
-    db.collection("domains").doc(t).collection("requests").where("approval", "==", !1).get().then(function (o)
-    {
-        o.forEach(function (o)
-        {
-            db.collection("users").doc(o.id).get().then(function (o)
-            {
+    db.collection("domains").doc(t).collection("requests").where("approval", "==", !1).get().then(function (o) {
+        o.forEach(function (o) {
+            db.collection("users").doc(o.id).get().then(function (o) {
                 n += 1;
                 var s = o.data().name || "---";
                 a = a + '<div class="sl-item sl-item-mg"><a href="javascript:void(0)"><div class="col-sm-9"><div class="icon bg-green"><i class="zmdi zmdi-flag"></i></div><div class="sl-content"><span class="inline-block   pull-left noti-item-text  ">' + s + " has requested access to " + e + '.</span><span class="inline-block font-11   notifications-time">' + i + '</span><div class="clearfix"></div></div></div><div class="col-sm-3"><a href=\'#\' onclick=\'action("' + o.id + '","' + t + '","' + s + "\",true)' class='label label-danger label-xs'> Approve? </a></div></a></div>"
-            }).then(function ()
-            {
+            }).then(function () {
                 document.getElementById("notification").innerHTML = a, document.getElementById("noticounter").innerHTML = n.toString(), $("body").removeAttr("class").addClass("bottom-center-fullwidth"), $.toast({
                     heading: "Your Attention Request.",
                     text: "Check you notifications, you may have messages.",
@@ -1060,16 +1092,14 @@ function loadnotifcation(t, e, i)
                     stack: 6
                 })
             })
-                .catch(function (t)
-                {
+                .catch(function (t) {
                     badnews(t);
                 })
         })
     })
 }
 
-function action(userid, domainid, username, setvalue)
-{
+function action(userid, domainid, username, setvalue) {
     var errorflag = !0;
     var warningtext = "You are about to revoke " + username + "'s access request";
     var confirmationtext = "The request has been revoked. All devices belonging to the user and the domain will be revoked as well.";
@@ -1081,8 +1111,7 @@ function action(userid, domainid, username, setvalue)
         title: "Are you sure?",
         text: warningtext,
         icon: 'warning',
-    }).then((willDelete) =>
-    {
+    }).then((willDelete) => {
         if (willDelete) {
             document.getElementById("notification").innerHTML = "";
             checknoti();
@@ -1090,8 +1119,7 @@ function action(userid, domainid, username, setvalue)
                 approval: setvalue
             }, {
                 merge: !0
-            }).catch(function (error)
-            {
+            }).catch(function (error) {
                 errorflag = !1;
                 Swal.fire({
                     title: "Warning",
@@ -1099,18 +1127,15 @@ function action(userid, domainid, username, setvalue)
                     icon: 'warning',
                 })
             });
-            db.collection('devices').where("owner", "==", userid).where("domain", "==", domainid).get().then(function (querySnapshot)
-            {
-                querySnapshot.forEach(function (doc)
-                {
+            db.collection('devices').where("owner", "==", userid).where("domain", "==", domainid).get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
                     db.collection('devices').doc(doc.id).set({
                         domain: ""
                     }, {
                         merge: !0
                     })
                 })
-            }).catch(function (error)
-            {
+            }).catch(function (error) {
                 errorflag = !1;
                 badnews(error);
             });
@@ -1123,41 +1148,33 @@ function action(userid, domainid, username, setvalue)
     })
 };
 
-function checknoti()
-{
+function checknoti() {
     var t = firebase.auth().currentUser;
-    db.collection("users").doc(t.uid).collection("requests").where("approval", "==", !0).get().then(function (e)
-    {
-        e.forEach(function (e)
-        {
+    db.collection("users").doc(t.uid).collection("requests").where("approval", "==", !0).get().then(function (e) {
+        e.forEach(function (e) {
             var a = e.id,
                 o = e.data().roles.owner || !1,
                 n = e.data().roles.admin || !1;
-               // console.log(e.data().created_on);
-               // console.log(new Date(e.data().created_on));
-                var d = (e.data().created_on).toDate();
-              //  console.log(ed);
-        //  d = datetimeformat(ed);
-            db.collection("domains").doc(e.id).get().then(function (e)
-            {
-                e.exists ? (o || n) && loadnotifcation(e.id, e.data().name, d) : db.collection("users").doc(t.uid).collection("requests").doc(a).delete().then(function ()
-                {
+            // console.log(e.data().created_on);
+            // console.log(new Date(e.data().created_on));
+            var d = (e.data().created_on).toDate();
+            //  console.log(ed);
+            //  d = datetimeformat(ed);
+            db.collection("domains").doc(e.id).get().then(function (e) {
+                e.exists ? (o || n) && loadnotifcation(e.id, e.data().name, d) : db.collection("users").doc(t.uid).collection("requests").doc(a).delete().then(function () {
                     rebuildtree()
                 })
-            }).catch(function (t)
-            {
+            }).catch(function (t) {
                 badnews(t);
             })
         })
-    }).catch(function (t)
-    {
+    }).catch(function (t) {
         badnews(t);
     })
 }
 
 
-function myFunction()
-{
+function myFunction() {
     db.collection('mail').add({
         to: 'sathiya@eco33.com',
         message: {

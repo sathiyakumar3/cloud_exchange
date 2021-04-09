@@ -28,7 +28,7 @@ function loadtable3(id, dataset, reportflag, domain_id) {
 
 }
 
-function reload_table(dom_id) {
+/* function reload_table(dom_id) {
     
     load_info(dom_id);
     setTimeout(
@@ -47,7 +47,7 @@ function load_info(dom_id) {
     document.getElementById("current_user_list").innerHTML = document.getElementById("currentusers_" + dom_id).innerHTML;
     document.getElementById("ticket_currnet").innerHTML = document.getElementById("currentticket_" + dom_id).innerHTML;
 }
-
+ */
 
 
 function testWhite(x) {
@@ -261,7 +261,7 @@ function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
     document.getElementById('txt_last').innerText =  'Last Job No';
     
 
-    document.getElementById('total_oc_jobsheets').innerText =  Number(document.getElementById('total_oc_jobsheets').innerText)+dataset.length; 
+   // document.getElementById('total_oc_jobsheets').innerText =  Number(document.getElementById('total_oc_jobsheets').innerText)+dataset.length; 
     var button_class = "btn btn-primary btn-rounded";
     var reports_text = "The information is from cloudexchange.lk",
         selection = {
@@ -497,7 +497,7 @@ function fetch_tickets2(t, alpha) {
     document.getElementById('stats_cc').innerText = 0;
     document.getElementById('stats_aq').innerText = 0;
     document.getElementById('stats_tc').innerText = 0;
-    document.getElementById('total_oc_jobsheets').innerText = 0;
+   // document.getElementById('total_oc_jobsheets').innerText = 0;
     document.getElementById('lb_todo').innerText = 0;
     document.getElementById('lb_atten').innerText = 0;
     document.getElementById('lb_allsit').innerText = 0;
@@ -531,7 +531,7 @@ function fetch_tickets2(t, alpha) {
                         n.value = obj.id, ass_combo.add(n);
                         document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id, 35);
                     } catch (e) {
-
+/* 
                         Swal.fire({
                             title: 'Stray User detected.',
                             text: entry + " at " + t.name,
@@ -544,7 +544,7 @@ function fetch_tickets2(t, alpha) {
                             if (result.value) {
                                 cleanusers();
                             }
-                        })
+                        }) */
                     }
 
                 })
