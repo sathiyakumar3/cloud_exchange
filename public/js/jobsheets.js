@@ -481,7 +481,7 @@ function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
 
 
 function fetch_tickets2(t, alpha) {
-
+    console.log("why");
     var open_flag = true;
 
     loaded = false;
@@ -515,22 +515,27 @@ function fetch_tickets2(t, alpha) {
             n.text = "---", n.value = "---", ass_combo.add(n);
             var rest = [];
             rest = t.user_list;
-            document.getElementById('currentusers_' + t.name).innerHTML = "";
+          document.getElementById('currentusers_' + t.name).innerHTML = "";
             document.getElementById('description_' + t.name).innerHTML = t.description;
             //getsiteicon
             document.getElementById('title_' + t.name).innerHTML = t.name;
             document.getElementById('icon_' + t.name).innerHTML = getsiteicon(t.type);
+          
             if (rest.length != 0) {
                 rest.forEach(function (entry) {
 
                     try {
+                      console.log(entry);
                         let obj = user_profiles.find(o => o.id === entry);
+                        console.log(obj);
                         var n = document.createElement("option");
 
                         n.text = obj.name;
                         n.value = obj.id, ass_combo.add(n);
                         document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id, 35);
+
                     } catch (e) {
+                      //  console.log(e);
 /* 
                         Swal.fire({
                             title: 'Stray User detected.',
@@ -592,7 +597,8 @@ function fetch_tickets2(t, alpha) {
             }).catch(function (error) {
                 console.log(error);
                 badnews(error)
-            })
+            });
+
             /*        });
                }).catch(function (error)
                {

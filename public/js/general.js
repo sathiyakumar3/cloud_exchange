@@ -108,7 +108,7 @@ function open_devices()
 
 function open_todo()
 {
-    fetch_tickets(total_op, 'D');
+    fetch_tickets(total_op, 'D',"tickets");
 
     //console.log(total_op);
     document.getElementById("content_chat").style.display = "none";
@@ -122,7 +122,7 @@ function open_todo()
 
 function open_jobsheets()
 {
- fetch_tickets2(total_op, 'D');
+    fetch_tickets(total_op, 'D',"jobsheets");
 
     //console.log(total_op);
     document.getElementById("content_chat").style.display = "none";
@@ -134,7 +134,7 @@ function open_jobsheets()
 
 }
 
-$('#content_home_page').load("content/home_page.html");
+
 // 
 $('#content_devices').load("content/device_table.html");
 $('#content_chat').load("content/chat.html");

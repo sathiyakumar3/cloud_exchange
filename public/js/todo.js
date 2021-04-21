@@ -1,7 +1,9 @@
+
 var dataSet2 = [];
 var dataSet3 = [];
 var dats = [];
 var loaded = false;
+
 
 function sendmail2() {
     var xhttp = new XMLHttpRequest();
@@ -30,22 +32,24 @@ function loadtable2(id, dataset, reportflag, domain_id) {
 
 function reload_table(dom_id) {
     load_info(dom_id);
-    setTimeout(
-        function () {
-            var table = $('#edit_tic_table_' + dom_id).DataTable();
-            //       console.log(table.rows().data());
-            table.columns.adjust().draw();
-        }, 175);
+    /*     setTimeout(
+            function () {
+                var table = $('#edit_tic_table_' + dom_id).DataTable();
+                //       console.log(table.rows().data());
+                table.columns.adjust().draw();
+            }, 175); */
 }
 
 function load_info(dom_id) {
+
     document.getElementById("last_Ticket_id").style.visibility = "visible";
     document.getElementById("domain_case2").value = dom_id;
     changeform_ticket();
- 
+
     document.getElementById("main_title_help").innerHTML = '&nbsp; &nbsp; <i class="' + document.getElementById("icon_" + dom_id).innerHTML + '" ></i>&nbsp; &nbsp; ' + document.getElementById("title_" + dom_id).innerHTML + " - " + document.getElementById("description_" + dom_id).innerHTML;
     document.getElementById("current_user_list").innerHTML = document.getElementById("currentusers_" + dom_id).innerHTML;
-   
+
+
     document.getElementById("ticket_currnet").innerHTML = document.getElementById("currentticket_" + dom_id).innerHTML;
 
 }
@@ -182,6 +186,7 @@ function processrow(reportflag, row, i) //
     increment_tag(row[2] + "_label2");
     var created_on_date = datetimeshortformat(row[17]),
         date1 = new Date(created_on_date),
+
         Difference_In_Time = date2.getTime() - date1.getTime(),
         Difference_In_Days = Math.round(Difference_In_Time / 864e5);
 
@@ -271,15 +276,19 @@ function removefollowup() {
 }
 
 function dotable(id, dataset, domain_flag, report_flag, domain_id) {
+
     /* var table_id = 'div_tic_table_' +id;
     var other_table =  'div_jobs_table_' +id; */
 
     /* id = '#edit_tic_table_' +id; */
     /* document.getElementById(table_id).style.display = "block";
     document.getElementById(other_table).style.display = "none"; */
-var vasi = true;
-    if(id=="#newtb"||id=="#tab2"){
-        vasi =false;
+    var vasi = true;
+    if (id == "#newtb" || id == "#tab2") {
+        vasi = false;
+    } else {
+        document.getElementById(domain_id + '_label2').innerText = dataset.length;
+        document.getElementById(domain_id + "_label2").className = "label label-primary";
     }
 
     document.getElementById('setting_panel_btn').style.visibility = "visible";
@@ -288,8 +297,7 @@ var vasi = true;
     document.getElementById('txt_last').innerText = 'Last Ticket No';
 
 
-    document.getElementById(domain_id + '_label2').innerText = dataset.length;
-    document.getElementById(domain_id + "_label2").className = "label label-primary";
+
 
     var button_class = "btn btn-primary btn-rounded";
     var reports_text = "The information is from cloudexchange.lk",
@@ -378,10 +386,6 @@ var vasi = true;
             action: function () {
                 $("#reportModal").modal();
                 call_report_modal(domain_id);
-
-
-
-
             }
         }
 
@@ -395,7 +399,7 @@ var vasi = true;
             [20, "desc"]
         ],
         dom: 'frtiBp',
-        bInfo: !1,  "searching": false,
+        bInfo: !1, "searching": false,
         pageLength: 10,
         buttons: buttons_pack,
         destroy: !0,
@@ -441,7 +445,7 @@ var vasi = true;
                 title: "To"
             }, {
                 title: "Actions",
-                visible:vasi
+                visible: vasi
             }, {
                 title: "Status",
                 visible: !1
@@ -519,12 +523,12 @@ var vasi = true;
             if (user.uid == ass_1 || user.uid == ass_2 || user.uid == ass_3 || user.uid == ass_4 || user.uid == owner) {
                 format(doc, dom, status, item_id);
                 document.getElementById("h_" + doc).innerHTML = "";
-            } else {                
-                  
+            } else {
+
                 document.getElementById("h_" + doc).innerHTML = "<p class='text-center' ><i class='fas fa-lock'></i>&nbsp;&nbsp;You have not been assigned for this job.</br></p><br>";
 
-              format(doc, dom, status, item_id);
-              format_lock(doc);
+                format(doc, dom, status, item_id);
+                format_lock(doc);
             }
 
             tr.addClass('shown');
@@ -563,10 +567,10 @@ function format_lock(doc) {
     document.getElementById("his_op_sel_" + doc).disabled = true;
     document.getElementById("his_datetime_" + doc).disabled = true;
 
- 
-/*  var c = document.getElementById("his_" + doc);
- //   var b = document.getElementById("his_op_" + doc);
-   c.innerHTML = c.innerHTML+"<p class='text-center' ><i class='fas fa-lock'></i>&nbsp;&nbsp;You have not been assigned for this job.</br></p>"; */
+
+    /*  var c = document.getElementById("his_" + doc);
+     //   var b = document.getElementById("his_op_" + doc);
+       c.innerHTML = c.innerHTML+"<p class='text-center' ><i class='fas fa-lock'></i>&nbsp;&nbsp;You have not been assigned for this job.</br></p>"; */
     //b.value = "locked";
 
 }
@@ -849,9 +853,9 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                         '<p><strong>Location : </strong>' + location + '</p>' +
 
                         '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
-                      
-                   sendmail(find_email(owner), user.email, subject, html_text_2);
-                   goodnews("Your jobsheet was added successfully!");
+
+                    sendmail(find_email(owner), user.email, subject, html_text_2);
+                    goodnews("Your jobsheet was added successfully!");
                 })
                 .catch(function (error) {
                     badnews("Saving history " + error);
@@ -935,7 +939,7 @@ function delete_history(doc, dom, counter, id) {
     var status = document.getElementById("his_op_" + doc).value;
 
 
-    
+
     db.collection("domains").doc(dom).collection("job_sheets").doc(id).delete()
         .then(function () {
             format(doc, dom, status, counter);
@@ -945,9 +949,151 @@ function delete_history(doc, dom, counter, id) {
         });
 
 }
+var status_c = [];
+status_c['Not Started'] = 0;
+status_c['On Progress'] = 0;
+status_c['Urgent Action'] = 0;
+status_c['Skipped'] = 0;
+status_c['Follow Up'] = 0;
+status_c['Solved'] = 0;
+status_c['Total'] = 0;
+function count_status(status) {
+    switch (status) {
+        case 'Not Started':
+            status_c['Not Started']++;
+            break;
+        case 'On Progress':
+            status_c['On Progress']++;
+            break;
+        case 'Urgent Action':
+            status_c['Urgent Action']++;
+            break;
+        case 'Follow Up':
+            status_c['Follow Up']++;
+            break;
+        case 'Solved':
+            status_c['Solved']++;
+            break;
+        default:
+        // code block
+    }
+    status_c['Total']++;
+}
+var status_c_date = [];
+var data_setta = [];
+var domain_list = [];
+var weekly_tickets = 0;
+var monthly_tickets = 0;
+var status_addressed =0;
+
+function status_codes(status) {
+    switch (status) {
+        case 'Not Started':
+            return 1;
+            break;
+        case 'Follow Up':
+            return 2;
+            break;
+        case 'On Progress':
+            return 3;
+            break;
+        case 'Urgent Action':
+            return 4;
+            break;
+        case 'Solved':
+            return 5;
+            break;
+        default:
+            return 0;
+            return 6;
+    }
+
+}
+
+function status_codes_reversed(status) {
+    switch (status) {
+        case 1:
+            return 'Not Started';
+            break;
+        case 2:
+            return 'Follow Up';
+            break;
+        case 3:
+            return 'On Progress';
+            break;
+        case 4:
+            return 'Urgent Action';
+            break;
+        case 5:
+            return 'Solved';
+            break;
+        default:
+            // code block
+            return 0;
+    }
+
+}
+
+function count_staus_perdate(domain, created_on, issue, status, location) {
+    if (domain != "Cloud_Exchange") {
+        var phrase = created_on.toDate().getFullYear() + "/" + created_on.toDate().getMonth() + "/" + ('0' + created_on.toDate().getDate()).slice(-2);
+
+        var date1 = created_on.toDate();
+
+        var date2 = new Date();
+        var Difference_In_Time = date2.getTime() - date1.getTime();
+        var Difference_In_Days = Math.round(Difference_In_Time / 864e5);
+        if (Difference_In_Days < 7) {
+            weekly_tickets++;
+        }
+        if (Difference_In_Days < 30) {
+            monthly_tickets++;
+        }
+        if(status=='Follow Up'||status=='Solved' ){
+            status_addressed ++;
+        }
+
+        if (status_c_date.hasOwnProperty(domain)) {
+
+            status_c_date[[domain]]++;
+        } else {
+            domain_list.push(domain);
+            status_c_date[[domain]] = 0;
+        }
 
 
-function fetch_tickets(t, alpha) {
+
+        var val = Number(status_c_date[[domain]]);
+        // var string = (domain).substring(1, 3).toUpperCase();
+
+        data_setta.push([phrase, status_codes(status), domain, issue, status, location, Difference_In_Days]);
+
+        /*          site_profile.forEach(function (t) {
+                     if(t.name!="Cloud_Exchange" && t.name != domain){
+                     
+                            if (status_c_date.hasOwnProperty(t.name)) {
+                                var val = Number(status_c_date[[t.name]]);
+                                data_setta.push([phrase, val, t.name]);
+                
+                            }else{
+                                data_setta.push([phrase, 0, t.name]);
+                            }
+                       
+                     }
+        
+                });  */
+
+    }
+
+
+
+}
+
+
+
+
+//['2015/11/08', 10, 'DQ'], ['2015/11/09', 15, 'DQ'], ['2015/11/10', 35, 'DQ']
+function fetch_tickets(t, alpha, type) {
 
     var open_flag = true;
 
@@ -957,27 +1103,28 @@ function fetch_tickets(t, alpha) {
     dataSet3 = [];
     dataset = [];
 
-    var user = firebase.auth().currentUser;
+
+
     var total_cases_tick = 0;
     var total_open_cases = 0;
     document.getElementById('stats_oc').innerText = 0;
     document.getElementById('stats_cc').innerText = 0;
     document.getElementById('stats_aq').innerText = 0;
     document.getElementById('stats_tc').innerText = 0;
-  //  document.getElementById('total_oc_tickets').innerText = 0;
+    //  document.getElementById('total_oc_tickets').innerText = 0;
     document.getElementById('lb_todo').innerText = 0;
     document.getElementById('lb_atten').innerText = 0;
     document.getElementById('lb_allsit').innerText = 0;
     //  document.getElementById('currentusers_' + t.name).innerHTML = "";
     var counter_t = 1;
+    var for_loop_count = 0;
     var total_size = t.length;
     t.forEach(function (t) {
+        for_loop_count++;
         var dataSet = [];
-
         if (t.name != "Cloud_Exchange") {
-
             var ass_combo = "";
-            document.getElementById('combo_' + t.name).innerHTML='';
+            document.getElementById('combo_' + t.name).innerHTML = '';
             ass_combo = document.getElementById('combo_' + t.name);
             var n = document.createElement("option");
             n.text = "---", n.value = "---", ass_combo.add(n);
@@ -990,91 +1137,130 @@ function fetch_tickets(t, alpha) {
             document.getElementById('icon_' + t.name).innerHTML = getsiteicon(t.type);
             if (rest.length != 0) {
                 rest.forEach(function (entry) {
-
                     try {
-                        
                         let obj = user_profiles.find(o => o.id === entry);
-                    
                         var n = document.createElement("option");
-
                         n.text = obj.name;
                         n.value = obj.id, ass_combo.add(n);
                         document.getElementById('currentusers_' + t.name).innerHTML = document.getElementById('currentusers_' + t.name).innerHTML + tabletoimage(obj.id, 35);
 
                     } catch (e) {
-                      //  console.log(e);
-/* 
-                        Swal.fire({
-                            title: 'Stray User detected.',
-                            text: entry + " at " + t.name,
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, clean it!'
-                        }).then((result) => {
-                            if (result.value) {
-                                cleanusers();
-                            }
-                        }) */
+                        //  console.log(e);
+                        /* 
+                                                Swal.fire({
+                                                    title: 'Stray User detected.',
+                                                    text: entry + " at " + t.name,
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    confirmButtonText: 'Yes, clean it!'
+                                                }).then((result) => {
+                                                    if (result.value) {
+                                                        cleanusers();
+                                                    }
+                                                }) */
                     }
 
                 })
             }
             document.getElementById(t.id + '_label2').innerText = 0;
 
-            db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function (querySnapshot) {
 
-                querySnapshot.forEach(function (doc) {
-
-                    total_cases_tick = total_cases_tick + Number(doc.data().id);
-
-
-                    document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
-                    db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot) {
-
-
+            switch (type) {
+                case 'jobsheets':
+                    db.collection("domains").doc(t.id).collection("job_sheets").get().then(function (querySnapshot) {
                         querySnapshot.forEach(function (doc) {
 
-                            dataSet.push([doc.id, doc.data().id, t.id, doc.data().location, doc.data().issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, 'DUM', 'DUM', doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"])
+                            if (doc.data().status == 'Closed' || doc.data().status == 'Solved') {
+                                total_open_cases++;
+                            }
+                            count_status(doc.data().status);
+                            dataSet.push([doc.data().job_num, doc.data().ticket_id, doc.data().message, doc.data().name, doc.data().photoURL, doc.data().status, doc.data().start_time, doc.data().end_time, doc.data().ticket_doc_id, doc.data().timestamp, doc.data().chargable]);
                         });
-                        total_open_cases = total_open_cases + dataSet.length;
-                        var id = '#edit_tic_table_' + t.id;
-                        loadtable2(id, dataSet, false, t.id);
-
-                        var table_id = 'div_tic_table_' + t.id;
-                        var other_table = 'div_jobs_table_' + t.id;
-
-                        document.getElementById(table_id).style.display = "block";
-                        document.getElementById(other_table).style.display = "none";
-
+                        total_cases_tick = total_cases_tick + querySnapshot.size;
+                        loadtable3(t.id, dataSet, false, t.id);
                         counter_t++;
 
                         if (counter_t + 1 == total_size) {
                             loaded = true;
                             document.getElementById("stats_tc").innerText = total_cases_tick;
                             document.getElementById("stats_oc").innerText = total_open_cases;
+                            document.getElementById("lb_allsit").innerText = total_open_cases;
                             document.getElementById("stats_cc").innerText = total_cases_tick - total_open_cases;
-
                         }
-
 
                     }).catch(function (error) {
                         console.log(error);
                         badnews(error)
-                    })
-                });
-            }).catch(function (error) {
-                console.log(error);
-                badnews(error)
-            })
+                    });
+                    break;
+                case 'tickets':
+
+                    db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function (querySnapshot) {
+                        querySnapshot.forEach(function (doc) {
+
+                            total_cases_tick = total_cases_tick + Number(doc.data().id);
+                            document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
+                            db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot) {
+                                querySnapshot.forEach(function (doc) {
+                                    count_status(doc.data().status);
+                                    if (t.id != "Cloud_Exchange") {
+                                        count_staus_perdate(t.id, doc.data().created_on, doc.data().issue, doc.data().status, doc.data().location,);
+                                    }
+
+                                    dataSet.push([doc.id, doc.data().id, t.id, doc.data().location, doc.data().issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, 'DUM', 'DUM', doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"])
+                                });
+                                total_open_cases = total_open_cases + dataSet.length;
+                                var id = '#edit_tic_table_' + t.id;
+                                loadtable2(id, dataSet, false, t.id);
+                                var table_id = 'div_tic_table_' + t.id;
+                                var other_table = 'div_jobs_table_' + t.id;
+                                document.getElementById(table_id).style.display = "block";
+                                document.getElementById(other_table).style.display = "none";
+                                counter_t++;
+
+                                if (counter_t + 1 == total_size) {
+                                    loaded = true;
+                                    document.getElementById("stats_tc").innerText = total_cases_tick;
+                                    document.getElementById("stats_oc").innerText = total_open_cases;
+                                    document.getElementById("stats_cc").innerText = total_cases_tick - total_open_cases;
+
+                                }
+
+
+                            }).catch(function (error) {
+                                console.log(error);
+                                badnews(error)
+                            })
+                        });
+                    }).catch(function (error) {
+                        console.log(error);
+                        badnews(error)
+                    });
+                    break;
+                default:
+                // code block
+            }
+
             if (open_flag) {
                 load_info(t.name);
                 open_flag = false;
             }
 
         }
+        if (for_loop_count == total_size) {
+            setTimeout(
+                function () {
+                    generate_data();
+                    //  console.log(status_c_date);
+                    // console.log(data_setta);
+
+                }, 5000);
+
+        }
     })
+
 }
 
 function tabletoimage(id, size) {
@@ -1406,7 +1592,7 @@ function edittkt_save() {
                     '<p>You could update the ticket via <a href="https://cloudexchange.lk/">https://cloudexchange.lk/</a></p>';
 
 
-              sendmail_as(user.email, find_email(assigned_to1), find_email(assigned_to2), find_email(assigned_to3), find_email(assigned_to4), subject, html_text);
+                sendmail_as(user.email, find_email(assigned_to1), find_email(assigned_to2), find_email(assigned_to3), find_email(assigned_to4), subject, html_text);
                 goodnews("Email notifications sent.")
             }
         })
@@ -1533,6 +1719,7 @@ function generateReport() {
     document.getElementById("Report_tile").innerHTML = " <span class='blink_text'>&#8226;</span> Report : " + sel1;
 
     document.getElementById("dt-range").innerHTML = dtrange;
+    show_report();
 }
 
 function undo_close_case(com_id, dom_id, counter, owner, tick_id, location, issue) {
@@ -1579,6 +1766,411 @@ function sendmail(to, cc, subject, text_html) {
     }).then(() => console.log('Queued email for delivery!'));
 }
 
-function clickthis(myCheck){
+function clickthis(myCheck) {
+    document.getElementById('isngiht').style.display = 'none';
+    document.getElementById('tabler').style.display = 'block';
     document.getElementById(myCheck).click();
 }
+function open_home_tickets(){  
+
+    document.getElementById('isngiht').style.display = 'block';
+    document.getElementById('tabler').style.display = 'none';
+/* 
+    toggle_display(document.getElementById('isngiht'));
+    toggle_display(document.getElementById('tabler')); */
+}
+
+/* function toggle_display(x){
+
+      if (x.style.display === 'none') {
+        x.style.display = 'block';
+      } else {
+        x.style.display = 'none';
+      }
+   
+} */
+function add_ticket_menu() {
+    var ul = document.getElementById('more_menu_0');
+    var li =
+        '        <a href="javascript:void(0)" onclick=\'open_home_tickets()\'  >' +
+        '            <div class="pull-left"><i class="fas fa-home mr-20"></i><span' +
+        '                    class="right-nav-text">Home</span>' +
+        '            </div>' +
+        '            <div class="clearfix"></div>' +
+        '        </a>';
+    ul.innerHTML = li;
+    var ul = document.getElementById('more_menu_1');
+    var li =
+        '        <a href="javascript:void(0)" onclick=\'clickthis("home_tab_8")\'  >' +
+        '            <div class="pull-left"><i class="fas fa-ticket-alt mr-20"></i><span' +
+        '                    class="right-nav-text">To-Do List</span>' +
+        '            </div>' +
+        '            <div class="pull-right"><span class="label label-primary" id="lb_todo">0</span></div>' +
+        '            <div class="clearfix"></div>' +
+        '        </a>';
+    ul.innerHTML = li;
+
+    var ul = document.getElementById('more_menu_2');
+    var li =
+        '        <a href="javascript:void(0)" onclick=\'clickthis("home_tab_9")\'  >' +
+        '            <div class="pull-left"><i class="fas fa-ticket-alt mr-20"></i><span' +
+        '                    class="right-nav-text">Highlights</span>' +
+        '            </div>' +
+        '            <div class="pull-right"><span class="label label-primary" id="lb_atten">0</span></div>' +
+        '            <div class="clearfix"></div>' +
+        '        </a>';
+    ul.innerHTML = li;
+}
+
+function show_report() {
+    var ul = document.getElementById('more_menu_3');
+    var li =
+        '        <a href="javascript:void(0)" onclick=\'clickthis("profile_tab_7")\'  >' +
+        '            <div class="pull-left"><i class="fas fa-ticket-alt mr-20"></i><span' +
+        '                    class="right-nav-text">Report</span>&nbsp;&nbsp;<span class="label label-danger blink_text">New!</span>' +
+        '            </div>' +
+        '            <div class="pull-right"><span class="label label-primary" id="lb_report">0</span></div>' +
+        '            <div class="clearfix"></div>' +
+        '        </a>';
+    ul.innerHTML = li;
+}
+
+function add_iot_menu() {
+    console.log("Ewq");
+    var ul = document.getElementById('more_menu_0');
+    var li =
+        '        <a href="javascript:open_home_page()">' +
+        '            <div class="pull-left"><i class="fas fa-home mr-20"></i><span' +
+        '                    class="right-nav-text">Home</span>' +
+        '            </div>' +
+        '            <div class="clearfix"></div>' +
+        '        </a>';
+
+
+    ul.innerHTML = li;
+    var ul = document.getElementById('more_menu_1');
+
+    var li =  '        <a href="javascript:open_devices()">' +
+        '            <div class="pull-left"><i class="fas fa-project-diagram mr-20"></i><span' +
+        '                    class="right-nav-text">Things</span>' +
+        '            </div>' +
+        '            <div class="pull-right"><span class="label label-primary" id="total_dvs">0</span></div>' +
+        '            <div class="clearfix"></div>' +
+        '        </a>';
+    ul.innerHTML = li;
+}
+var series_check = [];
+var sorted_data;
+function find_max(data) {
+
+    var found_list =[];
+    var domain_length = domain_list.length;
+   
+for (var x =0; x<4;x++){
+    var value = 0;
+    var item= '';
+
+    for (var i = 0; i < domain_length; i++) {
+
+        if(!found_list.includes(domain_list[i])){
+            if (data[domain_list[i]] > value) {          
+                value = data[domain_list[i]];
+                item = domain_list[i];             
+            }
+            if (i == domain_length - 1 && item!='') {
+                found_list.push(item);          
+                add_to_site(item,value);
+        
+            }
+        }
+
+
+    }
+}
+}
+
+
+var co = 0;
+function add_to_site(x,y) {
+ 
+    switch (co) {
+        case 0:
+            document.getElementById("site_1").innerText = x;
+            document.getElementById("c_site_1").innerText = y+1;
+            
+            co++;
+            break;
+        case 1:
+            document.getElementById("site_2").innerText = x;
+            document.getElementById("c_site_2").innerText = y+1;
+            co++;
+            break;
+        case 2:
+            document.getElementById("site_3").innerText = x;
+            document.getElementById("c_site_3").innerText = y+1;
+            co++;
+            break;
+        case 3:
+            document.getElementById("site_4").innerText = x;
+            document.getElementById("c_site_4").innerText = y+1;
+            co=0;
+            break;
+
+        default:
+            co =0;
+        // code block
+    }
+}
+
+function generate_data() {
+ 
+
+    var pec = Math.round((status_addressed/status_c['Total'])*100);
+
+    document.getElementById("addressed_percentage").innerText = pec;
+    document.getElementById("addressed_percentage_bar").innerHTML = '	<div class="progress-bar progress-bar-primary  wow animated progress-animated" role="progressbar" aria-valuenow="'+pec+'" aria-valuemin="0" aria-valuemax="100" style="width: '+pec+'%;"></div>';
+    document.getElementById("addressed_perc").innerText = status_addressed;
+    document.getElementById("Work_on_Progress").innerText = status_c['Total']-status_addressed;
+
+    
+           find_max(status_c_date);
+    document.getElementById("weekly_tickets").innerText = weekly_tickets;
+    document.getElementById("monthly_tickets").innerText = monthly_tickets;
+    var domain_length = domain_list.length;
+   // 
+    for (var e = 0; e < domain_length; e++) {
+        var selected_domain = domain_list[e];
+        var data = [];
+        var data_lenth = data_setta.length;
+        for (var i = 0; i < data_lenth; i++) {
+            if (data_setta[i][2] == selected_domain) {
+                data.push(data_setta[i]);
+
+            }
+            if (i == data_lenth - 1) {
+                var temp = {
+                    name: selected_domain,
+                    data: data,
+                    type: 'scatter',
+                    symbolSize: function (data) {
+                        return 10;
+                        return (Math.sqrt(data[6]) * 2);
+                    },
+                    emphasis: {
+                        focus: 'series',
+                        label: {
+                            show: true,
+                            formatter: function (param) {
+                                console.log(param);
+                                return 'ds'
+                            },
+                            position: 'top'
+                        }
+                    },
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(120, 36, 50, 0.5)',
+                        shadowOffsetY: 5,
+                        color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                            offset: 0,
+                            color: 'rgb(251, 118, 123)'
+                        }, {
+                            offset: 1,
+                            color: 'rgb(204, 46, 72)'
+                        }])
+                    }
+                };
+                series_check.push(temp);
+            }
+        }
+
+        if (e == domain_length - 1) {
+
+            run_echarts();
+
+        }
+    }
+}
+
+function run_echarts() {
+
+    var echartsConfig = function () {
+        if ($('#e_chart_1').length > 0) {
+            var eChart_1 = echarts.init(document.getElementById('e_chart_1'));
+            var option = {
+                /*          title: {
+                              text: 'Scatter Plot' ,
+                              left: '5%',
+                              top: '3%'
+                          }, */
+                /*                  legend: {
+                                     right: '10%',
+                                     top: '3%',
+                                     data: domain_list
+                                 }, */
+                grid: {
+                    left: '20%',
+                    top: '5%'
+                },
+                tooltip: {
+                    backgroundColor: ['rgba(1,1,1,0.7)'],
+                    formatter: function (obj) {
+                        var value = obj.value;
+                        return '<div style="solid rgba(255,255,255,.3); font-size: 14px;padding-bottom: 2px;margin-bottom: 2px">' +
+                            value[2] + ' | ' + value[4] + '<br>' + value[5] + '<br>' + value[0];
+                    }
+                },
+                xAxis: {
+                    type: 'time',
+                    splitLine: {
+                        lineStyle: {
+                            type: 'dashed'
+                        }
+                    }
+                },
+                yAxis: {
+                    splitLine: {
+                        lineStyle: {
+                            type: 'dashed'
+                        }
+                    },
+                    axisLabel: {
+                        formatter: function (obj) {
+
+                            return status_codes_reversed(obj);
+                        }
+                    },
+
+                    scale: true
+                },
+                series: series_check
+            };
+
+            eChart_1.setOption(option);
+            eChart_1.resize();
+        }
+        if ($('#e_chart_2').length > 0) {
+            var eChart_2 = echarts.init(document.getElementById('e_chart_2'));
+            var option1 = {
+                series: [{
+                    type: 'liquidFill',
+                    data: [0.7, 0.5, 0.4],
+                    color: ['#119dd2', '#d36ee8', '#667add'],
+                    backgroundStyle: {
+                        borderWidth: 0,
+                        color: 'rgba(255,255,255,0)',
+                        shadowBlur: 0
+                    },
+                    itemStyle: {
+                        normal: {
+                            shadowBlur: 5,
+                            shadowColor: 'rgba(0, 0, 0, .5)'
+                        }
+                    },
+                    shape: 'container',
+                    outline: {
+                        show: false
+                    },
+                    label: {
+                        normal: {
+                            fontSize: 20
+                        }
+                    }
+                }]
+            };
+            eChart_2.setOption(option1);
+            eChart_2.resize();
+        }
+        if ($('#e_chart_3').length > 0) {
+            document.getElementById('item_1').innerHTML = "Not Started";
+            document.getElementById('not_sta_sta').innerHTML = status_c['Not Started'];
+            document.getElementById('item_2').innerHTML = "Solved";
+            document.getElementById('solved_sta').innerHTML = status_c['Solved'];
+            document.getElementById('item_3').innerHTML = "Follow Up";
+            document.getElementById('follow_up_sta').innerHTML = status_c['Follow Up'];
+            
+            document.getElementById('item_1_sub').innerHTML = "Not Updated, Since ticket was opened.";
+            document.getElementById('item_2_sub').innerHTML = "Yet to be closed.";
+            document.getElementById('item_3_sub').innerHTML = "Waiting action from client.";
+
+            
+            
+            
+            var eChart_3 = echarts.init(document.getElementById('e_chart_3'));
+            var option3 = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)",
+                    backgroundColor: 'rgba(33,33,33,1)',
+                    borderRadius: 0,
+                    padding: 10,
+                    textStyle: {
+                        color: '#fff',
+                        fontStyle: 'normal',
+                        fontWeight: 'normal',
+                        fontFamily: "'Roboto', sans-serif",
+                        fontSize: 12
+                    }
+                },
+                legend: {
+                    show: false
+                },
+                toolbox: {
+                    show: false,
+                },
+                calculable: true,
+                itemStyle: {
+                    normal: {
+                        shadowBlur: 5,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+                series: [
+                    {
+                        name: 'Status',
+                        type: 'pie',
+                        radius: '60%',
+                        center: ['50%', '50%'],
+                        roseType: 'radius',
+                        color: ['#119dd2', '#d36ee8', '#667add', '#fd7397', '#4aa23c'],
+                        label: {
+                            normal: {
+                                fontFamily: "'Roboto', sans-serif",
+                                fontSize: 12
+                            }
+                        },
+
+
+
+                        data: [
+                            { value: status_c['Not Started'], name: 'Not Started' },
+                            { value: status_c['On Progress'], name: 'On Progress' },
+                            { value: status_c['Urgent Action'], name: 'Urgent Action' },
+                            /*        { value: status_c['Skipped'], name: 'Skipped' }, */
+                            //   { value: status_c['Follow Up'], name: 'Follow Up' },
+                            { value: status_c['Solved'], name: 'Solved' },
+
+                        ].sort(function (a, b) { return a.value - b.value; }),
+                    },
+                ],
+                animationType: 'scale',
+                animationEasing: 'elasticOut',
+                animationDelay: function (idx) {
+                    return Math.random() * 1000;
+                }
+            };
+            eChart_3.setOption(option3);
+            eChart_3.resize();
+        }
+    }
+
+    var echartResize;
+    $(window).on("resize", function () {
+
+        /*E-Chart Resize*/
+        clearTimeout(echartResize);
+        echartResize = setTimeout(echartsConfig, 200);
+    }).resize();
+}
+
+

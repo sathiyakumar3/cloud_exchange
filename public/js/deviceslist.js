@@ -299,10 +299,10 @@ function buildnavitree() {
 
 
 
-                 document.getElementById("myDropdown").innerHTML = doc.data().searchopt;
+                document.getElementById("myDropdown").innerHTML = doc.data().searchopt;
 
 
-                live_timestamp = doc.data().live_timestamp.toMillis(),
+            live_timestamp = doc.data().live_timestamp.toMillis(),
 
 
                 total_op = doc.data().user_snippet;
@@ -311,6 +311,7 @@ function buildnavitree() {
 
             switch (sys_opt) {
                 case 'Tickets':
+                    add_ticket_menu();
                     document.getElementById("domainload").innerHTML = "- Ticketing System";
                     application = 'Ticketing System';
                     break;
@@ -319,9 +320,10 @@ function buildnavitree() {
                     application = 'Jobsheets System';
                     break;
                 case 'IoT':
-               
+                    $('#content_home_page').load("content/home_page.html");
+                    add_iot_menu();
                     document.getElementById("domainload").innerHTML = "- Internet of Things";
-                   
+
                     document.getElementById("main_page_name").innerText = res[1] || "",
                         document.getElementById("main_page_desig").innerText = doc.data().designation || ""
                     document.getElementById("main_page_pic").src = doc.data().photoUrl || "",
@@ -336,8 +338,10 @@ function buildnavitree() {
                     application = 'Internet of Things';
                     break;
                 default:
+                    $('#content_home_page').load("content/home_page.html");
+                    add_iot_menu();
                     document.getElementById("domainload").innerHTML = "- Internet of Things";
-                
+
                     document.getElementById("main_page_name").innerText = res[1] || "",
                         document.getElementById("main_page_desig").innerText = doc.data().designation || ""
                     document.getElementById("main_page_pic").src = doc.data().photoUrl || "",
@@ -373,39 +377,38 @@ function buildnavitree() {
                 option1.text = tempname, option1.value = tempname, document.getElementById("changeDomain2").add(option1);
                 var rest = [];
                 rest = total_op[i].user_list;
-                if(0 != rest.length)
-                {
-                  
-                rest.forEach(function (entry) {
+                if (0 != rest.length) {
 
-                    const promise3 = new Promise((resolve, reject) => {
-                    
-                    temp.includes(entry) || db.collection("users").doc(entry).get().then(function (doc) {
-                  
-                        if (doc.exists) {
-                            var name2 = doc.data().name || "default",
-                                photoUrl2 = doc.data().photoUrl || "image/blank_profile_pic.jpg",
-                                email2 = doc.data().email || "default";
-                            user_profiles.push({
-                                id: entry,
-                                name: name2,
-                                photoUrl: photoUrl2,
-                                email: email2
-                            });
-                          
-                        }
-                        resolve('success');
-                    }).catch(function (error) {
-                        badnews("Error getting document:", error);
-                        reject('error');
-                    }),                    
-                    temp.push(entry);                  
-                });
-                Promises_.push(promise3);
-                
-            });
-            }
-             
+                    rest.forEach(function (entry) {
+
+                        const promise3 = new Promise((resolve, reject) => {
+
+                            temp.includes(entry) || db.collection("users").doc(entry).get().then(function (doc) {
+
+                                if (doc.exists) {
+                                    var name2 = doc.data().name || "default",
+                                        photoUrl2 = doc.data().photoUrl || "image/blank_profile_pic.jpg",
+                                        email2 = doc.data().email || "default";
+                                    user_profiles.push({
+                                        id: entry,
+                                        name: name2,
+                                        photoUrl: photoUrl2,
+                                        email: email2
+                                    });
+
+                                }
+                                resolve('success');
+                            }).catch(function (error) {
+                                badnews("Error getting document:", error);
+                                reject('error');
+                            }),
+                                temp.push(entry);
+                        });
+                        Promises_.push(promise3);
+
+                    });
+                }
+
                 tempicon = getsiteicon(temptype);
                 if (tempname != "Cloud_Exchange") {
                     new_tab = new_tab + '<li role="presentation" class="' + bb + ' margin-top-tkt"><a data-toggle="tab"id="' + tempname + '1_tab" role="tab"href="#' + tempname + '_tab"aria-expanded="true"><i class="' +
@@ -454,118 +457,119 @@ function buildnavitree() {
                         tests + '</div>';
                     gg = "", bb = "";
 
-              
 
 
-                var lable_tmp = '';
-                var tree = document.createDocumentFragment();
-                var a = document.createElement("a");
-                if (sys_opt == 'Tickets' || sys_opt == 'Jobsheets') {
-                    a.setAttribute("href", "javascript:void(0)");
-                    //   a.setAttribute("id", tempname+"1_tab2");
-                    a.setAttribute("data-toggle", "tab");
-                    a.setAttribute("onclick", "clickthis('" + tempname + "1_tab2" + "')");
-                    //  a.setAttribute("role", "tab");                    
-                    //  a.setAttribute("aria-expanded", false);
-                    lable_tmp = tempname + "_label2";
-                    // lable_tmp = tempname + "_count";
-                } else {
-                    a.setAttribute("href", "javascript:void(0);");
-                    a.setAttribute("data-toggle", "collapse");
-                    a.setAttribute("data-target", "#" + tempname);
-                    lable_tmp = tempname + "_count";
-                }
 
-                //  a.setAttribute("class", cloud_exchange_colour);
-                cloud_exchange_colour = "";
-                var div0 = document.createElement("div");
-                div0.setAttribute("class", "pull-left");
-                var i = document.createElement("i");
-                i.setAttribute("class", tempicon + " mr-20");
-                div0.appendChild(i);
-                var span = document.createElement("span");
-                span.setAttribute("class", "right-nav-text");
-                span.setAttribute("id", "title");
-                div0.appendChild(span);
-                a.appendChild(div0);
-                var div2 = document.createElement("div");
-                div2.setAttribute("class", "pull-right");
-                var i2 = document.createElement("span");
-                i2.setAttribute("class", "badge");
-                i2.setAttribute("id", lable_tmp);
-                div2.appendChild(i2);
-                a.appendChild(div2);
-                var div3 = document.createElement("div");
-                div3.setAttribute("class", "clearfix");
-                a.appendChild(document.createTextNode(tempname.substring(0, 12)));
-                a.appendChild(div3);
-                tree.appendChild(a);
-                document.getElementById("dsa").appendChild(tree);
-                var ul = document.createElement("ul");
-                ul.setAttribute("id", tempname);
-                ul.setAttribute("class", "collapse collapse-level-1 ");
-                tree.appendChild(ul);
-                document.getElementById("dsa").appendChild(tree);
-                document.getElementById(lable_tmp).appendChild(document.createTextNode(children.length));
-                var newdiv = document.createElement('li');
-                var temk = '<li align="left">' + '<a href="javascript:site(\'' + tempid + '\',\'' + role + '\')" class="txt-grey font-12 mb-5">' + '<i class="fas fa-cog mr-10"></i>';
-                temk = temk + 'Settings';
-                var colour = "warning";
-                switch (role) {
-                    case 'Owner':
-                        colour = "warning";
-                        break;
-                    case 'Admin':
-                        colour = "primary";
-                        break;
-                    case 'Developer':
-                        colour = "primary";
-                        break;
-                    default:
-                        colour = "success"
-                }
-                var role_label = '<span class="label label-' + colour + '">' + role + '</span>';
-                temk = temk + '<div class="pull-right">' + role_label + '</div>' + '<div class="clearfix"></div>' + '</a>';
-                temk = temk + '</li>';
-                if (sys_opt == 'IoT' || sys_opt=='') {
 
-                    for (i in children) {
-
-                        var name2 = children[i].name || "",
-                            domain2 = children[i].domain || "",
-                            id2 = children[i].id || "",
-                            description2 = children[i].description || "",
-                            role2 = children[i].role || "",
-                            created_on2 = children[i].created_on || "",
-                            log_minimum_points2 = children[i].log_minimum_points || 0;
-                        total_devices++;
-                        var logsize2 = children[i].log_size;
-                        type2 = children[i].type, devicesum[type2] = (devicesum[type2] || 0) + 1;
-                        var percentage = Math.round(logsize2 / log_minimum_points2 * 100),
-                            progress_bar = '	<div class="row"><span class="font-12 head-font txt-dark">' + numberWithCommas(logsize2) + " / " + numberWithCommas(log_minimum_points2) + '<span class="pull-right">' + percentage + ' %</span></span><div class="progress progress-xs mb-0 "><div class="progress-bar progress-bar-primary" style="width: ' + percentage + '%"></div></div></div>',
-                            hyperlink = "javascript:open_item('" + type2 + "','" + id2 + "','" + domain2 + "','" + role2 + "','" + name2 + "')",
-                            hyperlink2 = "javascript:get_device('" + id2 + "')",
-                            test = '&nbsp;&nbsp;<td class="text-nowrap"><a  href="' + hyperlink2 + '" class="mr-25" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a> <a href="' + hyperlink + '" data-toggle="tooltip" data-original-title="Close"> <i class="far fa-eye"></i> </a> </td>';
-                        tabledata.push([total_devices, '<i class="' + getdeviceicon(type2) + '"></i> ', id2, name2, description2, domain2, role_label, '<i class="fa fa-clock-o"></i> ' + created_on2, progress_bar, test]),
-                            void 0 == typearray[type2] ? typearray[type2] = 0 : typearray[type2]++;
-                        var devicon = getdeviceicon(type2),
-                            iyu = document.createElement("i");
-                        iyu.setAttribute("class", devicon + " mr-20 pull-right txt-grey"), user_devices.push(id2);
-                        var ul = document.createElement("ul");
-                        document.getElementById(tempname).appendChild(ul);
-                        var li = document.createElement("li");
-                        li.id = "li_" + id2;
-                        var a = document.createElement("a");
-                        a.href = "javascript:open_item('" + type2 + "','" + id2 + "','" + domain2 + "','" + role2 + "','" + name2 + "')",
-                            a.className = "navi-sub mb-5 text-muted", a.innerHTML = role2 ? +i + 1 + "&nbsp;. &nbsp;" + name2 + " *" : +i + 1 + "&nbsp;. &nbsp;" + name2,
-                            li.className = "sub-nvi-itm", a.id = id2, ul.appendChild(li), li.appendChild(a),
-                            a.appendChild(iyu), a = document.createElement("a"), a.href = hyperlink, a.innerHTML = domain2 + " : " + name2;
+                    var lable_tmp = '';
+                    var tree = document.createDocumentFragment();
+                    var a = document.createElement("a");
+                    if (sys_opt == 'Tickets' || sys_opt == 'Jobsheets') {
+                        a.setAttribute("href", "javascript:void(0)");
+                        //   a.setAttribute("id", tempname+"1_tab2");
+                        a.setAttribute("data-toggle", "tab");
+                        a.setAttribute("onclick", "clickthis('" + tempname + "1_tab2" + "'),clickthis('home_tab_7')");
+                        //  a.setAttribute("role", "tab");                    
+                        //  a.setAttribute("aria-expanded", false);
+                        lable_tmp = tempname + "_label2";
+                        // lable_tmp = tempname + "_count";
+                    } else {
+                        a.setAttribute("href", "javascript:void(0);");
+                        a.setAttribute("data-toggle", "collapse");
+                        a.setAttribute("data-target", "#" + tempname);
+                        lable_tmp = tempname + "_count";
                     }
+
+                    //  a.setAttribute("class", cloud_exchange_colour);
+                    cloud_exchange_colour = "";
+                    var div0 = document.createElement("div");
+                    div0.setAttribute("class", "pull-left");
+                    var i = document.createElement("i");
+                    i.setAttribute("class", tempicon + " mr-20");
+                    div0.appendChild(i);
+                    var span = document.createElement("span");
+                    span.setAttribute("class", "right-nav-text");
+                    span.setAttribute("id", "title");
+                    div0.appendChild(span);
+                    a.appendChild(div0);
+                    var div2 = document.createElement("div");
+                    div2.setAttribute("class", "pull-right");
+                    var i2 = document.createElement("span");
+                    i2.setAttribute("class", "badge");
+                    i2.setAttribute("id", lable_tmp);
+                    div2.appendChild(i2);
+                    a.appendChild(div2);
+                    var div3 = document.createElement("div");
+                    div3.setAttribute("class", "clearfix");
+                    a.appendChild(document.createTextNode(tempname.substring(0, 12)));
+                    a.appendChild(div3);
+                    tree.appendChild(a);
+                    document.getElementById("dsa").appendChild(tree);
+                    var ul = document.createElement("ul");
+                    ul.setAttribute("id", tempname);
+                    ul.setAttribute("class", "collapse collapse-level-1 ");
+                    tree.appendChild(ul);
+                    document.getElementById("dsa").appendChild(tree);
+                    document.getElementById(lable_tmp).appendChild(document.createTextNode(children.length));
+                    var newdiv = document.createElement('li');
+                    var temk = '<li align="left">' + '<a href="javascript:site(\'' + tempid + '\',\'' + role + '\')" class="txt-grey font-12 mb-5">' + '<i class="fas fa-cog mr-10"></i>';
+                    temk = temk + 'Settings';
+                    var colour = "warning";
+                    switch (role) {
+                        case 'Owner':
+                            colour = "warning";
+                            break;
+                        case 'Admin':
+                            colour = "primary";
+                            break;
+                        case 'Developer':
+                            colour = "primary";
+                            break;
+                        default:
+                            colour = "success"
+                    }
+                    var role_label = '<span class="label label-' + colour + '">' + role + '</span>';
+                    temk = temk + '<div class="pull-right">' + role_label + '</div>' + '<div class="clearfix"></div>' + '</a>';
+                    temk = temk + '</li>';
+                    if (sys_opt == 'IoT' || sys_opt == '') {
+
+                        for (i in children) {
+
+                            var name2 = children[i].name || "",
+                                domain2 = children[i].domain || "",
+                                id2 = children[i].id || "",
+                                description2 = children[i].description || "",
+                                role2 = children[i].role || "",
+                                created_on2 = children[i].created_on || "",
+                                log_minimum_points2 = children[i].log_minimum_points || 0;
+                            total_devices++;
+                            var logsize2 = children[i].log_size;
+                            type2 = children[i].type, devicesum[type2] = (devicesum[type2] || 0) + 1;
+                            var percentage = Math.round(logsize2 / log_minimum_points2 * 100),
+                                progress_bar = '	<div class="row"><span class="font-12 head-font txt-dark">' + numberWithCommas(logsize2) + " / " + numberWithCommas(log_minimum_points2) + '<span class="pull-right">' + percentage + ' %</span></span><div class="progress progress-xs mb-0 "><div class="progress-bar progress-bar-primary" style="width: ' + percentage + '%"></div></div></div>',
+                                hyperlink = "javascript:open_item('" + type2 + "','" + id2 + "','" + domain2 + "','" + role2 + "','" + name2 + "')",
+                                hyperlink2 = "javascript:get_device('" + id2 + "')",
+                                test = '&nbsp;&nbsp;<td class="text-nowrap"><a  href="' + hyperlink2 + '" class="mr-25" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a> <a href="' + hyperlink + '" data-toggle="tooltip" data-original-title="Close"> <i class="far fa-eye"></i> </a> </td>';
+                            tabledata.push([total_devices, '<i class="' + getdeviceicon(type2) + '"></i> ', id2, name2, description2, domain2, role_label, '<i class="fa fa-clock-o"></i> ' + created_on2, progress_bar, test]),
+                                void 0 == typearray[type2] ? typearray[type2] = 0 : typearray[type2]++;
+                            var devicon = getdeviceicon(type2),
+                                iyu = document.createElement("i");
+                            iyu.setAttribute("class", devicon + " mr-20 pull-right txt-grey"), user_devices.push(id2);
+                            var ul = document.createElement("ul");
+                            document.getElementById(tempname).appendChild(ul);
+                            var li = document.createElement("li");
+                            li.id = "li_" + id2;
+                            var a = document.createElement("a");
+                            a.href = "javascript:open_item('" + type2 + "','" + id2 + "','" + domain2 + "','" + role2 + "','" + name2 + "')",
+                                a.className = "navi-sub mb-5 text-muted", a.innerHTML = role2 ? +i + 1 + "&nbsp;. &nbsp;" + name2 + " *" : +i + 1 + "&nbsp;. &nbsp;" + name2,
+                                li.className = "sub-nvi-itm", a.id = id2, ul.appendChild(li), li.appendChild(a),
+                                a.appendChild(iyu), a = document.createElement("a"), a.href = hyperlink, a.innerHTML = domain2 + " : " + name2;
+                        }
+                    }
+                    newdiv.innerHTML = temk
+                    document.getElementById("loading_nava").style.display = "none";
+                    document.getElementById(tempname).appendChild(newdiv);
                 }
-                newdiv.innerHTML = temk
-                document.getElementById("loading_nava").style.display = "none";
-                document.getElementById(tempname).appendChild(newdiv);
-            }
             }
             var endDate = new Date(),
                 seconds = (endDate.getTime() - startDate.getTime()) / 1e3;
@@ -583,8 +587,9 @@ function buildnavitree() {
                     document.getElementById("dp_op_list_3").style.display = "block", document.getElementById("dp_op_line").style.display = "block") : document.getElementById("dpoption").click(),
                 as_options || document.getElementById("asoption").click();
         }).then(function () {
-            document.getElementById("total_dvs").innerText = total_devices;
+         
             if (sys_opt == 'IoT' || sys_opt == '') {
+                document.getElementById("total_dvs").innerText = total_devices;
                 var percentage = Math.round(used_docs2 / available_docs2 * 100),
                     progress_bar = '<div class="row"><span class="font-12 head-font txt-dark">' + numberWithCommas(used_docs2) + " / " + numberWithCommas(available_docs2) + '<span class="pull-right">' + percentage + ' %</span></span><div class="progress progress-xs mb-0 "><div class="progress-bar progress-bar-success" style="width: ' + percentage + '%"></div></div></div>';
                 tabledata.push(["", "", "", "", "", "", "", "Total", progress_bar, ""]);
@@ -625,37 +630,41 @@ function buildnavitree() {
         //   document.getElementById('myTabs_11').style.display = "block",
         document.getElementById('myTabContent_11').innerHTML = new_tab_pro;
         document.getElementById('myTabs_12').innerHTML = new_tab2;
-        console.log(user_profiles);
+   
 
         document.getElementById('myTabContent_12').innerHTML = new_tab_pro2;
         switch (sys_opt) {
             case 'Tickets':
-            /*     console.log('...');
-                Promise.all([Promises_]).then(values => {
-                    console.log('came');
-                   
-                  })
-                  .catch(error => {
-                    console.error(error.message)
-                  }); */
-                  setTimeout(function() {  open_todo(); }, 1000);
+                /*     console.log('...');
+                    Promise.all([Promises_]).then(values => {
+                        console.log('came');
+                       
+                      })
+                      .catch(error => {
+                        console.error(error.message)
+                      }); */
+                setTimeout(function () { open_todo(); }, 1000);
                 break;
             case 'Jobsheets':
-                open_jobsheets();
+                setTimeout(function () { open_jobsheets(); }, 1000);
+   
                 break;
             case 'IoT':
                 things();
                 setup_echart(devicesum);
                 setup_networkchart(total_op);
-                document.getElementById("things_panel").style.display = "block"
+             
+                
 
                 //  document.getElementById("domainload").innerHTML = "- Internet of Things";
                 break;
             default:
+
                 things();
                 setup_echart(devicesum);
                 setup_networkchart(total_op);
-                document.getElementById("things_panel").style.display = "block"
+             
+                
 
             //  document.getElementById("domainload").innerHTML = "- Internet of Things";
         }
@@ -981,7 +990,7 @@ function googlefunctions() {
                                 });
 
                             }).then(function () {
-                             
+
                                 var io = userlist;
                                 db.collection("devices").where("domain", "==", domainid).get().then(function (querySnapshot) {
                                     devicecount += querySnapshot.size, querySnapshot.forEach(function (doc) {
