@@ -1,144 +1,116 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset=utf-8>
-  <meta name=viewport content="width=device-width, initial-scale=1">
-  <meta http-equiv=cache-control content='no-cache no-cache, no-store, must-revalidate'>
-  <meta http-equiv=expires content=0>
-  <meta http-equiv=pragma content=no-cache>
-  <meta name=viewport content="width=device-width, initial-scale=1">
-  <link href=https://use.fontawesome.com/releases/v5.9.0/css/all.css rel=stylesheet>
-  <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css>
-  <link rel="shortcut icon" href=image/fav/favicon-32x32.png type=image/x-icon>
-  <link rel=icon href=image/fav/favicon-32x32.png type=image/x-icon>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="cache-control" content='no-cache no-cache, no-store, must-revalidate'>
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="image/fav/favicon-32x32.png" type="image/x-icon">
+  <link rel="icon" href="image/fav/favicon-32x32.png" type="image/x-icon">
   <title>Cloud Exchange</title>
-
-  <link href=dist/css/style.css rel=stylesheet>
-  <link href=vendors/bower_components/datatables/media/css/jquery.dataTables.min.css rel=stylesheet>
-  <link href=vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.css rel=stylesheet>
-  <link href=https://unpkg.com/tabulator-tables@4.2.3/dist/css/tabulator.min.css rel=stylesheet>
-  <link href=css/CDN_Template/buttons.dataTables.min.css rel=stylesheet>
-  <link href=css/CDN_Template/sweetalert2.css rel=stylesheet>
-  <link href=vendors/bower_components/morris.js/morris.css rel=stylesheet>
-  <link href=vendors/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css rel=stylesheet>
-
-  <link href=vendors/bower_components/bootstrap-daterangepicker/daterangepicker.css rel=stylesheet>
-  <link rel=stylesheet href=css/CDN_Template/amchrt/export.css media="all">
-  <link href=vendors/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css rel=stylesheet>
-  <link href=vendors/bower_components/fullcalendar/dist/fullcalendar.css rel=stylesheet>
-
-  <link href=css/custom.css rel=stylesheet>
-  <link href=vendors/bower_components/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css rel="stylesheet">
-  <link href=vendors/bower_components/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css
-    rel=stylesheet>
-  <link href=vendors/bower_components/select2/dist/css/select2.min.css rel=stylesheet>
-  <link href=vendors/bower_components/switchery/dist/switchery.min.css rel=stylesheet>
-  <link href=vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css rel=stylesheet>
-  <link href=vendors/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css rel=stylesheet>
-  <link href=vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css
-    rel=stylesheet>
-  <link href=vendors/bower_components/multiselect/css/multi-select.css rel=stylesheet>
-  <link href=vendors/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css rel=stylesheet>
-  <link href=vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css rel=stylesheet>
-  <link href=css/CDN_Template/select.dataTables.min.css rel=stylesheet>
-  <link href=css/CDN_Template/editor.dataTables.min.css rel=stylesheet>
-  <link href=vendors/bower_components/switchery/dist/switchery.min.css rel=stylesheet>
-  <link href=vendors/bower_components/ion.rangeSlider/css/ion.rangeSlider.css rel=stylesheet>
-  <link href=vendors/bower_components/ion.rangeSlider/css/ion.rangeSlider.skinSimple.css rel=stylesheet>
-  <link href=vendors/bower_components/ion.rangeSlider/css/ion.rangeSlider.skinModern.css rel=stylesheet>
-
-  <link rel=stylesheet href=https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css>
-  <link rel=stylesheet href=https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css>
+  <link href="dist/css/style.css" rel="stylesheet">
+  <link href="vendors/bower_components/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link href="vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/tabulator-tables@4.2.3/dist/css/tabulator.min.css" rel="stylesheet">
+  <link href="css/CDN_Template/buttons.dataTables.min.css" rel="stylesheet">
+  <link href="css/CDN_Template/sweetalert2.css" rel="stylesheet">
+  <link href="vendors/bower_components/morris.js/morris.css" rel="stylesheet">
+  <link href="vendors/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
+  <link href="vendors/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/CDN_Template/amchrt/export.css" media="all">
+  <link href="vendors/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css" rel="stylesheet">
+  <link href="vendors/bower_components/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+  <link href="vendors/bower_components/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+  <link href="vendors/bower_components/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+  <link href="vendors/bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
+  <link href="vendors/bower_components/switchery/dist/switchery.min.css" rel="stylesheet">
+  <link href="vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+  <link href="vendors/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
+  <link href="vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  <link href="vendors/bower_components/multiselect/css/multi-select.css" rel="stylesheet">
+  <link href="vendors/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet">
+  <link href="vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+  <link href="css/CDN_Template/select.dataTables.min.css" rel="stylesheet">
+  <link href="css/CDN_Template/editor.dataTables.min.css" rel="stylesheet">
+  <link href="vendors/bower_components/switchery/dist/switchery.min.css" rel="stylesheet">
+  <link href="vendors/bower_components/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
+  <link href="vendors/bower_components/ion.rangeSlider/css/ion.rangeSlider.skinSimple.css" rel="stylesheet">
+  <link href="vendors/bower_components/ion.rangeSlider/css/ion.rangeSlider.skinModern.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
   <link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css" rel="stylesheet">
-
 </head>
-
 <body>
-
-
   <div class="wrapper theme-2-active pimary-color-blue">
-    <nav class="navbar navbar-inverse navbar-fixed-top" id=toprow></nav>
-    <div class=fixed-sidebar-left id=mainnavi-hidden>
-      <ul class="nav navbar-nav side-nav nicescroll-bar" id=nav-placeholder></ul>
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="toprow"></nav>
+    <div class="fixed-sidebar-left" id="mainnavi-hidden">
+      <ul class="nav navbar-nav side-nav nicescroll-bar" id="nav-placeholder"></ul>
     </div>
-    <div class=page-wrapper>
-      <br />
+    <div class="page-wrapper">
+      <br>
       <div id="content" style="display:none"></div>
       <div id="content_devices" style="display:none"></div>
       <div id="content_chat" style="display:none"></div>
       <div id="content_todo" style="display:none"></div>
       <div id="content_jobsheet" style="display:none"></div>
-      <div id=content_home_page></div>
+      <div id="content_home_page" style="display:none"></div>
       <footer class="footer container-fluid pl-30 pr-30">
-        <div class=row>
-          <div class=col-sm-12>
+        <div class="row">
+          <div class="col-sm-12">
             <p>2019 Cloud Exchange</p>
           </div>
         </div>
       </footer>
     </div>
   </div>
-  <div class="modal fade" id=exampleModal tabindex=-1 role=dialog aria-labelledby=exampleModalLabel1></div>
-  <div id=editprofilemodal class="modal fade in" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
-  </div>
-  <div id=addsitemodal class="modal fade in" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
-  </div>
-  <div id=CreateSitemodal class="modal fade in" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
-  </div>
-  <div id=rateus class="modal fade in" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true></div>
-  <!--DEVICE SETTINGS-->
-  <div id="device_settings_modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
-    aria-hidden="true">
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"></div>
+  <div id="editprofilemodal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+  <div id="addsitemodal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+  <div id="CreateSitemodal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+  <div id="rateus" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div><!--DEVICE SETTINGS-->
+  <div id="device_settings_modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#215;</button>
-            <h5 class="modal-title" id="myLargeModalLabel">
-              <strong>&nbsp;Device
-                Settings</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h5 class="modal-title" id="myLargeModalLabel"><strong>&nbsp;Device Settings</strong></h5>
           </div>
           <div class="panel-wrapper collapse in">
             <div class="panel-body">
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label class="control-label mb-10" for="">Device Name</label>
-                    <input type="text" class="form-control" id="formdName" />
+                    <label class="control-label mb-10" for="">Device Name</label> <input type="text" class="form-control" id="formdName">
                   </div>
                   <div class="form-group">
-                    <label class="control-label mb-10">Enables Logs :</label>
-                    <input type="checkbox" class="js-switch" data-color="#13dafe" id="log_options"
-                      onchange="javascript:change_trend()" />
+                    <label class="control-label mb-10">Enables Logs :</label> <input type="checkbox" class="js-switch" data-color="#13dafe" id="log_options" onchange="javascript:change_trend()">
                   </div>
                   <div class="form-group" id="note3">
-                    <label for="" class="control-label mb-10">Log Intravel (Minutes)</label>
-                    <input type="text" id="formintevl" value="" name="range" />
+                    <label for="" class="control-label mb-10">Log Intravel (Minutes)</label> <input type="text" id="formintevl" value="" name="range">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label class="control-label mb-10" for="">Description</label>
-                    <input type="text" class="form-control" id="formdescription" />
+                    <label class="control-label mb-10" for="">Description</label> <input type="text" class="form-control" id="formdescription">
                   </div>
                   <div class="form-group">
-                    <label class="control-label mb-10">Enable Alarms :</label>
-                    <input type="checkbox" class="js-switch" data-color="#4aa23c" id="alarm_options" />
+                    <label class="control-label mb-10">Enable Alarms :</label> <input type="checkbox" class="js-switch" data-color="#4aa23c" id="alarm_options">
                   </div>
                   <div class="form-group" id="note2">
-                    <label for="" class="control-label mb-10">Minimum Logs (Records)</label>
-                    <input type="text" id="mmlog" value="" name="range" />
+                    <label for="" class="control-label mb-10">Minimum Logs (Records)</label> <input type="text" id="mmlog" value="" name="range">
                   </div>
                 </div>
                 <div class="col-xs-12">
                   <div class="form-group" id="note1">
                     <blockquote>
-                      <p>Please note that the selected configuration can hold data for a period of <span id="tttt1"
-                          class="text-success mb-10">-</span>
-                      </p>
-                    </blockquote>
-                    <!-- <textarea class="form-control" id="dDescription" required=""></textarea> -->
+                      <p>Please note that the selected configuration can hold data for a period of <span id="tttt1" class="text-success mb-10">-</span></p>
+                    </blockquote><!-- <textarea class="form-control" id="dDescription" required=""></textarea> -->
                   </div>
                 </div>
                 <div class="col-xs-12">
@@ -146,76 +118,34 @@
                 </div>
                 <div class="col-xs-12">
                   <div class="form-group">
-                    <label class="control-label mb-10" for="">Device Type</label>
-                    <select data-placeholder="Choose a Category" class="form-control" tabindex="1"
-                      id="formdvtype"></select> <span class="help-block mt-10 mb-0">
-                      <p>Please
-                        ensure
-                        the right data
-                        type is
-                        selected, as
-                        each device
-                        type has a
-                        unique
-                        dashboard and
-                        also note
-                        that the device
-                        will be
-                        reset after
-                        changing the
-                        type.</p>
-                    </span>
+                    <label class="control-label mb-10" for="">Device Type</label> <select data-placeholder="Choose a Category" class="form-control" tabindex="1" id="formdvtype">
+                    </select>
+                    <p><span class="help-block mt-10 mb-0">Please ensure the right data type is selected, as each device type has a unique dashboard and also note that the device will be reset after changing the type.</span></p>
                   </div>
                 </div>
                 <div class="col-xs-12">
                   <div class="form-group">
-                    <label class="control-label mb-10" for="">Site</label>
-                    <select data-placeholder="Choose a Category" class="form-control" tabindex="1"
-                      id="changeDomain3"></select> <span class="help-block mt-10 mb-0"><small>Please
-                        note
-                        that, the device will be
-                        reset after changing the
-                        domain.</small></span>
+                    <label class="control-label mb-10" for="">Site</label> <select data-placeholder="Choose a Category" class="form-control" tabindex="1" id="changeDomain3">
+                    </select> <span class="help-block mt-10 mb-0"><small>Please note that, the device will be reset after changing the domain.</small></span>
                   </div>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-warning waves-effect btn-rounded btn-anim" data-dismiss="modal"
-                  data-toggle="modal" data-target="#connectivity_modal" style=" float:left"><span
-                    class="btn-text txt-dark">Connectivity</span>
-                </button>
-                <button type="submit" class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal"
-                  onclick="updatedeviceinfo()"><span class="btn-text">Save
-                    Changes</span>
-                </button>
-
-                <button type="button" class="btn dvice-dlt-bt3 btn-rounded btn-anim" data-dismiss="modal"
-                  style="float:left"><span class="btn-text">Delete</span>
-                </button>
-                <button type="submit" class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal"
-                  style="float:left" onclick="cleandatasets()"><span class="btn-text">Clean Logs
-                  </span>
-                </button>
-                <button type=" button" class="btn btn-default waves-effect btn-rounded btn-anim"
-                  data-dismiss="modal"><span class="btn-text">Cancel</span>
-                </button>
+                <button type="submit" class="btn btn-warning waves-effect btn-rounded btn-anim" data-dismiss="modal" data-toggle="modal" data-target="#connectivity_modal" style="float:left"><span class="btn-text txt-dark">Connectivity</span></button> <button type="submit" class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal" onclick="updatedeviceinfo()"><span class="btn-text">Save Changes</span></button> <button type="button" class="btn dvice-dlt-bt3 btn-rounded btn-anim" data-dismiss="modal" style="float:left"><span class="btn-text">Delete</span></button> <button type="submit" class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal" style="float:left" onclick="cleandatasets()"><span class="btn-text">Clean Logs</span></button> <button type="button" class="btn btn-default waves-effect btn-rounded btn-anim" data-dismiss="modal"><span class="btn-text">Cancel</span></button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!--CONNECTIVITY SETTINGS-->
-  <div id="connectivity_modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
+  </div><!--CONNECTIVITY SETTINGS-->
+  <div id="connectivity_modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h5 class="modal-title" id="myLargeModalLabel">
-              <strong>&nbsp&nbspConnectivity</strong></h5>
+            <h5 class="modal-title" id="myLargeModalLabel"><strong>&nbsp;&amp;nbspConnectivity</strong></h5>
           </div>
           <div class="panel-heading">
             <div class="pull-left">
@@ -224,11 +154,11 @@
             <div class="pull-right">
               <div class="tab-struct custom-tab-1">
                 <ul role="tablist" class="nav nav-tabs" id="myTabs_9">
-                  <li role="presentation" class="active"><a data-toggle="tab" id="home_tab_9" role="tab" href="#home_9"
-                      aria-expanded="true">Connectivity</a>
+                  <li role="presentation" class="active">
+                    <a data-toggle="tab" id="home_tab_9" role="tab" href="#home_9" aria-expanded="true">Connectivity</a>
                   </li>
-                  <li class="" role="presentation"><a aria-expanded="false" data-toggle="tab" role="tab" id="json_tab"
-                      href="#json" onclick="readraw()">Troubleshoot</a>
+                  <li class="" role="presentation">
+                    <a aria-expanded="false" data-toggle="tab" role="tab" id="json_tab" href="#json" onclick="readraw()">Troubleshoot</a>
                   </li>
                 </ul>
               </div>
@@ -240,70 +170,55 @@
               <div class="tab-content" id="myTabContent_9">
                 <div id="home_9" class="tab-pane fade active in" role="tabpanel">
                   <div class="row">
-                    <br />
+                    <br>
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label class="control-label mb-10" for="">Device ID</label>
-                        <input type="text" class="form-control" id="formdvid" disabled>
+                        <label class="control-label mb-10" for="">Device ID</label> <input type="text" class="form-control" id="formdvid" disabled>
                       </div>
                       <div class="form-group">
-                        <label class="control-label mb-10" for="">Format</label>
-                        <input type="text" class="form-control" id="formdvformat" disabled>
+                        <label class="control-label mb-10" for="">Format</label> <input type="text" class="form-control" id="formdvformat" disabled>
                       </div>
                       <div class="form-group">
-                        <label class="control-label mb-10" for="">Registry ID</label>
-                        <input type="text" class="form-control" id="domainid3" disabled>
+                        <label class="control-label mb-10" for="">Registry ID</label> <input type="text" class="form-control" id="domainid3" disabled>
                       </div>
                       <div class="form-group">
-                        <label class="control-label mb-10" for="">Owner</label>
-                        <input type="text" class="form-control" id="formdvOwner" disabled>
+                        <label class="control-label mb-10" for="">Owner</label> <input type="text" class="form-control" id="formdvOwner" disabled>
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label class="control-label mb-10" for="">Public key</label>
+                        <label class="control-label mb-10" for="">Public key</label> 
                         <textarea class="form-control" id="Pkey2" cols="40" rows="10" disabled></textarea>
                       </div>
                       <div class="form-group">
-                        <label class="control-label mb-10" for="">Location</label>
-                        <input type="text" class="form-control" id="" disabled value="asia-east1">
+                        <label class="control-label mb-10" for="">Location</label> <input type="text" class="form-control" id="" disabled value="asia-east1">
                       </div>
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type=" button" class="btn btn-default waves-effect btn-rounded btn-anim"
-                      data-dismiss="modal"><i class="fas fa-window-close"></i><span class="btn-text">Cancel</span>
-                    </button>
+                    <button type="button" class="btn btn-default waves-effect btn-rounded btn-anim" data-dismiss="modal"><span class="btn-text">Cancel</span></button>
                   </div>
                 </div>
                 <div id="json" class="tab-pane fade" role="tabpanel">
                   <div class="row">
                     <div class="modal-header">
-                      <h6 class="modal-title text-left" id="rawdata_status"><i
-                          class='fas fa-sync fa-spin'></i>&nbsp;&nbsp;&nbsp
-                        Requesting New Raw
-                        Messages...</h6>
-                    </div>
-                    <br />
+                      <h6 class="modal-title text-left" id="rawdata_status">&nbsp;&nbsp;&nbsp; Requesting New Raw Messages...</h6>
+                    </div><br>
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label class="control-label mb-10" for="">Expected</label>
-                        <textarea class="form-control" id="" cols="40" rows="10"
-                          disabled>{ "zone_air_quality_index" :&nbsp;XXX, "air_quality_score":&nbsp;XXX, "zone_air_temperature":&nbsp;XXX, "zone_air_humidity":XXX, "return_air_temperature":&nbsp;XXX, "supply_air_temperature":&nbsp;XXX, "supply_air_pressure":&nbsp;XXX, "damper_position":&nbsp;XXX, }</textarea>
+                        <label class="control-label mb-10" for="">Expected</label> 
+                        <textarea class="form-control" id="" cols="40" rows="10" disabled>{ "zone_air_quality_index" : XXX, "air_quality_score": XXX, "zone_air_temperature": XXX, "zone_air_humidity":XXX, "return_air_temperature": XXX, "supply_air_temperature": XXX, "supply_air_pressure": XXX, "damper_position": XXX, }</textarea>
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label class="control-label mb-10" for="" id="received_packet_ts">Received</label>
-                        <textarea class="form-control" id="received_packet" cols="40" rows="10"
-                          disabled>{ Nothing Received, so far. }</textarea>
+                        <label class="control-label mb-10" for="" id="received_packet_ts">Received</label> 
+                        <textarea class="form-control" id="received_packet" cols="40" rows="10" disabled>{ Nothing Received, so far. }</textarea>
                       </div>
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type=" button" class="btn btn-default waves-effect btn-rounded btn-anim"
-                      data-dismiss="modal"><i class="fas fa-window-close"></i><span class="btn-text">Cancel</span>
-                    </button>
+                    <button type="button" class="btn btn-default waves-effect btn-rounded btn-anim" data-dismiss="modal"><span class="btn-text">Cancel</span></button>
                   </div>
                 </div>
               </div>
@@ -312,24 +227,20 @@
         </div>
       </div>
     </div>
-  </div>
-  <!--ALARM SETTINGS-->
+  </div><!--ALARM SETTINGS-->
   <div class="modal fade alarms_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-body">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h5 class="modal-title">
-              <strong>&nbsp;&nbsp;Alarm Range Selection</strong></h5>
+            <h5 class="modal-title"><strong>&nbsp;&nbsp;Alarm Range Selection</strong></h5>
           </div>
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-12">
                 <blockquote>
-                  <p>The below sliders also denotes the range within the parameter lies. If values exceeds or fails
-                    short,
-                    it will logged in the alarm history and the range will be altered accordingly.</p>
+                  <p>The below sliders also denotes the range within the parameter lies. If values exceeds or fails short, it will logged in the alarm history and the range will be altered accordingly.</p>
                 </blockquote>
               </div>
             </div>
@@ -341,57 +252,41 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn dvice-dlt-bt3 btn-rounded btn-anim" data-dismiss="modal" style="float:left"
-            onclick="rangetdreset()"><i class="fas fa-trash-alt"></i><span class="btn-text">Reset
-              History</span>
-          </button>
-          <button type="submit" class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal"
-            onclick="rangesave()"><i class="fas fa-save"></i><span class="btn-text">Save
-              Changes</span>
-          </button>
-          <button type=" button" class="btn btn-default waves-effect btn-rounded btn-anim" data-dismiss="modal"><i
-              class="fas fa-window-close"></i><span class="btn-text">Cancel</span>
-          </button>
+          <button type="button" class="btn dvice-dlt-bt3 btn-rounded btn-anim" data-dismiss="modal" style="float:left" onclick="rangetdreset()"><span class="btn-text">Reset History</span></button> <button type="submit" class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal" onclick="rangesave()"><span class="btn-text">Save Changes</span></button> <button type="button" class="btn btn-default waves-effect btn-rounded btn-anim" data-dismiss="modal"><span class="btn-text">Cancel</span></button>
         </div>
       </div>
     </div>
-  </div>
-  <!--VERDICT SETTINGS-->
+  </div><!--VERDICT SETTINGS-->
   <div class="modal fade" id="verdict_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-body">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h5 class="modal-title">
-              <strong>&nbsp;&nbsp;Add Comment</strong></h5>
+            <h5 class="modal-title"><strong>&nbsp;&nbsp;Add Comment</strong></h5>
           </div>
           <div class="col-lg-12 col-sm-12">
             <br>
-            <label class="control-label mb-10 text-left">Your input</label>
+            <label class="control-label mb-10 text-left">Your input</label> 
             <textarea class="form-control" id="vdtText"></textarea>
           </div>
         </div>
         <div class="modal-footer">
           <div class="col-lg-12 col-sm-12">
             <br>
-            <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal" onclick="verdict_edit()">Save
-              changes</button>
+            <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal" onclick="verdict_edit()">Save changes</button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!--SET DESIGN PARAMETER SETTINGS-->
+  </div><!--SET DESIGN PARAMETER SETTINGS-->
   <div class="modal fade" id="set_design_parameter_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-body">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h5 class="modal-title">
-              <strong>&nbsp;&nbsp;Set Design Parameters</strong></h5>
+            <h5 class="modal-title"><strong>&nbsp;&nbsp;Set Design Parameters</strong></h5>
           </div>
           <div class="table-wrap">
             <div class="table-responsive">
@@ -400,54 +295,42 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal" onclick="rangesave3()">Save
-            changes</button>
+          <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal" onclick="rangesave3()">Save changes</button>
         </div>
       </div>
     </div>
-  </div>
-  <!--TREND SETTINGS-->
-  <div id="trend_modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
-    aria-hidden="true">
+  </div><!--TREND SETTINGS-->
+  <div id="trend_modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h5 class="modal-title" id="myLargeModalLabel">
-              <strong>&nbsp&nbspCustomize Trend</strong></h5>
+            <h5 class="modal-title" id="myLargeModalLabel"><strong>&nbsp;&amp;nbspCustomize Trend</strong></h5>
           </div>
           <div class="panel-wrapper collapse in">
             <div class="panel-body">
-              </br>
+              <br>
               <form class="form-inline" action="#">
                 <div class="row">
                   <div class="col-xs-12">
-                    <label class="control-label mb-10">1.&nbsp Select the date and time range.</label>
+                    <label class="control-label mb-10">1.&nbsp; Select the date and time range.</label>
                     <div class="form-group mb-0">
-                      <input type="text" class="form-control input-daterange-timepicker" name="daterange"
-                        value="01/01/2016 1:30 PM - 01/01/2016 2:00 PM">
+                      <input type="text" class="form-control input-daterange-timepicker" name="daterange" value="01/01/2016 1:30 PM - 01/01/2016 2:00 PM">
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="panel-wrapper collapse in">
                     <div class="panel-body" align="left">
-
                       <div class="row">
                         <div class="col-xs-12">
                           <div>
-                            <label class="control-label mb-10" for="">2.&nbsp Select the required datasets.</label>
-                          </div>
-                          <select multiple id="public-methods" name="public-methods[]">
-
+                            <label class="control-label mb-10" for="">2.&nbsp; Select the required datasets.</label>
+                          </div><select multiple id="public-methods" name="public-methods[]">
                           </select>
-                          <div class="button-box"> <a id="select-all" class="btn btn-danger btn-outline mr-10 mt-15"
-                              href="#">select
-                              all</a>
-                            <a id="deselect-all" class="btn btn-info btn-outline mr-10 mt-15" href="#">deselect
-                              all</a>
+                          <div class="button-box">
+                            <a id="select-all" class="btn btn-danger btn-outline mr-10 mt-15" href="#">select all</a> <a id="deselect-all" class="btn btn-info btn-outline mr-10 mt-15" href="#">deselect all</a>
                           </div>
                         </div>
                       </div>
@@ -455,18 +338,8 @@
                   </div>
                 </div>
               </form>
-
               <div class="modal-footer">
-                <button type="button" class="btn dvice-dlt-bt3 btn-rounded btn-anim" data-dismiss="modal"
-                  style="float:left" onclick="trendreset()"><i class="fas fa-trash-alt"></i><span class="btn-text">Reset
-                    History</span>
-                </button>
-                <button type="submit" class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal"
-                  onclick="gen_cust_gra2()"><i class="far fa-chart-bar"></i><span class="btn-text">Generate</span>
-                </button>
-                <button type=" button" class="btn btn-default waves-effect btn-rounded btn-anim" data-dismiss="modal"><i
-                    class="fas fa-window-close"></i><span class="btn-text">Cancel</span>
-                </button>
+                <button type="button" class="btn dvice-dlt-bt3 btn-rounded btn-anim" data-dismiss="modal" style="float:left" onclick="trendreset()"><span class="btn-text">Reset History</span></button> <button type="submit" class="btn btn-success waves-effect btn-rounded btn-anim" data-dismiss="modal" onclick="gen_cust_gra2()"><span class="btn-text">Generate</span></button> <button type="button" class="btn btn-default waves-effect btn-rounded btn-anim" data-dismiss="modal"><span class="btn-text">Cancel</span></button>
               </div>
             </div>
           </div>
@@ -474,89 +347,75 @@
       </div>
     </div>
   </div>
-
-</body>
-
-<script src="https://code.jquery.com/jquery-1.10.2.js"> </script>
-<script src=vendors/bower_components/jquery/dist/jquery.min.js> </script>
-<script src=vendors/bower_components/bootstrap/dist/js/bootstrap.min.js> </script> <!-- Data table JavaScript -->
-<script src="dist/js/jquery.slimscroll.js"></script>
-
-
-
-<script src="vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
-<script src="dist/js/init.js"></script>
-
-
-
-<script src="vendors/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-<script src=vendors/bower_components/editable-table/mindmup-editabletable.js> </script>
-<script src=vendors/bower_components/editable-table/numeric-input-example.js> </script>
-<script src=dist/js/editable-table-data.js> </script>
-
-<script src=vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js> </script>
-<script src=vendors/bower_components/moment/min/moment-with-locales.min.js> </script>
-<script src=vendors/bower_components/moment/min/moment.min.js> </script>
-<script src="https://unpkg.com/tabulator-tables@4.2.3/dist/js/tabulator.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"> </script>
-<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"> </script>
-<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"> </script>
-
-<script src=vendors/bower_components/bootstrap-daterangepicker/daterangepicker.js> </script>
-<script src=vendors/bower_components/multiselect/js/jquery.multi-select.js> </script>
-
-<script src=js/cdntemplate/sweetalert2.all.js> </script>
- <script src=js/cdntemplate/amcharts/core.js> </script>
-<script src=js/cdntemplate/amcharts/charts.js> </script>
-<script src=js/cdntemplate/amcharts/amcharts.js> </script>
-<script src=js/cdntemplate/amcharts/serial.js> </script>
-<script src=js/cdntemplate/amcharts/maps.js> </script>
-<script src=js/cdntemplate/amcharts/radar.js> </script>
-<script src=js/cdntemplate/amcharts/polarScatter.min.js> </script>
-<script src=js/cdntemplate/amcharts/animated.js> </script>
-<script src=js/cdntemplate/amcharts/forceDirected.js> </script>
-<script src=js/cdntemplate/amcharts/dataloader.min.js> </script>
-<script src=js/cdntemplate/amcharts/worldLow.js> </script> 
-<script src=js/cdntemplate/echarts/echarts.min.js> </script>
-<script src=vendors/bower_components/echarts/dist/echarts-en.min.js> </script>
-<script src=js/qrcode.min.js> </script>
-<script src=vendors/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js> </script>
-<script src=vendors/bower_components/switchery/dist/switchery.min.js> </script>
-<script src=vendors/bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js> </script>
-<script src=vendors/jquery.sparkline/dist/jquery.sparkline.min.js> </script>
-<script src=js/cdntemplate/dataTables.select.min.js> </script>
-<script src=vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js> </script>
-<script src=vendors/jquery-ui.min.js> </script>
-<script src=vendors/bower_components/jquery.counterup/jquery.counterup.min.js></script>
-<script src=dist/js/dropdown-bootstrap-extended.js> </script>
-<script src=vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.js> </script>
-<script src=vendors/bower_components/owl.carousel/dist/owl.carousel.min.js> </script>
-<script src=vendors/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js> </script>
-<script src=vendors/bower_components/select2/dist/js/select2.full.min.js> </script>
-
-<script src=vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js> </script>
-<script src=vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.js> </script>
-<script src=vendors/bower_components/echarts/dist/echarts-en.min.js> </script>
-<script src=vendors/bower_components/waypoints/lib/jquery.waypoints.min.js> </script>
-<script src=js/cdntemplate/dataTables.buttons.min.js> </script>
-
-
-<script src="dist/js/form-picker-data.js"></script>
-<script
-  src=vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js> </script>
-<script src=dist/js/form-advance-data.js> </script>
-<script src=js/app.js> </script>
-<script src=js/include.js> </script>
-<script src=js/logout.js> </script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script> 
+  <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script> 
+  <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> <!-- Data table JavaScript -->
+   
+  <script src="dist/js/jquery.slimscroll.js"></script> 
+  <script src="vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.js"></script> 
+  <script src="dist/js/init.js"></script> 
+  <script src="vendors/bower_components/datatables/media/js/jquery.dataTables.min.js"></script> 
+  <script src="vendors/bower_components/editable-table/mindmup-editabletable.js"></script> 
+  <script src="vendors/bower_components/editable-table/numeric-input-example.js"></script> 
+  <script src="dist/js/editable-table-data.js"></script> 
+  <script src="vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script> 
+  <script src="vendors/bower_components/moment/min/moment-with-locales.min.js"></script> 
+  <script src="vendors/bower_components/moment/min/moment.min.js"></script> 
+  <script src="https://unpkg.com/tabulator-tables@4.2.3/dist/js/tabulator.min.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script> 
+  <script src="vendors/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script> 
+  <script src="vendors/bower_components/multiselect/js/jquery.multi-select.js"></script> 
+  <script src="js/cdntemplate/sweetalert2.all.js"></script> 
+  <script src="js/cdntemplate/amcharts/core.js"></script> 
+  <script src="js/cdntemplate/amcharts/charts.js"></script> 
+  <script src="js/cdntemplate/amcharts/amcharts.js"></script> 
+  <script src="js/cdntemplate/amcharts/serial.js"></script> 
+  <script src="js/cdntemplate/amcharts/maps.js"></script> 
+  <script src="js/cdntemplate/amcharts/radar.js"></script> 
+  <script src="js/cdntemplate/amcharts/polarScatter.min.js"></script> 
+  <script src="js/cdntemplate/amcharts/animated.js"></script> 
+  <script src="js/cdntemplate/amcharts/forceDirected.js"></script> 
+  <script src="js/cdntemplate/amcharts/dataloader.min.js"></script> 
+  <script src="js/cdntemplate/amcharts/worldLow.js"></script> 
+  <script src="js/cdntemplate/echarts/echarts.min.js"></script> 
+  <script src="vendors/bower_components/echarts/dist/echarts-en.min.js"></script> 
+  <script src="js/qrcode.min.js"></script> 
+  <script src="vendors/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script> 
+  <script src="vendors/bower_components/switchery/dist/switchery.min.js"></script> 
+  <script src="vendors/bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js"></script> 
+  <script src="vendors/jquery.sparkline/dist/jquery.sparkline.min.js"></script> 
+  <script src="js/cdntemplate/dataTables.select.min.js"></script> 
+  <script src="vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js"></script> 
+  <script src="vendors/jquery-ui.min.js"></script> 
+  <script src="vendors/bower_components/jquery.counterup/jquery.counterup.min.js"></script> 
+  <script src="dist/js/dropdown-bootstrap-extended.js"></script> 
+  <script src="vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script> 
+  <script src="vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script> 
+  <script src="vendors/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script> 
+  <script src="vendors/bower_components/select2/dist/js/select2.full.min.js"></script> 
+  <script src="vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script> 
+  <script src="vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.js"></script> 
+  <script src="vendors/bower_components/echarts/dist/echarts-en.min.js"></script> 
+  <script src="vendors/bower_components/waypoints/lib/jquery.waypoints.min.js"></script> 
+  <script src="js/cdntemplate/dataTables.buttons.min.js"></script> 
+  <script src="vendors/bower_components/peity/jquery.peity.min.js"></script> 
+  <script src="dist/js/form-picker-data.js"></script> 
+  <script src="vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script> 
+  <script src="dist/js/form-advance-data.js"></script> 
+  <script src="js/app.js"></script> 
+  <script src="js/include.js"></script> 
+  <script src="js/logout.js"></script> 
+  <script src="js/devicesfunc.js"></script> 
+  <script src="js/chat.js"></script> 
+  <script src="js/general.js"></script> 
+  <script src="js/todo.js"></script> 
+  <script src="js/jobsheets.js"></script> 
+  <script src="js/deviceslist.js"></script> 
+  <script>
 
 
-<script src="js/devicesfunc.js"></script>
-<script src="js/chat.js"></script>
-<script src="js/general.js"></script>
-<script src="js/todo.js"></script>
-<script src="js/jobsheets.js"></script>
-<script src="js/deviceslist.js"></script>
-<script>
   var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
   elems.forEach(function (html) {
@@ -636,12 +495,6 @@
     $('input[name="daterange"]').daterangepicker({ timePicker: !0, format: "MM/DD/YYYY h:mm A", startDate: moment().subtract(30, "d"), endDate: moment(), timePickerIncrement: 30, timePicker12Hour: !0, timePickerSeconds: !1, buttonClasses: ["btn", "btn-sm"], applyClass: "btn-success", cancelClass: "btn-default" }, function (e, t) { s_date = new Date(e), e_date = new Date(t), s_date_format = e.format("DD-MM-YYYY- h:mm"), e_date_format = e.format("DD-MM-YYYY- h:mm") }),
       $("#trend_modal").modal("show")
   }
-</script>
-
-
-
-
-
-
-
+  </script>
+</body>
 </html>

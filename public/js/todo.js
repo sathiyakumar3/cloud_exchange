@@ -1,4 +1,3 @@
-
 var dataSet2 = [];
 var dataSet3 = [];
 var dats = [];
@@ -7,7 +6,7 @@ var loaded = false;
 
 function sendmail2() {
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             alert(this.responseText);
         }
@@ -91,7 +90,9 @@ function testWhite(x) {
 };
 
 function wordWrap(str, maxWidth) {
-    var newLineStr = "\n"; done = false; res = '';
+    var newLineStr = "\n";
+    done = false;
+    res = '';
     while (str.length > maxWidth) {
         found = false;
         // Inserts new line at first whitespace of the line
@@ -191,8 +192,8 @@ function processrow(reportflag, row, i) //
         Difference_In_Days = Math.round(Difference_In_Time / 864e5);
 
     if (Difference_In_Days > 7 && '<span class="label label-danger">Not Started</span>' == row[7]) {
-        row[6] = '<span class="inline-block txt-danger soft_zoom weight-500">'
-            + Difference_In_Days + ' Days&nbsp;&nbsp;<i class="fas fa-exclamation"></i></span>';
+        row[6] = '<span class="inline-block txt-danger soft_zoom weight-500">' +
+            Difference_In_Days + ' Days&nbsp;&nbsp;<i class="fas fa-exclamation"></i></span>';
         document.getElementById(row[2] + "_label2").className = "label label-primary";
     } else {
         row[6] = '<span class="inline-block txt-success weight-500">' + Difference_In_Days + " Days</span>";
@@ -257,9 +258,9 @@ function cleantable(domain, dataset) {
     for (i = 0; i < dataset.length; i++) domain == dataset[i][2].replace(/<\/?[^>]+(>|$)/g, "") && dataset.splice(i, 1);
 }
 var loo2p;
-var inputOptionsPromise = new Promise(function (resolve) {
+var inputOptionsPromise = new Promise(function(resolve) {
     // get your data and pass it to resolve()
-    setTimeout(function () {
+    setTimeout(function() {
         resolve({
             'C': 'Closed',
             'F': 'Follow Up',
@@ -305,89 +306,89 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id) {
             columns: [2, 3, 4, 5, 7, 18, 19, 21, 23]
         },
         buttons_pack = [{
-            extend: "copy",
-            className: button_class,
-            messageTop: reports_text,
-            exportOptions: selection,
-            background: !1
-        }, {
-            extend: "csvHtml5",
-            className: button_class,
-            messageTop: reports_text,
-            exportOptions: selection
-        }, {
-            extend: "excelHtml5",
-            className: button_class,
-            messageTop: reports_text,
-            exportOptions: selection
-        }, {
-            extend: "pdfHtml5",
-            className: button_class,
-            messageTop: reports_text,
-            exportOptions: selection
-        }, {
-            extend: "print",
-            className: button_class,
-            messageTop: reports_text,
-            exportOptions: selection
-        }, {
-            text: "Page-Cycle",
-            className: button_class,
-            action: function () {
+                extend: "copy",
+                className: button_class,
+                messageTop: reports_text,
+                exportOptions: selection,
+                background: !1
+            }, {
+                extend: "csvHtml5",
+                className: button_class,
+                messageTop: reports_text,
+                exportOptions: selection
+            }, {
+                extend: "excelHtml5",
+                className: button_class,
+                messageTop: reports_text,
+                exportOptions: selection
+            }, {
+                extend: "pdfHtml5",
+                className: button_class,
+                messageTop: reports_text,
+                exportOptions: selection
+            }, {
+                extend: "print",
+                className: button_class,
+                messageTop: reports_text,
+                exportOptions: selection
+            }, {
+                text: "Page-Cycle",
+                className: button_class,
+                action: function() {
 
-                Swal.fire({
-                    title: 'Cycle through pages',
-                    text: "Please enter the interval in seconds.",
-                    input: 'number',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Enable',
-                    cancelButtonText: 'Disable'
+                    Swal.fire({
+                        title: 'Cycle through pages',
+                        text: "Please enter the interval in seconds.",
+                        input: 'number',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Enable',
+                        cancelButtonText: 'Disable'
 
-                }).then((result) => {
-                    if (result.value) {
-                        var inter = result.value * 1000;
-                        clearInterval(loo2p), loo2p = setInterval(function () {
+                    }).then((result) => {
+                        if (result.value) {
+                            var inter = result.value * 1000;
+                            clearInterval(loo2p), loo2p = setInterval(function() {
 
-                            var table = $(id).DataTable();
-                            if (table) {
-                                info = table.page.info(),
-                                    pageNum = info.page < info.pages ? info.page + 1 : 1;
-                                table.page(pageNum).draw(!1);
-                                //   table.columns.adjust().draw();
-                                //    table.rows.adjust().draw();
-                            }
+                                var table = $(id).DataTable();
+                                if (table) {
+                                    info = table.page.info(),
+                                        pageNum = info.page < info.pages ? info.page + 1 : 1;
+                                    table.page(pageNum).draw(!1);
+                                    //   table.columns.adjust().draw();
+                                    //    table.rows.adjust().draw();
+                                }
 
-                        }, inter)
+                            }, inter)
 
-                        Swal.fire(
-                            'Page Cycle Enabled',
-                            'The pages will changed for every ' + result.value + ' seconds',
-                            'success'
-                        )
-                    } else {
-                        clearInterval(loo2p);
-                        Swal.fire(
-                            'Page Cycle Disabled!',
-                            'The pages will remain static.',
-                            'success'
-                        )
-                    }
-                })
+                            Swal.fire(
+                                'Page Cycle Enabled',
+                                'The pages will changed for every ' + result.value + ' seconds',
+                                'success'
+                            )
+                        } else {
+                            clearInterval(loo2p);
+                            Swal.fire(
+                                'Page Cycle Disabled!',
+                                'The pages will remain static.',
+                                'success'
+                            )
+                        }
+                    })
 
 
 
+                }
+            }, {
+                text: "Report",
+                className: button_class,
+                action: function() {
+                    $("#reportModal").modal();
+                    call_report_modal(domain_id);
+                }
             }
-        }, {
-            text: "Report",
-            className: button_class,
-            action: function () {
-                $("#reportModal").modal();
-                call_report_modal(domain_id);
-            }
-        }
 
 
 
@@ -399,12 +400,13 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id) {
             [20, "desc"]
         ],
         dom: 'frtiBp',
-        bInfo: !1, "searching": false,
+        bInfo: !1,
+        "searching": false,
         pageLength: 10,
         buttons: buttons_pack,
         destroy: !0,
         data: dataset,
-        createdRow: function (row, data, dataIndex) {
+        createdRow: function(row, data, dataIndex) {
             user = firebase.auth().currentUser;
             if ((user.uid == data[13] || user.uid == data[14] || user.uid == data[15] || user.uid == data[16]) && !domain_flag) {
                 $(row).addClass('red');
@@ -412,8 +414,7 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id) {
         },
 
 
-        columns: [
-            {
+        columns: [{
                 title: "Doc ID",
                 visible: !1
             },
@@ -491,12 +492,13 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id) {
                 "data": null,
                 "defaultContent": '',
                 visible: !report_flag
-            }],
+            }
+        ],
     })
 
 
     // Add event listener for opening and closing details
-    $(id + ' tbody').on('click', 'td.details-control', function () {
+    $(id + ' tbody').on('click', 'td.details-control', function() {
         var tr = $(this).closest('tr');
         var row = table.row(tr);
         var data = row.data();
@@ -519,7 +521,7 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id) {
             tr.removeClass('shown');
         } else {
 
-            row.child(ter(doc, dom, status, counter, owner, item_id, loc, iss)).show();
+            row.child(ter(doc, dom, status, counter, owner, item_id, loc, iss, ass_1, ass_2, ass_3, ass_4)).show();
             if (user.uid == ass_1 || user.uid == ass_2 || user.uid == ass_3 || user.uid == ass_4 || user.uid == owner) {
                 format(doc, dom, status, item_id);
                 document.getElementById("h_" + doc).innerHTML = "";
@@ -552,6 +554,9 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id) {
                 }
 
             });
+            $(".select2").select2();
+            $('.selectpicker').selectpicker();
+
         }
     });
 
@@ -562,6 +567,8 @@ function format_lock(doc) {
 
     document.getElementById("button_" + doc).disabled = true;
     document.getElementById("his_" + doc).disabled = true;
+    document.getElementById("histes_" + doc).disabled = true;
+
     document.getElementById("his_op_" + doc).disabled = true;
     document.getElementById("his_text_" + doc).disabled = true;
     document.getElementById("his_op_sel_" + doc).disabled = true;
@@ -576,7 +583,16 @@ function format_lock(doc) {
 }
 
 
-function ter(doc, dom, status, counter, owner, tick_id, location, issue) {
+function select_build(x, y) {
+    if (x == '---' || x == y) {
+        return ''
+    } else {
+        x = '<option value="' + x + '">' + tabletoname(x) + '</option>';
+        return x
+    }
+}
+
+function ter(doc, dom, status, counter, owner, tick_id, location, issue, ass_1, ass_2, ass_3, ass_4) {
     var lock = '<div  id="h_' + doc + '"></div><div class="streamline user-activity" id="his_' + doc + '">' +
         ' <div class="spinner" id="loading_nava"><div class="bounce1" ></div><div class="bounce2"></div><div class="bounce3"></div></div>' +
         '</div>';
@@ -604,14 +620,22 @@ function ter(doc, dom, status, counter, owner, tick_id, location, issue) {
         '													</label>'+
         '												</div>';
              */
-
+    var string_1 = select_build(ass_1, owner);
+    var string_2 = select_build(ass_2, owner);
+    var string_3 = select_build(ass_3, owner);
+    var string_4 = select_build(ass_4, owner);
+    var string = string_1 + string_2 + string_3 + string_4;
     var myvar2 = '<div class="panel-body">' + lock +
 
-        '													<br><div class="col-sm-12">' +
-        '														<div class="row">' +
-        '															<div class="col-sm-4">' +
+        '													<br>' +
+        '<div class="row">' +
+        '														<div class="col-sm-12">' +
+        '															<div class="col-sm-3">' +
         '<input type="text" class="form-control rounded-outline-input rounded-input" id ="his_text_' + doc + '" placeholder="Observations & Comments" value="">' +
         '															</div>' +
+        '<div class="col-sm-2">' +
+        '															<select class="selectpicker" multiple data-style="form-control rounded-input" id ="histes_' + doc + '" title="Others Assignees">' + string + '															</select>' +
+        '														</div>' +
         '															<div class="col-sm-2">' +
         '<select class="form-control rounded-input" id ="his_op_' + doc + '" > ' +
         '                <option>Not Started</option>' +
@@ -622,7 +646,7 @@ function ter(doc, dom, status, counter, owner, tick_id, location, issue) {
         '<option>Solved</option>' +
         '								</select>' +
         '															</div>' +
-        '															<div class="col-sm-3">' +
+        '															<div class="col-sm-2">' +
         '		<input type="text" class="form-control  rounded-outline-input rounded-input input-daterange-timepicker" name="daterange" id="his_datetime_' + doc + '"  value="01/01/2016 1:30 PM - 01/01/2016 2:00 PM"/>' +
         '															</div>' +
         '															<div class="col-sm-2">' +
@@ -633,41 +657,22 @@ function ter(doc, dom, status, counter, owner, tick_id, location, issue) {
         '															</div>' +
         '														</div>' +
         '													</div>	' +
-
         '									</div>';
 
-
-
-
-    /*     var myvar = '<div class="panel-body ">' +
-            '									<div class="streamline user-activity" id="his_' + doc + '">' +
-            ' <div class="spinner" id="loading_nava"><div class="bounce1" ></div><div class="bounce2"></div><div class="bounce3"></div></div>' +
-            '</div>' + '<div class="row" ><div class="col-lg-6 col-md-12 col-sm-12 col-xs-12"><input type="text" class="form-control rounded-outline-input rounded-input" id ="his_text_' + doc + '" placeholder="add a comment..." value=""></div>'
-    
-            +
-            '<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12"> <select class="form-control rounded-input" id ="his_op_' + doc + '" > ' +
-            '                <option>Not Started</option>' +
-            '                <option>On Progress</option>' +
-            '                <option>Urgent Action</option>' +
-            '                <option>Skipped</option>' +
-            '                <option>Follow Up</option>' +
-            '<option>Solved</option>' +
-            '' +
-            '' +
-            '								</select></div > ' +
-            '<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" ><button class="btn btn-success btn-anim  btn-rounded" id =\'button_' + doc + '\'  onclick=\'save_history_info("' + doc + '","' + dom + '","' + counter + '","' + owner + '","' + tick_id + '","' + location + '","' + issue + '")\'><i class="fas fa-plus"></i><span class="btn-text">Add</span></button></div></div>' +
-            '</div>'; */
-    //   return myvar55
     return myvar2
 
 }
+
+
+
+
 
 
 function format(doc, dom, status, counter) {
 
     var x = '<table class="table  border-none dataTable no-footer" >' +
         '  <thead>' +
-        '    <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Job ID: activate to sort column descending" style="width: 25px;height:25px">Job ID</th><th class="sorting_asc" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="ticket ID: activate to sort column descending" style="width: 25px;">Observations & Comments</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 58px;">Date</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 58px;">Start Time</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 58px;">End Time</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 58px;">Hours</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 58px;">Chargable</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 72px;">Status</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 75px;">Actions</th></tr>' +
+        '    <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Job ID: activate to sort column descending" style="width: 25px;height:25px">Job ID</th><th class="sorting_asc" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="ticket ID: activate to sort column descending" style="width: 25px;">Observations & Comments</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 58px;">Date</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 58px;">Start Time</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 58px;">End Time</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 58px;">Hours</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 58px;">Chargable</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 58px;">Others</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 72px;">Status</th><th class="sorting" tabindex="0" aria-controls="support_table" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 75px;">Actions</th></tr>' +
         '  </thead>' +
         '  <tbody>   ';
 
@@ -678,9 +683,9 @@ function format(doc, dom, status, counter) {
     var user = firebase.auth().currentUser;
     var but = "";
 
-    db.collection("domains").doc(dom).collection("job_sheets").where("ticket_doc_id", "==", doc).orderBy("timestamp").get().then(function (t) {
+    db.collection("domains").doc(dom).collection("job_sheets").where("ticket_doc_id", "==", doc).orderBy("timestamp").get().then(function(t) {
         var count = 1;
-        t.forEach(function (t) {
+        t.forEach(function(t) {
             if (user.displayName == t.data().name) {
                 but = '&nbsp;&nbsp;<a href="javascript:void(0)" onclick=\'delete_history("' + doc + '","' + dom + '","' + counter + '","' + t.id + '")\' class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="zmdi zmdi-delete"></i></a>  &nbsp;&nbsp;';
             }
@@ -702,8 +707,10 @@ function format(doc, dom, status, counter) {
                 '<td><i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + datetimeshortformat(t.data().timestamp) + '</td>' +
                 '      <td><i class="far fa-clock"></i>&nbsp;&nbsp;' + formatAMPM(t.data().start_time) + '</td>' +
                 '      <td><i class="far fa-clock"></i>&nbsp;&nbsp;' + formatAMPM(t.data().end_time) + '</td>' +
+
                 '      <td>' + hours + '</td>' +
                 '      <td>' + t.data().chargable + '</td>' +
+                '      <td>&nbsp;&nbsp;' + gen_image_linups(t.data().others) + '</td>' +
                 '      <td>' +
                 tabletolable(t.data().status, true) +
                 '      </td>' +
@@ -713,7 +720,7 @@ function format(doc, dom, status, counter) {
 
         })
 
-    }).then(function () {
+    }).then(function() {
         var c = document.getElementById("his_" + doc);
         var b = document.getElementById("his_op_" + doc);
         if (c) {
@@ -724,10 +731,26 @@ function format(doc, dom, status, counter) {
         }
 
 
-    }).catch(function (t) {
+    }).catch(function(t) {
         console.log(t);
         badnews(t);
     });
+}
+
+
+function gen_image_linups(x) {
+
+    if (x !== undefined) {
+        var string = '';
+        for (i = 0; i < x.length; i++) {
+            string = string + tabletoimage(x[i], 35);
+
+        }
+
+        return string;
+    } else {
+        return ''
+    }
 }
 
 function save_history_info(doc, dom, counter, owner, tick_id, location, issue) {
@@ -736,13 +759,14 @@ function save_history_info(doc, dom, counter, owner, tick_id, location, issue) {
     var message = document.getElementById("his_text_" + doc).value;
     var dt_range = document.getElementById("his_datetime_" + doc).value;
     var chargable = document.getElementById("his_op_sel_" + doc).value;
+    var others = $("#histes_" + doc).val();
 
 
     var dt = dt_range.split(' - ');
     var start_dt = dt[0];
     var end_dt = dt[1];
     if (message != '') {
-        save_history(doc, dom, counter, status, message, false, owner, tick_id, location, issue, start_dt, end_dt, chargable);
+        save_history(doc, dom, counter, status, message, false, owner, tick_id, location, issue, start_dt, end_dt, chargable, others);
     } else {
         badnews('Message Feild is empty.');
     }
@@ -750,7 +774,7 @@ function save_history_info(doc, dom, counter, owner, tick_id, location, issue) {
 }
 
 
-function save_history(doc, dom, counter, status, message, report_flag, owner, tick_id, location, issue, start_dt, end_dt, chargable) {
+function save_history(doc, dom, counter, status, message, report_flag, owner, tick_id, location, issue, start_dt, end_dt, chargable, others) {
     // console.log("runing slave");
 
 
@@ -774,7 +798,7 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
         status: status,
         hist_created_on: created_on,
         hist_created_by: user.uid,
-        hist_message: message
+        hist_message: message,
     });
     /*   } */
     /*   var domain_db = db.collection("domains").doc(dom);
@@ -791,28 +815,29 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
     
      */
     var last_job_num = 1;
-    db.collection("domains").doc(dom).collection("job_sheets").orderBy("job_num", "desc").limit(1).get().then(function (querySnapshot) {
+    db.collection("domains").doc(dom).collection("job_sheets").orderBy("job_num", "desc").limit(1).get().then(function(querySnapshot) {
 
-        querySnapshot.forEach(function (doc) {
+        querySnapshot.forEach(function(doc) {
             last_job_num = last_job_num + Number(doc.data().job_num);
         });
 
-        db.collection("domains").doc(dom).collection("tickets").doc(doc).update(packet).then(function () {
+        db.collection("domains").doc(dom).collection("tickets").doc(doc).update(packet).then(function() {
             /*     db.collection("domains").doc(dom).collection("tickets").doc(doc).collection("history").add({ */
             db.collection("domains").doc(dom).collection("job_sheets").add({
-                name: user.displayName,
-                message: message,
-                photoURL: document.getElementById("topProImg").src,
-                status: status,
-                timestamp: created_on,
-                start_time: start_dt,
-                end_time: end_dt,
-                chargable: chargable,
-                ticket_doc_id: doc,
-                ticket_id: tick_id,
-                job_num: last_job_num
-            })
-                .then(function (docRef) {
+                    name: user.displayName,
+                    message: message,
+                    photoURL: document.getElementById("topProImg").src,
+                    others: others,
+                    status: status,
+                    timestamp: created_on,
+                    start_time: start_dt,
+                    end_time: end_dt,
+                    chargable: chargable,
+                    ticket_doc_id: doc,
+                    ticket_id: tick_id,
+                    job_num: last_job_num
+                })
+                .then(function(docRef) {
 
                     if (!report_flag) {
                         var table = $('#edit_tic_table_' + dom).DataTable(
@@ -857,12 +882,12 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                     sendmail(find_email(owner), user.email, subject, html_text_2);
                     goodnews("Your jobsheet was added successfully!");
                 })
-                .catch(function (error) {
+                .catch(function(error) {
                     badnews("Saving history " + error);
 
                     // console.log(error);
                 });
-        }).catch(function (error) {
+        }).catch(function(error) {
             badnews(error)
 
 
@@ -886,7 +911,7 @@ function close_only_case(doc, dom, counter, status, message, report_flag, owner,
         hist_message: message
     });
 
-    db.collection("domains").doc(dom).collection("tickets").doc(doc).update(packet).then(function () {
+    db.collection("domains").doc(dom).collection("tickets").doc(doc).update(packet).then(function() {
 
 
         if (!report_flag) {
@@ -941,10 +966,10 @@ function delete_history(doc, dom, counter, id) {
 
 
     db.collection("domains").doc(dom).collection("job_sheets").doc(id).delete()
-        .then(function () {
+        .then(function() {
             format(doc, dom, status, counter);
         })
-        .catch(function (error) {
+        .catch(function(error) {
             badnews("Error deleting document: ", error);
         });
 
@@ -957,6 +982,7 @@ status_c['Skipped'] = 0;
 status_c['Follow Up'] = 0;
 status_c['Solved'] = 0;
 status_c['Total'] = 0;
+
 function count_status(status) {
     switch (status) {
         case 'Not Started':
@@ -975,7 +1001,7 @@ function count_status(status) {
             status_c['Solved']++;
             break;
         default:
-        // code block
+            // code block
     }
     status_c['Total']++;
 }
@@ -984,7 +1010,7 @@ var data_setta = [];
 var domain_list = [];
 var weekly_tickets = 0;
 var monthly_tickets = 0;
-var status_addressed =0;
+var status_addressed = 0;
 
 function status_codes(status) {
     switch (status) {
@@ -1034,12 +1060,10 @@ function status_codes_reversed(status) {
 
 }
 
-function count_staus_perdate(domain, created_on, issue, status, location) {
+function count_staus_perdate(domain, created_on, issue, status, location, by, message) {
     if (domain != "Cloud_Exchange") {
         var phrase = created_on.toDate().getFullYear() + "/" + created_on.toDate().getMonth() + "/" + ('0' + created_on.toDate().getDate()).slice(-2);
-
         var date1 = created_on.toDate();
-
         var date2 = new Date();
         var Difference_In_Time = date2.getTime() - date1.getTime();
         var Difference_In_Days = Math.round(Difference_In_Time / 864e5);
@@ -1049,50 +1073,22 @@ function count_staus_perdate(domain, created_on, issue, status, location) {
         if (Difference_In_Days < 30) {
             monthly_tickets++;
         }
-        if(status=='Follow Up'||status=='Solved' ){
-            status_addressed ++;
+        if (status == 'Follow Up' || status == 'Solved') {
+            status_addressed++;
         }
-
         if (status_c_date.hasOwnProperty(domain)) {
-
             status_c_date[[domain]]++;
         } else {
             domain_list.push(domain);
             status_c_date[[domain]] = 0;
         }
-
-
-
-        var val = Number(status_c_date[[domain]]);
-        // var string = (domain).substring(1, 3).toUpperCase();
-
-        data_setta.push([phrase, status_codes(status), domain, issue, status, location, Difference_In_Days]);
-
-        /*          site_profile.forEach(function (t) {
-                     if(t.name!="Cloud_Exchange" && t.name != domain){
-                     
-                            if (status_c_date.hasOwnProperty(t.name)) {
-                                var val = Number(status_c_date[[t.name]]);
-                                data_setta.push([phrase, val, t.name]);
-                
-                            }else{
-                                data_setta.push([phrase, 0, t.name]);
-                            }
-                       
-                     }
-        
-                });  */
-
+        data_setta.push([phrase, status_codes(status), domain, issue, status, location, Difference_In_Days, by, message]);
     }
-
-
-
 }
 
 
 
 
-//['2015/11/08', 10, 'DQ'], ['2015/11/09', 15, 'DQ'], ['2015/11/10', 35, 'DQ']
 function fetch_tickets(t, alpha, type) {
 
     var open_flag = true;
@@ -1119,7 +1115,7 @@ function fetch_tickets(t, alpha, type) {
     var counter_t = 1;
     var for_loop_count = 0;
     var total_size = t.length;
-    t.forEach(function (t) {
+    t.forEach(function(t) {
         for_loop_count++;
         var dataSet = [];
         if (t.name != "Cloud_Exchange") {
@@ -1136,7 +1132,7 @@ function fetch_tickets(t, alpha, type) {
             document.getElementById('title_' + t.name).innerHTML = t.name;
             document.getElementById('icon_' + t.name).innerHTML = getsiteicon(t.type);
             if (rest.length != 0) {
-                rest.forEach(function (entry) {
+                rest.forEach(function(entry) {
                     try {
                         let obj = user_profiles.find(o => o.id === entry);
                         var n = document.createElement("option");
@@ -1169,8 +1165,8 @@ function fetch_tickets(t, alpha, type) {
 
             switch (type) {
                 case 'jobsheets':
-                    db.collection("domains").doc(t.id).collection("job_sheets").get().then(function (querySnapshot) {
-                        querySnapshot.forEach(function (doc) {
+                    db.collection("domains").doc(t.id).collection("job_sheets").get().then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
 
                             if (doc.data().status == 'Closed' || doc.data().status == 'Solved') {
                                 total_open_cases++;
@@ -1190,23 +1186,23 @@ function fetch_tickets(t, alpha, type) {
                             document.getElementById("stats_cc").innerText = total_cases_tick - total_open_cases;
                         }
 
-                    }).catch(function (error) {
+                    }).catch(function(error) {
                         console.log(error);
                         badnews(error)
                     });
                     break;
                 case 'tickets':
 
-                    db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function (querySnapshot) {
-                        querySnapshot.forEach(function (doc) {
+                    db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
 
                             total_cases_tick = total_cases_tick + Number(doc.data().id);
                             document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
-                            db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot) {
-                                querySnapshot.forEach(function (doc) {
+                            db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function(querySnapshot) {
+                                querySnapshot.forEach(function(doc) {
                                     count_status(doc.data().status);
                                     if (t.id != "Cloud_Exchange") {
-                                        count_staus_perdate(t.id, doc.data().created_on, doc.data().issue, doc.data().status, doc.data().location,);
+                                        count_staus_perdate(t.id, doc.data().created_on, doc.data().issue, doc.data().status, doc.data().location, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---");
                                     }
 
                                     dataSet.push([doc.id, doc.data().id, t.id, doc.data().location, doc.data().issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, 'DUM', 'DUM', doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"])
@@ -1229,18 +1225,18 @@ function fetch_tickets(t, alpha, type) {
                                 }
 
 
-                            }).catch(function (error) {
+                            }).catch(function(error) {
                                 console.log(error);
                                 badnews(error)
                             })
                         });
-                    }).catch(function (error) {
+                    }).catch(function(error) {
                         console.log(error);
                         badnews(error)
                     });
                     break;
                 default:
-                // code block
+                    // code block
             }
 
             if (open_flag) {
@@ -1251,7 +1247,7 @@ function fetch_tickets(t, alpha, type) {
         }
         if (for_loop_count == total_size) {
             setTimeout(
-                function () {
+                function() {
                     generate_data();
                     //  console.log(status_c_date);
                     // console.log(data_setta);
@@ -1274,13 +1270,14 @@ function tabletoimage(id, size) {
             image = '<img src=' + nullimage + ' class="img-circle bounce sender-img"  alt="user" height="' + size + '" width="' + size + '" title="' + "Not Available" + '">' + "&nbsp;&nbsp;";
             return image;
         } else {
-            let obj = user_profiles.find(o => o.id === id);
+            //    let obj = user_profiles.find(o => o.id === id);
 
-            var image = '<img src=' + nio.photoUrl + ' class="img-circle bounce sender-img"  alt="user" height="' + size + '" width="' + size + '" title="' + obj.name + '">' + "&nbsp;&nbsp;";
+            var image = '<img src=' + nio.photoUrl + ' class="img-circle bounce sender-img"  alt="user" height="' + size + '" width="' + size + '" title="' + nio.name + '">' + "&nbsp;&nbsp;";
             return image;
         }
     }
 }
+
 
 function find_siteicon(id) {
 
@@ -1430,7 +1427,7 @@ function call_report_modal(domain_id) {
 function tktedit(com_id, dom_id, counter) {
     var oTable = $("#edit_tic_table_" + dom_id).dataTable(
 
-    ),
+        ),
 
         dataset = oTable.fnGetData(),
         ticketid = dataset[counter][1].replace(/<\/?[^>]+(>|$)/g, ""),
@@ -1477,7 +1474,7 @@ function tktdelete(com_id, dom_id, counter) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.value) {
-            db.collection("domains").doc(dom_id).collection("tickets").doc(com_id).delete().then(function () {
+            db.collection("domains").doc(dom_id).collection("tickets").doc(com_id).delete().then(function() {
 
                 decrement_tag(updated[2].replace(/<\/?[^>]+(>|$)/g, "") + "_label2");
 
@@ -1500,7 +1497,7 @@ function tktdelete(com_id, dom_id, counter) {
 
 
 
-            }).catch(function (error) {
+            }).catch(function(error) {
                 badnews(error);
             });
 
@@ -1541,28 +1538,28 @@ function edittkt_save() {
         issue: issue,
         location: location,
         status: status
-    }).then(function () {
+    }).then(function() {
 
-        var data = processrow(false,
-            [
-                com_id,
-                ticketid,
-                dom_id,
-                location,
-                issue,
-                'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM',
-                status,
-                user.uid,
-                assigned_to1,
-                assigned_to2,
-                assigned_to3,
-                assigned_to4,
-                opticket_date,
-                'DUM', 'DUM',
-                ticketid,
-                opticket_date,
-                user.uid,
-                "---"], counter);
+        var data = processrow(false, [
+            com_id,
+            ticketid,
+            dom_id,
+            location,
+            issue,
+            'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM',
+            status,
+            user.uid,
+            assigned_to1,
+            assigned_to2,
+            assigned_to3,
+            assigned_to4,
+            opticket_date,
+            'DUM', 'DUM',
+            ticketid,
+            opticket_date,
+            user.uid,
+            "---"
+        ], counter);
         var table = $('#edit_tic_table_' + dom_id).DataTable(
 
         );
@@ -1600,7 +1597,7 @@ function edittkt_save() {
 
 
 
-    }).catch(function (error) {
+    }).catch(function(error) {
         badnews(error)
     })
 
@@ -1680,14 +1677,14 @@ function opentkt_save() {
         hist_created_on: opticket_date2,
         hist_created_by: user.uid,
         hist_message: "---"
-    }).then(function (doc) {
+    }).then(function(doc) {
         var data = processrow(false, [doc.id, tick_no, domain_case, opticket_location, opticket_issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', opstatus, user.uid, opassignee_1, opassignee_2, opassignee_3, opassignee_4, opticket_date, 'DUM', 'DUM', tick_no, opticket_date, user.uid, "---"], counter++);
         var table = $('#edit_tic_table_' + domain_case).DataTable(
 
         );
         table.row.add(data).draw();
         goodnews("The ticket was added successfully!");
-    }).catch(function (error) {
+    }).catch(function(error) {
         badnews(error), console.log(error);
     });
 }
@@ -1698,7 +1695,7 @@ function generateReport() {
         dataSet = [],
         values = $("#pre-selected-options").val(),
         con_values = [];
-    document.getElementById("lb_report").innerHTML = "0", values.forEach(function (entry) {
+    document.getElementById("lb_report").innerHTML = "0", values.forEach(function(entry) {
         con_values = con_values + '  <span>' + tabletolable(entry, false) + ' : <span  id="report_label_' + entry + '">0</span></span> ,';
     });
     var dtrange = document.getElementById("dtrange").value;
@@ -1706,14 +1703,14 @@ function generateReport() {
     document.getElementById("it-range").innerHTML = con_values;
     [s_date_ticks, e_date_ticks] = dtrange.split(" - "),
         s_date_ticks = new Date(s_date_ticks), e_date_ticks = new Date(e_date_ticks);
-    db.collection("domains").doc(sel1).collection("tickets").orderBy("created_on", "asc").startAt(s_date_ticks).endAt(e_date_ticks).get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
+    db.collection("domains").doc(sel1).collection("tickets").orderBy("created_on", "asc").startAt(s_date_ticks).endAt(e_date_ticks).get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
             values.includes(doc.data().status) && (dataSet.push([doc.id, doc.data().id, sel1, doc.data().location, doc.data().issue, "DUM", "DUM", "DUM", "DUM", "DUM", "DUM", doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, "DUM", "DUM", doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"]),
                 increment_tag("lb_report"), increment_tag("report_label_" + doc.data().status));
         }), loadtable2("#example", dataSet, !0, sel1);
         var el = document.getElementById("div1");
         el.classList.remove("hidden");
-    }).catch(function (error) {
+    }).catch(function(error) {
         console.log(error), badnews(error);
     }), document.getElementById("gn-site").innerHTML = sel1;
     document.getElementById("Report_tile").innerHTML = " <span class='blink_text'>&#8226;</span> Report : " + sel1;
@@ -1771,13 +1768,14 @@ function clickthis(myCheck) {
     document.getElementById('tabler').style.display = 'block';
     document.getElementById(myCheck).click();
 }
-function open_home_tickets(){  
+
+function open_home_tickets() {
 
     document.getElementById('isngiht').style.display = 'block';
     document.getElementById('tabler').style.display = 'none';
-/* 
-    toggle_display(document.getElementById('isngiht'));
-    toggle_display(document.getElementById('tabler')); */
+    /* 
+        toggle_display(document.getElementById('isngiht'));
+        toggle_display(document.getElementById('tabler')); */
 }
 
 /* function toggle_display(x){
@@ -1850,7 +1848,7 @@ function add_iot_menu() {
     ul.innerHTML = li;
     var ul = document.getElementById('more_menu_1');
 
-    var li =  '        <a href="javascript:open_devices()">' +
+    var li = '        <a href="javascript:open_devices()">' +
         '            <div class="pull-left"><i class="fas fa-project-diagram mr-20"></i><span' +
         '                    class="right-nav-text">Things</span>' +
         '            </div>' +
@@ -1861,83 +1859,85 @@ function add_iot_menu() {
 }
 var series_check = [];
 var sorted_data;
+
 function find_max(data) {
 
-    var found_list =[];
+    var found_list = [];
     var domain_length = domain_list.length;
-   
-for (var x =0; x<4;x++){
-    var value = 0;
-    var item= '';
 
-    for (var i = 0; i < domain_length; i++) {
+    for (var x = 0; x < 4; x++) {
+        var value = 0;
+        var item = '';
 
-        if(!found_list.includes(domain_list[i])){
-            if (data[domain_list[i]] > value) {          
-                value = data[domain_list[i]];
-                item = domain_list[i];             
+        for (var i = 0; i < domain_length; i++) {
+
+            if (!found_list.includes(domain_list[i])) {
+                if (data[domain_list[i]] > value) {
+                    value = data[domain_list[i]];
+                    item = domain_list[i];
+                }
+                if (i == domain_length - 1 && item != '') {
+                    found_list.push(item);
+                    add_to_site(item, value);
+
+                }
             }
-            if (i == domain_length - 1 && item!='') {
-                found_list.push(item);          
-                add_to_site(item,value);
-        
-            }
+
+
         }
-
-
     }
-}
 }
 
 
 var co = 0;
-function add_to_site(x,y) {
- 
+
+function add_to_site(x, y) {
+
     switch (co) {
         case 0:
             document.getElementById("site_1").innerText = x;
-            document.getElementById("c_site_1").innerText = y+1;
-            
+            document.getElementById("c_site_1").innerText = y + 1;
+
             co++;
             break;
         case 1:
             document.getElementById("site_2").innerText = x;
-            document.getElementById("c_site_2").innerText = y+1;
+            document.getElementById("c_site_2").innerText = y + 1;
             co++;
             break;
         case 2:
             document.getElementById("site_3").innerText = x;
-            document.getElementById("c_site_3").innerText = y+1;
+            document.getElementById("c_site_3").innerText = y + 1;
             co++;
             break;
         case 3:
             document.getElementById("site_4").innerText = x;
-            document.getElementById("c_site_4").innerText = y+1;
-            co=0;
+            document.getElementById("c_site_4").innerText = y + 1;
+            co = 0;
             break;
 
         default:
-            co =0;
-        // code block
+            co = 0;
+            // code block
     }
 }
 
 function generate_data() {
- 
 
-    var pec = Math.round((status_addressed/status_c['Total'])*100);
+
+    var pec = Math.round((status_addressed / status_c['Total']) * 100);
 
     document.getElementById("addressed_percentage").innerText = pec;
-    document.getElementById("addressed_percentage_bar").innerHTML = '	<div class="progress-bar progress-bar-primary  wow animated progress-animated" role="progressbar" aria-valuenow="'+pec+'" aria-valuemin="0" aria-valuemax="100" style="width: '+pec+'%;"></div>';
+    document.getElementById("addressed_percentage_bar").innerHTML = '	<div class="progress-bar progress-bar-primary  wow animated progress-animated" role="progressbar" aria-valuenow="' + pec + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + pec + '%;"></div>';
     document.getElementById("addressed_perc").innerText = status_addressed;
-    document.getElementById("Work_on_Progress").innerText = status_c['Total']-status_addressed;
+    document.getElementById("Work_on_Progress").innerText = status_c['Total'] - status_addressed;
 
-    
-           find_max(status_c_date);
+
+    find_max(status_c_date);
     document.getElementById("weekly_tickets").innerText = weekly_tickets;
     document.getElementById("monthly_tickets").innerText = monthly_tickets;
     var domain_length = domain_list.length;
-   // 
+    // 
     for (var e = 0; e < domain_length; e++) {
         var selected_domain = domain_list[e];
         var data = [];
@@ -1952,7 +1952,7 @@ function generate_data() {
                     name: selected_domain,
                     data: data,
                     type: 'scatter',
-                    symbolSize: function (data) {
+                    symbolSize: function(data) {
                         return 10;
                         return (Math.sqrt(data[6]) * 2);
                     },
@@ -1960,7 +1960,7 @@ function generate_data() {
                         focus: 'series',
                         label: {
                             show: true,
-                            formatter: function (param) {
+                            formatter: function(param) {
                                 console.log(param);
                                 return 'ds'
                             },
@@ -1991,10 +1991,23 @@ function generate_data() {
         }
     }
 }
+var bole = true;
+
+function run_fullscreen() {
+
+    if (bole) {
+
+        document.getElementById("e_chart_1").style.height = "700px";
+        bole = false;
+    } else {
+        document.getElementById("e_chart_1").style.height = "313px";
+        bole = true;
+    }
+}
 
 function run_echarts() {
 
-    var echartsConfig = function () {
+    var echartsConfig = function() {
         if ($('#e_chart_1').length > 0) {
             var eChart_1 = echarts.init(document.getElementById('e_chart_1'));
             var option = {
@@ -2014,10 +2027,14 @@ function run_echarts() {
                 },
                 tooltip: {
                     backgroundColor: ['rgba(1,1,1,0.7)'],
-                    formatter: function (obj) {
+                    formatter: function(obj) {
                         var value = obj.value;
+                        var vari = '';
+                        if (value[8] != '---') {
+                            vari = tabletoimage(value[7], 20) + " - " + value[8].wrap(55, 10, true) + '</span><br>';
+                        }
                         return '<div style="solid rgba(255,255,255,.3); font-size: 14px;padding-bottom: 2px;margin-bottom: 2px">' +
-                            value[2] + ' | ' + value[4] + '<br>' + value[5] + '<br>' + value[0];
+                            value[2] + ' | ' + value[4] + '<br>' + value[5] + " - " + value[3].wrap(75, 10, true) + '<br>' + vari + value[0];
                     }
                 },
                 xAxis: {
@@ -2035,7 +2052,7 @@ function run_echarts() {
                         }
                     },
                     axisLabel: {
-                        formatter: function (obj) {
+                        formatter: function(obj) {
 
                             return status_codes_reversed(obj);
                         }
@@ -2088,14 +2105,14 @@ function run_echarts() {
             document.getElementById('solved_sta').innerHTML = status_c['Solved'];
             document.getElementById('item_3').innerHTML = "Follow Up";
             document.getElementById('follow_up_sta').innerHTML = status_c['Follow Up'];
-            
+
             document.getElementById('item_1_sub').innerHTML = "Not Updated, Since ticket was opened.";
             document.getElementById('item_2_sub').innerHTML = "Yet to be closed.";
             document.getElementById('item_3_sub').innerHTML = "Waiting action from client.";
 
-            
-            
-            
+
+
+
             var eChart_3 = echarts.init(document.getElementById('e_chart_3'));
             var option3 = {
                 tooltip: {
@@ -2125,37 +2142,35 @@ function run_echarts() {
                         shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 },
-                series: [
-                    {
-                        name: 'Status',
-                        type: 'pie',
-                        radius: '60%',
-                        center: ['50%', '50%'],
-                        roseType: 'radius',
-                        color: ['#119dd2', '#d36ee8', '#667add', '#fd7397', '#4aa23c'],
-                        label: {
-                            normal: {
-                                fontFamily: "'Roboto', sans-serif",
-                                fontSize: 12
-                            }
-                        },
-
-
-
-                        data: [
-                            { value: status_c['Not Started'], name: 'Not Started' },
-                            { value: status_c['On Progress'], name: 'On Progress' },
-                            { value: status_c['Urgent Action'], name: 'Urgent Action' },
-                            /*        { value: status_c['Skipped'], name: 'Skipped' }, */
-                            //   { value: status_c['Follow Up'], name: 'Follow Up' },
-                            { value: status_c['Solved'], name: 'Solved' },
-
-                        ].sort(function (a, b) { return a.value - b.value; }),
+                series: [{
+                    name: 'Status',
+                    type: 'pie',
+                    radius: '60%',
+                    center: ['50%', '50%'],
+                    roseType: 'radius',
+                    color: ['#119dd2', '#d36ee8', '#667add', '#fd7397', '#4aa23c'],
+                    label: {
+                        normal: {
+                            fontFamily: "'Roboto', sans-serif",
+                            fontSize: 12
+                        }
                     },
-                ],
+
+
+
+                    data: [
+                        { value: status_c['Not Started'], name: 'Not Started' },
+                        { value: status_c['On Progress'], name: 'On Progress' },
+                        { value: status_c['Urgent Action'], name: 'Urgent Action' },
+                        /*        { value: status_c['Skipped'], name: 'Skipped' }, */
+                        //   { value: status_c['Follow Up'], name: 'Follow Up' },
+                        { value: status_c['Solved'], name: 'Solved' },
+
+                    ].sort(function(a, b) { return a.value - b.value; }),
+                }, ],
                 animationType: 'scale',
                 animationEasing: 'elasticOut',
-                animationDelay: function (idx) {
+                animationDelay: function(idx) {
                     return Math.random() * 1000;
                 }
             };
@@ -2165,12 +2180,10 @@ function run_echarts() {
     }
 
     var echartResize;
-    $(window).on("resize", function () {
+    $(window).on("resize", function() {
 
         /*E-Chart Resize*/
         clearTimeout(echartResize);
         echartResize = setTimeout(echartsConfig, 200);
     }).resize();
 }
-
-

@@ -320,7 +320,8 @@ function buildnavitree() {
                     application = 'Jobsheets System';
                     break;
                 case 'IoT':
-                    $('#content_home_page').load("content/home_page.html");
+                    document.getElementById("content_home_page").style.display = "block";
+                   
                     add_iot_menu();
                     document.getElementById("domainload").innerHTML = "- Internet of Things";
 
@@ -338,7 +339,7 @@ function buildnavitree() {
                     application = 'Internet of Things';
                     break;
                 default:
-                    $('#content_home_page').load("content/home_page.html");
+                    document.getElementById("content_home_page").style.display = "block";
                     add_iot_menu();
                     document.getElementById("domainload").innerHTML = "- Internet of Things";
 

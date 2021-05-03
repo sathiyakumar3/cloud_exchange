@@ -15,7 +15,7 @@
     "@google-cloud/pubsub": "^1.1.6",
     "cbor": "^4.2.1",
     "firebase-admin": "^8.6.1",
-    "firebase-functions": "^3.2.0",
+    "firebase-functions": "^3.13.2",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "round-to": "^4.0.0"
