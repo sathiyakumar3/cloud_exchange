@@ -701,9 +701,16 @@ function format(doc, dom, status, counter) {
                    '<label>Job No : </label>&nbsp;&nbsp;'+counter+"."+(count++) + '</span>' +
                    '</div></a></div>'; */
             var hours = Math.round((Math.abs(new Date(t.data().start_time) - new Date(t.data().end_time))) / (60 * 60 * 1000));
+
+            var test = '';
+            if(t.data().user_id !== undefined && t.data().user_id !==null){
+                test =  tabletoimage(t.data().user_id);
+            }else{
+                test =  '<img src="' + t.data().photoURL + '+ class="img-circle bounce sender-img" alt="user" height="25" width="25" title=' + t.data().name + '>'
+            }
             y = y + '  <tr role="row" class="odd">' +
                 '<td><h5 class="capitalize-font txt-primary mr-5 weight-500">#' + t.data().job_num + '</h5></td>' +
-                '<td><div class="sl-item"><a href="javascript:void(0)"><div class="sl-avatar"><img src="' + t.data().photoURL + '+ class="img-circle bounce sender-img" alt="user" height="25" width="25" title=' + t.data().name + '>  </div><div class="sl-content"><span class="head-notifications">' + t.data().message + '</span><div class="clearfix"></div><span class="inline-block font-11  pull-right notifications-time"></span></div></a></div></td>' +
+                '<td><div class="sl-item"><a href="javascript:void(0)"><div class="sl-avatar">' + test  +'</div><div class="sl-content"><span class="head-notifications">' + t.data().message + '</span><div class="clearfix"></div><span class="inline-block font-11  pull-right notifications-time"></span></div></a></div></td>' +
                 '<td><i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + datetimeshortformat(t.data().timestamp) + '</td>' +
                 '      <td><i class="far fa-clock"></i>&nbsp;&nbsp;' + formatAMPM(t.data().start_time) + '</td>' +
                 '      <td><i class="far fa-clock"></i>&nbsp;&nbsp;' + formatAMPM(t.data().end_time) + '</td>' +
@@ -740,7 +747,7 @@ function format(doc, dom, status, counter) {
 
 function gen_image_linups(x) {
 
-    if (x !== undefined) {
+    if (x !== undefined && x !==null) {
         var string = '';
         for (i = 0; i < x.length; i++) {
             string = string + tabletoimage(x[i], 35);
@@ -760,13 +767,17 @@ function save_history_info(doc, dom, counter, owner, tick_id, location, issue) {
     var dt_range = document.getElementById("his_datetime_" + doc).value;
     var chargable = document.getElementById("his_op_sel_" + doc).value;
     var others = $("#histes_" + doc).val();
+    if(others==null){
+        others = '---';
+    }
 
+console.log(others);
 
     var dt = dt_range.split(' - ');
     var start_dt = dt[0];
     var end_dt = dt[1];
     if (message != '') {
-        save_history(doc, dom, counter, status, message, false, owner, tick_id, location, issue, start_dt, end_dt, chargable, others);
+       save_history(doc, dom, counter, status, message, false, owner, tick_id, location, issue, start_dt, end_dt, chargable, others);
     } else {
         badnews('Message Feild is empty.');
     }
@@ -824,9 +835,10 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
         db.collection("domains").doc(dom).collection("tickets").doc(doc).update(packet).then(function() {
             /*     db.collection("domains").doc(dom).collection("tickets").doc(doc).collection("history").add({ */
             db.collection("domains").doc(dom).collection("job_sheets").add({
-                    name: user.displayName,
+                  //  name: user.displayName,
                     message: message,
-                    photoURL: document.getElementById("topProImg").src,
+                //    photoURL: document.getElementById("topProImg").src,
+                    user_id:user.uid,
                     others: others,
                     status: status,
                     timestamp: created_on,
@@ -1006,6 +1018,7 @@ function count_status(status) {
     status_c['Total']++;
 }
 var status_c_date = [];
+var user_c_date = [];
 var data_setta = [];
 var domain_list = [];
 var weekly_tickets = 0;
@@ -1087,6 +1100,283 @@ function count_staus_perdate(domain, created_on, issue, status, location, by, me
 }
 
 
+function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, status,message,user_id,others,ticket_id){
+    if (domain != "Cloud_Exchange") {
+        var phrase = created_on.toDate().getFullYear() + "/" + created_on.toDate().getMonth() + "/" + ('0' + created_on.toDate().getDate()).slice(-2);
+        var date1 = created_on.toDate();
+        var date2 = new Date();
+        var Difference_In_Time = date2.getTime() - date1.getTime();
+        var Difference_In_Days = Math.round(Difference_In_Time / 864e5);
+        if (Difference_In_Days < 7) {
+            weekly_tickets++;
+        }
+        if (Difference_In_Days < 30) {
+            monthly_tickets++;
+        }
+        if (status == 'Follow Up' || status == 'Solved') {
+            status_addressed++;
+        }
+        if (status_c_date.hasOwnProperty(domain)) {
+            status_c_date[[domain]]++;
+        } else {
+            domain_list.push(domain);
+            status_c_date[[domain]] = 0;
+        }
+        data_setta.push([phrase, status_codes(status), domain, issue, status, location, Difference_In_Days, by, message]);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
+
+    var table_id = 'div_jobs_table_' +id;
+    var other_table =  'div_tic_table_' +id;
+
+    document.getElementById(table_id).style.display = "block";
+    document.getElementById(other_table).style.display = "none";
+    document.getElementById('home_tab_8').style.display = "none";
+    document.getElementById('home_tab_9').style.display = "none";
+    document.getElementById('home_tab_7').click(); 
+    document.getElementById('setting_panel_btn').style.visibility= "hidden";
+    document.getElementById(id + '_label2').innerText = dataset.length;
+    document.getElementById(id + "_label2").className = "label label-primary";
+    document.getElementById('currentticket_' + id).innerText =  dataset.length;
+    document.getElementById('txt_last').innerText =  'Last Job No';
+    
+
+   // document.getElementById('total_oc_jobsheets').innerText =  Number(document.getElementById('total_oc_jobsheets').innerText)+dataset.length; 
+    var button_class = "btn btn-primary btn-rounded";
+    var reports_text = "The information is from cloudexchange.lk",
+        selection = {
+            columns: [2, 3, 4, 5, 7, 18, 19, 21, 23]
+        },
+        buttons_pack = [{
+            extend: "copy",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection,
+            background: !1
+        }, {
+            extend: "csvHtml5",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            extend: "excelHtml5",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            extend: "pdfHtml5",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            extend: "print",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            text: "Page-Cycle",
+            className: button_class,
+            action: function () {
+
+                Swal.fire({
+                    title: 'Cycle through pages',
+                    text: "Please enter the interval in seconds.",
+                    input: 'number',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Enable',
+                    cancelButtonText: 'Disable'
+
+                }).then((result) => {
+                    if (result.value) {
+                        var inter = result.value * 1000;
+                        clearInterval(loo2p), loo2p = setInterval(function () {
+
+                            var table = $(id).DataTable();
+                            if (table) {
+                                info = table.page.info(),
+                                    pageNum = info.page < info.pages ? info.page + 1 : 1;
+                                table.page(pageNum).draw(!1);
+                                //   table.columns.adjust().draw();
+                                //    table.rows.adjust().draw();
+                            }
+
+                        }, inter)
+
+                        Swal.fire(
+                            'Page Cycle Enabled',
+                            'The pages will changed for every ' + result.value + ' seconds',
+                            'success'
+                        )
+                    } else {
+                        clearInterval(loo2p);
+                        Swal.fire(
+                            'Page Cycle Disabled!',
+                            'The pages will remain static.',
+                            'success'
+                        )
+                    }
+                })
+
+
+
+            }
+        }, {
+            text: "Report",
+            className: button_class,
+            action: function () {
+                $("#reportModal").modal();
+                call_report_modal(domain_id);
+
+
+
+
+            }
+        }
+
+
+
+
+        ]
+    var table = $('#edit_jobs_table_' +id).DataTable({
+        order: [
+            [8, "desc"]
+        ],
+        dom: 'frtipB ',
+        bInfo: !1,
+        pageLength: 25,
+        buttons: buttons_pack,
+
+        destroy: !0,
+        data: dataset,
+        columnDefs: [
+            {
+                title: 'Job No',
+                targets: 0,
+                orderable: false,
+                render: function (data, type, full, meta) {
+        
+                    return '<span class="capitalize-font txt-primary mr-5 weight-500">#' + data + "</span>";
+                },
+            },
+            {
+                title: 'Ticket No',
+                targets: 1,
+                orderable: false,
+                render: function (data, type, full, meta) {
+
+                    return '<span class="capitalize-font txt-primary mr-5 weight-500">#' + data + "</span>";
+                },
+            }, {
+                title: 'Observations & Comments',
+                targets: 2,
+                orderable: false,
+                render: function (data, type, full, meta) {
+                    console.log(full);
+          var name = '';
+                   if(full[3] !== undefined && full[3] !==null){
+                    name =  full[3];                 
+                } 
+                   var test = '';
+                   if(full[11] !== undefined && full[11] !==null && full[11] !==''){
+                       test =  tabletoimage(full[11],25);
+                   }else{
+                       test =  '<img src="' + full[4] + '+ class="img-circle bounce sender-img" alt="user" height="25" width="25" title=' + name + '>'
+                   }
+
+                    var ds = '<div class="sl-item"><a href="javascript:void(0)"><div class="sl-avatar">'+test+'</div><div class="sl-content"><span class="head-notifications">' + full[2] + '</span><div class="clearfix"></div><span class="inline-block font-11  pull-right notifications-time"></span></div></a></div>';
+
+
+                    return ds;
+                },
+            }, 
+            {
+                title: 'Others',
+                targets: 4,
+                orderable: false,
+                render: function (data, type, full, meta) {
+                  if(full[12]!=='---'){
+                    return   gen_image_linups(full[12]);
+                  }
+                   return '';
+                },
+            },{
+                targets: 3,
+
+                visible: !1
+            },
+            {
+                title: 'Status',
+                targets: 5,
+                orderable: false,
+                render: function (data, type, full, meta) {
+                    return tabletolable(data, false);
+                },
+            },
+            {
+                title: 'Start Time',
+                targets: 6,
+                orderable: false,
+                render: function (data, type, full, meta) {
+                    return '<i class="far fa-clock"></i>&nbsp;&nbsp;' + formatAMPM(data);
+                },
+            },
+            {
+                title: 'End Time',
+                targets: 7,
+                orderable: false,
+                render: function (data, type, full, meta) {
+
+                    return '<i class="far fa-clock"></i>&nbsp;&nbsp;' + formatAMPM(data);
+                },
+            },
+            {
+                title: 'Hours',
+                targets: 8,
+                orderable: false,
+                render: function (data, type, full, meta) {
+
+                    var hours = Math.round((Math.abs(new Date(full[6]) - new Date(full[7]))) / (60 * 60 * 1000));
+                    return hours;
+                },
+            },
+            {
+                title: 'Created On',
+                targets: 9,
+                orderable: false,
+                render: function (data, type, full, meta) {
+
+                    return '<i class="far fa-clock"></i>&nbsp;&nbsp;' + datetimeshortformat(data);
+                },
+            },
+            {
+                title: 'Type',
+                targets: 10,
+                orderable: false,
+                render: function (data, type, full, meta) {
+
+                    return data;
+                },
+            }
+        ],
+    })
+
+
+
+}
 
 
 function fetch_tickets(t, alpha, type) {
@@ -1172,10 +1462,14 @@ function fetch_tickets(t, alpha, type) {
                                 total_open_cases++;
                             }
                             count_status(doc.data().status);
-                            dataSet.push([doc.data().job_num, doc.data().ticket_id, doc.data().message, doc.data().name, doc.data().photoURL, doc.data().status, doc.data().start_time, doc.data().end_time, doc.data().ticket_doc_id, doc.data().timestamp, doc.data().chargable]);
+                            if (t.id != "Cloud_Exchange") {
+                           count_staus_perdate_j(t.id, doc.data().start_time, doc.data().end_time, doc.data().chargable, doc.data().timestamp, doc.data().status,doc.data().message,doc.data().user_id|| '',doc.data().others|| '---',doc.data().ticket_id);  
+                            }
+                            dataSet.push([doc.data().job_num, doc.data().ticket_id, doc.data().message , doc.data().name || '', doc.data().photoURL || '', doc.data().status, doc.data().start_time, doc.data().end_time, doc.data().ticket_doc_id, doc.data().timestamp, doc.data().chargable,doc.data().user_id|| '',doc.data().others|| '---']);
                         });
                         total_cases_tick = total_cases_tick + querySnapshot.size;
-                        loadtable3(t.id, dataSet, false, t.id);
+                       // loadtable3(t.id, dataSet, false, t.id);
+                        dotable2(t.id, dataSet, !1, false, t.id);
                         counter_t++;
 
                         if (counter_t + 1 == total_size) {
@@ -1690,7 +1984,8 @@ function opentkt_save() {
 }
 
 function generateReport() {
-
+    
+    $('#reportModal').modal('toggle');
     var sel1 = document.getElementById("sel1").value,
         dataSet = [],
         values = $("#pre-selected-options").val(),
@@ -1986,7 +2281,8 @@ function generate_data() {
 
         if (e == domain_length - 1) {
 
-            run_echarts();
+           // run_echarts_tickets();
+           run_echarts_jobsheets();
 
         }
     }
@@ -2005,7 +2301,7 @@ function run_fullscreen() {
     }
 }
 
-function run_echarts() {
+function run_echarts_tickets() {
 
     var echartsConfig = function() {
         if ($('#e_chart_1').length > 0) {
@@ -2057,7 +2353,6 @@ function run_echarts() {
                             return status_codes_reversed(obj);
                         }
                     },
-
                     scale: true
                 },
                 series: series_check
@@ -2155,9 +2450,185 @@ function run_echarts() {
                             fontSize: 12
                         }
                     },
+                    data: [
+                        { value: status_c['Not Started'], name: 'Not Started' },
+                        { value: status_c['On Progress'], name: 'On Progress' },
+                        { value: status_c['Urgent Action'], name: 'Urgent Action' },
+                        /*        { value: status_c['Skipped'], name: 'Skipped' }, */
+                        //   { value: status_c['Follow Up'], name: 'Follow Up' },
+                        { value: status_c['Solved'], name: 'Solved' },
+
+                    ].sort(function(a, b) { return a.value - b.value; }),
+                }, ],
+                animationType: 'scale',
+                animationEasing: 'elasticOut',
+                animationDelay: function(idx) {
+                    return Math.random() * 1000;
+                }
+            };
+            eChart_3.setOption(option3);
+            eChart_3.resize();
+        }
+    }
+
+    var echartResize;
+    $(window).on("resize", function() {
+
+        /*E-Chart Resize*/
+        clearTimeout(echartResize);
+        echartResize = setTimeout(echartsConfig, 200);
+    }).resize();
+}
+
+function run_echarts_jobsheets() {
+
+    var echartsConfig = function() {
+        if ($('#e_chart_1').length > 0) {
+            var eChart_1 = echarts.init(document.getElementById('e_chart_1'));
+            var option = {
+                /*          title: {
+                              text: 'Scatter Plot' ,
+                              left: '5%',
+                              top: '3%'
+                          }, */
+                /*                  legend: {
+                                     right: '10%',
+                                     top: '3%',
+                                     data: domain_list
+                                 }, */
+                grid: {
+                    left: '20%',
+                    top: '5%'
+                },
+                tooltip: {
+                    backgroundColor: ['rgba(1,1,1,0.7)'],
+                    formatter: function(obj) {
+                        var value = obj.value;
+                        var vari = '';
+                        if (value[8] != '---') {
+                            vari = tabletoimage(value[7], 20) + " - " + value[8].wrap(55, 10, true) + '</span><br>';
+                        }
+                        return '<div style="solid rgba(255,255,255,.3); font-size: 14px;padding-bottom: 2px;margin-bottom: 2px">' +
+                            value[2] + ' | ' + value[4] + '<br>' + value[5] + " - " + value[3].wrap(75, 10, true) + '<br>' + vari + value[0];
+                    }
+                },
+                xAxis: {
+                    type: 'time',
+                    splitLine: {
+                        lineStyle: {
+                            type: 'dashed'
+                        }
+                    }
+                },
+                yAxis: {
+                    splitLine: {
+                        lineStyle: {
+                            type: 'dashed'
+                        }
+                    },
+                    axisLabel: {
+                        formatter: function(obj) {
+
+                            return status_codes_reversed(obj);
+                        }
+                    },
+                    scale: true
+                },
+                series: series_check
+            };
+
+            eChart_1.setOption(option);
+            eChart_1.resize();
+        }
+        if ($('#e_chart_2').length > 0) {
+            var eChart_2 = echarts.init(document.getElementById('e_chart_2'));
+            var option1 = {
+                series: [{
+                    type: 'liquidFill',
+                    data: [0.7, 0.5, 0.4],
+                    color: ['#119dd2', '#d36ee8', '#667add'],
+                    backgroundStyle: {
+                        borderWidth: 0,
+                        color: 'rgba(255,255,255,0)',
+                        shadowBlur: 0
+                    },
+                    itemStyle: {
+                        normal: {
+                            shadowBlur: 5,
+                            shadowColor: 'rgba(0, 0, 0, .5)'
+                        }
+                    },
+                    shape: 'container',
+                    outline: {
+                        show: false
+                    },
+                    label: {
+                        normal: {
+                            fontSize: 20
+                        }
+                    }
+                }]
+            };
+            eChart_2.setOption(option1);
+            eChart_2.resize();
+        }
+        if ($('#e_chart_3').length > 0) {
+            document.getElementById('item_1').innerHTML = "Not Started";
+            document.getElementById('not_sta_sta').innerHTML = status_c['Not Started'];
+            document.getElementById('item_2').innerHTML = "Solved";
+            document.getElementById('solved_sta').innerHTML = status_c['Solved'];
+            document.getElementById('item_3').innerHTML = "Follow Up";
+            document.getElementById('follow_up_sta').innerHTML = status_c['Follow Up'];
+
+            document.getElementById('item_1_sub').innerHTML = "Not Updated, Since ticket was opened.";
+            document.getElementById('item_2_sub').innerHTML = "Yet to be closed.";
+            document.getElementById('item_3_sub').innerHTML = "Waiting action from client.";
 
 
 
+
+            var eChart_3 = echarts.init(document.getElementById('e_chart_3'));
+            var option3 = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)",
+                    backgroundColor: 'rgba(33,33,33,1)',
+                    borderRadius: 0,
+                    padding: 10,
+                    textStyle: {
+                        color: '#fff',
+                        fontStyle: 'normal',
+                        fontWeight: 'normal',
+                        fontFamily: "'Roboto', sans-serif",
+                        fontSize: 12
+                    }
+                },
+                legend: {
+                    show: false
+                },
+                toolbox: {
+                    show: false,
+                },
+                calculable: true,
+                itemStyle: {
+                    normal: {
+                        shadowBlur: 5,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+                series: [{
+                    name: 'Status',
+                    type: 'pie',
+                    radius: '60%',
+                    center: ['50%', '50%'],
+                    roseType: 'radius',
+                    color: ['#119dd2', '#d36ee8', '#667add', '#fd7397', '#4aa23c'],
+                    label: {
+                        normal: {
+                            fontFamily: "'Roboto', sans-serif",
+                            fontSize: 12
+                        }
+                    },
                     data: [
                         { value: status_c['Not Started'], name: 'Not Started' },
                         { value: status_c['On Progress'], name: 'On Progress' },

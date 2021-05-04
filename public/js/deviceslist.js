@@ -1,7 +1,7 @@
-firebase.auth().onAuthStateChanged(function (n) {
+firebase.auth().onAuthStateChanged(function(n) {
     var user = firebase.auth().currentUser;
     if (user != null) {
-        db.collection("users").doc(user.uid).get().then(function (doc) {
+        db.collection("users").doc(user.uid).get().then(function(doc) {
 
             doc.exists ? null != n ? buildnavitree() : window.location = "index.html" : reset_user();
             if (doc.data().name === "") {
@@ -10,7 +10,7 @@ firebase.auth().onAuthStateChanged(function (n) {
             }
 
 
-        }).catch(function (error) {
+        }).catch(function(error) {
             console.log("Error getting document:", error);
         });
     } else {
@@ -25,12 +25,12 @@ firebase.auth().onAuthStateChanged(function (n) {
 
 function cleanusers() {
 
-    db.collection('domains').get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
+    db.collection('domains').get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
             var domain_id = doc.id;
 
-            db.collection('domains').doc(domain_id).collection('requests').get().then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
+            db.collection('domains').doc(domain_id).collection('requests').get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
                     var user_id = doc.id;
 
 
@@ -38,17 +38,17 @@ function cleanusers() {
 
 
 
-                    db.collection('users').doc(user_id).get().then(function (doc2) {
+                    db.collection('users').doc(user_id).get().then(function(doc2) {
                         if (!doc2.exists) {
-                            db.collection('domains').doc(domain_id).collection('requests').doc(doc2.id).delete().then(function () {
+                            db.collection('domains').doc(domain_id).collection('requests').doc(doc2.id).delete().then(function() {
                                 goodnews("Successfully removed stay entries.");
-                            }).catch(function (error) {
+                            }).catch(function(error) {
                                 console.error("Error removing document: ", error);
                             });
                         } else {
                             // console.log(user_id + "all good");
                         }
-                    }).catch(function (error) {
+                    }).catch(function(error) {
                         console.log("Error getting document:", error);
                     });
 
@@ -106,23 +106,23 @@ function live_update(b, t, live_timestamp) {
                 sessions_used: sess_usage
             }, {
                 merge: !0
-            }).then(function () {
+            }).then(function() {
                 Swal.getContent().querySelector('h6').textContent = "Devices Located.";
-                t.forEach(function (m) {
+                t.forEach(function(m) {
                     db.collection('devices').doc(m).collection('datasets').doc('config').set({
-                        live_timestamp: live_timestamp,
-                        live_update: !0,
-                        blocked: false
-                    }, {
-                        merge: !0
-                    })
-                        .then(function () {
+                            live_timestamp: live_timestamp,
+                            live_update: !0,
+                            blocked: false
+                        }, {
+                            merge: !0
+                        })
+                        .then(function() {
 
                             // Set the "capital" field of the city 'DC'
                             db.collection('devices').doc(m).update({
-                                blocked: false
-                            })
-                                .then(function () {
+                                    blocked: false
+                                })
+                                .then(function() {
                                     n++;
                                     Swal.getContent().querySelector('h6').textContent = "Initiating device : " + m;
                                     if (n == t.length) {
@@ -142,18 +142,18 @@ function live_update(b, t, live_timestamp) {
                                     }
 
                                 })
-                                .catch(function (error) {
+                                .catch(function(error) {
                                     // The document probably doesn't exist.
                                     console.error("Error updating document: ", error);
                                 });
 
 
 
-                        }).catch(function (error) {
+                        }).catch(function(error) {
                             console.error("Error writing document: ", error)
                         })
                 })
-            }).catch(function (error) {
+            }).catch(function(error) {
                 console.error("Error writing document: ", error)
             })
         }
@@ -193,7 +193,7 @@ function request_extend() {
 }
 
 function run_timer(ava) {
-    clearInterval(interval), interval = setInterval(function () {
+    clearInterval(interval), interval = setInterval(function() {
         var min = Math.floor(ava / 60);
         document.getElementById("min_remain").innerText = min, document.getElementById("sec_remain").innerText = Math.floor(ava - 60 * min);
         var e = (600 - ava) / 600 * 100;
@@ -207,7 +207,7 @@ function run_timer(ava) {
 function call_search() {
     document.getElementById("pie_chart_4_text").className = "percent block txt-light weight-500";
     document.getElementById("status_de").innerText = "Search Initiated.";
-    var teste = setInterval(function () {
+    var teste = setInterval(function() {
         timer = timer + 5;
         if (timer >= 100) {
             clearInterval(teste);
@@ -234,7 +234,7 @@ var timer = 0;
 var interval;
 
 function setup_networkchart(e) {
-    am4core.ready(function () {
+    am4core.ready(function() {
         var a;
         am4core.useTheme(am4themes_animated), a = am4core.create("chartdiv22", am4plugins_forceDirected.ForceDirectedTree);
         var t = a.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
@@ -273,9 +273,9 @@ function buildnavitree() {
     var available_docs2 = 0;
     var sys_opt = 'IoT';
 
-    var promise2 = new Promise(function (resolve, reject) {
+    var promise2 = new Promise(function(resolve, reject) {
 
-        db.collection("users").doc(user.uid).get().then(function (doc) {
+        db.collection("users").doc(user.uid).get().then(function(doc) {
             displayName = doc.data().name || "", phoneno = doc.data().phone || "", gender = doc.data().gender || "",
                 country = doc.data().country || "", UserDesignation = doc.data().designation || "",
                 dp_options = doc.data().dp_options || !1, as_options = doc.data().as_options || !1,
@@ -321,7 +321,7 @@ function buildnavitree() {
                     break;
                 case 'IoT':
                     document.getElementById("content_home_page").style.display = "block";
-                   
+
                     add_iot_menu();
                     document.getElementById("domainload").innerHTML = "- Internet of Things";
 
@@ -380,29 +380,29 @@ function buildnavitree() {
                 rest = total_op[i].user_list;
                 if (0 != rest.length) {
 
-                    rest.forEach(function (entry) {
+                    rest.forEach(function(entry) {
 
                         const promise3 = new Promise((resolve, reject) => {
 
-                            temp.includes(entry) || db.collection("users").doc(entry).get().then(function (doc) {
+                            temp.includes(entry) || db.collection("users").doc(entry).get().then(function(doc) {
 
-                                if (doc.exists) {
-                                    var name2 = doc.data().name || "default",
-                                        photoUrl2 = doc.data().photoUrl || "image/blank_profile_pic.jpg",
-                                        email2 = doc.data().email || "default";
-                                    user_profiles.push({
-                                        id: entry,
-                                        name: name2,
-                                        photoUrl: photoUrl2,
-                                        email: email2
-                                    });
+                                    if (doc.exists) {
+                                        var name2 = doc.data().name || "default",
+                                            photoUrl2 = doc.data().photoUrl || "image/blank_profile_pic.jpg",
+                                            email2 = doc.data().email || "default";
+                                        user_profiles.push({
+                                            id: entry,
+                                            name: name2,
+                                            photoUrl: photoUrl2,
+                                            email: email2
+                                        });
 
-                                }
-                                resolve('success');
-                            }).catch(function (error) {
-                                badnews("Error getting document:", error);
-                                reject('error');
-                            }),
+                                    }
+                                    resolve('success');
+                                }).catch(function(error) {
+                                    badnews("Error getting document:", error);
+                                    reject('error');
+                                }),
                                 temp.push(entry);
                         });
                         Promises_.push(promise3);
@@ -587,8 +587,8 @@ function buildnavitree() {
                     document.getElementById("dp_op_list_1").style.display = "block", document.getElementById("dp_op_list_2").style.display = "block",
                     document.getElementById("dp_op_list_3").style.display = "block", document.getElementById("dp_op_line").style.display = "block") : document.getElementById("dpoption").click(),
                 as_options || document.getElementById("asoption").click();
-        }).then(function () {
-         
+        }).then(function() {
+
             if (sys_opt == 'IoT' || sys_opt == '') {
                 document.getElementById("total_dvs").innerText = total_devices;
                 var percentage = Math.round(used_docs2 / available_docs2 * 100),
@@ -603,7 +603,7 @@ function buildnavitree() {
             document.getElementById("domain_case2").innerHTML = document.getElementById("changeDomain2").innerHTML;
 
             return resolve(devicesum)
-        }).catch(function (error) {
+        }).catch(function(error) {
             if (new_guy_flag) {
                 document.getElementById("subcripText").innerHTML = displayName + "&nbsp;&nbsp;&nbsp; |   ";
                 document.getElementById('domainload').innerHTML = " - Available Sites"
@@ -626,12 +626,12 @@ function buildnavitree() {
 
 
     });
-    return promise2.then(function () {
+    return promise2.then(function() {
         document.getElementById('myTabs_11').innerHTML = new_tab;
         //   document.getElementById('myTabs_11').style.display = "block",
         document.getElementById('myTabContent_11').innerHTML = new_tab_pro;
         document.getElementById('myTabs_12').innerHTML = new_tab2;
-   
+
 
         document.getElementById('myTabContent_12').innerHTML = new_tab_pro2;
         switch (sys_opt) {
@@ -644,18 +644,18 @@ function buildnavitree() {
                       .catch(error => {
                         console.error(error.message)
                       }); */
-                setTimeout(function () { open_todo(); }, 1000);
+                setTimeout(function() { open_todo(); }, 1000);
                 break;
             case 'Jobsheets':
-                setTimeout(function () { open_jobsheets(); }, 1000);
-   
+                setTimeout(function() { open_jobsheets(); }, 1000);
+
                 break;
             case 'IoT':
                 things();
                 setup_echart(devicesum);
                 setup_networkchart(total_op);
-             
-                
+
+
 
                 //  document.getElementById("domainload").innerHTML = "- Internet of Things";
                 break;
@@ -664,10 +664,10 @@ function buildnavitree() {
                 things();
                 setup_echart(devicesum);
                 setup_networkchart(total_op);
-             
-                
 
-            //  document.getElementById("domainload").innerHTML = "- Internet of Things";
+
+
+                //  document.getElementById("domainload").innerHTML = "- Internet of Things";
         }
 
         add_devices_types();
@@ -724,11 +724,11 @@ function checkstatus_redo() {
 }
 
 function add_devices_types() {
-    db.collection("types").get().then(function (t) {
+    db.collection("types").get().then(function(t) {
         var counter_types = 0;
         var length_types = t.size;
         var e = document.getElementById("dType");
-        t.forEach(function (t) {
+        t.forEach(function(t) {
             counter_types++;
             var n = document.createElement("option");
             n.text = t.data().name + " - " + t.data().type, n.value = t.id, e.add(n)
@@ -737,25 +737,25 @@ function add_devices_types() {
             }
 
         })
-    }).catch(function (t) {
+    }).catch(function(t) {
         badnews(t);
     })
 }
 
 function check_new_sites_added(e, s) {
-    db.collection("users").doc(e.uid).collection("requests").where("approval", "==", !0).get().then(function (e) {
+    db.collection("users").doc(e.uid).collection("requests").where("approval", "==", !0).get().then(function(e) {
         e.size >= s.length && rebuildtree("We have added new sites, as one or more requests has been approved.")
     })
 }
 
 function init_site_settings() {
-    $("#addsitemodal").on("show.bs.modal", function (t) {
+    $("#addsitemodal").on("show.bs.modal", function(t) {
         var e = $(t.relatedTarget).data("id");
-        db.collection("domains").doc(e).get().then(function (t) {
+        db.collection("domains").doc(e).get().then(function(t) {
             document.getElementById("sName").value = t.data().name || "-", document.getElementById("sDescription").value = t.data().description || "-", document.getElementById("sLocation").value = t.data().location || "-", document.getElementById("sid").value = e
-        }).then(function () {
+        }).then(function() {
             document.getElementById("addSite").innerHTML = "Site Settings"
-        }).catch(function (t) {
+        }).catch(function(t) {
             badnews(t);
         })
     })
@@ -799,10 +799,10 @@ function checkstatus(e, t) {
     var d = [];
     void 0 == e && (e = !1), d = [], d.offline = 0, d.online = 0, d.total = 0;
 
-    t.forEach(function (t) {
+    t.forEach(function(t) {
         var element = document.getElementById("li_" + t),
             m = t;
-        db.collection("devices").doc(m).get().then(function (t) {
+        db.collection("devices").doc(m).get().then(function(t) {
             blocked = t.data().blocked;
             //   console.log(blocked);
             var element = document.getElementById(m);
@@ -815,7 +815,7 @@ function checkstatus(e, t) {
             }
 
             // console.log("Device :" + m + "  blocked :" + blocked);
-            db.collection("devices").doc(m).collection("datasets").doc("live").get().then(function (t) {
+            db.collection("devices").doc(m).collection("datasets").doc("live").get().then(function(t) {
 
 
                 d.total = (d.total) + 1, oldtimestamp = t.data().timestamp, newtimestamp = Date.now(),
@@ -833,10 +833,10 @@ function checkstatus(e, t) {
                     element.classList.add("text-success")
                 }
 
-            }).then(function () {
+            }).then(function() {
                 document.getElementById("pie_chart_4_text").className = "percent block txt-dark weight-500";
                 $("#pie_chart_4").data("easyPieChart").update(e), document.getElementById("num_online").innerText = d.online + "/" + d.total;
-            }).catch(function () {
+            }).catch(function() {
                 d.not_connected = (d.not_connected || 0) + 1;
                 // element.classList.add("text-muted");
             });
@@ -866,12 +866,12 @@ function rebuildtree(message_text) {
             const rawdatapath = db.collection("users").doc(user.uid);
             rawdatapath.update({
                 navi: !0
-            }).then(function () { }).then(function () {
+            }).then(function() {}).then(function() {
                 Swal.getContent().querySelector('h6').textContent = "Initaiating L";
                 document.getElementById("subcripText").innerHTML = "<i class='fas fa-sync fa-spin'></i>" + "&nbsp;&nbsp;&nbsp Rebuilding Navaigation...";
                 googlefunctions();
                 Swal.getContent().querySelector('h6').textContent = "Awaiting reply from Cloud Services.";
-                unsubscribe3 = rawdatapath.onSnapshot(function (doc) {
+                unsubscribe3 = rawdatapath.onSnapshot(function(doc) {
                     counter++;
                     if (counter == 2) {
                         document.getElementById("subcripText").innerHTML = user.displayName + "&nbsp;&nbsp;&nbsp |   ";
@@ -894,7 +894,7 @@ function rebuildtree(message_text) {
                         }
                     }
                 })
-            }).catch(function (error) {
+            }).catch(function(error) {
                 badnews(error);
             })
         },
@@ -916,10 +916,10 @@ function googlefunctions() {
     var devicecount = 0;
     var domaincount = 0;
     var sandboxcount = 0;
-    var promise2 = new Promise(function (resolve, reject) {
-        db.collection("devices").where("owner", "==", user.uid).where("domain", "==", "Cloud_Exchange").get().then(function (querySnapshot) {
+    var promise2 = new Promise(function(resolve, reject) {
+        db.collection("devices").where("owner", "==", user.uid).where("domain", "==", "Cloud_Exchange").get().then(function(querySnapshot) {
             sandboxcount = querySnapshot.size;
-            querySnapshot.forEach(function (doc) {
+            querySnapshot.forEach(function(doc) {
                 ob_de.push({
                     name: doc.data().name,
                     value: 1,
@@ -930,7 +930,7 @@ function googlefunctions() {
                     role: "Owner",
                 })
             })
-        }).then(function () {
+        }).then(function() {
             userlist.push(user.uid);
             userjson.push({
                 name: user.displayName,
@@ -948,7 +948,7 @@ function googlefunctions() {
             userlist = [];
 
             //   console.log(userlist);
-            db.collection("users").doc(user.uid).collection('requests').where("approval", "==", !0).get().then(function (querySnapshot) {
+            db.collection("users").doc(user.uid).collection('requests').where("approval", "==", !0).get().then(function(querySnapshot) {
                 domaincount = querySnapshot.size;
                 if (domaincount == 0) {
                     resolve({
@@ -962,7 +962,7 @@ function googlefunctions() {
                         "available_docs": 0
                     });
                 }
-                querySnapshot.forEach(function (doc) {
+                querySnapshot.forEach(function(doc) {
                     var user_req_id = doc.id;
                     var owner = doc.data().roles.owner || !1;
                     var admin = doc.data().roles.admin || !1;
@@ -984,17 +984,17 @@ function googlefunctions() {
                             var tempname = doc.data().name || "s";
                             var temptype = doc.data().type;
                             var descrip = doc.data().description;
-                            db.collection("domains").doc(domainid).collection('requests').where("approval", "==", !0).get().then(function (querySnapshot) {
+                            db.collection("domains").doc(domainid).collection('requests').where("approval", "==", !0).get().then(function(querySnapshot) {
                                 userlist = [];
-                                0 != querySnapshot.size && querySnapshot.forEach(function (doc) {
+                                0 != querySnapshot.size && querySnapshot.forEach(function(doc) {
                                     userlist.includes(doc.id) || userlist.push(doc.id);
                                 });
 
-                            }).then(function () {
+                            }).then(function() {
 
                                 var io = userlist;
-                                db.collection("devices").where("domain", "==", domainid).get().then(function (querySnapshot) {
-                                    devicecount += querySnapshot.size, querySnapshot.forEach(function (doc) {
+                                db.collection("devices").where("domain", "==", domainid).get().then(function(querySnapshot) {
+                                    devicecount += querySnapshot.size, querySnapshot.forEach(function(doc) {
                                         var log_size = doc.data().log_size || 0,
                                             log_minimum_points = Number(doc.data().log_minimum_points || 0);
                                         devicesum[doc.data().type] = (devicesum[type2] || 0) + 1, available_docs = log_minimum_points + available_docs,
@@ -1011,7 +1011,7 @@ function googlefunctions() {
                                                 log_minimum_points: log_minimum_points
                                             });
                                     });
-                                }).then(function () {
+                                }).then(function() {
                                     // console.log("doamin =" + domainid + "   userlist+" + userlist);
                                     ob_do.push({
                                         name: tempname,
@@ -1022,9 +1022,9 @@ function googlefunctions() {
                                         role: roler,
                                         user_list: io
                                     }), ob_de = [], userlist = [], counter++, domaincount == counter && (total_do.push({
-                                        name: user.displayName,
-                                        children: ob_do
-                                    }),
+                                            name: user.displayName,
+                                            children: ob_do
+                                        }),
 
                                         console.log(total_do),
                                         resolve({
@@ -1038,12 +1038,12 @@ function googlefunctions() {
                                             available_docs: available_docs
                                         }));
 
-                                }).catch(function (error) {
+                                }).catch(function(error) {
                                     resolve({
                                         navi_status: error
                                     });
                                 });
-                            }).catch(function (error) {
+                            }).catch(function(error) {
                                 resolve({
                                     "navi_status": error
                                 })
@@ -1053,31 +1053,31 @@ function googlefunctions() {
                             domaincount--;
                             db.collection("users").doc(user_req_id).collection('requests').where("approval", "==", !0).delete()
                         }
-                    }).catch(function (error) {
+                    }).catch(function(error) {
                         resolve({
                             "navi_status": error
                         })
                     })
                 })
-            }).catch(function (error) {
+            }).catch(function(error) {
                 resolve({
                     "navi_status": error
                 })
             })
-        }).catch(function (error) {
+        }).catch(function(error) {
             resolve({
                 "navi_status": error
             })
         })
     });
-    return promise2.then(function (value) {
+    return promise2.then(function(value) {
         console.log(value);
         value = JSON.stringify(value);
         value = JSON.parse(value);
 
         db.collection("users").doc(user.uid).set(value, {
             merge: !0
-        }).catch(function (error) {
+        }).catch(function(error) {
             badnews(error);
         })
     })
@@ -1086,24 +1086,24 @@ function googlefunctions() {
 function loadnotifcation(t, e, i) {
     var n = 0,
         a = '<div class="streamline message-nicescroll-bar">';
-    db.collection("domains").doc(t).collection("requests").where("approval", "==", !1).get().then(function (o) {
-        o.forEach(function (o) {
-            db.collection("users").doc(o.id).get().then(function (o) {
-                n += 1;
-                var s = o.data().name || "---";
-                a = a + '<div class="sl-item sl-item-mg"><a href="javascript:void(0)"><div class="col-sm-9"><div class="icon bg-green"><i class="zmdi zmdi-flag"></i></div><div class="sl-content"><span class="inline-block   pull-left noti-item-text  ">' + s + " has requested access to " + e + '.</span><span class="inline-block font-11   notifications-time">' + i + '</span><div class="clearfix"></div></div></div><div class="col-sm-3"><a href=\'#\' onclick=\'action("' + o.id + '","' + t + '","' + s + "\",true)' class='label label-danger label-xs'> Approve? </a></div></a></div>"
-            }).then(function () {
-                document.getElementById("notification").innerHTML = a, document.getElementById("noticounter").innerHTML = n.toString(), $("body").removeAttr("class").addClass("bottom-center-fullwidth"), $.toast({
-                    heading: "Your Attention Request.",
-                    text: "Check you notifications, you may have messages.",
-                    position: "bottom-right",
-                    loaderBg: "#878787",
-                    icon: "success",
-                    hideAfter: 3500,
-                    stack: 6
+    db.collection("domains").doc(t).collection("requests").where("approval", "==", !1).get().then(function(o) {
+        o.forEach(function(o) {
+            db.collection("users").doc(o.id).get().then(function(o) {
+                    n += 1;
+                    var s = o.data().name || "---";
+                    a = a + '<div class="sl-item sl-item-mg"><a href="javascript:void(0)"><div class="col-sm-9"><div class="icon bg-green"><i class="zmdi zmdi-flag"></i></div><div class="sl-content"><span class="inline-block   pull-left noti-item-text  ">' + s + " has requested access to " + e + '.</span><span class="inline-block font-11   notifications-time">' + i + '</span><div class="clearfix"></div></div></div><div class="col-sm-3"><a href=\'#\' onclick=\'action("' + o.id + '","' + t + '","' + s + "\",true)' class='label label-danger label-xs'> Approve? </a></div></a></div>"
+                }).then(function() {
+                    document.getElementById("notification").innerHTML = a, document.getElementById("noticounter").innerHTML = n.toString(), $("body").removeAttr("class").addClass("bottom-center-fullwidth"), $.toast({
+                        heading: "Your Attention Request.",
+                        text: "Check you notifications, you may have messages.",
+                        position: "bottom-right",
+                        loaderBg: "#878787",
+                        icon: "success",
+                        hideAfter: 3500,
+                        stack: 6
+                    })
                 })
-            })
-                .catch(function (t) {
+                .catch(function(t) {
                     badnews(t);
                 })
         })
@@ -1130,7 +1130,7 @@ function action(userid, domainid, username, setvalue) {
                 approval: setvalue
             }, {
                 merge: !0
-            }).catch(function (error) {
+            }).catch(function(error) {
                 errorflag = !1;
                 Swal.fire({
                     title: "Warning",
@@ -1138,15 +1138,15 @@ function action(userid, domainid, username, setvalue) {
                     icon: 'warning',
                 })
             });
-            db.collection('devices').where("owner", "==", userid).where("domain", "==", domainid).get().then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
+            db.collection('devices').where("owner", "==", userid).where("domain", "==", domainid).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
                     db.collection('devices').doc(doc.id).set({
                         domain: ""
                     }, {
                         merge: !0
                     })
                 })
-            }).catch(function (error) {
+            }).catch(function(error) {
                 errorflag = !1;
                 badnews(error);
             });
@@ -1161,8 +1161,8 @@ function action(userid, domainid, username, setvalue) {
 
 function checknoti() {
     var t = firebase.auth().currentUser;
-    db.collection("users").doc(t.uid).collection("requests").where("approval", "==", !0).get().then(function (e) {
-        e.forEach(function (e) {
+    db.collection("users").doc(t.uid).collection("requests").where("approval", "==", !0).get().then(function(e) {
+        e.forEach(function(e) {
             var a = e.id,
                 o = e.data().roles.owner || !1,
                 n = e.data().roles.admin || !1;
@@ -1171,15 +1171,15 @@ function checknoti() {
             var d = (e.data().created_on).toDate();
             //  console.log(ed);
             //  d = datetimeformat(ed);
-            db.collection("domains").doc(e.id).get().then(function (e) {
-                e.exists ? (o || n) && loadnotifcation(e.id, e.data().name, d) : db.collection("users").doc(t.uid).collection("requests").doc(a).delete().then(function () {
+            db.collection("domains").doc(e.id).get().then(function(e) {
+                e.exists ? (o || n) && loadnotifcation(e.id, e.data().name, d) : db.collection("users").doc(t.uid).collection("requests").doc(a).delete().then(function() {
                     rebuildtree()
                 })
-            }).catch(function (t) {
+            }).catch(function(t) {
                 badnews(t);
             })
         })
-    }).catch(function (t) {
+    }).catch(function(t) {
         badnews(t);
     })
 }

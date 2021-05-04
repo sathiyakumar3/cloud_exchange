@@ -244,7 +244,7 @@ function removefollowup() {
 }
 
 
-function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
+/* function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
 
     var table_id = 'div_jobs_table_' +id;
     var other_table =  'div_tic_table_' +id;
@@ -473,7 +473,7 @@ function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
 
 
 
-}
+} */
 
 
 
