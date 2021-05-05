@@ -995,6 +995,50 @@ status_c['Follow Up'] = 0;
 status_c['Solved'] = 0;
 status_c['Total'] = 0;
 
+
+var m_status_c = [];
+m_status_c['Not Chargeable'] = 0;
+m_status_c['Chargeable'] = 0;
+m_status_c['Warranty'] = 0;
+m_status_c['Maintenance'] = 0;
+m_status_c['Other'] = 0;
+m_status_c['Total'] = 0;
+
+
+function count_status_ppm(status) {
+    m_status_c['Total']++;
+    switch (status) {
+        case 'Not Chargable':
+            m_status_c['Not Chargeable']++;
+            break;
+            case 'Not Chargeable':
+                m_status_c['Not Chargeable']++;
+                break;
+        case 'Chargeable':
+            m_status_c['Chargeable']++;
+            break;
+            case 'Chargable':
+                m_status_c['Chargeable']++;
+                break;
+        case 'Warranty':
+            m_status_c['Warranty']++;
+            break;
+            case 'Warrenty':
+                m_status_c['Warranty']++;
+                break;
+        case 'Maintenance':
+            m_status_c['Maintenance']++;
+            break;
+        case 'Other':
+            m_status_c['Other']++;
+            break;
+        default:
+            return 0;
+            return 6;
+    }
+
+}
+
 function count_status(status) {
     switch (status) {
         case 'Not Started':
@@ -1021,6 +1065,7 @@ var status_c_date = [];
 var user_c_date = [];
 var data_setta = [];
 var domain_list = [];
+var user_list = [];
 var weekly_tickets = 0;
 var monthly_tickets = 0;
 var status_addressed = 0;
@@ -1072,8 +1117,64 @@ function status_codes_reversed(status) {
     }
 
 }
+function jobstatus_codes(status) {
+    switch (status) {
+        case 'Not Chargable':
+            return 1;
+            break;
+            case 'Not Chargeable':
+                return 1;
+                break;
+        case 'Chargeable':
+            return 2;
+            break;
+            case 'Chargable':
+                return 2;
+                break;
+        case 'Warranty':
+            return 3;
+            break;
+            case 'Warrenty':
+                return 3;
+                break;
+        case 'Maintenance':
+            return 4;
+            break;
+        case 'Other':
+            return 5;
+            break;
+        default:
+            return 0;
+            return 6;
+    }
 
+}
+
+function jobstatus_codes_reversed(status) {
+    switch (status) {
+        case 1:
+            return 'Not-Chargeable';
+            break;
+        case 2:
+            return 'Chargeable';
+            break;
+        case 3:
+            return 'Warranty';
+            break;
+        case 4:
+            return 'Maintenance';
+            break;
+        case 5:
+            return 'Other';
+            break;
+        default:
+            // code block
+            return 0;
+    }
+
+}
 function count_staus_perdate(domain, created_on, issue, status, location, by, message) {
+ 
     if (domain != "Cloud_Exchange") {
         var phrase = created_on.toDate().getFullYear() + "/" + created_on.toDate().getMonth() + "/" + ('0' + created_on.toDate().getDate()).slice(-2);
         var date1 = created_on.toDate();
@@ -1101,12 +1202,17 @@ function count_staus_perdate(domain, created_on, issue, status, location, by, me
 
 
 function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, status,message,user_id,others,ticket_id){
+
     if (domain != "Cloud_Exchange") {
         var phrase = created_on.toDate().getFullYear() + "/" + created_on.toDate().getMonth() + "/" + ('0' + created_on.toDate().getDate()).slice(-2);
         var date1 = created_on.toDate();
         var date2 = new Date();
         var Difference_In_Time = date2.getTime() - date1.getTime();
         var Difference_In_Days = Math.round(Difference_In_Time / 864e5);
+
+        var hours = Math.round((Math.abs(new Date(start_time) - new Date(end_time))) / (60 * 60 * 1000));
+
+
         if (Difference_In_Days < 7) {
             weekly_tickets++;
         }
@@ -1122,7 +1228,16 @@ function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, 
             domain_list.push(domain);
             status_c_date[[domain]] = 0;
         }
-        data_setta.push([phrase, status_codes(status), domain, issue, status, location, Difference_In_Days, by, message]);
+      
+        
+
+        if (user_c_date.hasOwnProperty(user_id)) {
+            user_c_date[[user_id]]++;
+        } else {
+            user_list.push(user_id);
+            user_c_date[[user_id]] = 0;
+        }
+        data_setta.push([phrase, jobstatus_codes(chargable), domain,status, hours, Difference_In_Days, chargable, message,user_id,ticket_id]);
     }
 }
 
@@ -1285,7 +1400,7 @@ function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
                 targets: 2,
                 orderable: false,
                 render: function (data, type, full, meta) {
-                    console.log(full);
+
           var name = '';
                    if(full[3] !== undefined && full[3] !==null){
                     name =  full[3];                 
@@ -1451,20 +1566,22 @@ function fetch_tickets(t, alpha, type) {
                 })
             }
             document.getElementById(t.id + '_label2').innerText = 0;
-
+        
 
             switch (type) {
                 case 'jobsheets':
                     db.collection("domains").doc(t.id).collection("job_sheets").get().then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
-
+                          
                             if (doc.data().status == 'Closed' || doc.data().status == 'Solved') {
                                 total_open_cases++;
                             }
-                            count_status(doc.data().status);
+                            count_status_ppm(doc.data().chargable);
                             if (t.id != "Cloud_Exchange") {
                            count_staus_perdate_j(t.id, doc.data().start_time, doc.data().end_time, doc.data().chargable, doc.data().timestamp, doc.data().status,doc.data().message,doc.data().user_id|| '',doc.data().others|| '---',doc.data().ticket_id);  
                             }
+                    
+
                             dataSet.push([doc.data().job_num, doc.data().ticket_id, doc.data().message , doc.data().name || '', doc.data().photoURL || '', doc.data().status, doc.data().start_time, doc.data().end_time, doc.data().ticket_doc_id, doc.data().timestamp, doc.data().chargable,doc.data().user_id|| '',doc.data().others|| '---']);
                         });
                         total_cases_tick = total_cases_tick + querySnapshot.size;
@@ -1489,7 +1606,7 @@ function fetch_tickets(t, alpha, type) {
 
                     db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
-
+                     
                             total_cases_tick = total_cases_tick + Number(doc.data().id);
                             document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
                             db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function(querySnapshot) {
@@ -1542,7 +1659,23 @@ function fetch_tickets(t, alpha, type) {
         if (for_loop_count == total_size) {
             setTimeout(
                 function() {
-                    generate_data();
+
+                    switch (type) {
+                        case 'jobsheets':
+                            generate_data2();
+    
+                            break;
+                        case 'tickets':
+                            generate_data();
+                            break;
+                        default:
+                            // code block
+                    }
+        
+
+
+
+                   
                     //  console.log(status_c_date);
                     // console.log(data_setta);
 
@@ -2281,6 +2414,77 @@ function generate_data() {
 
         if (e == domain_length - 1) {
 
+           run_echarts_tickets();
+          // run_echarts_jobsheets();
+
+        }
+    }
+}
+function generate_data2() {
+
+
+    var pec = Math.round((status_addressed / m_status_c['Total']) * 100);
+
+    document.getElementById("addressed_percentage").innerText = pec;
+    document.getElementById("addressed_percentage_bar").innerHTML = '	<div class="progress-bar progress-bar-primary  wow animated progress-animated" role="progressbar" aria-valuenow="' + pec + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + pec + '%;"></div>';
+    document.getElementById("addressed_perc").innerText = status_addressed;
+    document.getElementById("Work_on_Progress").innerText = m_status_c['Total'] - status_addressed;
+
+
+    find_max(status_c_date);
+    document.getElementById("weekly_tickets").innerText = weekly_tickets;
+    document.getElementById("monthly_tickets").innerText = monthly_tickets;
+    var domain_length = domain_list.length;
+    // c
+
+    for (var e = 0; e < domain_length; e++) {
+        var selected_domain = domain_list[e];
+        var data = [];
+        var data_lenth = data_setta.length;
+        for (var i = 0; i < data_lenth; i++) {
+            if (data_setta[i][2] == selected_domain) {
+                data.push(data_setta[i]);
+            
+            }
+            if (i == data_lenth - 1) {
+                var temp = {
+                    name: selected_domain,
+                    data: data,
+                    type: 'scatter',
+                    symbolSize: function(data) {
+                        return 10;
+                        return (Math.sqrt(data[6]) * 2);
+                    },
+                    emphasis: {
+                        focus: 'series',
+                        label: {
+                            show: true,
+                            formatter: function(param) {
+                                console.log(param);
+                                return 'ds'
+                            },
+                            position: 'top'
+                        }
+                    },
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(120, 36, 50, 0.5)',
+                        shadowOffsetY: 5,
+                        color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                            offset: 0,
+                            color: 'rgb(251, 118, 123)'
+                        }, {
+                            offset: 1,
+                            color: 'rgb(204, 46, 72)'
+                        }])
+                    }
+                };
+                series_check.push(temp);
+            }
+        }
+
+        if (e == domain_length - 1) {
+
            // run_echarts_tickets();
            run_echarts_jobsheets();
 
@@ -2329,6 +2533,7 @@ function run_echarts_tickets() {
                         if (value[8] != '---') {
                             vari = tabletoimage(value[7], 20) + " - " + value[8].wrap(55, 10, true) + '</span><br>';
                         }
+                        console.log(value);
                         return '<div style="solid rgba(255,255,255,.3); font-size: 14px;padding-bottom: 2px;margin-bottom: 2px">' +
                             value[2] + ' | ' + value[4] + '<br>' + value[5] + " - " + value[3].wrap(75, 10, true) + '<br>' + vari + value[0];
                     }
@@ -2505,11 +2710,16 @@ function run_echarts_jobsheets() {
                     formatter: function(obj) {
                         var value = obj.value;
                         var vari = '';
-                        if (value[8] != '---') {
-                            vari = tabletoimage(value[7], 20) + " - " + value[8].wrap(55, 10, true) + '</span><br>';
+                        if (value[7] != '---') {
+                            vari = tabletoimage(value[8], 20) + " - " + value[7].wrap(55, 10, true) + '</span><br>';
                         }
+
+                   //     data_setta.push([phrase, jobstatus_codes(status), domain,status, hours, Difference_In_Days, chargable, message,user_id,ticket_id]);
+
+             
+                  
                         return '<div style="solid rgba(255,255,255,.3); font-size: 14px;padding-bottom: 2px;margin-bottom: 2px">' +
-                            value[2] + ' | ' + value[4] + '<br>' + value[5] + " - " + value[3].wrap(75, 10, true) + '<br>' + vari + value[0];
+                            value[2] + ' | ' + value[3] + '<br>' + 'Ticket No : '+value[9] + '<br>' + vari +  value[0] +' | '+ value[4] + ' Hours';
                     }
                 },
                 xAxis: {
@@ -2528,15 +2738,15 @@ function run_echarts_jobsheets() {
                     },
                     axisLabel: {
                         formatter: function(obj) {
-
-                            return status_codes_reversed(obj);
+                            
+                            return jobstatus_codes_reversed(obj);
                         }
                     },
                     scale: true
                 },
                 series: series_check
             };
-
+       
             eChart_1.setOption(option);
             eChart_1.resize();
         }
@@ -2573,12 +2783,17 @@ function run_echarts_jobsheets() {
             eChart_2.resize();
         }
         if ($('#e_chart_3').length > 0) {
-            document.getElementById('item_1').innerHTML = "Not Started";
-            document.getElementById('not_sta_sta').innerHTML = status_c['Not Started'];
-            document.getElementById('item_2').innerHTML = "Solved";
-            document.getElementById('solved_sta').innerHTML = status_c['Solved'];
-            document.getElementById('item_3').innerHTML = "Follow Up";
-            document.getElementById('follow_up_sta').innerHTML = status_c['Follow Up'];
+
+
+   
+
+
+            document.getElementById('item_1').innerHTML = "Chargeable";
+            document.getElementById('not_sta_sta').innerHTML = m_status_c['Chargeable'];
+            document.getElementById('item_2').innerHTML = "Warranty";
+            document.getElementById('solved_sta').innerHTML = m_status_c['Warranty'];
+            document.getElementById('item_3').innerHTML = "Maintenance";
+            document.getElementById('follow_up_sta').innerHTML = m_status_c['Maintenance'];
 
             document.getElementById('item_1_sub').innerHTML = "Not Updated, Since ticket was opened.";
             document.getElementById('item_2_sub').innerHTML = "Yet to be closed.";
@@ -2629,13 +2844,16 @@ function run_echarts_jobsheets() {
                             fontSize: 12
                         }
                     },
+
+    
                     data: [
-                        { value: status_c['Not Started'], name: 'Not Started' },
-                        { value: status_c['On Progress'], name: 'On Progress' },
-                        { value: status_c['Urgent Action'], name: 'Urgent Action' },
-                        /*        { value: status_c['Skipped'], name: 'Skipped' }, */
+                     /*    { value: m_status_c['Not Chargeable'], name: 'Not Chargeable' }, */
+                     { value: m_status_c['Warranty'], name: 'Warranty' },
+                        { value: m_status_c['Chargeable'], name: 'Chargeable' },
+                        { value: m_status_c['Maintenance'], name: 'Maintenance' },
+                           { value: status_c['Other'], name: 'Other' }, 
                         //   { value: status_c['Follow Up'], name: 'Follow Up' },
-                        { value: status_c['Solved'], name: 'Solved' },
+                    
 
                     ].sort(function(a, b) { return a.value - b.value; }),
                 }, ],
