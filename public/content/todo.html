@@ -123,7 +123,7 @@
                         </div>
                         <div class="panel-heading">
                             <div class="pull-left">
-                                <h6 class="panel-title txt-dark">Tickets by Statuses</h6>
+                                <h6 class="panel-title txt-dark" id="by_sta_title">--- --- ---</h6>
                             </div>
                             <div class="pull-right">
                                 <a href="#" class="pull-left inline-block refresh mr-15">
@@ -177,7 +177,7 @@
                         </div>
                         <div class="panel-heading">
                             <div class="pull-left">
-                                <h6 class="panel-title txt-dark">Tickets Timeline</h6>
+                                <h6 class="panel-title txt-dark" id="multi_grah_title">--- ---</h6>
                             </div>
                             <div class="pull-right">
                                 <a href="#" class="pull-left inline-block refresh mr-15">
@@ -266,9 +266,9 @@
                     <div class="panel panel-default card-view">
                         <div class="panel-wrapper collapse in">
                             <div class="panel-body sm-data-box-1">
-                                <span class="uppercase-font weight-500 font-14 block text-center txt-dark">Addressed Tickets</span>
+                                <span class="uppercase-font weight-500 font-14 block text-center txt-dark" id="title_bar">------ ---</span>
                                 <div class="cus-sat-stat weight-500 txt-primary text-center mt-5">
-                                    <span class="counter-anim" id="addressed_percentage">70</span><span>%</span>
+                                    <span class="counter-anim" id="addressed_percentage">--</span><span>%</span>
                                 </div>
                                 <div class="progress-anim mt-20">
                                     <div class="progress" id="addressed_percentage_bar">
@@ -296,6 +296,135 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                       <div class="panel panel-default card-view panel-refresh">
+								<div class="refresh-container">
+									<div class="la-anim-1"></div>
+								</div>
+								<div class="panel-heading">
+									<div class="pull-left">
+										<h6 class="panel-title txt-dark">Pending Items</h6>
+									</div>
+									<div class="pull-right">
+										<a href="#" class="pull-left inline-block refresh mr-15">
+											<i class="zmdi zmdi-replay"></i>
+										</a>
+										<div class="pull-left inline-block dropdown">
+											<a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" role="button"><i class="zmdi zmdi-more-vert"></i></a>
+											<ul class="dropdown-menu bullet dropdown-menu-right"  role="menu">
+												<li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-reply" aria-hidden="true"></i>option 1</a></li>
+												<li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-share" aria-hidden="true"></i>option 2</a></li>
+												<li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-trash" aria-hidden="true"></i>option 3</a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							<div class="panel-wrapper collapse in">
+								<div class="panel-body">
+									<div id="e_chart_11" class="" style="height:242px;"></div>
+									<div class="label-chatrs mt-15">
+										<div class="mb-5">
+											<span class="clabels inline-block bg-purple mr-5"></span>
+											<span class="clabels-text font-12 inline-block txt-dark capitalize-font">Actions pending</span>
+										</div>
+										<div class="mb-5">
+											<span class="clabels inline-block bg-skyblue mr-5"></span>
+											<span class="clabels-text font-12 inline-block txt-dark capitalize-font">decision pending</span>
+										</div>
+										<div class="">
+											<span class="clabels inline-block bg-blue mr-5"></span>
+											<span class="clabels-text font-12 inline-block txt-dark capitalize-font">chage request pending</span>
+										</div>										
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+						<div class="panel panel-default card-view panel-refresh">
+							<div class="refresh-container">
+								<div class="la-anim-1"></div>
+							</div>
+							<div class="panel-heading">
+								<div class="pull-left">
+									<h6 class="panel-title txt-dark">Task Status</h6>
+								</div>
+								<div class="pull-right">
+									<a href="#" class="pull-left inline-block refresh">
+										<i class="zmdi zmdi-replay"></i>
+									</a>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="panel-wrapper collapse in">
+								<div class="panel-body">
+									<div id="e_chart_22" class="" style="height:330px;"></div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				
+					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                       <div class="panel panel-default card-view panel-refresh">
+								<div class="refresh-container">
+									<div class="la-anim-1"></div>
+								</div>
+								<div class="panel-heading">
+									<div class="pull-left">
+										<h6 class="panel-title txt-dark">Budget</h6>
+									</div>
+									<div class="pull-right">
+										<a href="#" class="pull-left inline-block refresh">
+											<i class="zmdi zmdi-replay"></i>
+										</a>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="panel-wrapper collapse in">
+									<div class="panel-body">
+										<div id="e_chart_33" class="" style="height:294px;"></div>
+										<div class="label-chatrs mt-15">
+											<div class="inline-block mr-15">
+												<span class="clabels inline-block bg-pink mr-5"></span>
+												<span class="clabels-text font-12 inline-block txt-dark capitalize-font">planned</span>
+											</div>
+											<div class="inline-block">
+												<span class="clabels inline-block bg-blue mr-5"></span>
+												<span class="clabels-text font-12 inline-block txt-dark capitalize-font">actual</span>
+											</div>									
+										</div>
+									</div>	
+								</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                       <div class="panel panel-default card-view panel-refresh">
+								<div class="refresh-container">
+									<div class="la-anim-1"></div>
+								</div>
+								<div class="panel-heading">
+									<div class="pull-left">
+										<h6 class="panel-title txt-dark">Risks</h6>
+									</div>
+									<div class="pull-right">
+										<a href="#" class="pull-left inline-block refresh">
+											<i class="zmdi zmdi-replay"></i>
+										</a>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							<div class="panel-wrapper collapse in">
+								<div class="panel-body">
+									<div id="e_chart_44" class="" style="height:330px;"></div>
+								</div>	
+							</div>
+						</div>
+					</div>
+			</div>
             <div class="row" id="tabler" style="display:none;">
                 <div class="col-lg-12 col-sm-12">
                     <div class="panel panel-default card-view">

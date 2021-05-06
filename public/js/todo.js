@@ -1063,6 +1063,10 @@ function count_status(status) {
 }
 var status_c_date = [];
 var user_c_date = [];
+
+var c_date = [];
+var c_date_list = [];
+
 var data_setta = [];
 var domain_list = [];
 var user_list = [];
@@ -1201,7 +1205,7 @@ function count_staus_perdate(domain, created_on, issue, status, location, by, me
 }
 
 
-function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, status,message,user_id,others,ticket_id){
+function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, status,message,user_id,others,ticket_id,name,url){
 
     if (domain != "Cloud_Exchange") {
         var phrase = created_on.toDate().getFullYear() + "/" + created_on.toDate().getMonth() + "/" + ('0' + created_on.toDate().getDate()).slice(-2);
@@ -1219,7 +1223,7 @@ function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, 
         if (Difference_In_Days < 30) {
             monthly_tickets++;
         }
-        if (status == 'Follow Up' || status == 'Solved') {
+        if (chargable == 'Not Chargable' || chargable ==  'Not Chargeable') {
             status_addressed++;
         }
         if (status_c_date.hasOwnProperty(domain)) {
@@ -1229,15 +1233,25 @@ function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, 
             status_c_date[[domain]] = 0;
         }
       
-        
-
+  
         if (user_c_date.hasOwnProperty(user_id)) {
             user_c_date[[user_id]]++;
         } else {
             user_list.push(user_id);
-            user_c_date[[user_id]] = 0;
+            user_c_date[[user_id]] = 1;
         }
-        data_setta.push([phrase, jobstatus_codes(chargable), domain,status, hours, Difference_In_Days, chargable, message,user_id,ticket_id]);
+
+
+
+
+        if (c_date.hasOwnProperty(phrase)) {
+            c_date[[phrase]]= c_date[[phrase]]+hours;
+        } else {
+            c_date_list.push(phrase);
+            c_date[[phrase]] = hours;
+        }
+
+        data_setta.push([phrase, jobstatus_codes(chargable), domain,status, hours, Difference_In_Days, chargable, message,user_id,ticket_id,name,url]);
     }
 }
 
@@ -1578,7 +1592,7 @@ function fetch_tickets(t, alpha, type) {
                             }
                             count_status_ppm(doc.data().chargable);
                             if (t.id != "Cloud_Exchange") {
-                           count_staus_perdate_j(t.id, doc.data().start_time, doc.data().end_time, doc.data().chargable, doc.data().timestamp, doc.data().status,doc.data().message,doc.data().user_id|| '',doc.data().others|| '---',doc.data().ticket_id);  
+                           count_staus_perdate_j(t.id, doc.data().start_time, doc.data().end_time, doc.data().chargable, doc.data().timestamp, doc.data().status,doc.data().message,doc.data().user_id|| '',doc.data().others|| '---',doc.data().ticket_id,doc.data().name,doc.data().photoURL);  
                             }
                     
 
@@ -1662,11 +1676,11 @@ function fetch_tickets(t, alpha, type) {
 
                     switch (type) {
                         case 'jobsheets':
-                            generate_data2();
+                            generate_jobsheet_data();
     
                             break;
                         case 'tickets':
-                            generate_data();
+                            generate_ticket_data();
                             break;
                         default:
                             // code block
@@ -2350,8 +2364,11 @@ function add_to_site(x, y) {
     }
 }
 
-function generate_data() {
-
+function generate_ticket_data() {
+    document.getElementById("title_bar").innerText = "Tickets Addressed";
+    document.getElementById("multi_grah_title").innerText = "Tickets Timeline";
+    document.getElementById("by_sta_title").innerText = "Tickets Summary";
+    
 
     var pec = Math.round((status_addressed / status_c['Total']) * 100);
 
@@ -2413,18 +2430,16 @@ function generate_data() {
         }
 
         if (e == domain_length - 1) {
-
            run_echarts_tickets();
-          // run_echarts_jobsheets();
-
         }
     }
 }
-function generate_data2() {
 
-
+function generate_jobsheet_data() {
+    document.getElementById("title_bar").innerText = "Not-Chargeable Jobsheets"
+    document.getElementById("multi_grah_title").innerText = "Jobsheets Timeline";
+    document.getElementById("by_sta_title").innerText = "Jobsheets Summary";   
     var pec = Math.round((status_addressed / m_status_c['Total']) * 100);
-
     document.getElementById("addressed_percentage").innerText = pec;
     document.getElementById("addressed_percentage_bar").innerHTML = '	<div class="progress-bar progress-bar-primary  wow animated progress-animated" role="progressbar" aria-valuenow="' + pec + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + pec + '%;"></div>';
     document.getElementById("addressed_perc").innerText = status_addressed;
@@ -2435,7 +2450,8 @@ function generate_data2() {
     document.getElementById("weekly_tickets").innerText = weekly_tickets;
     document.getElementById("monthly_tickets").innerText = monthly_tickets;
     var domain_length = domain_list.length;
-    // c
+ 
+  
 
     for (var e = 0; e < domain_length; e++) {
         var selected_domain = domain_list[e];
@@ -2484,8 +2500,6 @@ function generate_data2() {
         }
 
         if (e == domain_length - 1) {
-
-           // run_echarts_tickets();
            run_echarts_jobsheets();
 
         }
@@ -2508,178 +2522,130 @@ function run_fullscreen() {
 function run_echarts_tickets() {
 
     var echartsConfig = function() {
-        if ($('#e_chart_1').length > 0) {
-            var eChart_1 = echarts.init(document.getElementById('e_chart_1'));
-            var option = {
-                /*          title: {
-                              text: 'Scatter Plot' ,
-                              left: '5%',
-                              top: '3%'
-                          }, */
-                /*                  legend: {
-                                     right: '10%',
-                                     top: '3%',
-                                     data: domain_list
-                                 }, */
-                grid: {
-                    left: '20%',
-                    top: '5%'
+     
+        var main_piechart = {
+            /*          title: {
+                          text: 'Scatter Plot' ,
+                          left: '5%',
+                          top: '3%'
+                      }, */
+            /*                  legend: {
+                                 right: '10%',
+                                 top: '3%',
+                                 data: domain_list
+                             }, */
+            grid: {
+                left: '20%',
+                top: '5%'
+            },
+            tooltip: {
+                backgroundColor: ['rgba(1,1,1,0.7)'],
+                formatter: function(obj) {
+                    var value = obj.value;
+                    var vari = '';
+                    if (value[8] != '---') {
+                        vari = tabletoimage(value[7], 20) + " - " + value[8].wrap(55, 10, true) + '</span><br>';
+                    }
+                    console.log(value);
+                    return '<div style="solid rgba(255,255,255,.3); font-size: 14px;padding-bottom: 2px;margin-bottom: 2px">' +
+                        value[2] + ' | ' + value[4] + '<br>' + value[5] + " - " + value[3].wrap(75, 10, true) + '<br>' + vari + value[0];
+                }
+            },
+            xAxis: {
+                type: 'time',
+                splitLine: {
+                    lineStyle: {
+                        type: 'dashed'
+                    }
+                }
+            },
+            yAxis: {
+                splitLine: {
+                    lineStyle: {
+                        type: 'dashed'
+                    }
                 },
-                tooltip: {
-                    backgroundColor: ['rgba(1,1,1,0.7)'],
+                axisLabel: {
                     formatter: function(obj) {
-                        var value = obj.value;
-                        var vari = '';
-                        if (value[8] != '---') {
-                            vari = tabletoimage(value[7], 20) + " - " + value[8].wrap(55, 10, true) + '</span><br>';
-                        }
-                        console.log(value);
-                        return '<div style="solid rgba(255,255,255,.3); font-size: 14px;padding-bottom: 2px;margin-bottom: 2px">' +
-                            value[2] + ' | ' + value[4] + '<br>' + value[5] + " - " + value[3].wrap(75, 10, true) + '<br>' + vari + value[0];
-                    }
-                },
-                xAxis: {
-                    type: 'time',
-                    splitLine: {
-                        lineStyle: {
-                            type: 'dashed'
-                        }
-                    }
-                },
-                yAxis: {
-                    splitLine: {
-                        lineStyle: {
-                            type: 'dashed'
-                        }
-                    },
-                    axisLabel: {
-                        formatter: function(obj) {
 
-                            return status_codes_reversed(obj);
-                        }
-                    },
-                    scale: true
-                },
-                series: series_check
-            };
-
-            eChart_1.setOption(option);
-            eChart_1.resize();
-        }
-        if ($('#e_chart_2').length > 0) {
-            var eChart_2 = echarts.init(document.getElementById('e_chart_2'));
-            var option1 = {
-                series: [{
-                    type: 'liquidFill',
-                    data: [0.7, 0.5, 0.4],
-                    color: ['#119dd2', '#d36ee8', '#667add'],
-                    backgroundStyle: {
-                        borderWidth: 0,
-                        color: 'rgba(255,255,255,0)',
-                        shadowBlur: 0
-                    },
-                    itemStyle: {
-                        normal: {
-                            shadowBlur: 5,
-                            shadowColor: 'rgba(0, 0, 0, .5)'
-                        }
-                    },
-                    shape: 'container',
-                    outline: {
-                        show: false
-                    },
-                    label: {
-                        normal: {
-                            fontSize: 20
-                        }
+                        return status_codes_reversed(obj);
                     }
-                }]
-            };
-            eChart_2.setOption(option1);
-            eChart_2.resize();
-        }
-        if ($('#e_chart_3').length > 0) {
+                },
+                scale: true
+            },
+            series: series_check
+        };
+        var tickets_timeline = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)",
+                backgroundColor: 'rgba(33,33,33,1)',
+                borderRadius: 0,
+                padding: 10,
+                textStyle: {
+                    color: '#fff',
+                    fontStyle: 'normal',
+                    fontWeight: 'normal',
+                    fontFamily: "'Roboto', sans-serif",
+                    fontSize: 12
+                }
+            },
+            legend: {
+                show: false
+            },
+            toolbox: {
+                show: false,
+            },
+            calculable: true,
+            itemStyle: {
+                normal: {
+                    shadowBlur: 5,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            },
+            series: [{
+                name: 'Status',
+                type: 'pie',
+                radius: '60%',
+                center: ['50%', '50%'],
+                roseType: 'radius',
+                color: ['#119dd2', '#d36ee8', '#667add', '#fd7397', '#4aa23c'],
+                label: {
+                    normal: {
+                        fontFamily: "'Roboto', sans-serif",
+                        fontSize: 12
+                    }
+                },
+                data: [
+                    { value: status_c['Not Started'], name: 'Not Started' },
+                    { value: status_c['On Progress'], name: 'On Progress' },
+                    { value: status_c['Urgent Action'], name: 'Urgent Action' },
+                    /*        { value: status_c['Skipped'], name: 'Skipped' }, */
+                    //   { value: status_c['Follow Up'], name: 'Follow Up' },
+                    { value: status_c['Solved'], name: 'Solved' },
+
+                ].sort(function(a, b) { return a.value - b.value; }),
+            }, ],
+            animationType: 'scale',
+            animationEasing: 'elasticOut',
+            animationDelay: function(idx) {
+                return Math.random() * 1000;
+            }
+        };
+        generate_echart('e_chart_1',main_piechart);
+        generate_echart('e_chart_3',tickets_timeline);   
             document.getElementById('item_1').innerHTML = "Not Started";
             document.getElementById('not_sta_sta').innerHTML = status_c['Not Started'];
             document.getElementById('item_2').innerHTML = "Solved";
             document.getElementById('solved_sta').innerHTML = status_c['Solved'];
             document.getElementById('item_3').innerHTML = "Follow Up";
             document.getElementById('follow_up_sta').innerHTML = status_c['Follow Up'];
-
             document.getElementById('item_1_sub').innerHTML = "Not Updated, Since ticket was opened.";
             document.getElementById('item_2_sub').innerHTML = "Yet to be closed.";
             document.getElementById('item_3_sub').innerHTML = "Waiting action from client.";
-
-
-
-
-            var eChart_3 = echarts.init(document.getElementById('e_chart_3'));
-            var option3 = {
-                tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)",
-                    backgroundColor: 'rgba(33,33,33,1)',
-                    borderRadius: 0,
-                    padding: 10,
-                    textStyle: {
-                        color: '#fff',
-                        fontStyle: 'normal',
-                        fontWeight: 'normal',
-                        fontFamily: "'Roboto', sans-serif",
-                        fontSize: 12
-                    }
-                },
-                legend: {
-                    show: false
-                },
-                toolbox: {
-                    show: false,
-                },
-                calculable: true,
-                itemStyle: {
-                    normal: {
-                        shadowBlur: 5,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                },
-                series: [{
-                    name: 'Status',
-                    type: 'pie',
-                    radius: '60%',
-                    center: ['50%', '50%'],
-                    roseType: 'radius',
-                    color: ['#119dd2', '#d36ee8', '#667add', '#fd7397', '#4aa23c'],
-                    label: {
-                        normal: {
-                            fontFamily: "'Roboto', sans-serif",
-                            fontSize: 12
-                        }
-                    },
-                    data: [
-                        { value: status_c['Not Started'], name: 'Not Started' },
-                        { value: status_c['On Progress'], name: 'On Progress' },
-                        { value: status_c['Urgent Action'], name: 'Urgent Action' },
-                        /*        { value: status_c['Skipped'], name: 'Skipped' }, */
-                        //   { value: status_c['Follow Up'], name: 'Follow Up' },
-                        { value: status_c['Solved'], name: 'Solved' },
-
-                    ].sort(function(a, b) { return a.value - b.value; }),
-                }, ],
-                animationType: 'scale',
-                animationEasing: 'elasticOut',
-                animationDelay: function(idx) {
-                    return Math.random() * 1000;
-                }
-            };
-            eChart_3.setOption(option3);
-            eChart_3.resize();
-        }
     }
-
     var echartResize;
     $(window).on("resize", function() {
-
-        /*E-Chart Resize*/
         clearTimeout(echartResize);
         echartResize = setTimeout(echartsConfig, 200);
     }).resize();
@@ -2687,20 +2653,36 @@ function run_echarts_tickets() {
 
 function run_echarts_jobsheets() {
 
-    var echartsConfig = function() {
-        if ($('#e_chart_1').length > 0) {
-            var eChart_1 = echarts.init(document.getElementById('e_chart_1'));
-            var option = {
-                /*          title: {
-                              text: 'Scatter Plot' ,
-                              left: '5%',
-                              top: '3%'
-                          }, */
-                /*                  legend: {
-                                     right: '10%',
-                                     top: '3%',
-                                     data: domain_list
-                                 }, */
+console.log(c_date)
+
+
+    var data_chart_user =[];
+    for (var e = 0; e < user_list.length; e++) {
+        var selected_user = user_list[e];
+        if(selected_user!=""){
+            data_chart_user.push({
+                name:tabletoname(selected_user),
+                value:user_c_date[selected_user]
+            });
+        }
+              
+      
+    }
+    console.log(data_chart_user);
+   // console.log(user_list);
+  
+    var echartsConfig = function() {    
+            document.getElementById('item_1').innerHTML = "Chargeable";
+            document.getElementById('not_sta_sta').innerHTML = m_status_c['Chargeable'];
+            document.getElementById('item_2').innerHTML = "Warranty";
+            document.getElementById('solved_sta').innerHTML = m_status_c['Warranty'];
+            document.getElementById('item_3').innerHTML = "Maintenance";
+            document.getElementById('follow_up_sta').innerHTML = m_status_c['Maintenance'];
+            document.getElementById('item_1_sub').innerHTML = "Not Updated, Since ticket was opened.";
+            document.getElementById('item_2_sub').innerHTML = "Yet to be closed.";
+            document.getElementById('item_3_sub').innerHTML = "Waiting action from client.";
+    var main_piechart = {
+               
                 grid: {
                     left: '20%',
                     top: '5%'
@@ -2712,14 +2694,10 @@ function run_echarts_jobsheets() {
                         var vari = '';
                         if (value[7] != '---') {
                             vari = tabletoimage(value[8], 20) + " - " + value[7].wrap(55, 10, true) + '</span><br>';
-                        }
-
+                        } 
                    //     data_setta.push([phrase, jobstatus_codes(status), domain,status, hours, Difference_In_Days, chargable, message,user_id,ticket_id]);
-
-             
-                  
                         return '<div style="solid rgba(255,255,255,.3); font-size: 14px;padding-bottom: 2px;margin-bottom: 2px">' +
-                            value[2] + ' | ' + value[3] + '<br>' + 'Ticket No : '+value[9] + '<br>' + vari +  value[0] +' | '+ value[4] + ' Hours';
+                            value[2] + ' | ' + value[3] + '<br>' + 'Jobsheet No : '+value[9] + '<br>' + vari +  value[0] +' | '+ value[4] + ' Hours';
                     }
                 },
                 xAxis: {
@@ -2745,79 +2723,9 @@ function run_echarts_jobsheets() {
                     scale: true
                 },
                 series: series_check
-            };
-       
-            eChart_1.setOption(option);
-            eChart_1.resize();
-        }
-        if ($('#e_chart_2').length > 0) {
-            var eChart_2 = echarts.init(document.getElementById('e_chart_2'));
-            var option1 = {
-                series: [{
-                    type: 'liquidFill',
-                    data: [0.7, 0.5, 0.4],
-                    color: ['#119dd2', '#d36ee8', '#667add'],
-                    backgroundStyle: {
-                        borderWidth: 0,
-                        color: 'rgba(255,255,255,0)',
-                        shadowBlur: 0
-                    },
-                    itemStyle: {
-                        normal: {
-                            shadowBlur: 5,
-                            shadowColor: 'rgba(0, 0, 0, .5)'
-                        }
-                    },
-                    shape: 'container',
-                    outline: {
-                        show: false
-                    },
-                    label: {
-                        normal: {
-                            fontSize: 20
-                        }
-                    }
-                }]
-            };
-            eChart_2.setOption(option1);
-            eChart_2.resize();
-        }
-        if ($('#e_chart_3').length > 0) {
-
-
-   
-
-
-            document.getElementById('item_1').innerHTML = "Chargeable";
-            document.getElementById('not_sta_sta').innerHTML = m_status_c['Chargeable'];
-            document.getElementById('item_2').innerHTML = "Warranty";
-            document.getElementById('solved_sta').innerHTML = m_status_c['Warranty'];
-            document.getElementById('item_3').innerHTML = "Maintenance";
-            document.getElementById('follow_up_sta').innerHTML = m_status_c['Maintenance'];
-
-            document.getElementById('item_1_sub').innerHTML = "Not Updated, Since ticket was opened.";
-            document.getElementById('item_2_sub').innerHTML = "Yet to be closed.";
-            document.getElementById('item_3_sub').innerHTML = "Waiting action from client.";
-
-
-
-
-            var eChart_3 = echarts.init(document.getElementById('e_chart_3'));
-            var option3 = {
-                tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)",
-                    backgroundColor: 'rgba(33,33,33,1)',
-                    borderRadius: 0,
-                    padding: 10,
-                    textStyle: {
-                        color: '#fff',
-                        fontStyle: 'normal',
-                        fontWeight: 'normal',
-                        fontFamily: "'Roboto', sans-serif",
-                        fontSize: 12
-                    }
-                },
+    };  
+    var jobsheet_timeline = {
+             
                 legend: {
                     show: false
                 },
@@ -2862,17 +2770,365 @@ function run_echarts_jobsheets() {
                 animationDelay: function(idx) {
                     return Math.random() * 1000;
                 }
-            };
-            eChart_3.setOption(option3);
-            eChart_3.resize();
-        }
-    }
+    };         
+    var risks_options = {
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(33,33,33,1)',
+                    borderRadius:0,
+                    padding:10,
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: 'rgba(33,33,33,1)'
+                        }
+                    },
+                    textStyle: {
+                        color: '#fff',
+                        fontStyle: 'normal',
+                        fontWeight: 'normal',
+                        fontFamily: "'Roboto', sans-serif",
+                        fontSize: 12
+                    }	
+                },
+                grid: {
+                    left: '10%',
+                    right: '10%',
+                    bottom: '15%'
+                },
+                yAxis: {
+                    type: 'category',
+                    data: ['Adjacent to subway', 'Away from subway'],
+                    nameTextStyle: {
+                        color: '#878787',
+                        fontSize: 14,
+                    },
+                    axisLine: {
+                        show:false
+                    },
+                    
+                    axisTick:{
+                        show:false,
+                    },
+                    axisLabel:{
+                        rotate:90,
+                        textStyle: {
+                            color: '#878787',
+                            fontStyle: 'normal',
+                            fontWeight: 'normal',
+                            fontFamily: "'Roboto', sans-serif",
+                            fontSize: 12
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                
+                xAxis: {
+                    type: 'value',
+                    
+                    nameTextStyle: {
+                        color: '#878787',
+                        fontSize: 14,
+                    },
+                    axisLine: {
+                        show:false
+                    },
+                    axisLabel:{
+                        textStyle: {
+                            color: '#878787',
+                            fontStyle: 'normal',
+                            fontWeight: 'normal',
+                            fontFamily: "'Roboto', sans-serif",
+                            fontSize: 12
+                        }
+                    },
+                    splitLine: {
+                        show:false
+                    }
+                    
+                },
+                series: [{
+                        name: 'boxplot',
+                        type: 'boxplot',
+                        data: [
+                            [216, 599.5, 694, 504, 980],
+                            [216, 599.5, 694, 504, 980]
+                        ],
+                        itemStyle: {
+                            normal:{
+                                borderColor: {
+                                type: 'linear',
+                                x: 1,
+                                y: 0,
+                                x2: 0,
+                                y2: 0,
+                                colorStops: [{
+                                    offset: 0,
+                                    color: '#667add' // 0% 
+                                }, {
+                                    offset: 1,
+                                    color: '#119dd2' // 100% 
+                                }],
+                                globalCoord: false //
+                            },
+                            borderWidth:2,
+                            color: {
+                                type: 'linear',
+                                x: 1,
+                                y: 0,
+                                x2: 0,
+                                y2: 0,
+                                colorStops: [{
+                                    offset: 0,
+                                    color: 'rgba(0,0,0,0)'  // 0% 处的颜色
+                                }, {
+                                    offset: 1,
+                                    color: 'rgba(0,0,0,0)' // 100% 处的颜色
+                                }],
+                                globalCoord: false // 缺省为 false
+                            },
+                        }
+                        },
+                        tooltip: {
+                            formatter: function(param) {
+                                return [
+        
+                                    'upper: ' + param.data[5],
+                                    'Q3: ' + param.data[4],
+                                    'median: ' + param.data[3],
+                                    'Q1: ' + param.data[2],
+                                    'lower: ' + param.data[1]
+                                ].join('<br/>')
+                            }
+                        }
+                    },
+        
+                ]
+    };
+    var budget_options = {
+        color: ['#667add', '#fd7397'],
 
+        tooltip: {
+            trigger: 'axis',
+            backgroundColor: 'rgba(33,33,33,1)',
+            borderRadius:0,
+            padding:10,
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: 'rgba(33,33,33,1)'
+                }
+            },
+            textStyle: {
+                color: '#fff',
+                fontStyle: 'normal',
+                fontWeight: 'normal',
+                fontFamily: "'Roboto', sans-serif",
+                fontSize: 12
+            }	
+        },
+        grid:{
+            show:false,
+            top: 30,
+            bottom: 10,
+            containLabel: true,
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLine: {
+                    show:false
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: '#878787',
+                        fontStyle: 'normal',
+                        fontWeight: 'normal',
+                        fontFamily: "'Roboto', sans-serif",
+                        fontSize: 12
+                    }
+                },
+                axisPointer: {
+                    label: {
+                        formatter: function (params) {
+                            return params.value
+                                + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                        }
+                    }
+                },
+                data: ["2016-1", "2016-2", "2016-3", "2016-4", "2016-5", "2016-6", "2016-7", "2016-8", "2016-9", "2016-10", "2016-11", "2016-12"]
+            },
+            {
+                type: 'category',
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLine: {
+                    show:false
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: '#878787',
+                        fontStyle: 'normal',
+                        fontWeight: 'normal',
+                        fontFamily: "'Roboto', sans-serif",
+                        fontSize: 12
+                    }
+                },
+                axisPointer: {
+                    label: {
+                        formatter: function (params) {
+                            return  params.value
+                                + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                        }
+                    }
+                },
+                data: ["2015-1", "2015-2", "2015-3", "2015-4", "2015-5", "2015-6", "2015-7", "2015-8", "2015-9", "2015-10", "2015-11", "2015-12"]
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                axisLine: {
+                    show:false
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: '#878787',
+                        fontStyle: 'normal',
+                        fontWeight: 'normal',
+                        fontFamily: "'Roboto', sans-serif",
+                        fontSize: 12
+                    }
+                },
+                splitLine: {
+                    show: false,
+                }
+            }
+        ],
+        series: [
+            {
+                name:'2015',
+                type:'line',
+                xAxisIndex: 1,
+                smooth: true,
+                data: [4.6, 1.9, 3.0, 6.4, 8.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+            },
+            {
+                name:'2016',
+                type:'line',
+                smooth: true,
+                data: [32.9, 15.9, 1.1, 18.7, 48.3, 69.2, 231.6, 46.6, 55.4, 18.4, 10.3, 0.7]
+            }
+        ]
+    };
+    var pending_items = {
+        color: ['#d36ee8', '#119dd2', '#667add'],
+        series : [
+            {
+                name:'漏斗图',
+                type:'funnel',
+                x: '0%',
+                y: 20,
+                //x2: 80,
+                y2: 60,
+                width: '100%',
+                height:'80%',
+                // height: {totalHeight} - y - y2,
+                min: 0,
+                max: 100,
+                minSize: '0%',
+                maxSize: '100%',
+                sort : 'ascending', // 'ascending', 'descending'
+                gap :0,
+                
+                data:[
+                    {value:100,},
+                    {value:80,},
+                    {value:100,},
+                    
+                ].sort(function (a, b) { return a.value - b.value}),
+                roseType: true,
+                label: {
+                    normal: {
+                        formatter: function (params) {
+                            return params.name + ' ' + params.value + '%';
+                        },
+                        position: 'center',
+                        fontStyle: 'normal',
+                        fontWeight: 'normal',
+                        fontFamily: "'Roboto', sans-serif",
+                        fontSize: 12
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        borderWidth: 0,
+                        shadowBlur: 5,
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 5,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+                
+            }
+            
+        ]
+    };
+    
+	var pie_chart_second = {
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			color: ['#fd7397','#d36ee8', '#119dd2', '#667add'],
+			series : [
+				{
+					name: 'Hours',
+					type: 'pie',
+					radius : '60%',
+					center: ['50%', '50%'],
+					tooltip : {
+						trigger: 'item',
+						formatter: "{b} : {c} {a}  ({d}%)",
+						backgroundColor: 'rgba(33,33,33,1)',
+						borderRadius:0,
+						padding:10,
+					},
+              
+					data:data_chart_user,
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}
+			]
+	};
+    generate_echart('e_chart_1',main_piechart)
+    generate_echart('e_chart_3',jobsheet_timeline);
+    generate_echart('e_chart_44',risks_options);
+    generate_echart('e_chart_33',budget_options);
+    generate_echart('e_chart_22',pie_chart_second);
+    generate_echart('e_chart_11',pending_items);
+    }
     var echartResize;
     $(window).on("resize", function() {
-
-        /*E-Chart Resize*/
         clearTimeout(echartResize);
         echartResize = setTimeout(echartsConfig, 200);
     }).resize();
 }
+
+function generate_echart(id,option){
+    var eChart = echarts.init(document.getElementById(id));
+    eChart.setOption(option);
+    eChart.resize();
+}
+
