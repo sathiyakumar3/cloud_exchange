@@ -396,6 +396,7 @@ function buildnavitree() {
                                             photoUrl: photoUrl2,
                                             email: email2
                                         });
+                               
 
                                     }
                                     resolve('success');
@@ -403,6 +404,7 @@ function buildnavitree() {
                                     badnews("Error getting document:", error);
                                     reject('error');
                                 }),
+                                
                                 temp.push(entry);
                         });
                         Promises_.push(promise3);

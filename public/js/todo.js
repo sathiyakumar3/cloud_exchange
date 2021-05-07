@@ -6,7 +6,7 @@ var loaded = false;
 
 function sendmail2() {
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             alert(this.responseText);
         }
@@ -258,9 +258,9 @@ function cleantable(domain, dataset) {
     for (i = 0; i < dataset.length; i++) domain == dataset[i][2].replace(/<\/?[^>]+(>|$)/g, "") && dataset.splice(i, 1);
 }
 var loo2p;
-var inputOptionsPromise = new Promise(function(resolve) {
+var inputOptionsPromise = new Promise(function (resolve) {
     // get your data and pass it to resolve()
-    setTimeout(function() {
+    setTimeout(function () {
         resolve({
             'C': 'Closed',
             'F': 'Follow Up',
@@ -306,89 +306,89 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id) {
             columns: [2, 3, 4, 5, 7, 18, 19, 21, 23]
         },
         buttons_pack = [{
-                extend: "copy",
-                className: button_class,
-                messageTop: reports_text,
-                exportOptions: selection,
-                background: !1
-            }, {
-                extend: "csvHtml5",
-                className: button_class,
-                messageTop: reports_text,
-                exportOptions: selection
-            }, {
-                extend: "excelHtml5",
-                className: button_class,
-                messageTop: reports_text,
-                exportOptions: selection
-            }, {
-                extend: "pdfHtml5",
-                className: button_class,
-                messageTop: reports_text,
-                exportOptions: selection
-            }, {
-                extend: "print",
-                className: button_class,
-                messageTop: reports_text,
-                exportOptions: selection
-            }, {
-                text: "Page-Cycle",
-                className: button_class,
-                action: function() {
+            extend: "copy",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection,
+            background: !1
+        }, {
+            extend: "csvHtml5",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            extend: "excelHtml5",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            extend: "pdfHtml5",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            extend: "print",
+            className: button_class,
+            messageTop: reports_text,
+            exportOptions: selection
+        }, {
+            text: "Page-Cycle",
+            className: button_class,
+            action: function () {
 
-                    Swal.fire({
-                        title: 'Cycle through pages',
-                        text: "Please enter the interval in seconds.",
-                        input: 'number',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Enable',
-                        cancelButtonText: 'Disable'
+                Swal.fire({
+                    title: 'Cycle through pages',
+                    text: "Please enter the interval in seconds.",
+                    input: 'number',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Enable',
+                    cancelButtonText: 'Disable'
 
-                    }).then((result) => {
-                        if (result.value) {
-                            var inter = result.value * 1000;
-                            clearInterval(loo2p), loo2p = setInterval(function() {
+                }).then((result) => {
+                    if (result.value) {
+                        var inter = result.value * 1000;
+                        clearInterval(loo2p), loo2p = setInterval(function () {
 
-                                var table = $(id).DataTable();
-                                if (table) {
-                                    info = table.page.info(),
-                                        pageNum = info.page < info.pages ? info.page + 1 : 1;
-                                    table.page(pageNum).draw(!1);
-                                    //   table.columns.adjust().draw();
-                                    //    table.rows.adjust().draw();
-                                }
+                            var table = $(id).DataTable();
+                            if (table) {
+                                info = table.page.info(),
+                                    pageNum = info.page < info.pages ? info.page + 1 : 1;
+                                table.page(pageNum).draw(!1);
+                                //   table.columns.adjust().draw();
+                                //    table.rows.adjust().draw();
+                            }
 
-                            }, inter)
+                        }, inter)
 
-                            Swal.fire(
-                                'Page Cycle Enabled',
-                                'The pages will changed for every ' + result.value + ' seconds',
-                                'success'
-                            )
-                        } else {
-                            clearInterval(loo2p);
-                            Swal.fire(
-                                'Page Cycle Disabled!',
-                                'The pages will remain static.',
-                                'success'
-                            )
-                        }
-                    })
+                        Swal.fire(
+                            'Page Cycle Enabled',
+                            'The pages will changed for every ' + result.value + ' seconds',
+                            'success'
+                        )
+                    } else {
+                        clearInterval(loo2p);
+                        Swal.fire(
+                            'Page Cycle Disabled!',
+                            'The pages will remain static.',
+                            'success'
+                        )
+                    }
+                })
 
 
 
-                }
-            }, {
-                text: "Report",
-                className: button_class,
-                action: function() {
-                    $("#reportModal").modal();
-                    call_report_modal(domain_id);
-                }
             }
+        }, {
+            text: "Report",
+            className: button_class,
+            action: function () {
+                $("#reportModal").modal();
+                call_report_modal(domain_id);
+            }
+        }
 
 
 
@@ -406,7 +406,7 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id) {
         buttons: buttons_pack,
         destroy: !0,
         data: dataset,
-        createdRow: function(row, data, dataIndex) {
+        createdRow: function (row, data, dataIndex) {
             user = firebase.auth().currentUser;
             if ((user.uid == data[13] || user.uid == data[14] || user.uid == data[15] || user.uid == data[16]) && !domain_flag) {
                 $(row).addClass('red');
@@ -415,90 +415,90 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id) {
 
 
         columns: [{
-                title: "Doc ID",
-                visible: !1
-            },
-            {
-                title: "ID"
+            title: "Doc ID",
+            visible: !1
+        },
+        {
+            title: "ID"
 
-            }, {
-                title: "Domain",
-                visible: domain_flag
-            }, {
-                title: "Location"
-            }, {
-                title: "Issue",
-                //  responsivePriority: 1,
-                /*    render: function (data, type, full, meta) {
-                       return full.Issue;
-                   }, */
-            }, {
-                title: "Date Created",
-                responsivePriority: 1
-            }, {
-                title: "Pending"
-            }, {
-                title: "Status"
-            }, {
-                title: "Created by",
-                visible: !1
-            }, {
-                title: "To"
-            }, {
-                title: "Actions",
-                visible: vasi
-            }, {
-                title: "Status",
-                visible: !1
-            }, {
-                title: "Update",
-                visible: !1
-            }, {
-                title: "Assign 1",
-                visible: !1
-            }, {
-                title: "Assign 2",
-                visible: !1
-            }, {
-                title: "Assign 3",
-                visible: !1
-            }, {
-                title: "Assign 4",
-                visible: !1
-            }, {
-                title: "Date",
-                visible: !1
-            }, {
-                title: "Assigned to",
-                visible: !1
-            }, {
-                title: "Created by to",
-                visible: !1
-            }, {
-                title: "Ticket Sorting",
-                visible: !1
-            }, {
-                title: "Last Updated",
-                visible: report_flag
-            }, {
-                title: "Updated by",
-                visible: !1
-            }, {
-                title: "Message",
-                visible: true,
-            }, {
-                "className": 'details-control',
-                "orderable": false,
-                "data": null,
-                "defaultContent": '',
-                visible: !report_flag
-            }
+        }, {
+            title: "Domain",
+            visible: domain_flag
+        }, {
+            title: "Location"
+        }, {
+            title: "Issue",
+            //  responsivePriority: 1,
+            /*    render: function (data, type, full, meta) {
+                   return full.Issue;
+               }, */
+        }, {
+            title: "Date Created",
+            responsivePriority: 1
+        }, {
+            title: "Pending"
+        }, {
+            title: "Status"
+        }, {
+            title: "Created by",
+            visible: !1
+        }, {
+            title: "To"
+        }, {
+            title: "Actions",
+            visible: vasi
+        }, {
+            title: "Status",
+            visible: !1
+        }, {
+            title: "Update",
+            visible: !1
+        }, {
+            title: "Assign 1",
+            visible: !1
+        }, {
+            title: "Assign 2",
+            visible: !1
+        }, {
+            title: "Assign 3",
+            visible: !1
+        }, {
+            title: "Assign 4",
+            visible: !1
+        }, {
+            title: "Date",
+            visible: !1
+        }, {
+            title: "Assigned to",
+            visible: !1
+        }, {
+            title: "Created by to",
+            visible: !1
+        }, {
+            title: "Ticket Sorting",
+            visible: !1
+        }, {
+            title: "Last Updated",
+            visible: report_flag
+        }, {
+            title: "Updated by",
+            visible: !1
+        }, {
+            title: "Message",
+            visible: true,
+        }, {
+            "className": 'details-control',
+            "orderable": false,
+            "data": null,
+            "defaultContent": '',
+            visible: !report_flag
+        }
         ],
     })
 
 
     // Add event listener for opening and closing details
-    $(id + ' tbody').on('click', 'td.details-control', function() {
+    $(id + ' tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
         var row = table.row(tr);
         var data = row.data();
@@ -683,9 +683,9 @@ function format(doc, dom, status, counter) {
     var user = firebase.auth().currentUser;
     var but = "";
 
-    db.collection("domains").doc(dom).collection("job_sheets").where("ticket_doc_id", "==", doc).orderBy("timestamp").get().then(function(t) {
+    db.collection("domains").doc(dom).collection("job_sheets").where("ticket_doc_id", "==", doc).orderBy("timestamp").get().then(function (t) {
         var count = 1;
-        t.forEach(function(t) {
+        t.forEach(function (t) {
             if (user.displayName == t.data().name) {
                 but = '&nbsp;&nbsp;<a href="javascript:void(0)" onclick=\'delete_history("' + doc + '","' + dom + '","' + counter + '","' + t.id + '")\' class="text-inverse text-danger" title="Delete" data-toggle="tooltip"><i class="zmdi zmdi-delete"></i></a>  &nbsp;&nbsp;';
             }
@@ -703,14 +703,14 @@ function format(doc, dom, status, counter) {
             var hours = Math.round((Math.abs(new Date(t.data().start_time) - new Date(t.data().end_time))) / (60 * 60 * 1000));
 
             var test = '';
-            if(t.data().user_id !== undefined && t.data().user_id !==null){
-                test =  tabletoimage(t.data().user_id);
-            }else{
-                test =  '<img src="' + t.data().photoURL + '+ class="img-circle bounce sender-img" alt="user" height="25" width="25" title=' + t.data().name + '>'
+            if (t.data().user_id !== undefined && t.data().user_id !== null) {
+                test = tabletoimage(t.data().user_id);
+            } else {
+                test = '<img src="' + t.data().photoURL + '+ class="img-circle bounce sender-img" alt="user" height="25" width="25" title=' + t.data().name + '>'
             }
             y = y + '  <tr role="row" class="odd">' +
                 '<td><h5 class="capitalize-font txt-primary mr-5 weight-500">#' + t.data().job_num + '</h5></td>' +
-                '<td><div class="sl-item"><a href="javascript:void(0)"><div class="sl-avatar">' + test  +'</div><div class="sl-content"><span class="head-notifications">' + t.data().message + '</span><div class="clearfix"></div><span class="inline-block font-11  pull-right notifications-time"></span></div></a></div></td>' +
+                '<td><div class="sl-item"><a href="javascript:void(0)"><div class="sl-avatar">' + test + '</div><div class="sl-content"><span class="head-notifications">' + t.data().message + '</span><div class="clearfix"></div><span class="inline-block font-11  pull-right notifications-time"></span></div></a></div></td>' +
                 '<td><i class="far fa-calendar-alt"></i>&nbsp;&nbsp;' + datetimeshortformat(t.data().timestamp) + '</td>' +
                 '      <td><i class="far fa-clock"></i>&nbsp;&nbsp;' + formatAMPM(t.data().start_time) + '</td>' +
                 '      <td><i class="far fa-clock"></i>&nbsp;&nbsp;' + formatAMPM(t.data().end_time) + '</td>' +
@@ -727,7 +727,7 @@ function format(doc, dom, status, counter) {
 
         })
 
-    }).then(function() {
+    }).then(function () {
         var c = document.getElementById("his_" + doc);
         var b = document.getElementById("his_op_" + doc);
         if (c) {
@@ -738,7 +738,7 @@ function format(doc, dom, status, counter) {
         }
 
 
-    }).catch(function(t) {
+    }).catch(function (t) {
         console.log(t);
         badnews(t);
     });
@@ -747,7 +747,7 @@ function format(doc, dom, status, counter) {
 
 function gen_image_linups(x) {
 
-    if (x !== undefined && x !==null) {
+    if (x !== undefined && x !== null) {
         var string = '';
         for (i = 0; i < x.length; i++) {
             string = string + tabletoimage(x[i], 35);
@@ -767,17 +767,17 @@ function save_history_info(doc, dom, counter, owner, tick_id, location, issue) {
     var dt_range = document.getElementById("his_datetime_" + doc).value;
     var chargable = document.getElementById("his_op_sel_" + doc).value;
     var others = $("#histes_" + doc).val();
-    if(others==null){
+    if (others == null) {
         others = '---';
     }
 
-console.log(others);
+    console.log(others);
 
     var dt = dt_range.split(' - ');
     var start_dt = dt[0];
     var end_dt = dt[1];
     if (message != '') {
-       save_history(doc, dom, counter, status, message, false, owner, tick_id, location, issue, start_dt, end_dt, chargable, others);
+        save_history(doc, dom, counter, status, message, false, owner, tick_id, location, issue, start_dt, end_dt, chargable, others);
     } else {
         badnews('Message Feild is empty.');
     }
@@ -826,30 +826,30 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
     
      */
     var last_job_num = 1;
-    db.collection("domains").doc(dom).collection("job_sheets").orderBy("job_num", "desc").limit(1).get().then(function(querySnapshot) {
+    db.collection("domains").doc(dom).collection("job_sheets").orderBy("job_num", "desc").limit(1).get().then(function (querySnapshot) {
 
-        querySnapshot.forEach(function(doc) {
+        querySnapshot.forEach(function (doc) {
             last_job_num = last_job_num + Number(doc.data().job_num);
         });
 
-        db.collection("domains").doc(dom).collection("tickets").doc(doc).update(packet).then(function() {
+        db.collection("domains").doc(dom).collection("tickets").doc(doc).update(packet).then(function () {
             /*     db.collection("domains").doc(dom).collection("tickets").doc(doc).collection("history").add({ */
             db.collection("domains").doc(dom).collection("job_sheets").add({
-                  //  name: user.displayName,
-                    message: message,
+                //  name: user.displayName,
+                message: message,
                 //    photoURL: document.getElementById("topProImg").src,
-                    user_id:user.uid,
-                    others: others,
-                    status: status,
-                    timestamp: created_on,
-                    start_time: start_dt,
-                    end_time: end_dt,
-                    chargable: chargable,
-                    ticket_doc_id: doc,
-                    ticket_id: tick_id,
-                    job_num: last_job_num
-                })
-                .then(function(docRef) {
+                user_id: user.uid,
+                others: others,
+                status: status,
+                timestamp: created_on,
+                start_time: start_dt,
+                end_time: end_dt,
+                chargable: chargable,
+                ticket_doc_id: doc,
+                ticket_id: tick_id,
+                job_num: last_job_num
+            })
+                .then(function (docRef) {
 
                     if (!report_flag) {
                         var table = $('#edit_tic_table_' + dom).DataTable(
@@ -894,12 +894,12 @@ function save_history(doc, dom, counter, status, message, report_flag, owner, ti
                     sendmail(find_email(owner), user.email, subject, html_text_2);
                     goodnews("Your jobsheet was added successfully!");
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     badnews("Saving history " + error);
 
                     // console.log(error);
                 });
-        }).catch(function(error) {
+        }).catch(function (error) {
             badnews(error)
 
 
@@ -923,7 +923,7 @@ function close_only_case(doc, dom, counter, status, message, report_flag, owner,
         hist_message: message
     });
 
-    db.collection("domains").doc(dom).collection("tickets").doc(doc).update(packet).then(function() {
+    db.collection("domains").doc(dom).collection("tickets").doc(doc).update(packet).then(function () {
 
 
         if (!report_flag) {
@@ -978,10 +978,10 @@ function delete_history(doc, dom, counter, id) {
 
 
     db.collection("domains").doc(dom).collection("job_sheets").doc(id).delete()
-        .then(function() {
+        .then(function () {
             format(doc, dom, status, counter);
         })
-        .catch(function(error) {
+        .catch(function (error) {
             badnews("Error deleting document: ", error);
         });
 
@@ -1011,21 +1011,21 @@ function count_status_ppm(status) {
         case 'Not Chargable':
             m_status_c['Not Chargeable']++;
             break;
-            case 'Not Chargeable':
-                m_status_c['Not Chargeable']++;
-                break;
+        case 'Not Chargeable':
+            m_status_c['Not Chargeable']++;
+            break;
         case 'Chargeable':
             m_status_c['Chargeable']++;
             break;
-            case 'Chargable':
-                m_status_c['Chargeable']++;
-                break;
+        case 'Chargable':
+            m_status_c['Chargeable']++;
+            break;
         case 'Warranty':
             m_status_c['Warranty']++;
             break;
-            case 'Warrenty':
-                m_status_c['Warranty']++;
-                break;
+        case 'Warrenty':
+            m_status_c['Warranty']++;
+            break;
         case 'Maintenance':
             m_status_c['Maintenance']++;
             break;
@@ -1057,12 +1057,14 @@ function count_status(status) {
             status_c['Solved']++;
             break;
         default:
-            // code block
+        // code block
     }
     status_c['Total']++;
 }
 var status_c_date = [];
 var user_c_date = [];
+
+
 
 var c_date = [];
 var c_date_list = [];
@@ -1126,21 +1128,21 @@ function jobstatus_codes(status) {
         case 'Not Chargable':
             return 1;
             break;
-            case 'Not Chargeable':
-                return 1;
-                break;
+        case 'Not Chargeable':
+            return 1;
+            break;
         case 'Chargeable':
             return 2;
             break;
-            case 'Chargable':
-                return 2;
-                break;
+        case 'Chargable':
+            return 2;
+            break;
         case 'Warranty':
             return 3;
             break;
-            case 'Warrenty':
-                return 3;
-                break;
+        case 'Warrenty':
+            return 3;
+            break;
         case 'Maintenance':
             return 4;
             break;
@@ -1178,7 +1180,7 @@ function jobstatus_codes_reversed(status) {
 
 }
 function count_staus_perdate(domain, created_on, issue, status, location, by, message) {
- 
+
     if (domain != "Cloud_Exchange") {
         var phrase = created_on.toDate().getFullYear() + "/" + created_on.toDate().getMonth() + "/" + ('0' + created_on.toDate().getDate()).slice(-2);
         var date1 = created_on.toDate();
@@ -1205,7 +1207,7 @@ function count_staus_perdate(domain, created_on, issue, status, location, by, me
 }
 
 
-function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, status,message,user_id,others,ticket_id,name,url){
+function count_staus_perdate_j(domain, start_time, end_time, chargable, created_on, status, message, user_id, others, ticket_id, name, url) {
 
     if (domain != "Cloud_Exchange") {
         var phrase = created_on.toDate().getFullYear() + "/" + created_on.toDate().getMonth() + "/" + ('0' + created_on.toDate().getDate()).slice(-2);
@@ -1223,7 +1225,7 @@ function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, 
         if (Difference_In_Days < 30) {
             monthly_tickets++;
         }
-        if (chargable == 'Not Chargable' || chargable ==  'Not Chargeable') {
+        if (chargable == 'Not Chargable' || chargable == 'Not Chargeable') {
             status_addressed++;
         }
         if (status_c_date.hasOwnProperty(domain)) {
@@ -1232,8 +1234,8 @@ function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, 
             domain_list.push(domain);
             status_c_date[[domain]] = 0;
         }
-      
-  
+
+
         if (user_c_date.hasOwnProperty(user_id)) {
             user_c_date[[user_id]]++;
         } else {
@@ -1245,13 +1247,18 @@ function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, 
 
 
         if (c_date.hasOwnProperty(phrase)) {
-            c_date[[phrase]]= c_date[[phrase]]+hours;
+            c_date[[phrase]] = c_date[[phrase]] + hours;
         } else {
             c_date_list.push(phrase);
             c_date[[phrase]] = hours;
         }
 
-        data_setta.push([phrase, jobstatus_codes(chargable), domain,status, hours, Difference_In_Days, chargable, message,user_id,ticket_id,name,url]);
+
+      
+
+
+
+        data_setta.push([phrase, jobstatus_codes(chargable), domain, status, hours, Difference_In_Days, chargable, message, user_id, ticket_id, name, url]);
     }
 }
 
@@ -1266,22 +1273,22 @@ function count_staus_perdate_j(domain,start_time,end_time,chargable,created_on, 
 
 function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
 
-    var table_id = 'div_jobs_table_' +id;
-    var other_table =  'div_tic_table_' +id;
+    var table_id = 'div_jobs_table_' + id;
+    var other_table = 'div_tic_table_' + id;
 
     document.getElementById(table_id).style.display = "block";
     document.getElementById(other_table).style.display = "none";
     document.getElementById('home_tab_8').style.display = "none";
     document.getElementById('home_tab_9').style.display = "none";
-    document.getElementById('home_tab_7').click(); 
-    document.getElementById('setting_panel_btn').style.visibility= "hidden";
+    document.getElementById('home_tab_7').click();
+    document.getElementById('setting_panel_btn').style.visibility = "hidden";
     document.getElementById(id + '_label2').innerText = dataset.length;
     document.getElementById(id + "_label2").className = "label label-primary";
-    document.getElementById('currentticket_' + id).innerText =  dataset.length;
-    document.getElementById('txt_last').innerText =  'Last Job No';
-    
+    document.getElementById('currentticket_' + id).innerText = dataset.length;
+    document.getElementById('txt_last').innerText = 'Last Job No';
 
-   // document.getElementById('total_oc_jobsheets').innerText =  Number(document.getElementById('total_oc_jobsheets').innerText)+dataset.length; 
+
+    // document.getElementById('total_oc_jobsheets').innerText =  Number(document.getElementById('total_oc_jobsheets').innerText)+dataset.length; 
     var button_class = "btn btn-primary btn-rounded";
     var reports_text = "The information is from cloudexchange.lk",
         selection = {
@@ -1380,7 +1387,7 @@ function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
 
 
         ]
-    var table = $('#edit_jobs_table_' +id).DataTable({
+    var table = $('#edit_jobs_table_' + id).DataTable({
         order: [
             [8, "desc"]
         ],
@@ -1397,7 +1404,7 @@ function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
                 targets: 0,
                 orderable: false,
                 render: function (data, type, full, meta) {
-        
+
                     return '<span class="capitalize-font txt-primary mr-5 weight-500">#' + data + "</span>";
                 },
             },
@@ -1415,34 +1422,34 @@ function dotable2(id, dataset, domain_flag, report_flag, domain_id) {
                 orderable: false,
                 render: function (data, type, full, meta) {
 
-          var name = '';
-                   if(full[3] !== undefined && full[3] !==null){
-                    name =  full[3];                 
-                } 
-                   var test = '';
-                   if(full[11] !== undefined && full[11] !==null && full[11] !==''){
-                       test =  tabletoimage(full[11],25);
-                   }else{
-                       test =  '<img src="' + full[4] + '+ class="img-circle bounce sender-img" alt="user" height="25" width="25" title=' + name + '>'
-                   }
+                    var name = '';
+                    if (full[3] !== undefined && full[3] !== null) {
+                        name = full[3];
+                    }
+                    var test = '';
+                    if (full[11] !== undefined && full[11] !== null && full[11] !== '') {
+                        test = tabletoimage(full[11], 25);
+                    } else {
+                        test = '<img src="' + full[4] + '+ class="img-circle bounce sender-img" alt="user" height="25" width="25" title=' + name + '>'
+                    }
 
-                    var ds = '<div class="sl-item"><a href="javascript:void(0)"><div class="sl-avatar">'+test+'</div><div class="sl-content"><span class="head-notifications">' + full[2] + '</span><div class="clearfix"></div><span class="inline-block font-11  pull-right notifications-time"></span></div></a></div>';
+                    var ds = '<div class="sl-item"><a href="javascript:void(0)"><div class="sl-avatar">' + test + '</div><div class="sl-content"><span class="head-notifications">' + full[2] + '</span><div class="clearfix"></div><span class="inline-block font-11  pull-right notifications-time"></span></div></a></div>';
 
 
                     return ds;
                 },
-            }, 
+            },
             {
                 title: 'Others',
                 targets: 4,
                 orderable: false,
                 render: function (data, type, full, meta) {
-                  if(full[12]!=='---'){
-                    return   gen_image_linups(full[12]);
-                  }
-                   return '';
+                    if (full[12] !== '---') {
+                        return gen_image_linups(full[12]);
+                    }
+                    return '';
                 },
-            },{
+            }, {
                 targets: 3,
 
                 visible: !1
@@ -1534,7 +1541,7 @@ function fetch_tickets(t, alpha, type) {
     var counter_t = 1;
     var for_loop_count = 0;
     var total_size = t.length;
-    t.forEach(function(t) {
+    t.forEach(function (t) {
         for_loop_count++;
         var dataSet = [];
         if (t.name != "Cloud_Exchange") {
@@ -1551,7 +1558,7 @@ function fetch_tickets(t, alpha, type) {
             document.getElementById('title_' + t.name).innerHTML = t.name;
             document.getElementById('icon_' + t.name).innerHTML = getsiteicon(t.type);
             if (rest.length != 0) {
-                rest.forEach(function(entry) {
+                rest.forEach(function (entry) {
                     try {
                         let obj = user_profiles.find(o => o.id === entry);
                         var n = document.createElement("option");
@@ -1580,26 +1587,27 @@ function fetch_tickets(t, alpha, type) {
                 })
             }
             document.getElementById(t.id + '_label2').innerText = 0;
-        
+
 
             switch (type) {
                 case 'jobsheets':
-                    db.collection("domains").doc(t.id).collection("job_sheets").get().then(function(querySnapshot) {
-                        querySnapshot.forEach(function(doc) {
-                          
+                    db.collection("domains").doc(t.id).collection("job_sheets").get().then(function (querySnapshot) {
+                        querySnapshot.forEach(function (doc) {
+
                             if (doc.data().status == 'Closed' || doc.data().status == 'Solved') {
                                 total_open_cases++;
                             }
                             count_status_ppm(doc.data().chargable);
                             if (t.id != "Cloud_Exchange") {
-                           count_staus_perdate_j(t.id, doc.data().start_time, doc.data().end_time, doc.data().chargable, doc.data().timestamp, doc.data().status,doc.data().message,doc.data().user_id|| '',doc.data().others|| '---',doc.data().ticket_id,doc.data().name,doc.data().photoURL);  
-                            }
-                    
 
-                            dataSet.push([doc.data().job_num, doc.data().ticket_id, doc.data().message , doc.data().name || '', doc.data().photoURL || '', doc.data().status, doc.data().start_time, doc.data().end_time, doc.data().ticket_doc_id, doc.data().timestamp, doc.data().chargable,doc.data().user_id|| '',doc.data().others|| '---']);
+                                count_staus_perdate_j(t.id, doc.data().start_time, doc.data().end_time, doc.data().chargable, doc.data().timestamp, doc.data().status, doc.data().message, doc.data().user_id || '', doc.data().others || '---', doc.data().ticket_id, doc.data().name, doc.data().photoURL);
+                            }
+
+
+                            dataSet.push([doc.data().job_num, doc.data().ticket_id, doc.data().message, doc.data().name || '', doc.data().photoURL || '', doc.data().status, doc.data().start_time, doc.data().end_time, doc.data().ticket_doc_id, doc.data().timestamp, doc.data().chargable, doc.data().user_id || '', doc.data().others || '---']);
                         });
                         total_cases_tick = total_cases_tick + querySnapshot.size;
-                       // loadtable3(t.id, dataSet, false, t.id);
+                        // loadtable3(t.id, dataSet, false, t.id);
                         dotable2(t.id, dataSet, !1, false, t.id);
                         counter_t++;
 
@@ -1611,20 +1619,20 @@ function fetch_tickets(t, alpha, type) {
                             document.getElementById("stats_cc").innerText = total_cases_tick - total_open_cases;
                         }
 
-                    }).catch(function(error) {
+                    }).catch(function (error) {
                         console.log(error);
                         badnews(error)
                     });
                     break;
                 case 'tickets':
 
-                    db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function(querySnapshot) {
-                        querySnapshot.forEach(function(doc) {
-                     
+                    db.collection("domains").doc(t.id).collection("tickets").orderBy("id", "desc").limit(1).get().then(function (querySnapshot) {
+                        querySnapshot.forEach(function (doc) {
+
                             total_cases_tick = total_cases_tick + Number(doc.data().id);
                             document.getElementById('currentticket_' + t.id).innerText = doc.data().id;
-                            db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function(querySnapshot) {
-                                querySnapshot.forEach(function(doc) {
+                            db.collection("domains").doc(t.id).collection("tickets").where("status", ">", alpha).get().then(function (querySnapshot) {
+                                querySnapshot.forEach(function (doc) {
                                     count_status(doc.data().status);
                                     if (t.id != "Cloud_Exchange") {
                                         count_staus_perdate(t.id, doc.data().created_on, doc.data().issue, doc.data().status, doc.data().location, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---");
@@ -1650,18 +1658,18 @@ function fetch_tickets(t, alpha, type) {
                                 }
 
 
-                            }).catch(function(error) {
+                            }).catch(function (error) {
                                 console.log(error);
                                 badnews(error)
                             })
                         });
-                    }).catch(function(error) {
+                    }).catch(function (error) {
                         console.log(error);
                         badnews(error)
                     });
                     break;
                 default:
-                    // code block
+                // code block
             }
 
             if (open_flag) {
@@ -1672,24 +1680,24 @@ function fetch_tickets(t, alpha, type) {
         }
         if (for_loop_count == total_size) {
             setTimeout(
-                function() {
+                function () {
 
                     switch (type) {
                         case 'jobsheets':
                             generate_jobsheet_data();
-    
+
                             break;
                         case 'tickets':
                             generate_ticket_data();
                             break;
                         default:
-                            // code block
+                        // code block
                     }
-        
 
 
 
-                   
+
+
                     //  console.log(status_c_date);
                     // console.log(data_setta);
 
@@ -1768,7 +1776,7 @@ function tabletoname(id) {
         if (nio == null) {
             return id;
         } else {
-            image = " • " + nio.name;
+            image = nio.name;
 
             return image;
         }
@@ -1868,7 +1876,7 @@ function call_report_modal(domain_id) {
 function tktedit(com_id, dom_id, counter) {
     var oTable = $("#edit_tic_table_" + dom_id).dataTable(
 
-        ),
+    ),
 
         dataset = oTable.fnGetData(),
         ticketid = dataset[counter][1].replace(/<\/?[^>]+(>|$)/g, ""),
@@ -1915,7 +1923,7 @@ function tktdelete(com_id, dom_id, counter) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.value) {
-            db.collection("domains").doc(dom_id).collection("tickets").doc(com_id).delete().then(function() {
+            db.collection("domains").doc(dom_id).collection("tickets").doc(com_id).delete().then(function () {
 
                 decrement_tag(updated[2].replace(/<\/?[^>]+(>|$)/g, "") + "_label2");
 
@@ -1938,7 +1946,7 @@ function tktdelete(com_id, dom_id, counter) {
 
 
 
-            }).catch(function(error) {
+            }).catch(function (error) {
                 badnews(error);
             });
 
@@ -1979,7 +1987,7 @@ function edittkt_save() {
         issue: issue,
         location: location,
         status: status
-    }).then(function() {
+    }).then(function () {
 
         var data = processrow(false, [
             com_id,
@@ -2038,7 +2046,7 @@ function edittkt_save() {
 
 
 
-    }).catch(function(error) {
+    }).catch(function (error) {
         badnews(error)
     })
 
@@ -2118,26 +2126,26 @@ function opentkt_save() {
         hist_created_on: opticket_date2,
         hist_created_by: user.uid,
         hist_message: "---"
-    }).then(function(doc) {
+    }).then(function (doc) {
         var data = processrow(false, [doc.id, tick_no, domain_case, opticket_location, opticket_issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', opstatus, user.uid, opassignee_1, opassignee_2, opassignee_3, opassignee_4, opticket_date, 'DUM', 'DUM', tick_no, opticket_date, user.uid, "---"], counter++);
         var table = $('#edit_tic_table_' + domain_case).DataTable(
 
         );
         table.row.add(data).draw();
         goodnews("The ticket was added successfully!");
-    }).catch(function(error) {
+    }).catch(function (error) {
         badnews(error), console.log(error);
     });
 }
 
 function generateReport() {
-    
+
     $('#reportModal').modal('toggle');
     var sel1 = document.getElementById("sel1").value,
         dataSet = [],
         values = $("#pre-selected-options").val(),
         con_values = [];
-    document.getElementById("lb_report").innerHTML = "0", values.forEach(function(entry) {
+    document.getElementById("lb_report").innerHTML = "0", values.forEach(function (entry) {
         con_values = con_values + '  <span>' + tabletolable(entry, false) + ' : <span  id="report_label_' + entry + '">0</span></span> ,';
     });
     var dtrange = document.getElementById("dtrange").value;
@@ -2145,14 +2153,14 @@ function generateReport() {
     document.getElementById("it-range").innerHTML = con_values;
     [s_date_ticks, e_date_ticks] = dtrange.split(" - "),
         s_date_ticks = new Date(s_date_ticks), e_date_ticks = new Date(e_date_ticks);
-    db.collection("domains").doc(sel1).collection("tickets").orderBy("created_on", "asc").startAt(s_date_ticks).endAt(e_date_ticks).get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
+    db.collection("domains").doc(sel1).collection("tickets").orderBy("created_on", "asc").startAt(s_date_ticks).endAt(e_date_ticks).get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
             values.includes(doc.data().status) && (dataSet.push([doc.id, doc.data().id, sel1, doc.data().location, doc.data().issue, "DUM", "DUM", "DUM", "DUM", "DUM", "DUM", doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, "DUM", "DUM", doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"]),
                 increment_tag("lb_report"), increment_tag("report_label_" + doc.data().status));
         }), loadtable2("#example", dataSet, !0, sel1);
         var el = document.getElementById("div1");
         el.classList.remove("hidden");
-    }).catch(function(error) {
+    }).catch(function (error) {
         console.log(error), badnews(error);
     }), document.getElementById("gn-site").innerHTML = sel1;
     document.getElementById("Report_tile").innerHTML = " <span class='blink_text'>&#8226;</span> Report : " + sel1;
@@ -2360,7 +2368,7 @@ function add_to_site(x, y) {
 
         default:
             co = 0;
-            // code block
+        // code block
     }
 }
 
@@ -2368,7 +2376,7 @@ function generate_ticket_data() {
     document.getElementById("title_bar").innerText = "Tickets Addressed";
     document.getElementById("multi_grah_title").innerText = "Tickets Timeline";
     document.getElementById("by_sta_title").innerText = "Tickets Summary";
-    
+
 
     var pec = Math.round((status_addressed / status_c['Total']) * 100);
 
@@ -2397,7 +2405,7 @@ function generate_ticket_data() {
                     name: selected_domain,
                     data: data,
                     type: 'scatter',
-                    symbolSize: function(data) {
+                    symbolSize: function (data) {
                         return 10;
                         return (Math.sqrt(data[6]) * 2);
                     },
@@ -2405,7 +2413,7 @@ function generate_ticket_data() {
                         focus: 'series',
                         label: {
                             show: true,
-                            formatter: function(param) {
+                            formatter: function (param) {
                                 console.log(param);
                                 return 'ds'
                             },
@@ -2430,15 +2438,15 @@ function generate_ticket_data() {
         }
 
         if (e == domain_length - 1) {
-           run_echarts_tickets();
+            run_echarts_tickets();
         }
     }
 }
-
+var tree_data = [];
 function generate_jobsheet_data() {
     document.getElementById("title_bar").innerText = "Not-Chargeable Jobsheets"
     document.getElementById("multi_grah_title").innerText = "Jobsheets Timeline";
-    document.getElementById("by_sta_title").innerText = "Jobsheets Summary";   
+    document.getElementById("by_sta_title").innerText = "Jobsheets Summary";
     var pec = Math.round((status_addressed / m_status_c['Total']) * 100);
     document.getElementById("addressed_percentage").innerText = pec;
     document.getElementById("addressed_percentage_bar").innerHTML = '	<div class="progress-bar progress-bar-primary  wow animated progress-animated" role="progressbar" aria-valuenow="' + pec + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + pec + '%;"></div>';
@@ -2450,24 +2458,36 @@ function generate_jobsheet_data() {
     document.getElementById("weekly_tickets").innerText = weekly_tickets;
     document.getElementById("monthly_tickets").innerText = monthly_tickets;
     var domain_length = domain_list.length;
- 
-  
+
+
 
     for (var e = 0; e < domain_length; e++) {
+        var total = 0;
         var selected_domain = domain_list[e];
         var data = [];
         var data_lenth = data_setta.length;
+        var dat = [];
         for (var i = 0; i < data_lenth; i++) {
             if (data_setta[i][2] == selected_domain) {
+
                 data.push(data_setta[i]);
-            
+                total = total + data_setta[i][4];
+
+                dat.push({
+                    name: data_setta[i][9],
+                    hours: data_setta[i][3],
+                    value: data_setta[i][4],
+                });
+
             }
+
+
             if (i == data_lenth - 1) {
                 var temp = {
                     name: selected_domain,
                     data: data,
                     type: 'scatter',
-                    symbolSize: function(data) {
+                    symbolSize: function (data) {
                         return 10;
                         return (Math.sqrt(data[6]) * 2);
                     },
@@ -2475,7 +2495,7 @@ function generate_jobsheet_data() {
                         focus: 'series',
                         label: {
                             show: true,
-                            formatter: function(param) {
+                            formatter: function (param) {
                                 console.log(param);
                                 return 'ds'
                             },
@@ -2498,31 +2518,38 @@ function generate_jobsheet_data() {
                 series_check.push(temp);
             }
         }
+        tree_data.push({
+            name: selected_domain,            // Second tree
+            value: total,
+            children: dat
+        });
+
+
 
         if (e == domain_length - 1) {
-           run_echarts_jobsheets();
-
+            run_echarts_jobsheets();
         }
     }
+ 
 }
 var bole = true;
 
-function run_fullscreen() {
+function run_fullscreen(x) {
 
     if (bole) {
 
-        document.getElementById("e_chart_1").style.height = "700px";
+        document.getElementById(x).style.height = "700px";
         bole = false;
     } else {
-        document.getElementById("e_chart_1").style.height = "313px";
+        document.getElementById(x).style.height = "313px";
         bole = true;
     }
 }
 
 function run_echarts_tickets() {
 
-    var echartsConfig = function() {
-     
+    var echartsConfig = function () {
+
         var main_piechart = {
             /*          title: {
                           text: 'Scatter Plot' ,
@@ -2540,7 +2567,7 @@ function run_echarts_tickets() {
             },
             tooltip: {
                 backgroundColor: ['rgba(1,1,1,0.7)'],
-                formatter: function(obj) {
+                formatter: function (obj) {
                     var value = obj.value;
                     var vari = '';
                     if (value[8] != '---') {
@@ -2566,7 +2593,7 @@ function run_echarts_tickets() {
                     }
                 },
                 axisLabel: {
-                    formatter: function(obj) {
+                    formatter: function (obj) {
 
                         return status_codes_reversed(obj);
                     }
@@ -2624,28 +2651,28 @@ function run_echarts_tickets() {
                     //   { value: status_c['Follow Up'], name: 'Follow Up' },
                     { value: status_c['Solved'], name: 'Solved' },
 
-                ].sort(function(a, b) { return a.value - b.value; }),
-            }, ],
+                ].sort(function (a, b) { return a.value - b.value; }),
+            },],
             animationType: 'scale',
             animationEasing: 'elasticOut',
-            animationDelay: function(idx) {
+            animationDelay: function (idx) {
                 return Math.random() * 1000;
             }
         };
-        generate_echart('e_chart_1',main_piechart);
-        generate_echart('e_chart_3',tickets_timeline);   
-            document.getElementById('item_1').innerHTML = "Not Started";
-            document.getElementById('not_sta_sta').innerHTML = status_c['Not Started'];
-            document.getElementById('item_2').innerHTML = "Solved";
-            document.getElementById('solved_sta').innerHTML = status_c['Solved'];
-            document.getElementById('item_3').innerHTML = "Follow Up";
-            document.getElementById('follow_up_sta').innerHTML = status_c['Follow Up'];
-            document.getElementById('item_1_sub').innerHTML = "Not Updated, Since ticket was opened.";
-            document.getElementById('item_2_sub').innerHTML = "Yet to be closed.";
-            document.getElementById('item_3_sub').innerHTML = "Waiting action from client.";
+        generate_echart('e_chart_1', main_piechart);
+        generate_echart('e_chart_3', tickets_timeline);
+        document.getElementById('item_1').innerHTML = "Not Started";
+        document.getElementById('not_sta_sta').innerHTML = status_c['Not Started'];
+        document.getElementById('item_2').innerHTML = "Solved";
+        document.getElementById('solved_sta').innerHTML = status_c['Solved'];
+        document.getElementById('item_3').innerHTML = "Follow Up";
+        document.getElementById('follow_up_sta').innerHTML = status_c['Follow Up'];
+        document.getElementById('item_1_sub').innerHTML = "Not Updated, Since ticket was opened.";
+        document.getElementById('item_2_sub').innerHTML = "Yet to be closed.";
+        document.getElementById('item_3_sub').innerHTML = "Waiting action from client.";
     }
     var echartResize;
-    $(window).on("resize", function() {
+    $(window).on("resize", function () {
         clearTimeout(echartResize);
         echartResize = setTimeout(echartsConfig, 200);
     }).resize();
@@ -2653,480 +2680,432 @@ function run_echarts_tickets() {
 
 function run_echarts_jobsheets() {
 
-console.log(c_date)
-
-
-    var data_chart_user =[];
-    for (var e = 0; e < user_list.length; e++) {
-        var selected_user = user_list[e];
+    var main_radar = [];
+ 
+    for (var w = 0; w < user_list.length; w++) {
+        var selected_user = user_list[w];
         if(selected_user!=""){
-            data_chart_user.push({
-                name:tabletoname(selected_user),
-                value:user_c_date[selected_user]
-            });
+            var stect_data = [];
+            stect_data[0] =0;
+            stect_data[1] =0;
+            stect_data[2] =0;
+            stect_data[3] =0;
+            stect_data[4] =0;
+            stect_data[5] =0;
+    
+            var counter_1=0;     
+                var data_lenth = data_setta.length;        
+                for (var e = 0; e < data_lenth; e++) {
+                    var selected_status = jobstatus_codes(data_setta[e][6]);
+                    counter_1++;
+               if (data_setta[e][8] == selected_user) {   
+                            stect_data[[selected_status]] = stect_data[[selected_status]] + data_setta[e][4];
+                                        }
+    
+                if(counter_1==data_setta.length){        
+                    main_radar.push({
+                        value: stect_data,
+                        name: tabletoname(selected_user)
+                    }); 
+                 
+                }
+                }
         }
-              
       
     }
-    console.log(data_chart_user);
-   // console.log(user_list);
-  
-    var echartsConfig = function() {    
-            document.getElementById('item_1').innerHTML = "Chargeable";
-            document.getElementById('not_sta_sta').innerHTML = m_status_c['Chargeable'];
-            document.getElementById('item_2').innerHTML = "Warranty";
-            document.getElementById('solved_sta').innerHTML = m_status_c['Warranty'];
-            document.getElementById('item_3').innerHTML = "Maintenance";
-            document.getElementById('follow_up_sta').innerHTML = m_status_c['Maintenance'];
-            document.getElementById('item_1_sub').innerHTML = "Not Updated, Since ticket was opened.";
-            document.getElementById('item_2_sub').innerHTML = "Yet to be closed.";
-            document.getElementById('item_3_sub').innerHTML = "Waiting action from client.";
-    var main_piechart = {
-               
-                grid: {
-                    left: '20%',
-                    top: '5%'
-                },
-                tooltip: {
-                    backgroundColor: ['rgba(1,1,1,0.7)'],
-                    formatter: function(obj) {
-                        var value = obj.value;
-                        var vari = '';
-                        if (value[7] != '---') {
-                            vari = tabletoimage(value[8], 20) + " - " + value[7].wrap(55, 10, true) + '</span><br>';
-                        } 
-                   //     data_setta.push([phrase, jobstatus_codes(status), domain,status, hours, Difference_In_Days, chargable, message,user_id,ticket_id]);
-                        return '<div style="solid rgba(255,255,255,.3); font-size: 14px;padding-bottom: 2px;margin-bottom: 2px">' +
-                            value[2] + ' | ' + value[3] + '<br>' + 'Jobsheet No : '+value[9] + '<br>' + vari +  value[0] +' | '+ value[4] + ' Hours';
-                    }
-                },
-                xAxis: {
-                    type: 'time',
-                    splitLine: {
-                        lineStyle: {
-                            type: 'dashed'
-                        }
-                    }
-                },
-                yAxis: {
-                    splitLine: {
-                        lineStyle: {
-                            type: 'dashed'
-                        }
-                    },
-                    axisLabel: {
-                        formatter: function(obj) {
-                            
-                            return jobstatus_codes_reversed(obj);
-                        }
-                    },
-                    scale: true
-                },
-                series: series_check
-    };  
-    var jobsheet_timeline = {
-             
-                legend: {
-                    show: false
-                },
-                toolbox: {
-                    show: false,
-                },
-                calculable: true,
+    //    color: ['#fd7397','#d36ee8', '#119dd2', '#667add'],
+    var data_chart_user = [];
+    for (var e = 0; e < user_list.length; e++) {
+        var selected_user = user_list[e];
+        if (selected_user != "") {
+            data_chart_user.push({
+                name: tabletoname(selected_user),
+                value: user_c_date[selected_user]
+            });
+        }
+
+
+    }
+    var for_bar = [];
+
+    var selected_date;
+
+
+    for (var l = 0; l < c_date_list.length; l++) {
+        selected_date = c_date_list[l];
+
+        if (c_date[selected_date] > 24) {
+            for_bar.push({
+                value: c_date[selected_date],
                 itemStyle: {
-                    normal: {
-                        shadowBlur: 5,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    color: '#d36ee8'
+                }
+            });
+
+        } else {
+            for_bar.push({
+                value: c_date[selected_date],
+                itemStyle: {
+                    color: '#fd7397'
+                }
+            });
+        }
+
+
+    }
+    var foo_bar2 = [];
+    var selected_user;
+    var user_list_name = [];
+    for (var p = 0; p < user_list.length; p++) {
+        var date_data = [];
+
+        selected_user = user_list[p];
+        if (selected_user != "") {
+
+
+            var selected_user_name = tabletoname(selected_user);
+            user_list_name.push(selected_user_name);
+
+            for (var l = 0; l < c_date_list.length; l++) {
+                selected_date = c_date_list[l];
+                var date_val = 0
+                for (var b = 0; b < data_setta.length; b++) {
+
+                    if (data_setta[b][0] == selected_date && data_setta[b][8] == selected_user) {
+                        date_val = date_val + data_setta[b][4];
+                    }
+
+                    if (data_setta[b][0] == selected_date && data_setta[b][10] == selected_user_name) {
+                        date_val = date_val + data_setta[b][4];
+                    }
+                }
+                date_data.push(date_val);
+            }
+
+            foo_bar2.push(
+                {
+                    name: selected_user_name,
+                    type: 'bar',
+                    stack: 'total',
+                    label: {
+                        show: true
+                    },
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: date_data
+                },
+            )
+
+        }
+    }
+
+
+
+
+    var echartsConfig = function () {
+        document.getElementById('item_1').innerHTML = "Chargeable";
+        document.getElementById('not_sta_sta').innerHTML = m_status_c['Chargeable'];
+        document.getElementById('item_2').innerHTML = "Warranty";
+        document.getElementById('solved_sta').innerHTML = m_status_c['Warranty'];
+        document.getElementById('item_3').innerHTML = "Maintenance";
+        document.getElementById('follow_up_sta').innerHTML = m_status_c['Maintenance'];
+        document.getElementById('item_1_sub').innerHTML = "Not Updated, Since ticket was opened.";
+        document.getElementById('item_2_sub').innerHTML = "Yet to be closed.";
+        document.getElementById('item_3_sub').innerHTML = "Waiting action from client.";
+
+        var main_piechart = {
+
+            grid: {
+                left: '20%',
+                top: '5%'
+            },
+            tooltip: {
+                backgroundColor: ['rgba(1,1,1,0.7)'],
+                formatter: function (obj) {
+                    var value = obj.value;
+                    var vari = '';
+                    if (value[7] != '---') {
+                        vari = tabletoimage(value[8], 20) + " - " + value[7].wrap(55, 10, true) + '</span><br>';
+                    }
+                    //     data_setta.push([phrase, jobstatus_codes(status), domain,status, hours, Difference_In_Days, chargable, message,user_id,ticket_id]);
+                    return '<div style="solid rgba(255,255,255,.3); font-size: 14px;padding-bottom: 2px;margin-bottom: 2px">' +
+                        value[2] + ' | ' + value[3] + '<br>' + 'Jobsheet No : ' + value[9] + '<br>' + vari + value[0] + ' | ' + value[4] + ' Hours';
+                }
+            },
+            xAxis: {
+                type: 'time',
+                splitLine: {
+                    lineStyle: {
+                        type: 'dashed'
+                    }
+                }
+            },
+            yAxis: {
+                splitLine: {
+                    lineStyle: {
+                        type: 'dashed'
                     }
                 },
-                series: [{
-                    name: 'Status',
+                axisLabel: {
+                    formatter: function (obj) {
+
+                        return jobstatus_codes_reversed(obj);
+                    }
+                },
+                scale: true
+            },
+            series: series_check
+        };
+        var jobsheet_timeline = {
+
+            legend: {
+                show: false
+            },
+            toolbox: {
+                show: false,
+            },
+            calculable: true,
+            itemStyle: {
+                normal: {
+                    shadowBlur: 5,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            },
+            series: [{
+                name: 'Status',
+                type: 'pie',
+                radius: '60%',
+                center: ['50%', '50%'],
+                roseType: 'radius',
+                color: ['#119dd2', '#d36ee8', '#667add', '#fd7397', '#4aa23c'],
+                label: {
+                    normal: {
+                        fontFamily: "'Roboto', sans-serif",
+                        fontSize: 12
+                    }
+                },
+
+
+                data: [
+                    /*    { value: m_status_c['Not Chargeable'], name: 'Not Chargeable' }, */
+                    { value: m_status_c['Warranty'], name: 'Warranty' },
+                    { value: m_status_c['Chargeable'], name: 'Chargeable' },
+                    { value: m_status_c['Maintenance'], name: 'Maintenance' },
+                    { value: status_c['Other'], name: 'Other' },
+                    //   { value: status_c['Follow Up'], name: 'Follow Up' },
+
+
+                ].sort(function (a, b) { return a.value - b.value; }),
+            },],
+            animationType: 'scale',
+            animationEasing: 'elasticOut',
+            animationDelay: function (idx) {
+                return Math.random() * 1000;
+            }
+        };
+
+        var risks_options = {
+            tooltip: {
+                formatter: function (info) {
+                    var value = info.value;
+                    var treePathInfo = info.treePathInfo;
+                    var treePath = [];
+
+                    for (var i = 1; i < treePathInfo.length; i++) {
+                        treePath.push(treePathInfo[i].name);
+                    }
+             
+
+                    if (treePath[4] != '---') {
+                        var vari = tabletoimage(value[4], 20) + " - " + treePath[2] + '</span><br>';
+                    }
+
+                    /*                 dat.push({
+                                        name:  data_setta[i][9], 
+                                        hours:  data_setta[i][3],     // First leaf of first tree
+                                        value: data_setta[i][4],
+                                        date: data_setta[i][0],
+                                        user: data_setta[i][8],
+                                        message:data_setta[i][7],
+                                        status:data_setta[i][2],    
+                                    });
+                                     */
+
+                    //     data_setta.push([phrase, jobstatus_codes(status), domain,status, hours, Difference_In_Days, chargable, message,user_id,ticket_id]);
+
+                    return [
+                        '<div class="tooltip-title">' + treePath[0] + '<br>Ticket No: ' + treePath[1] + '<br> Hours : ' + value + ' Hours</div>',
+                        ,
+                    ].join('');
+                }
+            },
+            series: [{
+                type: 'treemap',
+                data: tree_data
+            }]
+        };
+        console.log(user_list_name);
+        console.log(user_list);
+        var budget_options = {
+
+        
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: user_list_name
+            },
+            radar: {
+                // shape: 'circle',
+                indicator: [
+               
+                    { name: jobstatus_codes_reversed(1), max: m_status_c[jobstatus_codes_reversed(1)]+2 },
+                    { name: jobstatus_codes_reversed(2), max: m_status_c[jobstatus_codes_reversed(2)]+2 },
+                    { name: jobstatus_codes_reversed(3), max: m_status_c[jobstatus_codes_reversed(3)]+2 },
+                    { name: jobstatus_codes_reversed(4), max: m_status_c[jobstatus_codes_reversed(4)]+2 },
+                    { name: jobstatus_codes_reversed(5), max: m_status_c[jobstatus_codes_reversed(5)]+2 }
+                ]
+            },
+            series: [{
+                name: 'Work',
+                type: 'radar',
+                tooltip: {
+                    trigger: 'item'
+                },
+
+                areaStyle: {},
+                data: main_radar
+            }]
+
+        };
+        var pending_items = {
+            color: ['#d36ee8', '#119dd2', '#667add'],
+            series: [
+                {
+                    name: '漏斗图',
+                    type: 'funnel',
+                    x: '0%',
+                    y: 20,
+                    //x2: 80,
+                    y2: 60,
+                    width: '100%',
+                    height: '80%',
+                    // height: {totalHeight} - y - y2,
+                    min: 0,
+                    max: 100,
+                    minSize: '0%',
+                    maxSize: '100%',
+                    sort: 'ascending', // 'ascending', 'descending'
+                    gap: 0,
+
+                    data: [
+                        { value: 100, },
+                        { value: 80, },
+                        { value: 100, },
+
+                    ].sort(function (a, b) { return a.value - b.value }),
+                    roseType: true,
+                    label: {
+                        normal: {
+                            formatter: function (params) {
+                                return params.name + ' ' + params.value + '%';
+                            },
+                            position: 'center',
+                            fontStyle: 'normal',
+                            fontWeight: 'normal',
+                            fontFamily: "'Roboto', sans-serif",
+                            fontSize: 12
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            borderWidth: 0,
+                            shadowBlur: 5,
+                            shadowOffsetX: 0,
+                            shadowOffsetY: 5,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+
+                }
+
+            ]
+        };
+
+        var pie_chart_second = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color: ['#fd7397', '#d36ee8', '#119dd2', '#667add'],
+            series: [
+                {
+                    name: 'Hours',
                     type: 'pie',
                     radius: '60%',
                     center: ['50%', '50%'],
-                    roseType: 'radius',
-                    color: ['#119dd2', '#d36ee8', '#667add', '#fd7397', '#4aa23c'],
-                    label: {
-                        normal: {
-                            fontFamily: "'Roboto', sans-serif",
-                            fontSize: 12
-                        }
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{b} : {c} {a}  ({d}%)",
+                        backgroundColor: 'rgba(33,33,33,1)',
+                        borderRadius: 0,
+                        padding: 10,
                     },
 
-    
-                    data: [
-                     /*    { value: m_status_c['Not Chargeable'], name: 'Not Chargeable' }, */
-                     { value: m_status_c['Warranty'], name: 'Warranty' },
-                        { value: m_status_c['Chargeable'], name: 'Chargeable' },
-                        { value: m_status_c['Maintenance'], name: 'Maintenance' },
-                           { value: status_c['Other'], name: 'Other' }, 
-                        //   { value: status_c['Follow Up'], name: 'Follow Up' },
-                    
-
-                    ].sort(function(a, b) { return a.value - b.value; }),
-                }, ],
-                animationType: 'scale',
-                animationEasing: 'elasticOut',
-                animationDelay: function(idx) {
-                    return Math.random() * 1000;
+                    data: data_chart_user,
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
                 }
-    };         
-    var risks_options = {
-                tooltip: {
-                    trigger: 'axis',
-                    backgroundColor: 'rgba(33,33,33,1)',
-                    borderRadius:0,
-                    padding:10,
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
-                            backgroundColor: 'rgba(33,33,33,1)'
-                        }
-                    },
-                    textStyle: {
-                        color: '#fff',
-                        fontStyle: 'normal',
-                        fontWeight: 'normal',
-                        fontFamily: "'Roboto', sans-serif",
-                        fontSize: 12
-                    }	
-                },
-                grid: {
-                    left: '10%',
-                    right: '10%',
-                    bottom: '15%'
-                },
-                yAxis: {
-                    type: 'category',
-                    data: ['Adjacent to subway', 'Away from subway'],
-                    nameTextStyle: {
-                        color: '#878787',
-                        fontSize: 14,
-                    },
-                    axisLine: {
-                        show:false
-                    },
-                    
-                    axisTick:{
-                        show:false,
-                    },
-                    axisLabel:{
-                        rotate:90,
-                        textStyle: {
-                            color: '#878787',
-                            fontStyle: 'normal',
-                            fontWeight: 'normal',
-                            fontFamily: "'Roboto', sans-serif",
-                            fontSize: 12
-                        }
-                    },
-                    splitLine: {
-                        show: false
-                    }
-                },
-                
-                xAxis: {
-                    type: 'value',
-                    
-                    nameTextStyle: {
-                        color: '#878787',
-                        fontSize: 14,
-                    },
-                    axisLine: {
-                        show:false
-                    },
-                    axisLabel:{
-                        textStyle: {
-                            color: '#878787',
-                            fontStyle: 'normal',
-                            fontWeight: 'normal',
-                            fontFamily: "'Roboto', sans-serif",
-                            fontSize: 12
-                        }
-                    },
-                    splitLine: {
-                        show:false
-                    }
-                    
-                },
-                series: [{
-                        name: 'boxplot',
-                        type: 'boxplot',
-                        data: [
-                            [216, 599.5, 694, 504, 980],
-                            [216, 599.5, 694, 504, 980]
-                        ],
-                        itemStyle: {
-                            normal:{
-                                borderColor: {
-                                type: 'linear',
-                                x: 1,
-                                y: 0,
-                                x2: 0,
-                                y2: 0,
-                                colorStops: [{
-                                    offset: 0,
-                                    color: '#667add' // 0% 
-                                }, {
-                                    offset: 1,
-                                    color: '#119dd2' // 100% 
-                                }],
-                                globalCoord: false //
-                            },
-                            borderWidth:2,
-                            color: {
-                                type: 'linear',
-                                x: 1,
-                                y: 0,
-                                x2: 0,
-                                y2: 0,
-                                colorStops: [{
-                                    offset: 0,
-                                    color: 'rgba(0,0,0,0)'  // 0% 处的颜色
-                                }, {
-                                    offset: 1,
-                                    color: 'rgba(0,0,0,0)' // 100% 处的颜色
-                                }],
-                                globalCoord: false // 缺省为 false
-                            },
-                        }
-                        },
-                        tooltip: {
-                            formatter: function(param) {
-                                return [
-        
-                                    'upper: ' + param.data[5],
-                                    'Q3: ' + param.data[4],
-                                    'median: ' + param.data[3],
-                                    'Q1: ' + param.data[2],
-                                    'lower: ' + param.data[1]
-                                ].join('<br/>')
-                            }
-                        }
-                    },
-        
-                ]
-    };
-    var budget_options = {
-        color: ['#667add', '#fd7397'],
+            ]
+        };
 
-        tooltip: {
-            trigger: 'axis',
-            backgroundColor: 'rgba(33,33,33,1)',
-            borderRadius:0,
-            padding:10,
-            axisPointer: {
-                type: 'cross',
-                label: {
-                    backgroundColor: 'rgba(33,33,33,1)'
+        var fdsoption = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // Use axis to trigger tooltip
+                    type: 'shadow'        // 'shadow' as default; can also be 'line' or 'shadow'
                 }
             },
-            textStyle: {
-                color: '#fff',
-                fontStyle: 'normal',
-                fontWeight: 'normal',
-                fontFamily: "'Roboto', sans-serif",
-                fontSize: 12
-            }	
-        },
-        grid:{
-            show:false,
-            top: 30,
-            bottom: 10,
-            containLabel: true,
-        },
-        xAxis: [
-            {
+            legend: {
+                data: user_list_name
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
                 type: 'category',
-                axisTick: {
-                    alignWithLabel: true
-                },
-                axisLine: {
-                    show:false
-                },
-                axisLabel: {
-                    textStyle: {
-                        color: '#878787',
-                        fontStyle: 'normal',
-                        fontWeight: 'normal',
-                        fontFamily: "'Roboto', sans-serif",
-                        fontSize: 12
-                    }
-                },
-                axisPointer: {
-                    label: {
-                        formatter: function (params) {
-                            return params.value
-                                + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
-                        }
-                    }
-                },
-                data: ["2016-1", "2016-2", "2016-3", "2016-4", "2016-5", "2016-6", "2016-7", "2016-8", "2016-9", "2016-10", "2016-11", "2016-12"]
+                data: c_date_list
+
             },
-            {
-                type: 'category',
-                axisTick: {
-                    alignWithLabel: true
-                },
-                axisLine: {
-                    show:false
-                },
-                axisLabel: {
-                    textStyle: {
-                        color: '#878787',
-                        fontStyle: 'normal',
-                        fontWeight: 'normal',
-                        fontFamily: "'Roboto', sans-serif",
-                        fontSize: 12
-                    }
-                },
-                axisPointer: {
-                    label: {
-                        formatter: function (params) {
-                            return  params.value
-                                + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
-                        }
-                    }
-                },
-                data: ["2015-1", "2015-2", "2015-3", "2015-4", "2015-5", "2015-6", "2015-7", "2015-8", "2015-9", "2015-10", "2015-11", "2015-12"]
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value',
-                axisLine: {
-                    show:false
-                },
-                axisLabel: {
-                    textStyle: {
-                        color: '#878787',
-                        fontStyle: 'normal',
-                        fontWeight: 'normal',
-                        fontFamily: "'Roboto', sans-serif",
-                        fontSize: 12
-                    }
-                },
-                splitLine: {
-                    show: false,
-                }
-            }
-        ],
-        series: [
-            {
-                name:'2015',
-                type:'line',
-                xAxisIndex: 1,
-                smooth: true,
-                data: [4.6, 1.9, 3.0, 6.4, 8.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+            yAxis: {
+                type: 'value'
             },
-            {
-                name:'2016',
-                type:'line',
-                smooth: true,
-                data: [32.9, 15.9, 1.1, 18.7, 48.3, 69.2, 231.6, 46.6, 55.4, 18.4, 10.3, 0.7]
-            }
-        ]
-    };
-    var pending_items = {
-        color: ['#d36ee8', '#119dd2', '#667add'],
-        series : [
-            {
-                name:'漏斗图',
-                type:'funnel',
-                x: '0%',
-                y: 20,
-                //x2: 80,
-                y2: 60,
-                width: '100%',
-                height:'80%',
-                // height: {totalHeight} - y - y2,
-                min: 0,
-                max: 100,
-                minSize: '0%',
-                maxSize: '100%',
-                sort : 'ascending', // 'ascending', 'descending'
-                gap :0,
-                
-                data:[
-                    {value:100,},
-                    {value:80,},
-                    {value:100,},
-                    
-                ].sort(function (a, b) { return a.value - b.value}),
-                roseType: true,
-                label: {
-                    normal: {
-                        formatter: function (params) {
-                            return params.name + ' ' + params.value + '%';
-                        },
-                        position: 'center',
-                        fontStyle: 'normal',
-                        fontWeight: 'normal',
-                        fontFamily: "'Roboto', sans-serif",
-                        fontSize: 12
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        borderWidth: 0,
-                        shadowBlur: 5,
-                        shadowOffsetX: 0,
-                        shadowOffsetY: 5,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-                
-            }
-            
-        ]
-    };
-    
-	var pie_chart_second = {
-			tooltip : {
-				trigger: 'item',
-				formatter: "{a} <br/>{b} : {c} ({d}%)"
-			},
-			color: ['#fd7397','#d36ee8', '#119dd2', '#667add'],
-			series : [
-				{
-					name: 'Hours',
-					type: 'pie',
-					radius : '60%',
-					center: ['50%', '50%'],
-					tooltip : {
-						trigger: 'item',
-						formatter: "{b} : {c} {a}  ({d}%)",
-						backgroundColor: 'rgba(33,33,33,1)',
-						borderRadius:0,
-						padding:10,
-					},
-              
-					data:data_chart_user,
-					itemStyle: {
-						emphasis: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
-				}
-			]
-	};
-    generate_echart('e_chart_1',main_piechart)
-    generate_echart('e_chart_3',jobsheet_timeline);
-    generate_echart('e_chart_44',risks_options);
-    generate_echart('e_chart_33',budget_options);
-    generate_echart('e_chart_22',pie_chart_second);
-    generate_echart('e_chart_11',pending_items);
+            series: foo_bar2
+        };
+        generate_echart('e_chart_1', main_piechart)
+        generate_echart('e_chart_3', jobsheet_timeline);
+        generate_echart('e_chart_44', risks_options);
+        generate_echart('e_chart_333', fdsoption);
+        generate_echart('e_chart_22', pie_chart_second);
+        generate_echart('e_chart_11', budget_options);
     }
     var echartResize;
-    $(window).on("resize", function() {
+    $(window).on("resize", function () {
         clearTimeout(echartResize);
         echartResize = setTimeout(echartsConfig, 200);
     }).resize();
 }
 
-function generate_echart(id,option){
+function generate_echart(id, option) {
     var eChart = echarts.init(document.getElementById(id));
     eChart.setOption(option);
     eChart.resize();
