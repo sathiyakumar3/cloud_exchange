@@ -1040,6 +1040,7 @@ function count_status_ppm(status) {
 }
 
 function count_status(status) {
+
     switch (status) {
         case 'Not Started':
             status_c['Not Started']++;
@@ -1179,7 +1180,7 @@ function jobstatus_codes_reversed(status) {
     }
 
 }
-function count_staus_perdate(domain, created_on, issue, status, location, by, message) {
+function count_staus_perdate(domain, created_on, issue, status, location, by, message,ticket_id) {
 
     if (domain != "Cloud_Exchange") {
         var phrase = created_on.toDate().getFullYear() + "/" + created_on.toDate().getMonth() + "/" + ('0' + created_on.toDate().getDate()).slice(-2);
@@ -1202,7 +1203,33 @@ function count_staus_perdate(domain, created_on, issue, status, location, by, me
             domain_list.push(domain);
             status_c_date[[domain]] = 0;
         }
-        data_setta.push([phrase, status_codes(status), domain, issue, status, location, Difference_In_Days, by, message]);
+
+        
+
+        if (user_c_date.hasOwnProperty(by)) {
+            user_c_date[[by]]++;
+        } else {
+            user_list.push(by);
+            user_c_date[[by]] = 1;
+        }
+
+    
+
+
+        if (c_date.hasOwnProperty(phrase)) {
+            c_date[[phrase]] = c_date[[phrase]] + 1;
+        } else {
+            c_date_list.push(phrase);
+            c_date[[phrase]] = 1;
+        }
+      
+/*         name: data_setta[i][9],
+        hours: data_setta[i][6],
+        value: data_setta[i][4],
+
+        data_setta.push([phrase, jobstatus_codes(chargable), domain, status, hours, Difference_In_Days, chargable, message, user_id, ticket_id, name, url]); */
+
+        data_setta.push([phrase, status_codes(status), domain, issue, status, location, Difference_In_Days, by, message,ticket_id]);
     }
 }
 
@@ -1635,7 +1662,7 @@ function fetch_tickets(t, alpha, type) {
                                 querySnapshot.forEach(function (doc) {
                                     count_status(doc.data().status);
                                     if (t.id != "Cloud_Exchange") {
-                                        count_staus_perdate(t.id, doc.data().created_on, doc.data().issue, doc.data().status, doc.data().location, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---");
+                                        count_staus_perdate(t.id, doc.data().created_on, doc.data().issue, doc.data().status, doc.data().location, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---",doc.data().id);
                                     }
 
                                     dataSet.push([doc.id, doc.data().id, t.id, doc.data().location, doc.data().issue, 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', 'DUM', doc.data().status, doc.data().created_by, doc.data().assigned_to_1, doc.data().assigned_to_2, doc.data().assigned_to_3, doc.data().assigned_to_4, doc.data().created_on, 'DUM', 'DUM', doc.data().id, doc.data().hist_created_on || doc.data().created_on, doc.data().hist_created_by || doc.data().created_by, doc.data().hist_message || "---"])
@@ -1684,11 +1711,11 @@ function fetch_tickets(t, alpha, type) {
 
                     switch (type) {
                         case 'jobsheets':
-                            generate_jobsheet_data();
+                            run_echarts_jobsheets();
 
                             break;
                         case 'tickets':
-                            generate_ticket_data();
+                            run_echarts_tickets();
                             break;
                         default:
                         // code block
@@ -1772,7 +1799,6 @@ function tabletoname(id) {
         return "";
     } else {
         var nio = user_profiles.find(o => o.id === id);
-
         if (nio == null) {
             return id;
         } else {
@@ -1781,7 +1807,6 @@ function tabletoname(id) {
             return image;
         }
     }
-
 }
 
 
@@ -2372,116 +2397,57 @@ function add_to_site(x, y) {
     }
 }
 
-function generate_ticket_data() {
+var bole = true;
+
+function run_fullscreen(x) {
+
+    if (bole) {
+
+        document.getElementById(x).style.height = "700px";
+        bole = false;
+    } else {
+        document.getElementById(x).style.height = "313px";
+        bole = true;
+    }
+}
+
+function run_echarts_tickets() {
     document.getElementById("title_bar").innerText = "Tickets Addressed";
     document.getElementById("multi_grah_title").innerText = "Tickets Timeline";
     document.getElementById("by_sta_title").innerText = "Tickets Summary";
-
+    document.getElementById("tree_map_title").innerText = "Tickets Per Site";
+    document.getElementById("hours_spent_per_day").innerText = "Tickets Per Day";
+    document.getElementById("per_user").innerText = "Tickets Per User";
+    document.getElementById("type_hours").innerText = "Tickets Per Type";
 
     var pec = Math.round((status_addressed / status_c['Total']) * 100);
-
     document.getElementById("addressed_percentage").innerText = pec;
     document.getElementById("addressed_percentage_bar").innerHTML = '	<div class="progress-bar progress-bar-primary  wow animated progress-animated" role="progressbar" aria-valuenow="' + pec + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + pec + '%;"></div>';
     document.getElementById("addressed_perc").innerText = status_addressed;
     document.getElementById("Work_on_Progress").innerText = status_c['Total'] - status_addressed;
-
-
-    find_max(status_c_date);
+    find_max(status_c_date);    
     document.getElementById("weekly_tickets").innerText = weekly_tickets;
     document.getElementById("monthly_tickets").innerText = monthly_tickets;
     var domain_length = domain_list.length;
-    // 
+    var tree_data = [];
+
     for (var e = 0; e < domain_length; e++) {
         var selected_domain = domain_list[e];
-        var data = [];
-        var data_lenth = data_setta.length;
-        for (var i = 0; i < data_lenth; i++) {
-            if (data_setta[i][2] == selected_domain) {
-                data.push(data_setta[i]);
-
-            }
-            if (i == data_lenth - 1) {
-                var temp = {
-                    name: selected_domain,
-                    data: data,
-                    type: 'scatter',
-                    symbolSize: function (data) {
-                        return 10;
-                        return (Math.sqrt(data[6]) * 2);
-                    },
-                    emphasis: {
-                        focus: 'series',
-                        label: {
-                            show: true,
-                            formatter: function (param) {
-                                console.log(param);
-                                return 'ds'
-                            },
-                            position: 'top'
-                        }
-                    },
-                    itemStyle: {
-                        shadowBlur: 10,
-                        shadowColor: 'rgba(120, 36, 50, 0.5)',
-                        shadowOffsetY: 5,
-                        color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
-                            offset: 0,
-                            color: 'rgb(251, 118, 123)'
-                        }, {
-                            offset: 1,
-                            color: 'rgb(204, 46, 72)'
-                        }])
-                    }
-                };
-                series_check.push(temp);
-            }
-        }
-
-        if (e == domain_length - 1) {
-            run_echarts_tickets();
-        }
-    }
-}
-var tree_data = [];
-function generate_jobsheet_data() {
-    document.getElementById("title_bar").innerText = "Not-Chargeable Jobsheets"
-    document.getElementById("multi_grah_title").innerText = "Jobsheets Timeline";
-    document.getElementById("by_sta_title").innerText = "Jobsheets Summary";
-    var pec = Math.round((status_addressed / m_status_c['Total']) * 100);
-    document.getElementById("addressed_percentage").innerText = pec;
-    document.getElementById("addressed_percentage_bar").innerHTML = '	<div class="progress-bar progress-bar-primary  wow animated progress-animated" role="progressbar" aria-valuenow="' + pec + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + pec + '%;"></div>';
-    document.getElementById("addressed_perc").innerText = status_addressed;
-    document.getElementById("Work_on_Progress").innerText = m_status_c['Total'] - status_addressed;
-
-
-    find_max(status_c_date);
-    document.getElementById("weekly_tickets").innerText = weekly_tickets;
-    document.getElementById("monthly_tickets").innerText = monthly_tickets;
-    var domain_length = domain_list.length;
-
-
-
-    for (var e = 0; e < domain_length; e++) {
         var total = 0;
-        var selected_domain = domain_list[e];
+        var dat = [];
         var data = [];
         var data_lenth = data_setta.length;
-        var dat = [];
         for (var i = 0; i < data_lenth; i++) {
             if (data_setta[i][2] == selected_domain) {
-
                 data.push(data_setta[i]);
-                total = total + data_setta[i][4];
+                total = total + data_setta[i][6];
 
                 dat.push({
                     name: data_setta[i][9],
-                    hours: data_setta[i][3],
-                    value: data_setta[i][4],
+            
+                    value: data_setta[i][6],
                 });
-
             }
-
-
             if (i == data_lenth - 1) {
                 var temp = {
                     name: selected_domain,
@@ -2524,32 +2490,107 @@ function generate_jobsheet_data() {
             children: dat
         });
 
+    }
 
 
-        if (e == domain_length - 1) {
-            run_echarts_jobsheets();
+    var main_radar = [];
+    var data_chart_user = [];
+    var foo_bar2 = [];
+
+    var user_list_name = [];
+    for (var w = 0; w < user_list.length; w++) {
+        var date_data = [];
+        var selected_user = user_list[w];
+        if(selected_user!=""){
+            console.log(selected_user + " : "+ tabletoname(selected_user));
+            data_chart_user.push({
+                name: tabletoname(selected_user),
+                value: user_c_date[selected_user]
+            });
+
+            ///////////////////
+            var stect_data = [];
+            stect_data[0] =0;
+            stect_data[1] =0;
+            stect_data[2] =0;
+            stect_data[3] =0;
+            stect_data[4] =0;
+            stect_data[5] =0;
+       
+            var counter_1=0;     
+                var data_lenth = data_setta.length;        
+                for (var e = 0; e < data_lenth; e++) {
+                    var selected_status = status_codes(data_setta[e][4]);
+                    counter_1++;
+               if (data_setta[e][7] == selected_user) {   
+                            stect_data[[selected_status]] = stect_data[[selected_status]] +1;
+                                        }
+    
+                if(counter_1==data_setta.length){        
+                    main_radar.push({
+                        value: stect_data,
+                        name: tabletoname(selected_user)
+                    }); 
+                 
+                }
+                }
+///////////////////////////////
+                var selected_user_name = tabletoname(selected_user);
+                user_list_name.push(selected_user_name);
+    
+                for (var l = 0; l < c_date_list.length; l++) {
+                    selected_date = c_date_list[l];
+                    var date_val = 0
+                    for (var b = 0; b < data_setta.length; b++) {
+                 
+                   
+                        if (data_setta[b][0] == selected_date && data_setta[b][7] == selected_user) {
+                            date_val = date_val + 1;
+                        }
+                    }
+                    date_data.push(date_val);
+                }
+    
+                foo_bar2.push(
+                    {
+                        name: selected_user_name,
+                        type: 'bar',
+                        stack: 'total',
+                        label: {
+                            show: true
+                        },
+                        emphasis: {
+                            focus: 'series'
+                        },
+                        data: date_data
+                    },
+                )
+    
         }
+      
     }
- 
-}
-var bole = true;
 
-function run_fullscreen(x) {
+    var for_bar = [];
 
-    if (bole) {
+    var selected_date;
 
-        document.getElementById(x).style.height = "700px";
-        bole = false;
-    } else {
-        document.getElementById(x).style.height = "313px";
-        bole = true;
+    for (var l = 0; l < c_date_list.length; l++) {
+        selected_date = c_date_list[l];
+        for_bar.push({
+            value: c_date[selected_date],
+            itemStyle: {
+                color: '#fd7397'
+            }
+        });
     }
-}
 
-function run_echarts_tickets() {
+
 
     var echartsConfig = function () {
 
+
+
+       // data_setta.push([phrase, status_codes(status), domain, issue, status, location, Difference_In_Days, by, message]);
         var main_piechart = {
             /*          title: {
                           text: 'Scatter Plot' ,
@@ -2659,8 +2700,145 @@ function run_echarts_tickets() {
                 return Math.random() * 1000;
             }
         };
+        var tree_map = {
+            tooltip: {
+                formatter: function (info) {
+                    var value = info.value;
+                    var treePathInfo = info.treePathInfo;
+                    var treePath = [];
+
+                    for (var i = 1; i < treePathInfo.length; i++) {
+                        treePath.push(treePathInfo[i].name);
+                    }
+             
+
+                    if (treePath[4] != '---') {
+                        var vari = tabletoimage(value[4], 20) + " - " + treePath[2] + '</span><br>';
+                    }
+
+                    /*                 dat.push({
+                                        name:  data_setta[i][9], 
+                                        hours:  data_setta[i][3],     // First leaf of first tree
+                                        value: data_setta[i][4],
+                                        date: data_setta[i][0],
+                                        user: data_setta[i][8],
+                                        message:data_setta[i][7],
+                                        status:data_setta[i][2],    
+                                    });
+                                     */
+
+                    //     data_setta.push([phrase, jobstatus_codes(status), domain,status, hours, Difference_In_Days, chargable, message,user_id,ticket_id]);
+
+                    return [
+                        '<div class="tooltip-title">' + treePath[0] + '<br>Ticket No: ' + treePath[1] + '<br> Days Passed : ' + value + ' Days</div>',
+                        ,
+                    ].join('');
+                }
+            },
+            series: [{
+                type: 'treemap',
+                data: tree_data
+            }]
+        };
+        var pie_chart_second = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color: ['#fd7397', '#d36ee8', '#119dd2', '#667add'],
+            series: [
+                {
+                    name: 'Tickets',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    center: ['50%', '50%'],
+                    avoidLabelOverlap: false,
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{b} : {c} {a}  ({d}%)",
+                        backgroundColor: 'rgba(33,33,33,1)',
+                        borderRadius: 0,
+                        padding: 10,
+                    },
+
+                    data: data_chart_user,
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)',
+                            borderRadius: 10,
+
+                            borderWidth: 2
+                        }
+                    }
+                }
+            ]
+        };
+        var fdsoption = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // Use axis to trigger tooltip
+                    type: 'shadow'        // 'shadow' as default; can also be 'line' or 'shadow'
+                }
+            },
+            legend: {
+                data: user_list_name
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: c_date_list
+
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: foo_bar2
+        };
+        var budget_options = {
+
+        
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: user_list_name
+            },
+            radar: {
+                // shape: 'circle',
+                indicator: [
+               
+                    { name: status_codes_reversed(1), max: status_c['Total'] },
+                    { name: status_codes_reversed(2), max: status_c['Total'] },
+                    { name: status_codes_reversed(3), max: status_c['Total'] },
+                    { name: status_codes_reversed(4), max: status_c['Total'] },
+                    { name: status_codes_reversed(5), max: status_c['Total'] }
+                ]
+            },
+            series: [{
+                name: 'Work',
+                type: 'radar',
+                tooltip: {
+                    trigger: 'item'
+                },
+
+                areaStyle: {},
+                data: main_radar
+            }]
+
+        };
         generate_echart('e_chart_1', main_piechart);
         generate_echart('e_chart_3', tickets_timeline);
+        generate_echart('e_chart_44', tree_map);
+        generate_echart('e_chart_333', fdsoption);
+        generate_echart('e_chart_11', budget_options);
+        generate_echart('e_chart_22', pie_chart_second);
         document.getElementById('item_1').innerHTML = "Not Started";
         document.getElementById('not_sta_sta').innerHTML = status_c['Not Started'];
         document.getElementById('item_2').innerHTML = "Solved";
@@ -2679,12 +2857,109 @@ function run_echarts_tickets() {
 }
 
 function run_echarts_jobsheets() {
+    document.getElementById("title_bar").innerText = "Not-Chargeable Jobsheets"
+    document.getElementById("multi_grah_title").innerText = "Jobsheets Timeline";
+    document.getElementById("by_sta_title").innerText = "Jobsheets Summary";
+    document.getElementById("tree_map_title").innerText = "Hours Spent Per Site";
+    document.getElementById("hours_spent_per_day").innerText = "Hours Spent Per Day";
+    document.getElementById("per_user").innerText = "Hours Spent Per User";
+    document.getElementById("type_hours").innerText = "Hours Spent Per Type";
+    
+    
+    
+    var pec = Math.round((status_addressed / m_status_c['Total']) * 100);
+    document.getElementById("addressed_percentage").innerText = pec;
+    document.getElementById("addressed_percentage_bar").innerHTML = '	<div class="progress-bar progress-bar-primary  wow animated progress-animated" role="progressbar" aria-valuenow="' + pec + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + pec + '%;"></div>';
+    document.getElementById("addressed_perc").innerText = status_addressed;
+    document.getElementById("Work_on_Progress").innerText = m_status_c['Total'] - status_addressed;
 
+
+    find_max(status_c_date);
+    document.getElementById("weekly_tickets").innerText = weekly_tickets;
+    document.getElementById("monthly_tickets").innerText = monthly_tickets;
+    var domain_length = domain_list.length;
+
+    var tree_data = [];
+
+    for (var e = 0; e < domain_length; e++) {
+        var total = 0;
+        var dat = [];
+        var selected_domain = domain_list[e];
+        var data = [];
+        var data_lenth = data_setta.length;
+      
+        for (var i = 0; i < data_lenth; i++) {
+            if (data_setta[i][2] == selected_domain) {
+
+                data.push(data_setta[i]);
+                total = total + data_setta[i][4];
+
+                dat.push({
+                    name: data_setta[i][9],              
+                    value: data_setta[i][4],
+                });
+
+            }
+
+
+            if (i == data_lenth - 1) {
+                var temp = {
+                    name: selected_domain,
+                    data: data,
+                    type: 'scatter',
+                    symbolSize: function (data) {
+                        return 10;
+                        return (Math.sqrt(data[6]) * 2);
+                    },
+                    emphasis: {
+                        focus: 'series',
+                        label: {
+                            show: true,
+                            formatter: function (param) {
+                                console.log(param);
+                                return 'ds'
+                            },
+                            position: 'top'
+                        }
+                    },
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(120, 36, 50, 0.5)',
+                        shadowOffsetY: 5,
+                        color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                            offset: 0,
+                            color: 'rgb(251, 118, 123)'
+                        }, {
+                            offset: 1,
+                            color: 'rgb(204, 46, 72)'
+                        }])
+                    }
+                };
+                series_check.push(temp);
+            }
+        }
+        tree_data.push({
+            name: selected_domain,            // Second tree
+            value: total,
+            children: dat
+        });
+    }
+    
     var main_radar = [];
- 
+    var data_chart_user = [];
+    var foo_bar2 = [];
+
+    var user_list_name = [];
     for (var w = 0; w < user_list.length; w++) {
+        var date_data = [];
         var selected_user = user_list[w];
         if(selected_user!=""){
+            data_chart_user.push({
+                name: tabletoname(selected_user),
+                value: user_c_date[selected_user]
+            });
+
+            ///////////////////
             var stect_data = [];
             stect_data[0] =0;
             stect_data[1] =0;
@@ -2710,22 +2985,45 @@ function run_echarts_jobsheets() {
                  
                 }
                 }
+///////////////////////////////
+                var selected_user_name = tabletoname(selected_user);
+                user_list_name.push(selected_user_name);
+    
+                for (var l = 0; l < c_date_list.length; l++) {
+                    selected_date = c_date_list[l];
+                    var date_val = 0
+                    for (var b = 0; b < data_setta.length; b++) {
+    
+                        if (data_setta[b][0] == selected_date && data_setta[b][8] == selected_user) {
+                            date_val = date_val + data_setta[b][4];
+                        }
+    
+                        if (data_setta[b][0] == selected_date && data_setta[b][10] == selected_user_name) {
+                            date_val = date_val + data_setta[b][4];
+                        }
+                    }
+                    date_data.push(date_val);
+                }
+    
+                foo_bar2.push(
+                    {
+                        name: selected_user_name,
+                        type: 'bar',
+                        stack: 'total',
+                        label: {
+                            show: true
+                        },
+                        emphasis: {
+                            focus: 'series'
+                        },
+                        data: date_data
+                    },
+                )
+    
         }
       
     }
-    //    color: ['#fd7397','#d36ee8', '#119dd2', '#667add'],
-    var data_chart_user = [];
-    for (var e = 0; e < user_list.length; e++) {
-        var selected_user = user_list[e];
-        if (selected_user != "") {
-            data_chart_user.push({
-                name: tabletoname(selected_user),
-                value: user_c_date[selected_user]
-            });
-        }
 
-
-    }
     var for_bar = [];
 
     var selected_date;
@@ -2753,52 +3051,7 @@ function run_echarts_jobsheets() {
 
 
     }
-    var foo_bar2 = [];
-    var selected_user;
-    var user_list_name = [];
-    for (var p = 0; p < user_list.length; p++) {
-        var date_data = [];
 
-        selected_user = user_list[p];
-        if (selected_user != "") {
-
-
-            var selected_user_name = tabletoname(selected_user);
-            user_list_name.push(selected_user_name);
-
-            for (var l = 0; l < c_date_list.length; l++) {
-                selected_date = c_date_list[l];
-                var date_val = 0
-                for (var b = 0; b < data_setta.length; b++) {
-
-                    if (data_setta[b][0] == selected_date && data_setta[b][8] == selected_user) {
-                        date_val = date_val + data_setta[b][4];
-                    }
-
-                    if (data_setta[b][0] == selected_date && data_setta[b][10] == selected_user_name) {
-                        date_val = date_val + data_setta[b][4];
-                    }
-                }
-                date_data.push(date_val);
-            }
-
-            foo_bar2.push(
-                {
-                    name: selected_user_name,
-                    type: 'bar',
-                    stack: 'total',
-                    label: {
-                        show: true
-                    },
-                    emphasis: {
-                        focus: 'series'
-                    },
-                    data: date_data
-                },
-            )
-
-        }
-    }
 
 
 
@@ -2905,7 +3158,7 @@ function run_echarts_jobsheets() {
             }
         };
 
-        var risks_options = {
+        var tree_map = {
             tooltip: {
                 formatter: function (info) {
                     var value = info.value;
@@ -2945,8 +3198,7 @@ function run_echarts_jobsheets() {
                 data: tree_data
             }]
         };
-        console.log(user_list_name);
-        console.log(user_list);
+
         var budget_options = {
 
         
@@ -2960,11 +3212,11 @@ function run_echarts_jobsheets() {
                 // shape: 'circle',
                 indicator: [
                
-                    { name: jobstatus_codes_reversed(1), max: m_status_c[jobstatus_codes_reversed(1)]+2 },
-                    { name: jobstatus_codes_reversed(2), max: m_status_c[jobstatus_codes_reversed(2)]+2 },
-                    { name: jobstatus_codes_reversed(3), max: m_status_c[jobstatus_codes_reversed(3)]+2 },
-                    { name: jobstatus_codes_reversed(4), max: m_status_c[jobstatus_codes_reversed(4)]+2 },
-                    { name: jobstatus_codes_reversed(5), max: m_status_c[jobstatus_codes_reversed(5)]+2 }
+                    { name: jobstatus_codes_reversed(1), max: m_status_c['Total']},
+                    { name: jobstatus_codes_reversed(2), max: m_status_c['Total']},
+                    { name: jobstatus_codes_reversed(3), max: m_status_c['Total']},
+                    { name: jobstatus_codes_reversed(4),max: m_status_c['Total']},
+                    { name: jobstatus_codes_reversed(5), max: m_status_c['Total']}
                 ]
             },
             series: [{
@@ -2979,59 +3231,7 @@ function run_echarts_jobsheets() {
             }]
 
         };
-        var pending_items = {
-            color: ['#d36ee8', '#119dd2', '#667add'],
-            series: [
-                {
-                    name: '漏斗图',
-                    type: 'funnel',
-                    x: '0%',
-                    y: 20,
-                    //x2: 80,
-                    y2: 60,
-                    width: '100%',
-                    height: '80%',
-                    // height: {totalHeight} - y - y2,
-                    min: 0,
-                    max: 100,
-                    minSize: '0%',
-                    maxSize: '100%',
-                    sort: 'ascending', // 'ascending', 'descending'
-                    gap: 0,
 
-                    data: [
-                        { value: 100, },
-                        { value: 80, },
-                        { value: 100, },
-
-                    ].sort(function (a, b) { return a.value - b.value }),
-                    roseType: true,
-                    label: {
-                        normal: {
-                            formatter: function (params) {
-                                return params.name + ' ' + params.value + '%';
-                            },
-                            position: 'center',
-                            fontStyle: 'normal',
-                            fontWeight: 'normal',
-                            fontFamily: "'Roboto', sans-serif",
-                            fontSize: 12
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            borderWidth: 0,
-                            shadowBlur: 5,
-                            shadowOffsetX: 0,
-                            shadowOffsetY: 5,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                    }
-
-                }
-
-            ]
-        };
 
         var pie_chart_second = {
             tooltip: {
@@ -3043,7 +3243,7 @@ function run_echarts_jobsheets() {
                 {
                     name: 'Hours',
                     type: 'pie',
-                    radius: '60%',
+                    radius: ['40%', '70%'],
                     center: ['50%', '50%'],
                     tooltip: {
                         trigger: 'item',
@@ -3093,7 +3293,7 @@ function run_echarts_jobsheets() {
         };
         generate_echart('e_chart_1', main_piechart)
         generate_echart('e_chart_3', jobsheet_timeline);
-        generate_echart('e_chart_44', risks_options);
+        generate_echart('e_chart_44', tree_map);
         generate_echart('e_chart_333', fdsoption);
         generate_echart('e_chart_22', pie_chart_second);
         generate_echart('e_chart_11', budget_options);
@@ -3110,4 +3310,3 @@ function generate_echart(id, option) {
     eChart.setOption(option);
     eChart.resize();
 }
-
