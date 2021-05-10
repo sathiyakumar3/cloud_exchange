@@ -2240,12 +2240,13 @@ function sendmail(to, cc, subject, text_html) {
 
 function clickthis(myCheck) {
     document.getElementById('isngiht').style.display = 'none';
+    document.getElementById('isngiht2').style.display = 'none';
     document.getElementById('tabler').style.display = 'block';
     document.getElementById(myCheck).click();
 }
 
 function open_home_tickets() {
-
+    document.getElementById('isngiht2').style.display = 'block';
     document.getElementById('isngiht').style.display = 'block';
     document.getElementById('tabler').style.display = 'none';
     /* 
@@ -2295,6 +2296,19 @@ function add_ticket_menu() {
     ul.innerHTML = li;
 }
 
+
+function add_jobsheet_menu() {
+    var ul = document.getElementById('more_menu_0');
+    var li =
+        '        <a href="javascript:void(0)" onclick=\'open_home_tickets()\'  >' +
+        '            <div class="pull-left"><i class="fas fa-home mr-20"></i><span' +
+        '                    class="right-nav-text">Home</span>' +
+        '            </div>' +
+        '            <div class="clearfix"></div>' +
+        '        </a>';
+    ul.innerHTML = li;
+}
+
 function show_report() {
     var ul = document.getElementById('more_menu_3');
     var li =
@@ -2309,7 +2323,7 @@ function show_report() {
 }
 
 function add_iot_menu() {
-    console.log("Ewq");
+
     var ul = document.getElementById('more_menu_0');
     var li =
         '        <a href="javascript:open_home_page()">' +

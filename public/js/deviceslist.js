@@ -316,6 +316,7 @@ function buildnavitree() {
                     application = 'Ticketing System';
                     break;
                 case 'Jobsheets':
+ add_jobsheet_menu();                   
                     document.getElementById("domainload").innerHTML = "- Job Sheet System";
                     application = 'Jobsheets System';
                     break;
