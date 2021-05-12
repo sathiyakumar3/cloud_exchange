@@ -2157,6 +2157,8 @@ function opentkt_save() {
 
         );
         table.row.add(data).draw();
+        
+        $('#open_ticket_modal').modal('hide');
         goodnews("The ticket was added successfully!");
     }).catch(function (error) {
         badnews(error), console.log(error);
