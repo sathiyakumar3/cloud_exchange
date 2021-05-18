@@ -554,6 +554,16 @@ function dotable(id, dataset, domain_flag, report_flag, domain_id) {
                 }
 
             });
+            $('#his_datetime_' + doc).on('apply.daterangepicker', function(ev, picker) {
+              
+                var stat = new Date (picker.startDate);             
+                var endt = new Date (picker.endDate);              
+                var hours = Math.abs(new Date(stat) - new Date(endt)) / 36e5;                
+Swal.fire(
+    'Hours Calculated',
+    'Total : '+ hours + ' hrs',
+  );
+});
             $(".select2").select2();
             $('.selectpicker').selectpicker();
 
